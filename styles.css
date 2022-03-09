@@ -4,8 +4,6 @@
 
 }
 
-
-
 body{
 	background-image: url('background.png');
 	background-repeat: no-repeat;
@@ -16,26 +14,45 @@ body{
 	margin: 0;
 }
 
-p{
-
-
+a{
 	font-family: welcomePageFont;
 	font-size: 10pt;
 	color: white;
 	margin: 0;
 	padding: 0;
 	text-align: center;
-	position: fixed;
+	position: absolute;
 	top: 60%;
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
 	min-width:800px;
+
+	animation: fadeIn linear 3s;
+    -webkit-animation: fadeIn linear 3s;
+    -moz-animation: fadeIn linear 3s;
+    -o-animation: fadeIn linear 3s;
+    -ms-animation: fadeIn linear 3s;
 }
 
 
+h2{
+	font-family: welcomePageFont;
+	font-size: 60pt;
+	color: white;
+
+	
+	
+	padding-bottom: 100px;
+	text-align: center;
+	position: absolute;
+	top: 105%;
+	left: 50%;
+	bottom: 50%;
+	transform: translateX(-50%) translateY(-50%);
+
+}
 
 h1{
-	
 	font-family: welcomePageFont;
 	font-size: 60pt;
 	color: white;
@@ -52,6 +69,19 @@ h1{
     -moz-animation: fadeIn linear 3s;
     -o-animation: fadeIn linear 3s;
     -ms-animation: fadeIn linear 3s;
+}
+
+input{
+	position: absolute;
+	top: 70%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	text-align: center;
+	background-color: transparent;
+	border: 1px solid white;
+	width: 300px;
+	height: 26px;
+
 }
 
 
