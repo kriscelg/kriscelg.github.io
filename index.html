@@ -4,22 +4,97 @@
 	<link rel="stylesheet" type="text/css" href="styles.css" />
 	<title>Happy Birthday</title>
 
+	<script type="text/javascript">
+	
+	var colors = ["red","blue","green","yellow","purple"];
+	var i = 0;
+	var selectedColor;
+	var red = 0;
+	var blue = 0;
+	var green = 0;
+	var yellow = 0;
+	var purple = 0;
+	var total = 0;
+    function button_click(element_id) {
+        selectedColor = colors[i];
+        document.getElementById(element_id).style.backgroundColor = selectedColor;
+        i++;
+        if (element_id == "circle" && i == 5){
+        	purple = 1;
+        	
+        }
+        else if (element_id == "circle" && i != 5){
+        	purple = 0;
+        	
+        }
+
+        if (element_id == "circlea" && i == 1){
+        	red = 1;
+        	
+        }
+        else if (element_id == "circlea" && i != 1){
+        	red = 0;
+			
+        }
+
+        if (element_id == "circleb" && i == 3){
+        	green = 1;
+        	
+        }
+        else if (element_id == "circleb" && i != 3){
+        	green = 0;
+        }
+
+        if (element_id == "circlec" && i == 2){
+        	blue = 1;
+        	
+        }
+        else if (element_id == "circlec" && i != 2){
+        	blue = 0;
+        }
+
+
+        if (element_id == "circled" && i == 4){
+        	yellow = 1;
+        	
+        }
+        else if (element_id == "circled" && i != 4){
+        	yellow = 0;
+        }
+        if(i > colors.length)
+            i = 0;
+    }
+
+    function onSubmit() {
+    	total = red + blue + yellow + green + purple;
+    	
+          if (total == 5) {window.location.href = 'rules.html';}
+    }
+	</script>
+
 </head>
 <body>
 
 	<div class="fade">
 		<h1>Welcome Alex</h1>
 	</div>
-	<div>
-		<a href="rules.html">Rules</a>
-	</div>
+	
 
-	<div>
-		<h2>Start</h2>
-	</div>
+	<div class="circle" id="circle" onclick="button_click(this.id); onSubmit()"></div>
+
+	<div class="circlea" id="circlea" onclick="button_click(this.id); onSubmit()"></div>
+
+	<div class="circleb" id="circleb" onclick="button_click(this.id); onSubmit()"></div>
+
+	<div class="circlec" id="circlec" onclick="button_click(this.id); onSubmit()"></div>
+	<div class="circled" id="circled" onclick="button_click(this.id); onSubmit()"></div>
+	
+	<h2>colours speak louder than words</h2>
+	
+	
 
 	
-	<input type="password" id="pwd" name="pwd">
+
 
 	
 	
