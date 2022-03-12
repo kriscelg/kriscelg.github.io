@@ -28,10 +28,10 @@ a{
 	min-width:800px;
 
 	animation: fadeIn linear 3s;
-    -webkit-animation: fadeIn linear 3s;
-    -moz-animation: fadeIn linear 3s;
-    -o-animation: fadeIn linear 3s;
-    -ms-animation: fadeIn linear 3s;
+    	-webkit-animation: fadeIn linear 3s;
+    	-moz-animation: fadeIn linear 3s;
+    	-o-animation: fadeIn linear 3s;
+    	-ms-animation: fadeIn linear 3s;
 }
 
 .circle {
@@ -46,10 +46,10 @@ a{
 	
 	transform: translateX(-50%) translateY(-50%); 
 	animation: fadeIn linear 3s;
-    -webkit-animation: fadeIn linear 3s;
-    -moz-animation: fadeIn linear 3s;
-    -o-animation: fadeIn linear 3s;
-    -ms-animation: fadeIn linear 3s;
+    	-webkit-animation: fadeIn linear 3s;
+    	-moz-animation: fadeIn linear 3s;
+    	-o-animation: fadeIn linear 3s;
+    	-ms-animation: fadeIn linear 3s;
 }
 
 .circlea {
@@ -64,10 +64,10 @@ a{
 	
 	transform: translateX(-50%) translateY(-50%); 
 	animation: fadeIn linear 3s;
-    -webkit-animation: fadeIn linear 3s;
-    -moz-animation: fadeIn linear 3s;
-    -o-animation: fadeIn linear 3s;
-    -ms-animation: fadeIn linear 3s;
+    	-webkit-animation: fadeIn linear 3s;
+    	-moz-animation: fadeIn linear 3s;
+    	-o-animation: fadeIn linear 3s;
+    	-ms-animation: fadeIn linear 3s;
 }
 
 .circleb {
@@ -82,10 +82,10 @@ a{
 	
 	transform: translateX(-50%) translateY(-50%); 
 	animation: fadeIn linear 3s;
-    -webkit-animation: fadeIn linear 3s;
-    -moz-animation: fadeIn linear 3s;
-    -o-animation: fadeIn linear 3s;
-    -ms-animation: fadeIn linear 3s;
+    	-webkit-animation: fadeIn linear 3s;
+    	-moz-animation: fadeIn linear 3s;
+    	-o-animation: fadeIn linear 3s;
+    	-ms-animation: fadeIn linear 3s;
 }
 
 .circlec {
@@ -100,10 +100,10 @@ a{
 	
 	transform: translateX(-50%) translateY(-50%); 
 	animation: fadeIn linear 3s;
-    -webkit-animation: fadeIn linear 3s;
-    -moz-animation: fadeIn linear 3s;
-    -o-animation: fadeIn linear 3s;
-    -ms-animation: fadeIn linear 3s;
+    	-webkit-animation: fadeIn linear 3s;
+    	-moz-animation: fadeIn linear 3s;
+    	-o-animation: fadeIn linear 3s;
+    	-ms-animation: fadeIn linear 3s;
 }
 
 .circled {
@@ -118,18 +118,16 @@ a{
 	
 	transform: translateX(-50%) translateY(-50%); 
 	animation: fadeIn linear 3s;
-    -webkit-animation: fadeIn linear 3s;
-    -moz-animation: fadeIn linear 3s;
-    -o-animation: fadeIn linear 3s;
-    -ms-animation: fadeIn linear 3s;
+    	-webkit-animation: fadeIn linear 3s;
+    	-moz-animation: fadeIn linear 3s;
+    	-o-animation: fadeIn linear 3s;
+    	-ms-animation: fadeIn linear 3s;
 }
 
 h2{
 	font-family: welcomePageFont;
 	font-size: 9pt;
 	color: white;
-
-	
 	
 	padding-bottom: 100px;
 	text-align: center;
@@ -140,10 +138,10 @@ h2{
 	transform: translateX(-50%) translateY(-50%); 
 
 	animation: fadeIn linear 3s;
-    -webkit-animation: fadeIn linear 3s;
-    -moz-animation: fadeIn linear 3s;
-    -o-animation: fadeIn linear 3s;
-    -ms-animation: fadeIn linear 3s;
+    	-webkit-animation: fadeIn linear 3s;
+    	-moz-animation: fadeIn linear 3s;
+    	-o-animation: fadeIn linear 3s;
+    	-ms-animation: fadeIn linear 3s;
 
 }
 
@@ -160,23 +158,10 @@ h1{
 	transform: translateX(-50%) translateY(-50%);
 
 	animation: fadeIn linear 3s;
-    -webkit-animation: fadeIn linear 3s;
-    -moz-animation: fadeIn linear 3s;
-    -o-animation: fadeIn linear 3s;
-    -ms-animation: fadeIn linear 3s;
-}
-
-input{
-	position: absolute;
-	top: 70%;
-	left: 50%;
-	transform: translateX(-50%) translateY(-50%);
-	text-align: center;
-	background-color: transparent;
-	border: 1px solid white;
-	width: 300px;
-	height: 26px;
-
+    	-webkit-animation: fadeIn linear 3s;
+    	-moz-animation: fadeIn linear 3s;
+    	-o-animation: fadeIn linear 3s;
+    	-ms-animation: fadeIn linear 3s;
 }
 
 
