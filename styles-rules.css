@@ -1,3 +1,9 @@
+@font-face{
+	font-family: welcomePageFont;
+	src: url(thin.otf);
+
+}
+
 body{
 	background-image: url('background-rules.png');
 	background-repeat: no-repeat;
@@ -9,6 +15,28 @@ body{
 }
 
 #demo{
+	font-family: welcomePageFont;
+	color: white;
+	font-size: 50pt;
+	color: white;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+
+	animation: fadeIn linear 3s;
+    -webkit-animation: fadeIn linear 3s;
+    -moz-animation: fadeIn linear 3s;
+    -o-animation: fadeIn linear 3s;
+    -ms-animation: fadeIn linear 3s;
+
+}
+
+#clock{
+	font-family: welcomePageFont;
 	color: white;
 	font-size: 50pt;
 	color: white;
@@ -29,6 +57,7 @@ body{
 }
 
 h4{
+	font-family: welcomePageFont;
 	color: white;
 	font-size: 10pt;
 	color: white;

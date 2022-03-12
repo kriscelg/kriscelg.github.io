@@ -1,0 +1,124 @@
+@font-face{
+	font-family: welcomePageFont;
+	src: url(thin.otf);
+
+}
+
+body{
+	
+	
+	padding: 0;
+	margin: 0;
+}
+
+/* Style the video: 100% width and height to cover the entire window */
+#myVideo {
+	filter: brightness(25%);
+  
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+}
+
+/* Add some content at the bottom of the video/page */
+.content {
+font-family: welcomePageFont;
+  position: absolute;
+  top: 200px;
+  padding-bottom: 30px;
+ 
+  color: #f1f1f1;
+  width: 50%;
+  padding-left: 100px;
+ 
+
+  animation: fadeIn linear 3s;
+    -webkit-animation: fadeIn linear 3s;
+    -moz-animation: fadeIn linear 3s;
+    -o-animation: fadeIn linear 3s;
+    -ms-animation: fadeIn linear 3s;
+}
+
+
+#horse{
+	width: 630px;
+	height: 100%;
+
+	animation: fadeIn linear 3s;
+    -webkit-animation: fadeIn linear 3s;
+    -moz-animation: fadeIn linear 3s;
+    -o-animation: fadeIn linear 3s;
+    -ms-animation: fadeIn linear 3s;
+}
+
+#mishima{
+
+	height: 100%;
+	width: 630px;
+
+	animation: fadeIn linear 3s;
+    -webkit-animation: fadeIn linear 3s;
+    -moz-animation: fadeIn linear 3s;
+    -o-animation: fadeIn linear 3s;
+    -ms-animation: fadeIn linear 3s;
+}
+
+input{
+
+	background-color: transparent;
+	border-color: white;
+	border-style: solid;
+	border-width: 1px;
+	text-align: center;
+	width: 300px;
+	height: 30px;
+
+	color: white;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #000; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}

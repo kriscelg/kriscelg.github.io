@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="styles-key.css" />
+	<title>Story</title>
+</head>
+<body>
+	
+
+	<!-- The video -->
+	<video autoplay muted loop id="myVideo">
+  		<source src="alex.mp4" type="video/mp4">
+	</video>
+
+	<!-- Optional: some overlay text to describe the video -->
+	<div class="content">
+  		<h1>Almost there...</h1>
+  		<p><span style="font-size: 30px">B</span>ab<span style="font-size: 30px">e</span> you're almost done! You just gotta find t<span style="font-size: 30px">h</span>e key that <span style="font-size: 30px">I</span> left for you. You ca<span style="font-size: 30px">n</span> <span style="font-size: 30px">d</span>o it!</p>
+
+  		<br>
+  		<br>
+  		<audio controls>
+        	<source src = "song.mp4" type = "audio/mpeg">
+      	</audio>
+
+  		<br>
+  		<br>
+  		<br>
+  		<br>
+
+
+		<input type="password" id="pwd" name="pwd">
+		<label for="pwd" style="padding-left: 20px;" onclick="onSubmit();">Enter</label>
+
+		<script type="text/javascript">
+     		function onSubmit() {
+          		if (document.getElementById('pwd').value == '3fR1sT!!8') {window.location.href = 'final.html'; }else{ alert('Wrong Password Entered Try Again');}
+     		}
+		</script>
+                  
+          
+	</div>
+
+	<div class="footer"></div>
+	
+
+</body>
+</html>
