@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -244,32 +247,63 @@
             });
         });
 
-        // Carousel functionality (basic)
+        // Carousel functionality - Fixed
         const prevBtn = document.querySelector('.carousel-btn.prev');
         const nextBtn = document.querySelector('.carousel-btn.next');
-        const bulletinContent = document.querySelector('.bulletin-content');
+        const bulletinItems = document.querySelectorAll('.bulletin-item');
 
         let currentIndex = 0;
-        const maxScroll = 2;
+
+        // Hide all items except the first one initially
+        function showBulletin(index) {
+            bulletinItems.forEach((item, i) => {
+                if (i === index) {
+                    item.style.display = 'block';
+                    item.style.animation = 'slideIn 0.5s ease';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Update button states
+            prevBtn.style.opacity = index === 0 ? '0.5' : '1';
+            prevBtn.style.cursor = index === 0 ? 'not-allowed' : 'pointer';
+            nextBtn.style.opacity = index === bulletinItems.length - 1 ? '0.5' : '1';
+            nextBtn.style.cursor = index === bulletinItems.length - 1 ? 'not-allowed' : 'pointer';
+        }
 
         nextBtn.addEventListener('click', () => {
-            if (currentIndex < maxScroll) {
+            if (currentIndex < bulletinItems.length - 1) {
                 currentIndex++;
-                updateCarousel();
+                showBulletin(currentIndex);
             }
         });
 
         prevBtn.addEventListener('click', () => {
             if (currentIndex > 0) {
                 currentIndex--;
-                updateCarousel();
+                showBulletin(currentIndex);
             }
         });
 
-        function updateCarousel() {
-            const offset = currentIndex * -100;
-            bulletinContent.style.transform = `translateX(${offset}px)`;
-        }
+        // Initialize carousel
+        showBulletin(0);
+
+        // Add animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
