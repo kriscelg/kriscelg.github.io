@@ -166,58 +166,88 @@
         </div>
     </main>
 
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="main-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h4>DIVISION INFO</h4>
-                    <ul>
-                        <li><a href="#">Org Charts</a></li>
-                        <li><a href="#">Regions</a></li>
-                    </ul>
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h4>DIVISION INFO</h4>
+                        <ul>
+                            <li><a href="#">Org Charts</a></li>
+                            <li><a href="#">Regions</a></li>
+                            <li><a href="#">About Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>DOCUMENTS</h4>
+                        <ul>
+                            <li><a href="#">Policy</a></li>
+                            <li><a href="#">Manuals/Directives</a></li>
+                            <li><a href="#">Tools & Templates</a></li>
+                            <li><a href="#">Forms & Instructions</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>REPORTING</h4>
+                        <ul>
+                            <li><a href="#">Dashboards</a></li>
+                            <li><a href="#">Data Checks</a></li>
+                            <li><a href="#">Analytics</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>TRAINING</h4>
+                        <ul>
+                            <li><a href="#">Presentations</a></li>
+                            <li><a href="#">Resources</a></li>
+                            <li><a href="#">Workshops</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>COMMUNICATIONS</h4>
+                        <ul>
+                            <li><a href="#">Bulletin</a></li>
+                            <li><a href="#">Events</a></li>
+                            <li><a href="#">Newsletter</a></li>
+                            <li><a href="#">Updates</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>SUPPORT</h4>
+                        <ul>
+                            <li><a href="#">Contact Info</a></li>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="footer-column">
-                    <h4>DOCUMENTS</h4>
-                    <ul>
-                        <li><a href="#">Policy</a></li>
-                        <li><a href="#">Manuals/Directives</a></li>
-                        <li><a href="#">Tools & Templates</a></li>
-                        <li><a href="#">Forms & Instructions</a></li>
-                        <li><a href="#">FAQ & Resources</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>REPORTING</h4>
-                    <ul>
-                        <li><a href="#">Dashboards</a></li>
-                        <li><a href="#">Data Checks</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>TRAINING & DEVELOPMENT</h4>
-                    <ul>
-                        <li><a href="#">Presentations</a></li>
-                        <li><a href="#">Resources</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>COMMUNICATIONS</h4>
-                    <ul>
-                        <li><a href="#">Bulletin</a></li>
-                        <li><a href="#">Events</a></li>
-                        <li><a href="#">Newsletter</a></li>
-                        <li><a href="#">Staffing Updates</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>CONTACT & RESOURCES</h4>
-                    <ul>
-                        <li><a href="#">Contact Info</a></li>
-                        <li><a href="#">Resources</a></li>
-                        <li><a href="#">General Queries</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-logo">WDT Intranet</div>
+                    <div class="footer-info">&copy; 2025 WDT. All rights reserved.</div>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -229,6 +259,36 @@
     </button>
 
     <script>
+        // Search functionality
+        const searchBtn = document.querySelector('.search-btn');
+        const searchOverlay = document.getElementById('searchOverlay');
+        const closeSearch = document.getElementById('closeSearch');
+        const searchInput = document.getElementById('searchInput');
+
+        searchBtn.addEventListener('click', () => {
+            searchOverlay.classList.add('active');
+            setTimeout(() => {
+                searchInput.focus();
+            }, 300);
+        });
+
+        closeSearch.addEventListener('click', () => {
+            searchOverlay.classList.remove('active');
+        });
+
+        searchOverlay.addEventListener('click', (e) => {
+            if (e.target === searchOverlay) {
+                searchOverlay.classList.remove('active');
+            }
+        });
+
+        // Close search on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+                searchOverlay.classList.remove('active');
+            }
+        });
+
         // Scroll to top functionality
         const scrollTopBtn = document.getElementById('scrollTop');
 
