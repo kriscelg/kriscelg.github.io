@@ -7,16 +7,10 @@ let selectedDate = null;
 let isAdminLoggedIn = false;
 let editingEventId = null;
 
-// Get events from localStorage
-function getEvents() {
-    const events = localStorage.getItem('wdtEvents');
-    return events ? JSON.parse(events) : [];
-}
-
-// Save events to localStorage
-function saveEvents(events) {
-    localStorage.setItem('wdtEvents', JSON.stringify(events));
-}
+// Note: getEvents(), saveEvent(), updateEvent(), and deleteEvent()
+// are now provided by sharepoint-config.js
+// These functions automatically use SharePoint if configured,
+// or fall back to localStorage
 
 // Format date as YYYY-MM-DD
 function formatDate(date) {
@@ -51,14 +45,14 @@ function isToday(date) {
 }
 
 // Get events for a specific date
-function getEventsForDate(dateStr) {
-    const events = getEvents();
+async function getEventsForDate(dateStr) {
+    const events = await getEvents();
     return events.filter(event => event.date === dateStr)
                  .sort((a, b) => a.time.localeCompare(b.time));
 }
 
 // Render calendar
-function renderCalendar() {
+async function renderCalendar() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
 
@@ -82,17 +76,20 @@ function renderCalendar() {
     calendarGrid.innerHTML = '';
     dayHeaders.forEach(header => calendarGrid.appendChild(header));
 
+    // Get all events for the month to check which days have events
+    const allEvents = await getEvents();
+
     // Add previous month's days
     for (let i = startingDayOfWeek - 1; i >= 0; i--) {
         const day = prevMonthLastDay - i;
-        const dayElement = createDayElement(day, true);
+        const dayElement = await createDayElement(day, true, null, allEvents);
         calendarGrid.appendChild(dayElement);
     }
 
     // Add current month's days
     for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month, day);
-        const dayElement = createDayElement(day, false, date);
+        const dayElement = await createDayElement(day, false, date, allEvents);
         calendarGrid.appendChild(dayElement);
     }
 
@@ -100,13 +97,13 @@ function renderCalendar() {
     const totalCells = calendarGrid.children.length - 7; // Subtract day headers
     const remainingCells = Math.ceil(totalCells / 7) * 7 - totalCells;
     for (let day = 1; day <= remainingCells; day++) {
-        const dayElement = createDayElement(day, true);
+        const dayElement = await createDayElement(day, true, null, allEvents);
         calendarGrid.appendChild(dayElement);
     }
 }
 
 // Create a day element
-function createDayElement(day, isOtherMonth, date = null) {
+function createDayElement(day, isOtherMonth, date = null, allEvents = []) {
     const dayElement = document.createElement('div');
     dayElement.className = 'calendar-day';
 
@@ -124,7 +121,7 @@ function createDayElement(day, isOtherMonth, date = null) {
     // Check for events
     if (date) {
         const dateStr = formatDate(date);
-        const events = getEventsForDate(dateStr);
+        const events = allEvents.filter(event => event.date === dateStr);
 
         if (events.length > 0) {
             dayElement.classList.add('has-events');
@@ -148,9 +145,9 @@ function createDayElement(day, isOtherMonth, date = null) {
 }
 
 // Show events for selected date
-function showEventsForDate(date, dateStr) {
+async function showEventsForDate(date, dateStr) {
     selectedDate = dateStr;
-    const events = getEventsForDate(dateStr);
+    const events = await getEventsForDate(dateStr);
     const panel = document.getElementById('eventPanel');
     const panelHeader = panel.querySelector('.panel-header h3');
     const eventList = document.getElementById('eventList');
@@ -254,7 +251,7 @@ loginForm.addEventListener('submit', (e) => {
 const eventForm = document.getElementById('eventForm');
 const submitBtn = eventForm.querySelector('.submit-btn');
 
-eventForm.addEventListener('submit', (e) => {
+eventForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const title = document.getElementById('eventTitle').value;
@@ -263,46 +260,43 @@ eventForm.addEventListener('submit', (e) => {
     const location = document.getElementById('eventLocation').value;
     const description = document.getElementById('eventDescription').value;
 
-    const events = getEvents();
+    const eventData = {
+        title,
+        date,
+        time,
+        location,
+        description
+    };
+
+    let success = false;
 
     if (editingEventId) {
         // Update existing event
-        const eventIndex = events.findIndex(e => e.id === editingEventId);
-        if (eventIndex !== -1) {
-            events[eventIndex] = {
-                id: editingEventId,
-                title,
-                date,
-                time,
-                location,
-                description
-            };
+        success = await updateEvent(editingEventId, eventData);
+        if (success) {
+            alert('Event updated successfully!');
+            editingEventId = null;
+            submitBtn.innerHTML = '<i class="fas fa-plus"></i> Add Event';
         }
-        alert('Event updated successfully!');
-        editingEventId = null;
-        submitBtn.innerHTML = '<i class="fas fa-plus"></i> Add Event';
     } else {
         // Add new event
-        events.push({
-            id: Date.now(),
-            title,
-            date,
-            time,
-            location,
-            description
-        });
-        alert('Event added successfully!');
+        eventData.id = Date.now();
+        success = await saveEvent(eventData);
+        if (success) {
+            alert('Event added successfully!');
+        }
     }
 
-    saveEvents(events);
-    eventForm.reset();
-    renderCalendar();
-    loadAdminEvents();
+    if (success) {
+        eventForm.reset();
+        await renderCalendar();
+        await loadAdminEvents();
 
-    // Update event panel if it's showing the same date
-    if (selectedDate) {
-        const selectedDateObj = new Date(selectedDate + 'T00:00:00');
-        showEventsForDate(selectedDateObj, selectedDate);
+        // Update event panel if it's showing the same date
+        if (selectedDate) {
+            const selectedDateObj = new Date(selectedDate + 'T00:00:00');
+            await showEventsForDate(selectedDateObj, selectedDate);
+        }
     }
 });
 
@@ -319,8 +313,8 @@ function resetEventForm() {
 }
 
 // Load admin events list
-function loadAdminEvents() {
-    const events = getEvents();
+async function loadAdminEvents() {
+    const events = await getEvents();
     const adminEventList = document.getElementById('adminEventList');
 
     if (events.length === 0) {
@@ -346,7 +340,7 @@ function loadAdminEvents() {
                 <button class="edit-btn" onclick="editEvent(${event.id})">
                     <i class="fas fa-edit"></i>
                 </button>
-                <button class="delete-btn" onclick="deleteEvent(${event.id})">
+                <button class="delete-btn" onclick="deleteEventHandler(${event.id})">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
@@ -355,8 +349,8 @@ function loadAdminEvents() {
 }
 
 // Edit event
-function editEvent(eventId) {
-    const events = getEvents();
+async function editEvent(eventId) {
+    const events = await getEvents();
     const event = events.find(e => e.id === eventId);
 
     if (event) {
@@ -374,19 +368,20 @@ function editEvent(eventId) {
     }
 }
 
-// Delete event
-function deleteEvent(eventId) {
+// Delete event handler
+async function deleteEventHandler(eventId) {
     if (confirm('Are you sure you want to delete this event?')) {
-        let events = getEvents();
-        events = events.filter(event => event.id !== eventId);
-        saveEvents(events);
-        renderCalendar();
-        loadAdminEvents();
+        const success = await deleteEvent(eventId);
 
-        // Update event panel if it's showing
-        if (selectedDate) {
-            const date = new Date(selectedDate + 'T00:00:00');
-            showEventsForDate(date, selectedDate);
+        if (success) {
+            await renderCalendar();
+            await loadAdminEvents();
+
+            // Update event panel if it's showing
+            if (selectedDate) {
+                const date = new Date(selectedDate + 'T00:00:00');
+                await showEventsForDate(date, selectedDate);
+            }
         }
     }
 }
@@ -443,12 +438,12 @@ if (scrollTopBtn) {
 }
 
 // Initialize calendar on page load
-document.addEventListener('DOMContentLoaded', () => {
-    renderCalendar();
+document.addEventListener('DOMContentLoaded', async () => {
+    await renderCalendar();
 
-    // Add some sample events if none exist
-    const events = getEvents();
-    if (events.length === 0) {
+    // Add some sample events if none exist (only for localStorage mode)
+    const events = await getEvents();
+    if (events.length === 0 && !isSharePointConfigured()) {
         const today = new Date();
         const sampleEvents = [
             {
@@ -468,7 +463,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 description: 'New employee orientation and training'
             }
         ];
-        saveEvents(sampleEvents);
-        renderCalendar();
+
+        // Save sample events
+        for (const event of sampleEvents) {
+            await saveEvent(event);
+        }
+
+        await renderCalendar();
     }
 });

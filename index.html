@@ -472,66 +472,74 @@
         `;
         document.head.appendChild(style);
 
-        // Load upcoming events from calendar
-        function loadUpcomingEvents() {
+        // Load upcoming events from calendar (SharePoint or localStorage)
+        async function loadUpcomingEvents() {
             const eventsList = document.getElementById('upcomingEventsList');
 
-            // Get events from localStorage (same storage as events.html uses)
-            const eventsData = localStorage.getItem('wdtEvents');
-            const events = eventsData ? JSON.parse(eventsData) : [];
+            // Show loading message
+            eventsList.innerHTML = '<p class="loading-events">Loading events...</p>';
 
-            // Get today's date at midnight for comparison
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
+            try {
+                // Get events using SharePoint API (falls back to localStorage if SharePoint not configured)
+                // Note: getEvents() is provided by sharepoint-config.js
+                const events = typeof getEvents === 'function' ? await getEvents() : [];
 
-            // Filter for upcoming events (today or future)
-            const upcomingEvents = events.filter(event => {
-                const eventDate = new Date(event.date + 'T00:00:00');
-                return eventDate >= today;
-            });
+                // Get today's date at midnight for comparison
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
 
-            // Sort by date and time
-            upcomingEvents.sort((a, b) => {
-                const dateCompare = a.date.localeCompare(b.date);
-                if (dateCompare !== 0) return dateCompare;
-                return a.time.localeCompare(b.time);
-            });
-
-            // Take only the first 3
-            const nextThreeEvents = upcomingEvents.slice(0, 3);
-
-            // Display events
-            if (nextThreeEvents.length === 0) {
-                eventsList.innerHTML = '<p class="no-events-home">No upcoming events scheduled. <a href="events.html">View Calendar</a></p>';
-            } else {
-                eventsList.innerHTML = nextThreeEvents.map(event => {
+                // Filter for upcoming events (today or future)
+                const upcomingEvents = events.filter(event => {
                     const eventDate = new Date(event.date + 'T00:00:00');
-                    const monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
-                                       'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-                    const month = monthNames[eventDate.getMonth()];
-                    const day = eventDate.getDate();
+                    return eventDate >= today;
+                });
 
-                    // Format time
-                    const [hours, minutes] = event.time.split(':');
-                    const hour = parseInt(hours);
-                    const ampm = hour >= 12 ? 'PM' : 'AM';
-                    const displayHour = hour % 12 || 12;
-                    const timeFormatted = `${displayHour}:${minutes} ${ampm}`;
+                // Sort by date and time
+                upcomingEvents.sort((a, b) => {
+                    const dateCompare = a.date.localeCompare(b.date);
+                    if (dateCompare !== 0) return dateCompare;
+                    return a.time.localeCompare(b.time);
+                });
 
-                    return `
-                        <div class="event-item">
-                            <div class="event-date">
-                                <span class="month">${month}</span>
-                                <span class="day">${day}</span>
+                // Take only the first 3
+                const nextThreeEvents = upcomingEvents.slice(0, 3);
+
+                // Display events
+                if (nextThreeEvents.length === 0) {
+                    eventsList.innerHTML = '<p class="no-events-home">No upcoming events scheduled. <a href="events.html">View Calendar</a></p>';
+                } else {
+                    eventsList.innerHTML = nextThreeEvents.map(event => {
+                        const eventDate = new Date(event.date + 'T00:00:00');
+                        const monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+                                           'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+                        const month = monthNames[eventDate.getMonth()];
+                        const day = eventDate.getDate();
+
+                        // Format time
+                        const [hours, minutes] = event.time.split(':');
+                        const hour = parseInt(hours);
+                        const ampm = hour >= 12 ? 'PM' : 'AM';
+                        const displayHour = hour % 12 || 12;
+                        const timeFormatted = `${displayHour}:${minutes} ${ampm}`;
+
+                        return `
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <span class="month">${month}</span>
+                                    <span class="day">${day}</span>
+                                </div>
+                                <div class="event-details">
+                                    <h3>${event.title}</h3>
+                                    <p><i class="far fa-clock"></i> ${timeFormatted}</p>
+                                    ${event.location ? `<p><i class="fas fa-map-marker-alt"></i> ${event.location}</p>` : ''}
+                                </div>
                             </div>
-                            <div class="event-details">
-                                <h3>${event.title}</h3>
-                                <p><i class="far fa-clock"></i> ${timeFormatted}</p>
-                                ${event.location ? `<p><i class="fas fa-map-marker-alt"></i> ${event.location}</p>` : ''}
-                            </div>
-                        </div>
-                    `;
-                }).join('');
+                        `;
+                    }).join('');
+                }
+            } catch (error) {
+                console.error('Error loading events:', error);
+                eventsList.innerHTML = '<p class="no-events-home">Error loading events. Please try again later.</p>';
             }
         }
 
@@ -545,5 +553,6 @@
             }
         });
     </script>
+    <script src="sharepoint-config.js"></script>
 </body>
 </html>
