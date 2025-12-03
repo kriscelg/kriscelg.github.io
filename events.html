@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events Calendar - WDT Intranet</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="events-styles.css">
 </head>
 <body>
@@ -13,23 +15,67 @@
     <header class="main-header">
         <div class="container">
             <div class="header-content">
-                <h1 class="logo">WDT INTRANET</h1>
+                <h1 class="logo">WDT Intranet</h1>
                 <nav class="main-nav">
                     <div class="nav-item">
                         <a href="index.html" class="nav-link">HOME</a>
                     </div>
                     <div class="nav-item">
+                        <a href="#" class="nav-link">DIVISION INFO</a>
+                        <div class="dropdown-menu">
+                            <a href="#">Org Charts</a>
+                            <a href="#">Regions</a>
+                            <a href="#">About Us</a>
+                            <a href="#">Leadership</a>
+                        </div>
+                    </div>
+                    <div class="nav-item">
                         <a href="#" class="nav-link">DOCUMENTS</a>
+                        <div class="dropdown-menu">
+                            <a href="#">Policy</a>
+                            <a href="#">Manuals/Directives</a>
+                            <a href="#">Tools & Templates</a>
+                            <a href="#">Forms & Instructions</a>
+                            <a href="#">FAQ & Resources</a>
+                        </div>
                     </div>
                     <div class="nav-item">
-                        <a href="#" class="nav-link">RESOURCES</a>
+                        <a href="#" class="nav-link">REPORTING</a>
+                        <div class="dropdown-menu">
+                            <a href="#">Dashboards</a>
+                            <a href="#">Data Checks</a>
+                            <a href="#">Analytics</a>
+                            <a href="#">Reports</a>
+                        </div>
                     </div>
                     <div class="nav-item">
-                        <a href="events.html" class="nav-link active">EVENTS</a>
+                        <a href="#" class="nav-link">TRAINING & DEVELOPMENT</a>
+                        <div class="dropdown-menu">
+                            <a href="#">Presentations</a>
+                            <a href="#">Resources</a>
+                            <a href="#">Workshops</a>
+                            <a href="#">E-Learning</a>
+                        </div>
                     </div>
-                    <button class="admin-btn" id="adminBtn">
-                        <i class="fas fa-lock"></i> Admin
-                    </button>
+                    <div class="nav-item">
+                        <a href="#" class="nav-link active">COMMUNICATIONS</a>
+                        <div class="dropdown-menu">
+                            <a href="#">Bulletin</a>
+                            <a href="events.html">Events</a>
+                            <a href="#">Newsletter</a>
+                            <a href="#">Announcements</a>
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#" class="nav-link">CONTACT</a>
+                        <div class="dropdown-menu">
+                            <a href="#">Contact Info</a>
+                            <a href="#">Help Center</a>
+                            <a href="#">Support</a>
+                            <a href="#">FAQ</a>
+                        </div>
+                    </div>
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
                 </nav>
             </div>
         </div>
@@ -39,49 +85,72 @@
     <main class="main-content">
         <div class="container">
             <div class="page-header">
-                <h1>Events Calendar</h1>
-                <p>View and manage departmental events</p>
+                <div class="header-left">
+                    <h1>Events Calendar</h1>
+                    <p>View and manage departmental events</p>
+                </div>
+                <button class="admin-btn" id="adminBtn">
+                    <i class="fas fa-lock"></i> Admin Portal
+                </button>
             </div>
 
-            <div class="calendar-container">
-                <!-- Calendar Navigation -->
-                <div class="calendar-header">
-                    <button class="nav-btn" id="prevMonth">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <h2 id="currentMonth">November 2025</h2>
-                    <button class="nav-btn" id="nextMonth">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
+            <div class="events-layout">
+                <!-- Calendar Section (Left) -->
+                <div class="calendar-section">
+                    <div class="calendar-container">
+                        <!-- Calendar Navigation -->
+                        <div class="calendar-header">
+                            <button class="nav-btn" id="prevMonth">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <h2 id="currentMonth">November 2025</h2>
+                            <button class="nav-btn" id="nextMonth">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
 
-                <!-- Calendar Grid -->
-                <div class="calendar-grid">
-                    <div class="day-header">Sun</div>
-                    <div class="day-header">Mon</div>
-                    <div class="day-header">Tue</div>
-                    <div class="day-header">Wed</div>
-                    <div class="day-header">Thu</div>
-                    <div class="day-header">Fri</div>
-                    <div class="day-header">Sat</div>
-                    <!-- Calendar days will be populated by JavaScript -->
-                </div>
-
-                <!-- Event Details Panel -->
-                <div class="event-details-panel" id="eventPanel">
-                    <div class="panel-header">
-                        <h3>Events for <span id="selectedDate"></span></h3>
-                        <button class="close-panel" id="closePanel">
-                            <i class="fas fa-times"></i>
-                        </button>
+                        <!-- Calendar Grid -->
+                        <div class="calendar-grid">
+                            <div class="day-header">Sun</div>
+                            <div class="day-header">Mon</div>
+                            <div class="day-header">Tue</div>
+                            <div class="day-header">Wed</div>
+                            <div class="day-header">Thu</div>
+                            <div class="day-header">Fri</div>
+                            <div class="day-header">Sat</div>
+                            <!-- Calendar days will be populated by JavaScript -->
+                        </div>
                     </div>
-                    <div class="event-list" id="eventList">
-                        <p class="no-events">No events scheduled for this day.</p>
+                </div>
+
+                <!-- Event Details Section (Right) -->
+                <div class="event-details-section">
+                    <div class="event-details-panel" id="eventPanel">
+                        <div class="panel-header">
+                            <h3>Select a date</h3>
+                        </div>
+                        <div class="event-list" id="eventList">
+                            <p class="no-events">Click on a date to view events scheduled for that day.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Admin Login Modal -->
     <div class="modal" id="loginModal">
@@ -152,12 +221,81 @@
 
     <!-- Footer -->
     <footer class="main-footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2025 WDT Intranet. All rights reserved.</p>
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h4>DIVISION INFO</h4>
+                        <ul>
+                            <li><a href="#">Org Charts</a></li>
+                            <li><a href="#">Regions</a></li>
+                            <li><a href="#">About Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>DOCUMENTS</h4>
+                        <ul>
+                            <li><a href="#">Policy</a></li>
+                            <li><a href="#">Manuals/Directives</a></li>
+                            <li><a href="#">Tools & Templates</a></li>
+                            <li><a href="#">Forms & Instructions</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>REPORTING</h4>
+                        <ul>
+                            <li><a href="#">Dashboards</a></li>
+                            <li><a href="#">Data Checks</a></li>
+                            <li><a href="#">Analytics</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>TRAINING</h4>
+                        <ul>
+                            <li><a href="#">Presentations</a></li>
+                            <li><a href="#">Resources</a></li>
+                            <li><a href="#">Workshops</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>COMMUNICATIONS</h4>
+                        <ul>
+                            <li><a href="#">Bulletin</a></li>
+                            <li><a href="events.html">Events</a></li>
+                            <li><a href="#">Newsletter</a></li>
+                            <li><a href="#">Updates</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>SUPPORT</h4>
+                        <ul>
+                            <li><a href="#">Contact Info</a></li>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-logo">WDT Intranet</div>
+                    <div class="footer-info">&copy; 2025 WDT. All rights reserved.</div>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <script src="events-script.js"></script>
 </body>
