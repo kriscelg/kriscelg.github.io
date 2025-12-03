@@ -527,6 +527,7 @@
                             <div class="event-details">
                                 <h3>${event.title}</h3>
                                 <p><i class="far fa-clock"></i> ${timeFormatted}</p>
+                                ${event.location ? `<p><i class="fas fa-map-marker-alt"></i> ${event.location}</p>` : ''}
                             </div>
                         </div>
                     `;
