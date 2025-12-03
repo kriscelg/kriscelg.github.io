@@ -438,6 +438,24 @@ body {
     margin: 0;
 }
 
+.loading-events,
+.no-events-home {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.no-events-home a {
+    color: #0d5f5f;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.no-events-home a:hover {
+    color: #0a4a4a;
+}
+
 /* Quick Links Section */
 .quick-links-section {
     background-color: #ffffff;

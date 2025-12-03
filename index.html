@@ -61,7 +61,7 @@
                         <a href="#" class="nav-link">COMMUNICATIONS</a>
                         <div class="dropdown-menu">
                             <a href="#">Bulletin</a>
-                            <a href="#">Events</a>
+                            <a href="events.html">Events</a>
                             <a href="#">Newsletter</a>
                             <a href="#">Announcements</a>
                         </div>
@@ -140,27 +140,9 @@
                         <h2>Events</h2>
                         <a href="events.html" class="view-calendar">View Calendar</a>
                     </div>
-                    <div class="events-list">
-                        <div class="event-item">
-                            <div class="event-date">
-                                <span class="month">NOV</span>
-                                <span class="day">17</span>
-                            </div>
-                            <div class="event-details">
-                                <h3>Staff Engagement Session 1</h3>
-                                <p><i class="far fa-clock"></i> 1:00 PM - 2:30 PM</p>
-                            </div>
-                        </div>
-                        <div class="event-item">
-                            <div class="event-date">
-                                <span class="month">NOV</span>
-                                <span class="day">18</span>
-                            </div>
-                            <div class="event-details">
-                                <h3>Staff Engagement Session 2</h3>
-                                <p><i class="far fa-clock"></i> 8:30 AM - 12:00 PM</p>
-                            </div>
-                        </div>
+                    <div class="events-list" id="upcomingEventsList">
+                        <!-- Events will be loaded dynamically from the calendar -->
+                        <p class="loading-events">Loading upcoming events...</p>
                     </div>
                 </div>
             </div>
@@ -489,6 +471,78 @@
             }
         `;
         document.head.appendChild(style);
+
+        // Load upcoming events from calendar
+        function loadUpcomingEvents() {
+            const eventsList = document.getElementById('upcomingEventsList');
+
+            // Get events from localStorage (same storage as events.html uses)
+            const eventsData = localStorage.getItem('wdtEvents');
+            const events = eventsData ? JSON.parse(eventsData) : [];
+
+            // Get today's date at midnight for comparison
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            // Filter for upcoming events (today or future)
+            const upcomingEvents = events.filter(event => {
+                const eventDate = new Date(event.date + 'T00:00:00');
+                return eventDate >= today;
+            });
+
+            // Sort by date and time
+            upcomingEvents.sort((a, b) => {
+                const dateCompare = a.date.localeCompare(b.date);
+                if (dateCompare !== 0) return dateCompare;
+                return a.time.localeCompare(b.time);
+            });
+
+            // Take only the first 3
+            const nextThreeEvents = upcomingEvents.slice(0, 3);
+
+            // Display events
+            if (nextThreeEvents.length === 0) {
+                eventsList.innerHTML = '<p class="no-events-home">No upcoming events scheduled. <a href="events.html">View Calendar</a></p>';
+            } else {
+                eventsList.innerHTML = nextThreeEvents.map(event => {
+                    const eventDate = new Date(event.date + 'T00:00:00');
+                    const monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+                                       'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+                    const month = monthNames[eventDate.getMonth()];
+                    const day = eventDate.getDate();
+
+                    // Format time
+                    const [hours, minutes] = event.time.split(':');
+                    const hour = parseInt(hours);
+                    const ampm = hour >= 12 ? 'PM' : 'AM';
+                    const displayHour = hour % 12 || 12;
+                    const timeFormatted = `${displayHour}:${minutes} ${ampm}`;
+
+                    return `
+                        <div class="event-item">
+                            <div class="event-date">
+                                <span class="month">${month}</span>
+                                <span class="day">${day}</span>
+                            </div>
+                            <div class="event-details">
+                                <h3>${event.title}</h3>
+                                <p><i class="far fa-clock"></i> ${timeFormatted}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        // Load events when page loads
+        loadUpcomingEvents();
+
+        // Also reload events when the page becomes visible again (in case events were added in another tab)
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                loadUpcomingEvents();
+            }
+        });
     </script>
 </body>
 </html>
