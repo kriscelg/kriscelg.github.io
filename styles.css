@@ -239,7 +239,7 @@ body {
 .bulletin-item {
     margin-bottom: 10px;
     padding: 12px;
-    background-color: #f0f9ff;
+    background-color: #9dd9d9;
     border-radius: 10px;
     border-left: 3px solid #0d5f5f;
     transition: all 0.3s ease;
@@ -249,7 +249,7 @@ body {
 .bulletin-item:hover {
     transform: translateX(5px);
     box-shadow: 0 4px 12px rgba(13, 95, 95, 0.2);
-    background-color: #e0f2fe;
+    background-color: #7fc9c9;
 }
 
 .bulletin-item:last-child {
@@ -363,14 +363,22 @@ body {
 }
 
 .view-calendar {
-    color: #0066cc;
+    background-color: #0d5f5f;
+    color: white;
     text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 12px rgba(13, 95, 95, 0.3);
+    display: inline-block;
 }
 
 .view-calendar:hover {
-    text-decoration: underline;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 18px rgba(13, 95, 95, 0.4);
+    background-color: #0a4a4a;
 }
 
 .events-list {
