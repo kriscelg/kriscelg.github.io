@@ -88,13 +88,12 @@
             <div class="top-section">
                 <!-- Recent Bulletins -->
                 <div class="bulletins-section">
-                    <h2>Recent Updates</h2>
                     <div class="bulletins-carousel">
                         <button class="carousel-btn prev"><i class="fas fa-chevron-left"></i></button>
                         <div class="bulletin-content">
                             <!-- Page 1: The Weekly Newsletter -->
                             <div class="bulletin-page">
-                                <h3 class="page-title">The Weekly Newsletter</h3>
+                                <h2 class="page-title">The Weekly Newsletter</h2>
                                 <div class="bulletin-item">
                                     <p class="bulletin-title">November 2025 - Week 4 Newsletter</p>
                                     <p class="bulletin-subheading">Key updates on departmental initiatives and upcoming events</p>
@@ -111,7 +110,7 @@
 
                             <!-- Page 2: Bulletins -->
                             <div class="bulletin-page">
-                                <h3 class="page-title">Bulletins</h3>
+                                <h2 class="page-title">Bulletins</h2>
                                 <div class="bulletin-item">
                                     <p class="bulletin-title">Bulletin #165 - Career and Workforce Development Month</p>
                                     <p class="bulletin-subheading">Celebrating professional growth and development opportunities</p>
@@ -127,6 +126,10 @@
                             </div>
                         </div>
                         <button class="carousel-btn next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="carousel-indicators">
+                        <span class="indicator-dot active" data-index="0"></span>
+                        <span class="indicator-dot" data-index="1"></span>
                     </div>
                     <button class="see-more-btn">See More...</button>
                 </div>
@@ -383,6 +386,7 @@
         const prevBtn = document.querySelector('.carousel-btn.prev');
         const nextBtn = document.querySelector('.carousel-btn.next');
         const bulletinPages = document.querySelectorAll('.bulletin-page');
+        const indicatorDots = document.querySelectorAll('.indicator-dot');
 
         let currentIndex = 0;
 
@@ -394,6 +398,15 @@
                     page.style.animation = 'slideIn 0.5s ease';
                 } else {
                     page.classList.remove('active');
+                }
+            });
+
+            // Update indicator dots
+            indicatorDots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
                 }
             });
 
@@ -416,6 +429,14 @@
                 currentIndex--;
                 showPage(currentIndex);
             }
+        });
+
+        // Indicator dot click handlers
+        indicatorDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                showPage(currentIndex);
+            });
         });
 
         // Initialize carousel
