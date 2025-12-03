@@ -312,19 +312,15 @@ body {
 }
 
 .event-count {
-    font-size: 8px;
-    margin-top: 3px;
-    padding: 2px 6px;
-    background-color: #f59e0b;
-    color: white;
-    border-radius: 8px;
-    font-weight: 600;
+    font-size: 9px;
+    margin-top: 2px;
+    color: #64748b;
+    font-weight: 500;
     line-height: 1;
 }
 
 .calendar-day.today .event-count {
-    background-color: #fbbf24;
-    color: #1e293b;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* Event Details Section (Right) */
@@ -1042,8 +1038,7 @@ body {
     }
 
     .event-count {
-        font-size: 7px;
-        padding: 1px 4px;
+        font-size: 8px;
     }
 
     .form-actions {
