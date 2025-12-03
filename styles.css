@@ -432,17 +432,11 @@ body {
 
 /* Quick Links Section */
 .quick-links-section {
-    background-color: #ffffff;
+    background-color: #f8f9fa;
     border-radius: 24px;
     padding: 40px;
     margin-bottom: 40px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.quick-links-section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 50px rgba(0,0,0,0.12);
 }
 
 .quick-links-section h2 {
@@ -467,59 +461,103 @@ body {
 
 .quick-links-grid {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
 }
 
-.quick-link-item {
+.quick-link-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    gap: 16px;
     text-decoration: none;
-    color: #333;
-    transition: transform 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border: 1px solid #e8e8e8;
+    position: relative;
+    overflow: hidden;
 }
 
-.quick-link-item:hover {
-    transform: translateY(-5px);
+.quick-link-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background-color: #0d5f5f;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
 }
 
-.icon-box {
-    background-color: #9dd9d9;
-    width: 85px;
-    height: 85px;
-    border-radius: 20px;
+.quick-link-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(13, 95, 95, 0.15);
+    border-color: #0d5f5f;
+}
+
+.quick-link-card:hover::before {
+    transform: scaleY(1);
+}
+
+.link-icon {
+    background-color: #e8f6f6;
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 12px;
+    flex-shrink: 0;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(13, 95, 95, 0.2);
 }
 
-.quick-link-item:hover .icon-box {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 8px 25px rgba(13, 95, 95, 0.4);
-    background-color: #7fc9c9;
+.quick-link-card:hover .link-icon {
+    background-color: #0d5f5f;
+    transform: scale(1.05);
 }
 
-.icon-box i {
-    font-size: 32px;
+.link-icon i {
+    font-size: 24px;
     color: #0d5f5f;
+    transition: color 0.3s ease;
 }
 
-.icon-text {
+.quick-link-card:hover .link-icon i {
+    color: #ffffff;
+}
+
+.link-content {
+    flex: 1;
+}
+
+.link-content h3 {
     font-size: 16px;
-    font-weight: bold;
-    color: #0d5f5f;
-    text-align: center;
-    line-height: 1.2;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 4px 0;
+    line-height: 1.3;
 }
 
-.quick-link-item span:last-child {
-    font-size: 11px;
-    text-align: center;
-    font-weight: 500;
+.link-content p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.link-arrow {
+    font-size: 16px;
+    color: #cbd5e1;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.quick-link-card:hover .link-arrow {
+    color: #0d5f5f;
+    transform: translateX(4px);
 }
 
 /* Info Cards Section */
@@ -835,7 +873,7 @@ body {
 /* Responsive Design */
 @media (max-width: 1200px) {
     .quick-links-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     }
 }
 
@@ -858,7 +896,7 @@ body {
     }
 
     .quick-links-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     }
 
     .footer-content {
@@ -913,17 +951,12 @@ body {
     }
 
     .quick-links-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: 1fr;
         gap: 15px;
     }
 
-    .icon-box {
-        width: 70px;
-        height: 70px;
-    }
-
-    .icon-box i {
-        font-size: 24px;
+    .quick-link-card {
+        padding: 16px;
     }
 
     .info-cards-section {
@@ -967,20 +1000,33 @@ body {
     }
 
     .quick-links-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
+    }
+
+    .quick-link-card {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .link-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .link-icon i {
+        font-size: 20px;
+    }
+
+    .link-content h3 {
+        font-size: 15px;
+    }
+
+    .link-content p {
+        font-size: 12px;
     }
 
     .footer-content {
         grid-template-columns: 1fr;
-    }
-
-    .icon-box {
-        width: 65px;
-        height: 65px;
-    }
-
-    .quick-link-item span:last-child {
-        font-size: 10px;
     }
 
     .event-date {
