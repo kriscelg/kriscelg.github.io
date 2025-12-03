@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events Calendar - WDT Intranet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="events-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">WDT INTRANET</h1>
+                <nav class="main-nav">
+                    <div class="nav-item">
+                        <a href="index.html" class="nav-link">HOME</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#" class="nav-link">DOCUMENTS</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#" class="nav-link">RESOURCES</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="events.html" class="nav-link active">EVENTS</a>
+                    </div>
+                    <button class="admin-btn" id="adminBtn">
+                        <i class="fas fa-lock"></i> Admin
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Events Calendar</h1>
+                <p>View and manage departmental events</p>
+            </div>
+
+            <div class="calendar-container">
+                <!-- Calendar Navigation -->
+                <div class="calendar-header">
+                    <button class="nav-btn" id="prevMonth">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 id="currentMonth">November 2025</h2>
+                    <button class="nav-btn" id="nextMonth">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Calendar Grid -->
+                <div class="calendar-grid">
+                    <div class="day-header">Sun</div>
+                    <div class="day-header">Mon</div>
+                    <div class="day-header">Tue</div>
+                    <div class="day-header">Wed</div>
+                    <div class="day-header">Thu</div>
+                    <div class="day-header">Fri</div>
+                    <div class="day-header">Sat</div>
+                    <!-- Calendar days will be populated by JavaScript -->
+                </div>
+
+                <!-- Event Details Panel -->
+                <div class="event-details-panel" id="eventPanel">
+                    <div class="panel-header">
+                        <h3>Events for <span id="selectedDate"></span></h3>
+                        <button class="close-panel" id="closePanel">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="event-list" id="eventList">
+                        <p class="no-events">No events scheduled for this day.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Admin Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Admin Login</h3>
+                <button class="close-modal" id="closeLogin">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter admin password" required>
+                    </div>
+                    <p class="error-message" id="loginError"></p>
+                    <button type="submit" class="submit-btn">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content admin-panel">
+            <div class="modal-header">
+                <h3>Event Management</h3>
+                <button class="close-modal" id="closeAdmin">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="eventForm">
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title</label>
+                        <input type="text" id="eventTitle" placeholder="e.g., Staff Meeting" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDate">Event Date</label>
+                        <input type="date" id="eventDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventTime">Event Time</label>
+                        <input type="time" id="eventTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDescription">Description</label>
+                        <textarea id="eventDescription" rows="3" placeholder="Event details..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-plus"></i> Add Event
+                        </button>
+                        <button type="button" class="cancel-btn" id="cancelEvent">Cancel</button>
+                    </div>
+                </form>
+
+                <div class="events-management">
+                    <h4>Scheduled Events</h4>
+                    <div class="admin-event-list" id="adminEventList">
+                        <p class="no-events">No events scheduled.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 WDT Intranet. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="events-script.js"></script>
+</body>
+</html>
