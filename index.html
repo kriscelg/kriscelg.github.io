@@ -88,21 +88,42 @@
             <div class="top-section">
                 <!-- Recent Bulletins -->
                 <div class="bulletins-section">
-                    <h2>Recent Bulletins</h2>
+                    <h2>Recent Updates</h2>
                     <div class="bulletins-carousel">
                         <button class="carousel-btn prev"><i class="fas fa-chevron-left"></i></button>
                         <div class="bulletin-content">
-                            <div class="bulletin-item">
-                                <span class="bulletin-date">October 17, 2025</span>
-                                <p class="bulletin-title">Bulletin #165 - Career and Workforce Development Month</p>
+                            <!-- Page 1: The Weekly Newsletter -->
+                            <div class="bulletin-page">
+                                <h3 class="page-title">The Weekly Newsletter</h3>
+                                <div class="bulletin-item">
+                                    <p class="bulletin-title">November 2025 - Week 4 Newsletter</p>
+                                    <p class="bulletin-subheading">Key updates on departmental initiatives and upcoming events</p>
+                                </div>
+                                <div class="bulletin-item">
+                                    <p class="bulletin-title">November 2025 - Week 3 Newsletter</p>
+                                    <p class="bulletin-subheading">Staff recognition highlights and training opportunities</p>
+                                </div>
+                                <div class="bulletin-item">
+                                    <p class="bulletin-title">November 2025 - Week 2 Newsletter</p>
+                                    <p class="bulletin-subheading">Policy updates and team success stories</p>
+                                </div>
                             </div>
-                            <div class="bulletin-item">
-                                <span class="bulletin-date">October 03, 2025</span>
-                                <p class="bulletin-title">UPDATE Bulletin #164 - Postal Service Disruption</p>
-                            </div>
-                            <div class="bulletin-item">
-                                <span class="bulletin-date">September 2025</span>
-                                <p class="bulletin-title">Bulletin #154 - Postal Service Disruption</p>
+
+                            <!-- Page 2: Bulletins -->
+                            <div class="bulletin-page">
+                                <h3 class="page-title">Bulletins</h3>
+                                <div class="bulletin-item">
+                                    <p class="bulletin-title">Bulletin #165 - Career and Workforce Development Month</p>
+                                    <p class="bulletin-subheading">Celebrating professional growth and development opportunities</p>
+                                </div>
+                                <div class="bulletin-item">
+                                    <p class="bulletin-title">Bulletin #164 - Postal Service Disruption Update</p>
+                                    <p class="bulletin-subheading">Important information regarding service adjustments</p>
+                                </div>
+                                <div class="bulletin-item">
+                                    <p class="bulletin-title">Bulletin #154 - Health and Safety Guidelines</p>
+                                    <p class="bulletin-subheading">Updated protocols for workplace safety and wellness</p>
+                                </div>
                             </div>
                         </div>
                         <button class="carousel-btn next"><i class="fas fa-chevron-right"></i></button>
@@ -358,47 +379,47 @@
             });
         });
 
-        // Carousel functionality - Fixed
+        // Carousel functionality - Fixed for pages
         const prevBtn = document.querySelector('.carousel-btn.prev');
         const nextBtn = document.querySelector('.carousel-btn.next');
-        const bulletinItems = document.querySelectorAll('.bulletin-item');
+        const bulletinPages = document.querySelectorAll('.bulletin-page');
 
         let currentIndex = 0;
 
-        // Hide all items except the first one initially
-        function showBulletin(index) {
-            bulletinItems.forEach((item, i) => {
+        // Show specific page
+        function showPage(index) {
+            bulletinPages.forEach((page, i) => {
                 if (i === index) {
-                    item.style.display = 'block';
-                    item.style.animation = 'slideIn 0.5s ease';
+                    page.classList.add('active');
+                    page.style.animation = 'slideIn 0.5s ease';
                 } else {
-                    item.style.display = 'none';
+                    page.classList.remove('active');
                 }
             });
 
             // Update button states
             prevBtn.style.opacity = index === 0 ? '0.5' : '1';
             prevBtn.style.cursor = index === 0 ? 'not-allowed' : 'pointer';
-            nextBtn.style.opacity = index === bulletinItems.length - 1 ? '0.5' : '1';
-            nextBtn.style.cursor = index === bulletinItems.length - 1 ? 'not-allowed' : 'pointer';
+            nextBtn.style.opacity = index === bulletinPages.length - 1 ? '0.5' : '1';
+            nextBtn.style.cursor = index === bulletinPages.length - 1 ? 'not-allowed' : 'pointer';
         }
 
         nextBtn.addEventListener('click', () => {
-            if (currentIndex < bulletinItems.length - 1) {
+            if (currentIndex < bulletinPages.length - 1) {
                 currentIndex++;
-                showBulletin(currentIndex);
+                showPage(currentIndex);
             }
         });
 
         prevBtn.addEventListener('click', () => {
             if (currentIndex > 0) {
                 currentIndex--;
-                showBulletin(currentIndex);
+                showPage(currentIndex);
             }
         });
 
         // Initialize carousel
-        showBulletin(0);
+        showPage(0);
 
         // Add animation keyframes
         const style = document.createElement('style');
