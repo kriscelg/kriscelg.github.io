@@ -5,6 +5,7 @@ const ADMIN_PASSWORD = 'admin123';
 let currentDate = new Date();
 let selectedDate = null;
 let isAdminLoggedIn = false;
+let editingEventId = null;
 
 // Get events from localStorage
 function getEvents() {
@@ -134,7 +135,13 @@ function createDayElement(day, isOtherMonth, date = null) {
         }
 
         // Add click handler
-        dayElement.addEventListener('click', () => showEventsForDate(date, dateStr));
+        dayElement.addEventListener('click', () => {
+            // Remove selected class from all days
+            document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+            // Add selected class to clicked day
+            dayElement.classList.add('selected');
+            showEventsForDate(date, dateStr);
+        });
     }
 
     return dayElement;
@@ -145,10 +152,10 @@ function showEventsForDate(date, dateStr) {
     selectedDate = dateStr;
     const events = getEventsForDate(dateStr);
     const panel = document.getElementById('eventPanel');
-    const selectedDateElement = document.getElementById('selectedDate');
+    const panelHeader = panel.querySelector('.panel-header h3');
     const eventList = document.getElementById('eventList');
 
-    selectedDateElement.textContent = formatDisplayDate(dateStr);
+    panelHeader.textContent = formatDisplayDate(dateStr);
 
     if (events.length === 0) {
         eventList.innerHTML = '<p class="no-events">No events scheduled for this day.</p>';
@@ -160,18 +167,12 @@ function showEventsForDate(date, dateStr) {
                     <i class="far fa-clock"></i>
                     ${formatTime(event.time)}
                 </div>
+                ${event.location ? `<div class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.location}</div>` : ''}
                 ${event.description ? `<div class="event-description">${event.description}</div>` : ''}
             </div>
         `).join('');
     }
-
-    panel.classList.add('active');
 }
-
-// Close event panel
-document.getElementById('closePanel').addEventListener('click', () => {
-    document.getElementById('eventPanel').classList.remove('active');
-});
 
 // Navigation buttons
 document.getElementById('prevMonth').addEventListener('click', () => {
@@ -210,6 +211,7 @@ closeLogin.addEventListener('click', () => {
 
 closeAdmin.addEventListener('click', () => {
     adminModal.classList.remove('active');
+    resetEventForm();
 });
 
 // Close modals on background click
@@ -224,6 +226,7 @@ loginModal.addEventListener('click', (e) => {
 adminModal.addEventListener('click', (e) => {
     if (e.target === adminModal) {
         adminModal.classList.remove('active');
+        resetEventForm();
     }
 });
 
@@ -249,6 +252,7 @@ loginForm.addEventListener('submit', (e) => {
 
 // Event form submission
 const eventForm = document.getElementById('eventForm');
+const submitBtn = eventForm.querySelector('.submit-btn');
 
 eventForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -256,30 +260,63 @@ eventForm.addEventListener('submit', (e) => {
     const title = document.getElementById('eventTitle').value;
     const date = document.getElementById('eventDate').value;
     const time = document.getElementById('eventTime').value;
+    const location = document.getElementById('eventLocation').value;
     const description = document.getElementById('eventDescription').value;
 
     const events = getEvents();
-    events.push({
-        id: Date.now(),
-        title,
-        date,
-        time,
-        description
-    });
+
+    if (editingEventId) {
+        // Update existing event
+        const eventIndex = events.findIndex(e => e.id === editingEventId);
+        if (eventIndex !== -1) {
+            events[eventIndex] = {
+                id: editingEventId,
+                title,
+                date,
+                time,
+                location,
+                description
+            };
+        }
+        alert('Event updated successfully!');
+        editingEventId = null;
+        submitBtn.innerHTML = '<i class="fas fa-plus"></i> Add Event';
+    } else {
+        // Add new event
+        events.push({
+            id: Date.now(),
+            title,
+            date,
+            time,
+            location,
+            description
+        });
+        alert('Event added successfully!');
+    }
 
     saveEvents(events);
     eventForm.reset();
     renderCalendar();
     loadAdminEvents();
 
-    // Show success feedback
-    alert('Event added successfully!');
+    // Update event panel if it's showing the same date
+    if (selectedDate) {
+        const selectedDateObj = new Date(selectedDate + 'T00:00:00');
+        showEventsForDate(selectedDateObj, selectedDate);
+    }
 });
 
 // Cancel event form
 document.getElementById('cancelEvent').addEventListener('click', () => {
-    eventForm.reset();
+    resetEventForm();
 });
+
+// Reset event form
+function resetEventForm() {
+    eventForm.reset();
+    editingEventId = null;
+    submitBtn.innerHTML = '<i class="fas fa-plus"></i> Add Event';
+}
 
 // Load admin events list
 function loadAdminEvents() {
@@ -303,12 +340,38 @@ function loadAdminEvents() {
             <div class="admin-event-info">
                 <h5>${event.title}</h5>
                 <p>${formatDisplayDate(event.date)} at ${formatTime(event.time)}</p>
+                ${event.location ? `<p class="event-loc"><i class="fas fa-map-marker-alt"></i> ${event.location}</p>` : ''}
             </div>
-            <button class="delete-btn" onclick="deleteEvent(${event.id})">
-                <i class="fas fa-trash"></i> Delete
-            </button>
+            <div class="admin-event-actions">
+                <button class="edit-btn" onclick="editEvent(${event.id})">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="delete-btn" onclick="deleteEvent(${event.id})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
         </div>
     `).join('');
+}
+
+// Edit event
+function editEvent(eventId) {
+    const events = getEvents();
+    const event = events.find(e => e.id === eventId);
+
+    if (event) {
+        editingEventId = eventId;
+        document.getElementById('eventTitle').value = event.title;
+        document.getElementById('eventDate').value = event.date;
+        document.getElementById('eventTime').value = event.time;
+        document.getElementById('eventLocation').value = event.location || '';
+        document.getElementById('eventDescription').value = event.description || '';
+
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Event';
+
+        // Scroll to form
+        eventForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 // Delete event
@@ -321,12 +384,62 @@ function deleteEvent(eventId) {
         loadAdminEvents();
 
         // Update event panel if it's showing
-        const panel = document.getElementById('eventPanel');
-        if (panel.classList.contains('active') && selectedDate) {
+        if (selectedDate) {
             const date = new Date(selectedDate + 'T00:00:00');
             showEventsForDate(date, selectedDate);
         }
     }
+}
+
+// Search functionality
+const searchBtn = document.querySelector('.search-btn');
+const searchOverlay = document.getElementById('searchOverlay');
+const closeSearch = document.getElementById('closeSearch');
+const searchInput = document.getElementById('searchInput');
+
+if (searchBtn && searchOverlay) {
+    searchBtn.addEventListener('click', () => {
+        searchOverlay.classList.add('active');
+        setTimeout(() => {
+            searchInput.focus();
+        }, 100);
+    });
+
+    closeSearch.addEventListener('click', () => {
+        searchOverlay.classList.remove('active');
+    });
+
+    searchOverlay.addEventListener('click', (e) => {
+        if (e.target === searchOverlay) {
+            searchOverlay.classList.remove('active');
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+            searchOverlay.classList.remove('active');
+        }
+    });
+}
+
+// Scroll to top functionality
+const scrollTopBtn = document.getElementById('scrollTop');
+
+if (scrollTopBtn) {
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollTopBtn.classList.add('visible');
+        } else {
+            scrollTopBtn.classList.remove('visible');
+        }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 }
 
 // Initialize calendar on page load
@@ -343,6 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'Staff Meeting',
                 date: formatDate(new Date(today.getFullYear(), today.getMonth(), 15)),
                 time: '10:00',
+                location: 'Conference Room A',
                 description: 'Monthly staff meeting to discuss departmental updates'
             },
             {
@@ -350,6 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 title: 'Training Session',
                 date: formatDate(new Date(today.getFullYear(), today.getMonth(), 20)),
                 time: '14:00',
+                location: 'Training Center',
                 description: 'New employee orientation and training'
             }
         ];

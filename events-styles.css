@@ -389,6 +389,20 @@ body {
     gap: 8px;
 }
 
+.event-location {
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.event-location i {
+    color: #0d5f5f;
+}
+
 .event-description {
     color: #64748b;
     font-size: 14px;
@@ -606,6 +620,41 @@ body {
 .admin-event-info p {
     font-size: 13px;
     color: #64748b;
+    margin-bottom: 2px;
+}
+
+.admin-event-info .event-loc {
+    font-size: 12px;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.admin-event-info .event-loc i {
+    color: #0d5f5f;
+}
+
+.admin-event-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-btn {
+    background-color: #dbeafe;
+    color: #1e40af;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-btn:hover {
+    background-color: #bfdbfe;
 }
 
 .delete-btn {
