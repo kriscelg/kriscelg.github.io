@@ -471,7 +471,12 @@
             }
         `;
         document.head.appendChild(style);
+    </script>
 
+    <!-- Load events data first, before using it -->
+    <script src="events-data.js"></script>
+
+    <script>
         // Load upcoming events from EVENTS array (defined in events-data.js)
         function loadUpcomingEvents() {
             const eventsList = document.getElementById('upcomingEventsList');
@@ -537,6 +542,5 @@
         // Load events when page loads
         loadUpcomingEvents();
     </script>
-    <script src="events-data.js"></script>
 </body>
 </html>
