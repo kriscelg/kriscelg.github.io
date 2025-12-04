@@ -1,0 +1,263 @@
+/* Import base styles from events-styles.css */
+@import url('events-styles.css');
+
+/* Page Header */
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
+    font-size: 42px;
+    font-weight: 800;
+    color: #0d5f5f;
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    font-size: 18px;
+    color: #64748b;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    position: relative;
+    bottom: -2px;
+}
+
+.tab-btn:hover {
+    color: #0d5f5f;
+}
+
+.tab-btn.active {
+    color: #0d5f5f;
+    border-bottom-color: #0d5f5f;
+}
+
+.tab-btn i {
+    margin-right: 8px;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Communications Grid */
+.communications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+/* Communication Card */
+.comm-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-left: 4px solid #0d5f5f;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.comm-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(13, 95, 95, 0.15);
+    border-left-width: 6px;
+}
+
+.comm-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.comm-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #9dd9d9 0%, #0d5f5f 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.comm-icon i {
+    font-size: 24px;
+    color: white;
+}
+
+.comm-info {
+    flex: 1;
+}
+
+.comm-date {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.comm-subject {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+}
+
+.comm-preview {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.comm-card-footer {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.read-more {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0d5f5f;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.read-more i {
+    transition: transform 0.3s ease;
+}
+
+.comm-card:hover .read-more i {
+    transform: translateX(4px);
+}
+
+/* Loading and Empty States */
+.loading-message,
+.no-items-message {
+    text-align: center;
+    padding: 60px 20px;
+    color: #64748b;
+    font-size: 16px;
+}
+
+.no-items-message i {
+    font-size: 48px;
+    color: #cbd5e1;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 32px;
+    }
+
+    .page-header p {
+        font-size: 16px;
+    }
+
+    .tabs {
+        gap: 5px;
+    }
+
+    .tab-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .communications-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .comm-card {
+        padding: 20px;
+    }
+
+    .comm-subject {
+        font-size: 16px;
+    }
+
+    .comm-preview {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header h1 {
+        font-size: 28px;
+    }
+
+    .tab-btn {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+
+    .tab-btn i {
+        display: none;
+    }
+
+    .comm-card-header {
+        gap: 12px;
+    }
+
+    .comm-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .comm-icon i {
+        font-size: 20px;
+    }
+}

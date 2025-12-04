@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events Calendar - WDT Intranet</title>
+    <title>Bulletins & Newsletters - WDT Intranet</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="events-styles.css">
+    <link rel="stylesheet" href="communications-styles.css">
 </head>
 <body>
     <!-- Header -->
@@ -84,51 +84,31 @@
     <main class="main-content">
         <div class="container">
             <div class="page-header">
-                <div class="header-left">
-                    <h1>Events Calendar</h1>
-                    <p>View upcoming events</p>
+                <h1>Bulletins & Newsletters</h1>
+                <p>Stay informed with our latest communications</p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="newsletters">
+                    <i class="fas fa-newspaper"></i> Newsletters
+                </button>
+                <button class="tab-btn" data-tab="bulletins">
+                    <i class="fas fa-bullhorn"></i> Bulletins
+                </button>
+            </div>
+
+            <!-- Newsletters Tab -->
+            <div class="tab-content active" id="newsletters-tab">
+                <div class="communications-grid" id="newsletters-list">
+                    <p class="loading-message">Loading newsletters...</p>
                 </div>
             </div>
 
-            <div class="events-layout">
-                <!-- Calendar Section (Left) -->
-                <div class="calendar-section">
-                    <div class="calendar-container">
-                        <!-- Calendar Navigation -->
-                        <div class="calendar-header">
-                            <button class="nav-btn" id="prevMonth">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <h2 id="currentMonth">November 2025</h2>
-                            <button class="nav-btn" id="nextMonth">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-
-                        <!-- Calendar Grid -->
-                        <div class="calendar-grid">
-                            <div class="day-header">Sun</div>
-                            <div class="day-header">Mon</div>
-                            <div class="day-header">Tue</div>
-                            <div class="day-header">Wed</div>
-                            <div class="day-header">Thu</div>
-                            <div class="day-header">Fri</div>
-                            <div class="day-header">Sat</div>
-                            <!-- Calendar days will be populated by JavaScript -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event Details Section (Right) -->
-                <div class="event-details-section">
-                    <div class="event-details-panel" id="eventPanel">
-                        <div class="panel-header">
-                            <h3>Select a date</h3>
-                        </div>
-                        <div class="event-list" id="eventList">
-                            <p class="no-events">Click on a date to view events scheduled for that day.</p>
-                        </div>
-                    </div>
+            <!-- Bulletins Tab -->
+            <div class="tab-content" id="bulletins-tab">
+                <div class="communications-grid" id="bulletins-list">
+                    <p class="loading-message">Loading bulletins...</p>
                 </div>
             </div>
         </div>
@@ -225,7 +205,7 @@
         <i class="fas fa-chevron-up"></i>
     </button>
 
-    <script src="events-data.js"></script>
-    <script src="events-script.js"></script>
+    <script src="communications-data.js"></script>
+    <script src="communications-script.js"></script>
 </body>
 </html>
