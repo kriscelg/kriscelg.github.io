@@ -216,6 +216,7 @@
     align-items: center;
     gap: 3px;
     flex-shrink: 0;
+    padding-right: 8px;
 }
 
 .read-more i {
