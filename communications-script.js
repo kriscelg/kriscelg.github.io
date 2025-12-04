@@ -69,8 +69,11 @@ function createCommCard(item, type) {
     const icon = type === 'newsletter' ? 'fa-newspaper' : 'fa-bullhorn';
     const formattedDate = formatDate(item.date);
 
+    // Encode the file name to handle special characters (#, spaces, etc.)
+    const encodedFileName = encodeURI(item.fileName);
+
     return `
-        <a href="${item.fileName}" class="comm-card" target="_blank">
+        <a href="${encodedFileName}" class="comm-card" target="_blank">
             <div class="comm-icon">
                 <i class="fas ${icon}"></i>
             </div>

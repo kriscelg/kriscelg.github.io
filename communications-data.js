@@ -174,5 +174,10 @@ const BULLETINS = [
  * - The page automatically sorts by date (newest first)
  * - Keep your HTML email files in the newsletters/ and bulletins/ folders
  * - Use descriptive file names so you can find them easily
+ * - File names CAN contain special characters (#, spaces, parentheses, etc.)
  * - If your text has apostrophes, escape them with a backslash: \'
+ *
+ * Example with special characters:
+ * fileName: 'bulletins/AMENDMENT #4 - Bulletin #115 (Final).html'
+ * This will work correctly!
  */
