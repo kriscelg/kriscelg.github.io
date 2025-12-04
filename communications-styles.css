@@ -220,7 +220,7 @@
 
 .read-more i {
     transition: transform 0.3s ease;
-    font-size: 9px;
+    font-size: 16px;
 }
 
 .comm-card:hover .read-more i {
