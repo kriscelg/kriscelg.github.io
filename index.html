@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://govmb.sharepoint.com/sites/WDTIntranet/Intranet%20Site%20Files/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -61,7 +61,7 @@
                         <a href="#" class="nav-link">COMMUNICATIONS</a>
                         <div class="dropdown-menu">
                             <a href="#">Bulletin</a>
-                            <a href="events.html">Events</a>
+                            <a href="https://govmb.sharepoint.com/sites/WDTIntranet/Intranet%20Site%20Files/events.html">Events</a>
                             <a href="#">Newsletter</a>
                             <a href="#">Announcements</a>
                         </div>
@@ -138,7 +138,7 @@
                 <div class="events-section">
                     <div class="events-header">
                         <h2>Events</h2>
-                        <a href="events.html" class="view-calendar">View Calendar</a>
+                        <a href="https://govmb.sharepoint.com/sites/WDTIntranet/Intranet%20Site%20Files/events.html" class="view-calendar">View Calendar</a>
                     </div>
                     <div class="events-list" id="upcomingEventsList">
                         <!-- Events will be loaded dynamically from the calendar -->
@@ -506,7 +506,7 @@
 
                 // Display events
                 if (nextThreeEvents.length === 0) {
-                    eventsList.innerHTML = '<p class="no-events-home">No upcoming events scheduled. <a href="events.html">View Calendar</a></p>';
+                    eventsList.innerHTML = '<p class="no-events-home">No upcoming events scheduled. <a href="https://govmb.sharepoint.com/sites/WDTIntranet/Intranet%20Site%20Files/events.html">View Calendar</a></p>';
                 } else {
                     eventsList.innerHTML = nextThreeEvents.map(event => {
                         const eventDate = new Date(event.date + 'T00:00:00');
@@ -553,6 +553,6 @@
             }
         });
     </script>
-    <script src="sharepoint-config.js"></script>
+    <script src="https://govmb.sharepoint.com/sites/WDTIntranet/Intranet%20Site%20Files/sharepoint-config.js"></script>
 </body>
 </html>

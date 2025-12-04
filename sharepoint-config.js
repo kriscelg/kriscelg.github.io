@@ -22,10 +22,10 @@
 // ========================================
 const SHAREPOINT_CONFIG = {
     // Your SharePoint site URL (e.g., "https://yourtenant.sharepoint.com/sites/WDTIntranet")
-    siteUrl: 'YOUR_SHAREPOINT_SITE_URL',
+    siteUrl: 'https://govmb.sharepoint.com/sites/WDTIntranet',
 
     // The name of your SharePoint list
-    listName: 'WDT Events',
+    listName: 'Events',
 
     // Authentication mode: 'user' or 'app'
     // 'user' = Users must be logged into SharePoint (simpler setup)
