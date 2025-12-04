@@ -27,38 +27,74 @@ tabBtns.forEach(btn => {
 // UTILITY FUNCTIONS
 // ========================================
 
-// Format date for display (e.g., "November 22, 2025")
+// Format date for display (e.g., "Nov 22, 2025")
 function formatDate(dateStr) {
     const date = new Date(dateStr + 'T00:00:00');
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
 }
 
-// Create a communication card
+// Get fiscal year from date (April to March)
+function getFiscalYear(dateStr) {
+    const date = new Date(dateStr + 'T00:00:00');
+    const month = date.getMonth(); // 0-11
+    const year = date.getFullYear();
+
+    // If month is 0-2 (Jan-Mar), fiscal year started previous year
+    // If month is 3-11 (Apr-Dec), fiscal year started this year
+    if (month < 3) {
+        return `FY ${year - 1}-${year}`;
+    } else {
+        return `FY ${year}-${year + 1}`;
+    }
+}
+
+// Group items by fiscal year
+function groupByFiscalYear(items) {
+    const grouped = {};
+
+    items.forEach(item => {
+        const fiscalYear = getFiscalYear(item.date);
+        if (!grouped[fiscalYear]) {
+            grouped[fiscalYear] = [];
+        }
+        grouped[fiscalYear].push(item);
+    });
+
+    return grouped;
+}
+
+// Create a compact communication card
 function createCommCard(item, type) {
     const icon = type === 'newsletter' ? 'fa-newspaper' : 'fa-bullhorn';
     const formattedDate = formatDate(item.date);
 
     return `
         <a href="${item.fileName}" class="comm-card" target="_blank">
-            <div class="comm-card-header">
-                <div class="comm-icon">
-                    <i class="fas ${icon}"></i>
-                </div>
-                <div class="comm-info">
-                    <div class="comm-date">${formattedDate}</div>
-                </div>
+            <div class="comm-icon">
+                <i class="fas ${icon}"></i>
             </div>
-            <h2 class="comm-subject">${item.subject}</h2>
-            <p class="comm-preview">${item.firstLine}</p>
-            <div class="comm-card-footer">
-                <span class="read-more">
-                    Read Full ${type === 'newsletter' ? 'Newsletter' : 'Bulletin'}
-                    <i class="fas fa-arrow-right"></i>
-                </span>
+            <div class="comm-info">
+                <div class="comm-date">${formattedDate}</div>
+                <h3 class="comm-subject">${item.subject}</h3>
+                <p class="comm-preview">${item.firstLine}</p>
             </div>
+            <span class="read-more">
+                Open <i class="fas fa-arrow-right"></i>
+            </span>
         </a>
     `;
+}
+
+// Toggle year section
+function toggleYearSection(yearId) {
+    const yearHeader = document.querySelector(`[data-year="${yearId}"]`);
+    const yearContent = document.getElementById(yearId);
+
+    if (yearHeader && yearContent) {
+        yearHeader.classList.toggle('collapsed');
+        yearContent.classList.toggle('collapsed');
+    }
 }
 
 // ========================================
@@ -86,10 +122,37 @@ function loadNewsletters() {
         return b.date.localeCompare(a.date);
     });
 
-    // Generate HTML for each newsletter
-    const html = sortedNewsletters.map(newsletter =>
-        createCommCard(newsletter, 'newsletter')
-    ).join('');
+    // Group by fiscal year
+    const groupedByYear = groupByFiscalYear(sortedNewsletters);
+
+    // Get years sorted (newest first)
+    const years = Object.keys(groupedByYear).sort().reverse();
+
+    // Generate HTML with year sections
+    const html = years.map((year, index) => {
+        const items = groupedByYear[year];
+        const yearId = `newsletters-year-${year.replace(/\s/g, '-')}`;
+        const isFirstYear = index === 0;
+
+        return `
+            <div class="year-section">
+                <div class="year-header ${isFirstYear ? '' : 'collapsed'}"
+                     data-year="${yearId}"
+                     onclick="toggleYearSection('${yearId}')">
+                    <div>
+                        <h2 class="year-title">${year}</h2>
+                        <span class="year-count">${items.length} newsletter${items.length > 1 ? 's' : ''}</span>
+                    </div>
+                    <i class="fas fa-chevron-down year-toggle"></i>
+                </div>
+                <div class="year-content ${isFirstYear ? '' : 'collapsed'}" id="${yearId}">
+                    <div class="communications-grid">
+                        ${items.map(newsletter => createCommCard(newsletter, 'newsletter')).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
 
     newslettersList.innerHTML = html;
 }
@@ -119,10 +182,37 @@ function loadBulletins() {
         return b.date.localeCompare(a.date);
     });
 
-    // Generate HTML for each bulletin
-    const html = sortedBulletins.map(bulletin =>
-        createCommCard(bulletin, 'bulletin')
-    ).join('');
+    // Group by fiscal year
+    const groupedByYear = groupByFiscalYear(sortedBulletins);
+
+    // Get years sorted (newest first)
+    const years = Object.keys(groupedByYear).sort().reverse();
+
+    // Generate HTML with year sections
+    const html = years.map((year, index) => {
+        const items = groupedByYear[year];
+        const yearId = `bulletins-year-${year.replace(/\s/g, '-')}`;
+        const isFirstYear = index === 0;
+
+        return `
+            <div class="year-section">
+                <div class="year-header ${isFirstYear ? '' : 'collapsed'}"
+                     data-year="${yearId}"
+                     onclick="toggleYearSection('${yearId}')">
+                    <div>
+                        <h2 class="year-title">${year}</h2>
+                        <span class="year-count">${items.length} bulletin${items.length > 1 ? 's' : ''}</span>
+                    </div>
+                    <i class="fas fa-chevron-down year-toggle"></i>
+                </div>
+                <div class="year-content ${isFirstYear ? '' : 'collapsed'}" id="${yearId}">
+                    <div class="communications-grid">
+                        ${items.map(bulletin => createCommCard(bulletin, 'bulletin')).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
 
     bulletinsList.innerHTML = html;
 }
