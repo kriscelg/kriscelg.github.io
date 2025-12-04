@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://govmb.sharepoint.com/sites/WDTIntranet/Intranet%20Site%20Files/events-styles.css">
+    <link rel="stylesheet" href="events-styles.css">
 </head>
 <body>
     <!-- Header -->
@@ -18,7 +18,7 @@
                 <h1 class="logo">WDT Intranet</h1>
                 <nav class="main-nav">
                     <div class="nav-item">
-                        <a href="https://govmb.sharepoint.com/sites/WDTIntranet/Intranet%20Site%20Files/index.html" class="nav-link">HOME</a>
+                        <a href="index.html" class="nav-link">HOME</a>
                     </div>
                     <div class="nav-item">
                         <a href="#" class="nav-link">DIVISION INFO</a>
@@ -87,11 +87,8 @@
             <div class="page-header">
                 <div class="header-left">
                     <h1>Events Calendar</h1>
-                    <p>View and manage upcoming events</p>
+                    <p>View upcoming events</p>
                 </div>
-                <button class="admin-btn" id="adminBtn">
-                    <i class="fas fa-lock"></i> Admin Portal
-                </button>
             </div>
 
             <div class="events-layout">
@@ -148,77 +145,6 @@
             <div class="search-input-wrapper">
                 <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
                 <button class="search-submit">Search</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Admin Login</h3>
-                <button class="close-modal" id="closeLogin">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Enter admin password" required>
-                    </div>
-                    <p class="error-message" id="loginError"></p>
-                    <button type="submit" class="submit-btn">Login</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Panel Modal -->
-    <div class="modal" id="adminModal">
-        <div class="modal-content admin-panel">
-            <div class="modal-header">
-                <h3>Event Management</h3>
-                <button class="close-modal" id="closeAdmin">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="eventForm">
-                    <div class="form-group">
-                        <label for="eventTitle">Event Title</label>
-                        <input type="text" id="eventTitle" placeholder="e.g., Staff Meeting" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventDate">Event Date</label>
-                        <input type="date" id="eventDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventTime">Event Time</label>
-                        <input type="time" id="eventTime" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventLocation">Location</label>
-                        <input type="text" id="eventLocation" placeholder="e.g., Conference Room A">
-                    </div>
-                    <div class="form-group">
-                        <label for="eventDescription">Description</label>
-                        <textarea id="eventDescription" rows="3" placeholder="Event details..."></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="submit-btn">
-                            <i class="fas fa-plus"></i> Add Event
-                        </button>
-                        <button type="button" class="cancel-btn" id="cancelEvent">Cancel</button>
-                    </div>
-                </form>
-
-                <div class="events-management">
-                    <h4>Scheduled Events</h4>
-                    <div class="admin-event-list" id="adminEventList">
-                        <p class="no-events">No events scheduled.</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -301,7 +227,7 @@
         <i class="fas fa-chevron-up"></i>
     </button>
 
-    <script src="https://govmb.sharepoint.com/sites/WDTIntranet/Intranet%20Site%20Files/sharepoint-config.js"></script>
-    <script src="https://govmb.sharepoint.com/sites/WDTIntranet/Intranet%20Site%20Files/events-script.js"></script>
+    <script src="events-data.js"></script>
+    <script src="events-script.js"></script>
 </body>
 </html>
