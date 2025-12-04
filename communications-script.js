@@ -80,7 +80,7 @@ function createCommCard(item, type) {
                 <p class="comm-preview">${item.firstLine}</p>
             </div>
             <span class="read-more">
-                <span>Open</span> <i class="fas fa-arrow-right"></i>
+                <i class="fas fa-arrow-right"></i>
             </span>
         </a>
     `;
