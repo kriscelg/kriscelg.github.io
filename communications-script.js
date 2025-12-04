@@ -77,7 +77,6 @@ function createCommCard(item, type) {
             <div class="comm-info">
                 <div class="comm-date">${formattedDate}</div>
                 <h3 class="comm-subject">${item.subject}</h3>
-                <p class="comm-preview">${item.firstLine}</p>
             </div>
             <span class="read-more">
                 <i class="fas fa-arrow-right"></i>
