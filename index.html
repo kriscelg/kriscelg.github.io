@@ -89,40 +89,8 @@
                 <div class="bulletins-section">
                     <div class="bulletins-carousel">
                         <button class="carousel-btn prev"><i class="fas fa-chevron-left"></i></button>
-                        <div class="bulletin-content">
-                            <!-- Page 1: The Weekly Newsletter -->
-                            <div class="bulletin-page">
-                                <h2 class="page-title">The Weekly Newsletter</h2>
-                                <div class="bulletin-item">
-                                    <p class="bulletin-title">November 2025 - Week 4 Newsletter</p>
-                                    <p class="bulletin-subheading">Key updates on departmental initiatives and upcoming events</p>
-                                </div>
-                                <div class="bulletin-item">
-                                    <p class="bulletin-title">November 2025 - Week 3 Newsletter</p>
-                                    <p class="bulletin-subheading">Staff recognition highlights and training opportunities</p>
-                                </div>
-                                <div class="bulletin-item">
-                                    <p class="bulletin-title">November 2025 - Week 2 Newsletter</p>
-                                    <p class="bulletin-subheading">Policy updates and team success stories</p>
-                                </div>
-                            </div>
-
-                            <!-- Page 2: Bulletins -->
-                            <div class="bulletin-page">
-                                <h2 class="page-title">Bulletins</h2>
-                                <div class="bulletin-item">
-                                    <p class="bulletin-title">Bulletin #165 - Career and Workforce Development Month</p>
-                                    <p class="bulletin-subheading">Celebrating professional growth and development opportunities</p>
-                                </div>
-                                <div class="bulletin-item">
-                                    <p class="bulletin-title">Bulletin #164 - Postal Service Disruption Update</p>
-                                    <p class="bulletin-subheading">Important information regarding service adjustments</p>
-                                </div>
-                                <div class="bulletin-item">
-                                    <p class="bulletin-title">Bulletin #154 - Health and Safety Guidelines</p>
-                                    <p class="bulletin-subheading">Updated protocols for workplace safety and wellness</p>
-                                </div>
-                            </div>
+                        <div class="bulletin-content" id="bulletinContent">
+                            <!-- Pages will be loaded dynamically from communications-data.js -->
                         </div>
                         <button class="carousel-btn next"><i class="fas fa-chevron-right"></i></button>
                     </div>
@@ -394,13 +362,74 @@
             });
         });
 
+        // Load newsletters and bulletins dynamically
+        function loadBulletinsCarousel() {
+            const bulletinContent = document.getElementById('bulletinContent');
+
+            // Get data from arrays (defined in communications-data.js)
+            const newsletters = typeof NEWSLETTERS !== 'undefined' ? NEWSLETTERS : [];
+            const bulletins = typeof BULLETINS !== 'undefined' ? BULLETINS : [];
+
+            // Sort by date (newest first) and get top 3 of each
+            const latestNewsletters = [...newsletters]
+                .sort((a, b) => b.date.localeCompare(a.date))
+                .slice(0, 3);
+
+            const latestBulletins = [...bulletins]
+                .sort((a, b) => b.date.localeCompare(a.date))
+                .slice(0, 3);
+
+            // Helper function to encode file paths
+            function encodeFilePath(filePath) {
+                return filePath.split('/').map(part => encodeURIComponent(part)).join('/');
+            }
+
+            // Create newsletter page
+            let newsletterHTML = '<div class="bulletin-page"><h2 class="page-title">The Weekly Newsletter</h2>';
+            if (latestNewsletters.length === 0) {
+                newsletterHTML += '<p class="no-items">No newsletters available.</p>';
+            } else {
+                latestNewsletters.forEach(newsletter => {
+                    const encodedPath = encodeFilePath(newsletter.fileName);
+                    newsletterHTML += `
+                        <a href="${encodedPath}" class="bulletin-item" target="_blank">
+                            <p class="bulletin-title">${newsletter.subject}</p>
+                        </a>
+                    `;
+                });
+            }
+            newsletterHTML += '</div>';
+
+            // Create bulletins page
+            let bulletinsHTML = '<div class="bulletin-page"><h2 class="page-title">Bulletins</h2>';
+            if (latestBulletins.length === 0) {
+                bulletinsHTML += '<p class="no-items">No bulletins available.</p>';
+            } else {
+                latestBulletins.forEach(bulletin => {
+                    const encodedPath = encodeFilePath(bulletin.fileName);
+                    bulletinsHTML += `
+                        <a href="${encodedPath}" class="bulletin-item" target="_blank">
+                            <p class="bulletin-title">${bulletin.subject}</p>
+                        </a>
+                    `;
+                });
+            }
+            bulletinsHTML += '</div>';
+
+            // Insert into DOM
+            bulletinContent.innerHTML = newsletterHTML + bulletinsHTML;
+        }
+
+        // Load carousel content
+        loadBulletinsCarousel();
+
         // Carousel functionality - Fixed for pages
         const prevBtn = document.querySelector('.carousel-btn.prev');
         const nextBtn = document.querySelector('.carousel-btn.next');
-        const bulletinPages = document.querySelectorAll('.bulletin-page');
         const indicatorDots = document.querySelectorAll('.indicator-dot');
 
         let currentIndex = 0;
+        let bulletinPages = [];
 
         // Show specific page
         function showPage(index) {
@@ -451,8 +480,14 @@
             });
         });
 
-        // Initialize carousel
-        showPage(0);
+        // Initialize carousel after pages are loaded
+        function initializeCarousel() {
+            bulletinPages = document.querySelectorAll('.bulletin-page');
+            showPage(0);
+        }
+
+        // Call initialization after content is loaded
+        setTimeout(initializeCarousel, 100);
 
         // Add animation keyframes
         const style = document.createElement('style');
@@ -471,8 +506,9 @@
         document.head.appendChild(style);
     </script>
 
-    <!-- Load events data first, before using it -->
+    <!-- Load data files -->
     <script src="events-data.js"></script>
+    <script src="communications-data.js"></script>
 
     <script>
         // Load upcoming events from EVENTS array (defined in events-data.js)
