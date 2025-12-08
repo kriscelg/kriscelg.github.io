@@ -313,6 +313,10 @@
         <i class="fas fa-chevron-up"></i>
     </button>
 
+    <!-- Load data files FIRST, before any scripts that use them -->
+    <script src="events-data.js"></script>
+    <script src="communications-data.js"></script>
+
     <script>
         // Search functionality
         const searchBtn = document.querySelector('.search-btn');
@@ -505,10 +509,6 @@
         `;
         document.head.appendChild(style);
     </script>
-
-    <!-- Load data files -->
-    <script src="events-data.js"></script>
-    <script src="communications-data.js"></script>
 
     <script>
         // Load upcoming events from EVENTS array (defined in events-data.js)
