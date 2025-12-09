@@ -350,7 +350,7 @@ body {
 .events-section {
     background-color: #ffffff;
     border-radius: 24px;
-    padding: 30px;
+    padding: 20px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -364,11 +364,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .events-section h2 {
-    font-size: 26px;
+    font-size: 20px;
     color: #1e293b;
     font-weight: 700;
     margin: 0;
@@ -410,16 +410,16 @@ body {
 .events-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 .event-item {
     background-color: #9dd9d9;
     border-radius: 10px;
-    padding: 10px;
+    padding: 8px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -433,9 +433,9 @@ body {
 .event-date {
     background-color: white;
     border-radius: 6px;
-    padding: 6px;
+    padding: 5px;
     text-align: center;
-    min-width: 45px;
+    min-width: 40px;
 }
 
 .event-date .month {
@@ -448,18 +448,18 @@ body {
 .event-date .day {
     display: block;
     color: #0d5f5f;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
 }
 
 .event-details h3 {
-    font-size: 14px;
+    font-size: 13px;
     color: #333;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
 }
 
 .event-details p {
-    font-size: 11px;
+    font-size: 10px;
     color: #555;
     margin: 0 0 2px 0;
     display: flex;
@@ -474,9 +474,9 @@ body {
 .loading-events,
 .no-events-home {
     text-align: center;
-    padding: 30px;
+    padding: 20px;
     color: #64748b;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .no-events-home a {
