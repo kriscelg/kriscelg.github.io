@@ -363,37 +363,13 @@ document.getElementById('pdfModal').addEventListener('click', function(e) {
 });
 
 // ========================================
-// SEARCH FUNCTIONALITY
+// ESCAPE KEY HANDLER FOR MODALS
 // ========================================
+// Note: Search and scroll functionality is handled by nav-footer-loader.js
 
-const searchBtn = document.querySelector('.search-btn');
-const searchOverlay = document.getElementById('searchOverlay');
-const closeSearch = document.getElementById('closeSearch');
-const searchInput = document.getElementById('searchInput');
-
-searchBtn.addEventListener('click', () => {
-    searchOverlay.classList.add('active');
-    setTimeout(() => {
-        searchInput.focus();
-    }, 300);
-});
-
-closeSearch.addEventListener('click', () => {
-    searchOverlay.classList.remove('active');
-});
-
-searchOverlay.addEventListener('click', (e) => {
-    if (e.target === searchOverlay) {
-        searchOverlay.classList.remove('active');
-    }
-});
-
-// Close search on Escape key
+// Close video/PDF modals on Escape key
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        if (searchOverlay.classList.contains('active')) {
-            searchOverlay.classList.remove('active');
-        }
         if (document.getElementById('videoModal').classList.contains('active')) {
             closeVideoModal();
         }
@@ -401,27 +377,6 @@ document.addEventListener('keydown', (e) => {
             closePdfModal();
         }
     }
-});
-
-// ========================================
-// SCROLL TO TOP
-// ========================================
-
-const scrollTopBtn = document.getElementById('scrollTop');
-
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        scrollTopBtn.classList.add('visible');
-    } else {
-        scrollTopBtn.classList.remove('visible');
-    }
-});
-
-scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
 });
 
 // ========================================
