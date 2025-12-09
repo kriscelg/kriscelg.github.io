@@ -42,9 +42,6 @@ const NAV_TEMPLATE = `
                     <a href="#" class="nav-link">TRAINING & DEVELOPMENT</a>
                     <div class="dropdown-menu">
                         <a href="videos-presentations.html">Videos & Presentations</a>
-                        <a href="#">Resources</a>
-                        <a href="#">Workshops</a>
-                        <a href="#">E-Learning</a>
                     </div>
                 </div>
                 <div class="nav-item">
@@ -105,8 +102,6 @@ const FOOTER_TEMPLATE = `
                     <h4>TRAINING</h4>
                     <ul>
                         <li><a href="videos-presentations.html">Videos & Presentations</a></li>
-                        <li><a href="#">Resources</a></li>
-                        <li><a href="#">Workshops</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
