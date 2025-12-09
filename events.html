@@ -10,75 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="events-styles.css">
 </head>
-<body>
-    <!-- Header -->
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <h1 class="logo">WDT Intranet</h1>
-                <nav class="main-nav">
-                    <div class="nav-item">
-                        <a href="index.html" class="nav-link">HOME</a>
-                    </div>
-                    <div class="nav-item">
-                        <a href="#" class="nav-link">DIVISION INFO</a>
-                        <div class="dropdown-menu">
-                            <a href="#">Org Charts</a>
-                            <a href="#">Regions</a>
-                            <a href="#">About Us</a>
-                            <a href="#">Leadership</a>
-                        </div>
-                    </div>
-                    <div class="nav-item">
-                        <a href="#" class="nav-link">DOCUMENTS</a>
-                        <div class="dropdown-menu">
-                            <a href="#">Policy</a>
-                            <a href="#">Manuals/Directives</a>
-                            <a href="#">Tools & Templates</a>
-                            <a href="#">Forms & Instructions</a>
-                            <a href="#">FAQ & Resources</a>
-                        </div>
-                    </div>
-                    <div class="nav-item">
-                        <a href="#" class="nav-link">REPORTING</a>
-                        <div class="dropdown-menu">
-                            <a href="#">Dashboards</a>
-                            <a href="#">Data Checks</a>
-                            <a href="#">Analytics</a>
-                            <a href="#">Reports</a>
-                        </div>
-                    </div>
-                    <div class="nav-item">
-                        <a href="#" class="nav-link">TRAINING & DEVELOPMENT</a>
-                        <div class="dropdown-menu">
-                            <a href="videos-presentations.html">Videos & Presentations</a>
-                            <a href="#">Resources</a>
-                            <a href="#">Workshops</a>
-                            <a href="#">E-Learning</a>
-                        </div>
-                    </div>
-                    <div class="nav-item">
-                        <a href="#" class="nav-link active">COMMUNICATIONS</a>
-                        <div class="dropdown-menu">
-                            <a href="communications.html">Bulletins & Newsletters</a>
-                            <a href="events.html">Events</a>
-                            <a href="#">Announcements</a>
-                        </div>
-                    </div>
-                    <div class="nav-item">
-                        <a href="#" class="nav-link">CONTACT</a>
-                        <div class="dropdown-menu">
-                            <a href="#">Contact Info</a>
-                            <a href="#">Help Center</a>
-                            <a href="#">Support</a>
-                            <a href="#">FAQ</a>
-                        </div>
-                    </div>
-                    <button class="search-btn"><i class="fas fa-search"></i></button>
-                </nav>
-            </div>
-        </div>
-    </header>
+<body data-page="communications">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -148,82 +82,11 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="footer-top">
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-column">
-                        <h4>DIVISION INFO</h4>
-                        <ul>
-                            <li><a href="#">Org Charts</a></li>
-                            <li><a href="#">Regions</a></li>
-                            <li><a href="#">About Us</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>DOCUMENTS</h4>
-                        <ul>
-                            <li><a href="#">Policy</a></li>
-                            <li><a href="#">Manuals/Directives</a></li>
-                            <li><a href="#">Tools & Templates</a></li>
-                            <li><a href="#">Forms & Instructions</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>REPORTING</h4>
-                        <ul>
-                            <li><a href="#">Dashboards</a></li>
-                            <li><a href="#">Data Checks</a></li>
-                            <li><a href="#">Analytics</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>TRAINING</h4>
-                        <ul>
-                            <li><a href="videos-presentations.html">Videos & Presentations</a></li>
-                            <li><a href="#">Resources</a></li>
-                            <li><a href="#">Workshops</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>COMMUNICATIONS</h4>
-                        <ul>
-                            <li><a href="communications.html">Bulletins & Newsletters</a></li>
-                            <li><a href="events.html">Events</a></li>
-                            <li><a href="#">Announcements</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>SUPPORT</h4>
-                        <ul>
-                            <li><a href="#">Contact Info</a></li>
-                            <li><a href="#">Help Center</a></li>
-                            <li><a href="#">FAQ</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="footer-bottom-content">
-                    <div class="footer-logo">WDT Intranet</div>
-                    <div class="footer-info">&copy; 2025 WDT. All rights reserved.</div>
-                    <div class="footer-social">
-                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
 
-    <!-- Scroll to Top Button -->
-    <button class="scroll-top" id="scrollTop">
-        <i class="fas fa-chevron-up"></i>
-    </button>
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
 
     <script src="events-data.js"></script>
     <script src="events-script.js"></script>
