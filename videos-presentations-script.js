@@ -5,6 +5,7 @@
 // State
 let activeFilters = [];
 let currentTab = 'videos';
+let searchQuery = '';
 
 // ========================================
 // TAB SWITCHING
@@ -67,6 +68,57 @@ function encodeFilePath(filePath) {
     return filePath.split('/').map(part => encodeURIComponent(part)).join('/');
 }
 
+// Filter items by search query
+function filterBySearch(items, query) {
+    if (!query || query.trim() === '') {
+        return items;
+    }
+
+    const searchTerm = query.toLowerCase().trim();
+
+    return items.filter(item => {
+        // Search in title
+        const titleMatch = item.title.toLowerCase().includes(searchTerm);
+
+        // Search in description
+        const descriptionMatch = item.description.toLowerCase().includes(searchTerm);
+
+        // Search in keywords if available
+        const keywordsMatch = item.keywords ?
+            item.keywords.toLowerCase().includes(searchTerm) : false;
+
+        return titleMatch || descriptionMatch || keywordsMatch;
+    });
+}
+
+// Update search results info
+function updateSearchInfo(videosCount, presentationsCount, isSearching) {
+    const searchResults = document.getElementById('vpSearchResults');
+
+    if (!isSearching) {
+        searchResults.textContent = '';
+        searchResults.classList.remove('active');
+        return;
+    }
+
+    const totalResults = videosCount + presentationsCount;
+
+    if (totalResults === 0) {
+        searchResults.innerHTML = 'No results found';
+        searchResults.classList.add('active');
+    } else {
+        const resultsText = [];
+        if (videosCount > 0) {
+            resultsText.push(`${videosCount} video${videosCount > 1 ? 's' : ''}`);
+        }
+        if (presentationsCount > 0) {
+            resultsText.push(`${presentationsCount} presentation${presentationsCount > 1 ? 's' : ''}`);
+        }
+        searchResults.innerHTML = `Found ${resultsText.join(' and ')}`;
+        searchResults.classList.add('active');
+    }
+}
+
 // ========================================
 // FILTER FUNCTIONALITY
 // ========================================
@@ -124,12 +176,17 @@ document.getElementById('clearFilters').addEventListener('click', () => {
     filterContent();
 });
 
-// Filter content based on active filters
+// Filter content based on active filters and search query
 function filterContent() {
-    if (currentTab === 'videos') {
-        loadVideos();
+    const videosCount = loadVideos();
+    const presentationsCount = loadPresentations();
+
+    // Update search info if searching
+    const isSearching = searchQuery && searchQuery.trim() !== '';
+    if (isSearching) {
+        updateSearchInfo(videosCount, presentationsCount, true);
     } else {
-        loadPresentations();
+        updateSearchInfo(0, 0, false);
     }
 }
 
@@ -222,9 +279,15 @@ function loadVideos() {
     const videosGrid = document.getElementById('videosGrid');
     const noVideosMessage = document.getElementById('noVideosMessage');
 
-    const videos = typeof VIDEOS !== 'undefined' ? VIDEOS : [];
+    let videos = typeof VIDEOS !== 'undefined' ? VIDEOS : [];
 
-    // Filter videos
+    // Apply search filter first
+    const isSearching = searchQuery && searchQuery.trim() !== '';
+    if (isSearching) {
+        videos = filterBySearch(videos, searchQuery);
+    }
+
+    // Filter videos by tags
     let filteredVideos = videos;
     if (activeFilters.length > 0) {
         filteredVideos = videos.filter(video => {
@@ -238,11 +301,27 @@ function loadVideos() {
     if (filteredVideos.length === 0) {
         videosGrid.style.display = 'none';
         noVideosMessage.style.display = 'block';
+
+        // Update message if searching
+        if (isSearching) {
+            noVideosMessage.innerHTML = `
+                <i class="fas fa-search"></i>
+                <p>No videos found matching your search</p>
+                <span class="clear-search-link" onclick="clearVPSearch()">Clear search</span>
+            `;
+        } else {
+            noVideosMessage.innerHTML = `
+                <i class="fas fa-video-slash"></i>
+                <p>No videos found matching your filters</p>
+            `;
+        }
     } else {
         videosGrid.style.display = 'grid';
         noVideosMessage.style.display = 'none';
         videosGrid.innerHTML = filteredVideos.map(video => createVideoCard(video)).join('');
     }
+
+    return filteredVideos.length;
 }
 
 // Load presentations
@@ -250,9 +329,15 @@ function loadPresentations() {
     const presentationsGrid = document.getElementById('presentationsGrid');
     const noPresentationsMessage = document.getElementById('noPresentationsMessage');
 
-    const presentations = typeof PRESENTATIONS !== 'undefined' ? PRESENTATIONS : [];
+    let presentations = typeof PRESENTATIONS !== 'undefined' ? PRESENTATIONS : [];
 
-    // Filter presentations
+    // Apply search filter first
+    const isSearching = searchQuery && searchQuery.trim() !== '';
+    if (isSearching) {
+        presentations = filterBySearch(presentations, searchQuery);
+    }
+
+    // Filter presentations by tags
     let filteredPresentations = presentations;
     if (activeFilters.length > 0) {
         filteredPresentations = presentations.filter(presentation => {
@@ -266,11 +351,27 @@ function loadPresentations() {
     if (filteredPresentations.length === 0) {
         presentationsGrid.style.display = 'none';
         noPresentationsMessage.style.display = 'block';
+
+        // Update message if searching
+        if (isSearching) {
+            noPresentationsMessage.innerHTML = `
+                <i class="fas fa-search"></i>
+                <p>No presentations found matching your search</p>
+                <span class="clear-search-link" onclick="clearVPSearch()">Clear search</span>
+            `;
+        } else {
+            noPresentationsMessage.innerHTML = `
+                <i class="fas fa-presentation"></i>
+                <p>No presentations found matching your filters</p>
+            `;
+        }
     } else {
         presentationsGrid.style.display = 'grid';
         noPresentationsMessage.style.display = 'none';
         presentationsGrid.innerHTML = filteredPresentations.map(pres => createPresentationCard(pres)).join('');
     }
+
+    return filteredPresentations.length;
 }
 
 // ========================================
@@ -380,6 +481,27 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ========================================
+// SEARCH FUNCTIONALITY
+// ========================================
+
+// Perform search
+function performVPSearch(query) {
+    searchQuery = query;
+    filterContent();
+}
+
+// Clear search
+function clearVPSearch() {
+    const searchInput = document.getElementById('vpSearch');
+    const clearBtn = document.getElementById('clearVPSearch');
+
+    searchInput.value = '';
+    clearBtn.style.display = 'none';
+    searchQuery = '';
+    filterContent();
+}
+
+// ========================================
 // INITIALIZE PAGE
 // ========================================
 
@@ -387,4 +509,29 @@ document.addEventListener('DOMContentLoaded', () => {
     generateFilterTags();
     loadVideos();
     loadPresentations();
+
+    // Setup search functionality
+    const searchInput = document.getElementById('vpSearch');
+    const clearBtn = document.getElementById('clearVPSearch');
+
+    // Search input event
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value;
+
+        // Show/hide clear button
+        clearBtn.style.display = query ? 'block' : 'none';
+
+        // Perform search
+        performVPSearch(query);
+    });
+
+    // Clear button click
+    clearBtn.addEventListener('click', clearVPSearch);
+
+    // Clear search on Escape key
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            clearVPSearch();
+        }
+    });
 });
