@@ -1,21 +1,161 @@
+// Navigation and Footer Templates
+// Update these templates to change navigation/footer across all pages
+
+const NAV_TEMPLATE = `
+<header class="main-header">
+    <div class="container">
+        <div class="header-content">
+            <h1 class="logo">WDT Intranet</h1>
+            <nav class="main-nav">
+                <div class="nav-item">
+                    <a href="index.html" class="nav-link" data-page="index">HOME</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">DIVISION INFO</a>
+                    <div class="dropdown-menu">
+                        <a href="#">Org Charts</a>
+                        <a href="#">Regions</a>
+                        <a href="#">About Us</a>
+                        <a href="#">Leadership</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">DOCUMENTS</a>
+                    <div class="dropdown-menu">
+                        <a href="#">Policy</a>
+                        <a href="#">Manuals/Directives</a>
+                        <a href="#">Tools & Templates</a>
+                        <a href="#">Forms & Instructions</a>
+                        <a href="#">FAQ & Resources</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">REPORTING</a>
+                    <div class="dropdown-menu">
+                        <a href="#">Dashboards</a>
+                        <a href="#">Data Checks</a>
+                        <a href="#">Analytics</a>
+                        <a href="#">Reports</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">TRAINING & DEVELOPMENT</a>
+                    <div class="dropdown-menu">
+                        <a href="videos-presentations.html">Videos & Presentations</a>
+                        <a href="#">Resources</a>
+                        <a href="#">Workshops</a>
+                        <a href="#">E-Learning</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link" data-page="communications">COMMUNICATIONS</a>
+                    <div class="dropdown-menu">
+                        <a href="communications.html">Bulletins & Newsletters</a>
+                        <a href="events.html">Events</a>
+                        <a href="#">Announcements</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">CONTACT</a>
+                    <div class="dropdown-menu">
+                        <a href="#">Contact Info</a>
+                        <a href="#">Help Center</a>
+                        <a href="#">Support</a>
+                        <a href="#">FAQ</a>
+                    </div>
+                </div>
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </nav>
+        </div>
+    </div>
+</header>
+`;
+
+const FOOTER_TEMPLATE = `
+<footer class="main-footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>DIVISION INFO</h4>
+                    <ul>
+                        <li><a href="#">Org Charts</a></li>
+                        <li><a href="#">Regions</a></li>
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>DOCUMENTS</h4>
+                    <ul>
+                        <li><a href="#">Policy</a></li>
+                        <li><a href="#">Manuals/Directives</a></li>
+                        <li><a href="#">Tools & Templates</a></li>
+                        <li><a href="#">Forms & Instructions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>REPORTING</h4>
+                    <ul>
+                        <li><a href="#">Dashboards</a></li>
+                        <li><a href="#">Data Checks</a></li>
+                        <li><a href="#">Analytics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>TRAINING</h4>
+                    <ul>
+                        <li><a href="videos-presentations.html">Videos & Presentations</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">Workshops</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>COMMUNICATIONS</h4>
+                    <ul>
+                        <li><a href="communications.html">Bulletins & Newsletters</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="#">Announcements</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>SUPPORT</h4>
+                    <ul>
+                        <li><a href="#">Contact Info</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="footer-bottom-content">
+                <div class="footer-logo">WDT Intranet</div>
+                <div class="footer-info">&copy; 2025 WDT. All rights reserved.</div>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scroll to Top Button -->
+<button class="scroll-top" id="scrollTop">
+    <i class="fas fa-chevron-up"></i>
+</button>
+`;
+
 // Load navigation and footer components
 (function() {
     // Function to load HTML content into a container
-    async function loadComponent(url, containerId) {
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`Failed to load ${url}`);
-            }
-            const html = await response.text();
-            const container = document.getElementById(containerId);
-            if (container) {
-                container.innerHTML = html;
-            }
-            return true;
-        } catch (error) {
-            console.error(`Error loading ${url}:`, error);
-            return false;
+    function loadComponent(html, containerId) {
+        const container = document.getElementById(containerId);
+        if (container) {
+            container.innerHTML = html;
         }
     }
 
@@ -92,11 +232,11 @@
         });
     }
 
-    // Load components when DOM is ready
-    async function init() {
-        // Load navigation and footer
-        await loadComponent('nav.html', 'nav-container');
-        await loadComponent('footer.html', 'footer-container');
+    // Initialize when DOM is ready
+    function init() {
+        // Load navigation and footer from templates
+        loadComponent(NAV_TEMPLATE, 'nav-container');
+        loadComponent(FOOTER_TEMPLATE, 'footer-container');
 
         // Initialize functionality after components are loaded
         setActivePage();
