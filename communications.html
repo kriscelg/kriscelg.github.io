@@ -23,6 +23,23 @@
                 <p>Stay informed with our latest communications</p>
             </div>
 
+            <!-- Search Bar -->
+            <div class="search-bar-container">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input
+                        type="text"
+                        id="commSearch"
+                        class="search-input-comm"
+                        placeholder="Search bulletins and newsletters by name..."
+                    >
+                    <button id="clearSearch" class="clear-search-btn" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="searchResults" class="search-results-info"></div>
+            </div>
+
             <!-- Tab Navigation -->
             <div class="tabs">
                 <button class="tab-btn active" data-tab="newsletters">

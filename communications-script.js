@@ -104,23 +104,94 @@ function toggleYearSection(yearId) {
 }
 
 // ========================================
+// SEARCH FUNCTIONALITY
+// ========================================
+
+let currentSearchQuery = '';
+
+// Filter items by search query
+function filterBySearch(items, query) {
+    if (!query || query.trim() === '') {
+        return items;
+    }
+
+    const searchTerm = query.toLowerCase().trim();
+
+    return items.filter(item => {
+        // Search in subject/title
+        const subjectMatch = item.subject.toLowerCase().includes(searchTerm);
+
+        // Search in keywords if available
+        const keywordsMatch = item.keywords ?
+            item.keywords.toLowerCase().includes(searchTerm) : false;
+
+        return subjectMatch || keywordsMatch;
+    });
+}
+
+// Update search results info
+function updateSearchInfo(newslettersCount, bulletinsCount, isSearching) {
+    const searchResults = document.getElementById('searchResults');
+
+    if (!isSearching) {
+        searchResults.textContent = '';
+        searchResults.classList.remove('active');
+        return;
+    }
+
+    const totalResults = newslettersCount + bulletinsCount;
+
+    if (totalResults === 0) {
+        searchResults.innerHTML = 'No results found';
+        searchResults.classList.add('active');
+    } else {
+        const resultsText = [];
+        if (newslettersCount > 0) {
+            resultsText.push(`${newslettersCount} newsletter${newslettersCount > 1 ? 's' : ''}`);
+        }
+        if (bulletinsCount > 0) {
+            resultsText.push(`${bulletinsCount} bulletin${bulletinsCount > 1 ? 's' : ''}`);
+        }
+        searchResults.innerHTML = `Found ${resultsText.join(' and ')}`;
+        searchResults.classList.add('active');
+    }
+}
+
+// ========================================
 // LOAD NEWSLETTERS
 // ========================================
 
-function loadNewsletters() {
+function loadNewsletters(searchQuery = '') {
     const newslettersList = document.getElementById('newsletters-list');
 
     // Get newsletters from NEWSLETTERS array (defined in communications-data.js)
-    const newsletters = typeof NEWSLETTERS !== 'undefined' ? NEWSLETTERS : [];
+    let newsletters = typeof NEWSLETTERS !== 'undefined' ? NEWSLETTERS : [];
+
+    // Apply search filter
+    const isSearching = searchQuery && searchQuery.trim() !== '';
+    if (isSearching) {
+        newsletters = filterBySearch(newsletters, searchQuery);
+    }
 
     if (newsletters.length === 0) {
-        newslettersList.innerHTML = `
-            <div class="no-items-message">
-                <i class="fas fa-newspaper"></i>
-                <p>No newsletters available at this time.</p>
-            </div>
-        `;
-        return;
+        if (isSearching) {
+            newslettersList.innerHTML = `
+                <div class="no-results-message">
+                    <i class="fas fa-search"></i>
+                    <h3>No newsletters found</h3>
+                    <p>No newsletters match your search criteria.</p>
+                    <span class="clear-search-link" onclick="clearSearch()">Clear search</span>
+                </div>
+            `;
+        } else {
+            newslettersList.innerHTML = `
+                <div class="no-items-message">
+                    <i class="fas fa-newspaper"></i>
+                    <p>No newsletters available at this time.</p>
+                </div>
+            `;
+        }
+        return newsletters.length;
     }
 
     // Sort by date (newest first)
@@ -161,26 +232,44 @@ function loadNewsletters() {
     }).join('');
 
     newslettersList.innerHTML = html;
+    return newsletters.length;
 }
 
 // ========================================
 // LOAD BULLETINS
 // ========================================
 
-function loadBulletins() {
+function loadBulletins(searchQuery = '') {
     const bulletinsList = document.getElementById('bulletins-list');
 
     // Get bulletins from BULLETINS array (defined in communications-data.js)
-    const bulletins = typeof BULLETINS !== 'undefined' ? BULLETINS : [];
+    let bulletins = typeof BULLETINS !== 'undefined' ? BULLETINS : [];
+
+    // Apply search filter
+    const isSearching = searchQuery && searchQuery.trim() !== '';
+    if (isSearching) {
+        bulletins = filterBySearch(bulletins, searchQuery);
+    }
 
     if (bulletins.length === 0) {
-        bulletinsList.innerHTML = `
-            <div class="no-items-message">
-                <i class="fas fa-bullhorn"></i>
-                <p>No bulletins available at this time.</p>
-            </div>
-        `;
-        return;
+        if (isSearching) {
+            bulletinsList.innerHTML = `
+                <div class="no-results-message">
+                    <i class="fas fa-search"></i>
+                    <h3>No bulletins found</h3>
+                    <p>No bulletins match your search criteria.</p>
+                    <span class="clear-search-link" onclick="clearSearch()">Clear search</span>
+                </div>
+            `;
+        } else {
+            bulletinsList.innerHTML = `
+                <div class="no-items-message">
+                    <i class="fas fa-bullhorn"></i>
+                    <p>No bulletins available at this time.</p>
+                </div>
+            `;
+        }
+        return bulletins.length;
     }
 
     // Sort by date (newest first)
@@ -221,6 +310,29 @@ function loadBulletins() {
     }).join('');
 
     bulletinsList.innerHTML = html;
+    return bulletins.length;
+}
+
+// ========================================
+// SEARCH EVENT HANDLERS
+// ========================================
+
+// Perform search and update both tabs
+function performSearch(query) {
+    currentSearchQuery = query;
+    const newslettersCount = loadNewsletters(query);
+    const bulletinsCount = loadBulletins(query);
+    updateSearchInfo(newslettersCount, bulletinsCount, query.trim() !== '');
+}
+
+// Clear search
+function clearSearch() {
+    const searchInput = document.getElementById('commSearch');
+    const clearBtn = document.getElementById('clearSearch');
+
+    searchInput.value = '';
+    clearBtn.style.display = 'none';
+    performSearch('');
 }
 
 // ========================================
@@ -231,4 +343,29 @@ function loadBulletins() {
 document.addEventListener('DOMContentLoaded', () => {
     loadNewsletters();
     loadBulletins();
+
+    // Setup search functionality
+    const searchInput = document.getElementById('commSearch');
+    const clearBtn = document.getElementById('clearSearch');
+
+    // Search input event
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value;
+
+        // Show/hide clear button
+        clearBtn.style.display = query ? 'block' : 'none';
+
+        // Perform search
+        performSearch(query);
+    });
+
+    // Clear button click
+    clearBtn.addEventListener('click', clearSearch);
+
+    // Clear search on Escape key
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            clearSearch();
+        }
+    });
 });
