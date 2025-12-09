@@ -18,38 +18,16 @@ const VIDEOS = [
     // Example Video 1
     {
         id: 1,
-        title: 'Introduction to ICM System',
-        description: 'Learn how to navigate and use the Integrated Case Management system',
-        videoFile: 'videos/icm-intro.mp4',
-        thumbnail: 'videos/thumbnails/icm-intro.jpg',  // Optional: leave empty to use video frame
-        duration: '12:45',  // Format: MM:SS or HH:MM:SS
-        date: '2025-11-20',  // Format: YYYY-MM-DD
+        title: 'Apprenticeship Verification Tool',
+        description: 'Apprenticeship Verification Tool - Custom Visual Walkthrough and Sharing Supporting Documents-20251201_150708-Meeting Recording.mp4',
+        videoFile: 'videos/Apprenticeship Verification Tool - Custom Visual Walkthrough and Sharing Supporting Documents-20251201_150708-Meeting Recording.mp4',
+        thumbnail: 'videos/video thumbnails/apprenticeship.png',  // Optional: leave empty to use video frame
+        duration: '14:28',  // Format: MM:SS or HH:MM:SS
+        date: '2025-12-09',  // Format: YYYY-MM-DD
         tags: ['Training', 'ICM', 'Getting Started']
     },
 
-    // Example Video 2
-    {
-        id: 2,
-        title: 'SPRS Best Practices',
-        description: 'Tips and tricks for efficient use of SPRS',
-        videoFile: 'videos/sprs-best-practices.mp4',
-        thumbnail: '',
-        duration: '8:30',
-        date: '2025-11-15',
-        tags: ['Training', 'SPRS', 'Best Practices']
-    },
-
-    // Example Video 3
-    {
-        id: 3,
-        title: 'Monthly Division Update - November',
-        description: 'Director General\'s monthly update and announcements',
-        videoFile: 'videos/division-update-nov.mp4',
-        thumbnail: 'videos/thumbnails/division-update.jpg',
-        duration: '15:20',
-        date: '2025-11-01',
-        tags: ['Updates', 'Leadership', 'Announcements']
-    },
+    
 
     // ADD YOUR VIDEOS BELOW THIS LINE
     // Copy and paste the format above, changing the details as needed
@@ -76,38 +54,40 @@ const PRESENTATIONS = [
     // Example Presentation 1
     {
         id: 1,
-        title: 'Q4 Financial Review',
-        description: 'Quarterly financial performance and projections',
-        pdfFile: 'presentations/q4-financial-review.pdf',
-        thumbnail: 'presentations/thumbnails/q4-financial.jpg',  // Optional
+        title: 'A User\'s Guide to Comptrollership in ICM',
+        description: 'A User\'s Guide to Comptrollership in ICM',
+        pdfFile: 'presentations/a_users_guide_to_comptrollership_icm.pdf',
+        thumbnail: 'presentations/presentation thumbnails/guide.png',  // Optional
         slides: 24,  // Number of slides
         date: '2025-11-25',  // Format: YYYY-MM-DD
         tags: ['Finance', 'Quarterly Review', 'Reports']
     },
 
-    // Example Presentation 2
-    {
+     {
         id: 2,
-        title: 'New Policy Guidelines 2025',
-        description: 'Overview of updated departmental policies',
-        pdfFile: 'presentations/policy-guidelines-2025.pdf',
-        thumbnail: '',
-        slides: 18,
+        title: 'ICM Comptrollership',
+        description: 'ICM Comptrollership',
+        pdfFile: 'presentations/icm_comptrollership.pdf',
+        thumbnail: 'presentations/presentation thumbnails/comptrollership.png',
+        slides: 32,
         date: '2025-11-18',
+        tags: ['Training', 'Security', 'IT']
+    },
+
+ 
+    {
+        id: 3,
+        title: 'ICM API Training PowerPoint Presentation',
+        description: 'ICM API Training PowerPoint Presentation',
+        pdfFile: 'presentations/ICM_API_Training_PowerPointPresentation.pdf',
+        thumbnail: 'presentations/presentation thumbnails/api.png',
+        slides: 18,
+        date: '2025-11-10',
         tags: ['Policy', 'Guidelines', 'Updates']
     },
 
-    // Example Presentation 3
-    {
-        id: 3,
-        title: 'Data Security Training',
-        description: 'Best practices for data security and privacy',
-        pdfFile: 'presentations/data-security-training.pdf',
-        thumbnail: 'presentations/thumbnails/data-security.jpg',
-        slides: 32,
-        date: '2025-11-10',
-        tags: ['Training', 'Security', 'IT']
-    },
+
+   
 
     // ADD YOUR PRESENTATIONS BELOW THIS LINE
     // Copy and paste the format above, changing the details as needed
