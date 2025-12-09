@@ -144,24 +144,7 @@ body {
     padding: 40px 0;
 }
 
-.page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-}
-
-.header-left h1 {
-    font-size: 36px;
-    color: #1e293b;
-    margin-bottom: 5px;
-    font-weight: 700;
-}
-
-.header-left p {
-    font-size: 16px;
-    color: #64748b;
-}
+/* Page Header styles moved to styles.css for consistency across all pages */
 
 .admin-btn {
     background-color: #0d5f5f;
@@ -965,15 +948,7 @@ body {
         transform: translateX(-50%) translateY(0);
     }
 
-    .page-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-    }
-
-    .header-left h1 {
-        font-size: 28px;
-    }
+    /* Page header responsive styles moved to styles.css */
 
     .calendar-container {
         padding: 20px;
