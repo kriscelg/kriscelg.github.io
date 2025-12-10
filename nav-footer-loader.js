@@ -55,7 +55,7 @@ const NAV_TEMPLATE = `
                 <div class="nav-item">
                     <a href="#" class="nav-link">CONTACT</a>
                     <div class="dropdown-menu">
-                        <a href="#">Contact Info</a>
+                        <a href="contact-resources.html">Contact & Resources</a>
                         <a href="#">Help Center</a>
                         <a href="#">Support</a>
                         <a href="#">FAQ</a>
@@ -115,7 +115,7 @@ const FOOTER_TEMPLATE = `
                 <div class="footer-column">
                     <h4>SUPPORT</h4>
                     <ul>
-                        <li><a href="#">Contact Info</a></li>
+                        <li><a href="contact-resources.html">Contact & Resources</a></li>
                         <li><a href="#">Help Center</a></li>
                         <li><a href="#">FAQ</a></li>
                     </ul>
