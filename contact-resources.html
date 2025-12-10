@@ -131,10 +131,55 @@
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
                             <a href="mailto:${contact.email}">${contact.email}</a>
+                            <button class="copy-email-btn" onclick="copyEmail('${contact.email}', this)" title="Copy email">
+                                <i class="fas fa-copy"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             `).join('');
+        }
+
+        // Copy email to clipboard
+        function copyEmail(email, button) {
+            // Use the Clipboard API to copy the email
+            navigator.clipboard.writeText(email).then(() => {
+                // Change icon to checkmark temporarily
+                const icon = button.querySelector('i');
+                icon.classList.remove('fa-copy');
+                icon.classList.add('fa-check');
+                button.classList.add('copied');
+
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    icon.classList.remove('fa-check');
+                    icon.classList.add('fa-copy');
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy email: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = email;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    const icon = button.querySelector('i');
+                    icon.classList.remove('fa-copy');
+                    icon.classList.add('fa-check');
+                    button.classList.add('copied');
+
+                    setTimeout(() => {
+                        icon.classList.remove('fa-check');
+                        icon.classList.add('fa-copy');
+                        button.classList.remove('copied');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Fallback: Failed to copy', err);
+                }
+                document.body.removeChild(textArea);
+            });
         }
 
         // Load Staff Resources

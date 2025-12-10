@@ -215,6 +215,42 @@
     text-decoration: underline;
 }
 
+.copy-email-btn {
+    background-color: #e8f6f6;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.copy-email-btn i {
+    font-size: 12px;
+    color: #0d5f5f;
+    transition: color 0.3s ease;
+}
+
+.copy-email-btn:hover {
+    background-color: #0d5f5f;
+}
+
+.copy-email-btn:hover i {
+    color: white;
+}
+
+.copy-email-btn.copied {
+    background-color: #22c55e;
+}
+
+.copy-email-btn.copied i {
+    color: white;
+}
+
 /* Staff Resources Section */
 .resources-section {
     background-color: #ffffff;
