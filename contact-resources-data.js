@@ -36,14 +36,16 @@ const OSU_SUPPORT = [
 
 // Key Contacts
 // Add or edit key personnel contacts here
+// Note: Only icon, title, and email are currently displayed
+// phone, extra, and extraIcon fields are optional and not shown
 const KEY_CONTACTS = [
     {
         icon: "fas fa-user-tie",
         title: "Director General (DG)",
         email: "dg@example.com",
-        phone: "(555) 123-4567",
-        extra: "Room 100, Main Building", // Can be location or office hours
-        extraIcon: "fas fa-map-marker-alt"
+        phone: "(555) 123-4567", // Optional - not displayed
+        extra: "Room 100, Main Building", // Optional - not displayed
+        extraIcon: "fas fa-map-marker-alt" // Optional - not displayed
     },
     {
         icon: "fas fa-dollar-sign",
