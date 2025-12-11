@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Closure Form</title>
+    <link rel="stylesheet" type="text/css" href="case-closure.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <a href="#" class="nav-tab">Person Details</a>
+            <a href="#" class="nav-tab">Intake Assessment</a>
+            <a href="#" class="nav-tab">Case History</a>
+            <a href="#" class="nav-tab">Plan / Contract</a>
+            <a href="#" class="nav-tab">Case Notes</a>
+            <a href="#" class="nav-tab">Cheque History</a>
+            <a href="#" class="nav-tab">ECM History</a>
+            <a href="#" class="nav-tab active">Closure</a>
+            <a href="#" class="nav-tab">Service Needs Assessment</a>
+            <a href="#" class="nav-tab">Case Summary</a>
+        </nav>
+
+        <!-- Employment Goal Section -->
+        <div class="section">
+            <h2 class="section-header">Employment Goal</h2>
+            <div class="section-content">
+                <div class="form-group">
+                    <label for="employment-goal">Identify goal:</label>
+                    <input type="text" id="employment-goal" name="employment-goal" class="text-input">
+                </div>
+                <div class="form-group">
+                    <label for="noc">NOC:</label>
+                    <select id="noc" name="noc" class="dropdown">
+                        <option value="">Select NOC...</option>
+                        <option value="0">0 - Management occupations</option>
+                        <option value="1">1 - Business, finance and administration</option>
+                        <option value="2">2 - Natural and applied sciences</option>
+                        <option value="3">3 - Health occupations</option>
+                        <option value="4">4 - Education, law and social services</option>
+                        <option value="5">5 - Art, culture, recreation and sport</option>
+                        <option value="6">6 - Sales and service occupations</option>
+                        <option value="7">7 - Trades, transport and equipment operators</option>
+                        <option value="8">8 - Natural resources, agriculture</option>
+                        <option value="9">9 - Manufacturing and utilities</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Client Qualifications Section -->
+        <div class="section">
+            <h2 class="section-header">Client Qualifications</h2>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="radio-label">
+                        <input type="radio" name="qualifications" value="A">
+                        A. Qualifications match current labour market demand
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="qualifications" value="B">
+                        B. Has previously completed training but training no longer meets current labour demand and/or not able to perform the type of work trained in
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="qualifications" value="C">
+                        C. No qualifications or no match to current labour market demands
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Job Search / Self-Marketing Tools Section -->
+        <div class="section">
+            <h2 class="section-header">Job Search / Self-Marketing Tools</h2>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="has-resume" name="has-resume" onchange="toggleFollowUp('resume-followup')">
+                        Does the client have a resume/cover letter?
+                    </label>
+                    <div id="resume-followup" class="followup-question" style="display: none;">
+                        <label class="checkbox-label indent">
+                            <input type="checkbox" name="resume-updated">
+                            If yes >> is it up to date?
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="attended-interview" name="attended-interview" onchange="toggleFollowUp('interview-followup')">
+                        Has the client attended a job interview?
+                    </label>
+                    <div id="interview-followup" class="followup-question" style="display: none;">
+                        <label class="checkbox-label indent">
+                            <input type="checkbox" name="presented-well">
+                            If yes >> did they feel that they presented well and are able to tell employers about their skills and personal qualities?
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="filled-application" name="filled-application" onchange="toggleFollowUp('application-followup')">
+                        Have they ever filled out a job application?
+                    </label>
+                    <div id="application-followup" class="followup-question" style="display: none;">
+                        <label class="checkbox-label indent">
+                            <input type="checkbox" name="application-difficulty">
+                            If yes >> did they find any difficulty?
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Life Management Factors Section -->
+        <div class="section">
+            <h2 class="section-header">Life Management Factors</h2>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="stable-housing" name="stable-housing" onchange="toggleFollowUp('housing-followup')">
+                        Does the client have stable housing?
+                    </label>
+                    <div id="housing-followup" class="followup-question" style="display: none;">
+                        <label class="checkbox-label indent">
+                            <input type="checkbox" name="housing-continue">
+                            If yes >> Are they able to continue staying there for the immediate future?
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="childcare-support">
+                        Does the client have reliable childcare/dependent and back up support?
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="medical-concerns" name="medical-concerns" onchange="toggleFollowUp('medical-followup')">
+                        Does the client have any medical concerns (physical health, mental health, or disability) that would prevent the client from participating in employment or training?
+                    </label>
+                    <div id="medical-followup" class="followup-question" style="display: none;">
+                        <label class="checkbox-label indent">
+                            <input type="checkbox" name="accommodation-required">
+                            If yes >> does the client require any accommodation to participate in employment or training?
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Barriers Section -->
+        <div class="section">
+            <h2 class="section-header">Personal Barriers</h2>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="personal-barrier" name="personal-barrier" onchange="toggleFollowUp('barrier-followup')">
+                        Does the client have any personal barrier (involvement with the justice system, addiction issues, personal or family concerns) that would prevent the client from participating in employment or training?
+                    </label>
+                    <div id="barrier-followup" class="followup-question" style="display: none;">
+                        <p class="note indent">If yes >> please refer to the guided conversation for further exploration</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="transportation">
+                        Does the client have access to accessible and reliable transportation?
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reason(s) for Case Closure Section -->
+        <div class="section">
+            <h2 class="section-header">
+                Reason(s) for Case Closure
+                <span class="required">*</span>
+                <span class="subtext">(Select all that apply)</span>
+            </h2>
+            <div class="section-content">
+                <div class="checkbox-grid">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="closure-reason" value="deceased">
+                        Deceased
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="closure-reason" value="disability">
+                        Disability / Health / Medical Reasons
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="closure-reason" value="incarcerated">
+                        Incarcerated
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="closure-reason" value="moved">
+                        Moved / Relocated
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="closure-reason" value="family">
+                        Personal / Family Issues / Financial
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="closure-reason" value="referred">
+                        Referred to Other Agency / Program / Service
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="closure-reason" value="retired">
+                        Retired
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="closure-reason" value="self-sufficient">
+                        Self-Sufficient / No Further Assistance Required
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="closure-reason" value="unknown">
+                        Unknown
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="closure-reason" value="withdrew">
+                        Withdrew from Program
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="closure-reason" value="other">
+                        Other
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Made With Client Section -->
+        <div class="section">
+            <h2 class="section-header">
+                Contact Made With Client?
+                <span class="required">*</span>
+            </h2>
+            <div class="section-content">
+                <label class="radio-inline">
+                    <input type="radio" name="contact-made" value="yes">
+                    Yes
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="contact-made" value="no">
+                    No
+                </label>
+            </div>
+        </div>
+
+        <!-- Form Buttons -->
+        <div class="form-actions">
+            <button type="button" class="btn btn-save">Save</button>
+            <button type="button" class="btn btn-undo">Undo</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleFollowUp(followupId) {
+            const checkbox = event.target;
+            const followup = document.getElementById(followupId);
+            if (checkbox.checked) {
+                followup.style.display = 'block';
+            } else {
+                followup.style.display = 'none';
+                // Uncheck the followup checkboxes when hiding
+                const followupCheckboxes = followup.querySelectorAll('input[type="checkbox"]');
+                followupCheckboxes.forEach(cb => cb.checked = false);
+            }
+        }
+    </script>
+</body>
+</html>

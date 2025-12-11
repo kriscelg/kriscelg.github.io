@@ -1,0 +1,233 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 0;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+    border-bottom: 2px solid #ccc;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-tab {
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #0066cc;
+    border-right: 1px solid #ccc;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.nav-tab:hover {
+    background-color: #f0f0f0;
+}
+
+.nav-tab.active {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Section Styling */
+.section {
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.section-header {
+    background-color: #a2c5ac;
+    color: #000;
+    padding: 10px 15px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.section-content {
+    padding: 20px 25px;
+    background-color: #fff;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.text-input {
+    width: 100%;
+    max-width: 600px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.dropdown {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+/* Radio Buttons */
+.radio-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.radio-inline {
+    display: inline-block;
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.radio-inline input[type="radio"] {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+/* Checkboxes */
+.checkbox-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+/* Follow-up Questions */
+.followup-question {
+    margin-left: 25px;
+    margin-top: 10px;
+}
+
+.indent {
+    margin-left: 25px;
+}
+
+.note {
+    font-style: italic;
+    color: #666;
+    margin: 10px 0 0 0;
+}
+
+/* Required Field Indicator */
+.required {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.subtext {
+    font-weight: normal;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Form Action Buttons */
+.form-actions {
+    padding: 20px 25px;
+    background-color: #fff;
+    text-align: center;
+    border-top: 1px solid #ccc;
+}
+
+.btn {
+    padding: 8px 25px;
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f0f0f0;
+    color: #000;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+.btn:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-save {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+.btn-save:hover {
+    background-color: #45a049;
+}
+
+.btn-undo {
+    background-color: #f44336;
+    color: white;
+    border: none;
+}
+
+.btn-undo:hover {
+    background-color: #da190b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-tabs {
+        flex-direction: column;
+    }
+
+    .nav-tab {
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .checkbox-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .text-input,
+    .dropdown {
+        max-width: 100%;
+    }
+}
