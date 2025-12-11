@@ -75,40 +75,70 @@
             <h2 class="section-header">Job Search / Self-Marketing Tools</h2>
             <div class="section-content">
                 <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="has-resume" name="has-resume" onchange="toggleFollowUp('resume-followup')">
-                        Does the client have a resume/cover letter?
+                    <label class="question-label">Does the client have a resume/cover letter?</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="has-resume" value="yes" onchange="toggleFollowUp('resume-followup', 'has-resume')">
+                        Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="has-resume" value="no" onchange="toggleFollowUp('resume-followup', 'has-resume')">
+                        No
                     </label>
                     <div id="resume-followup" class="followup-question" style="display: none;">
-                        <label class="checkbox-label indent">
-                            <input type="checkbox" name="resume-updated">
-                            If yes >> is it up to date?
+                        <label class="question-label indent">If yes >> is it up to date?</label>
+                        <label class="radio-inline indent">
+                            <input type="radio" name="resume-updated" value="yes">
+                            Yes
+                        </label>
+                        <label class="radio-inline indent">
+                            <input type="radio" name="resume-updated" value="no">
+                            No
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="attended-interview" name="attended-interview" onchange="toggleFollowUp('interview-followup')">
-                        Has the client attended a job interview?
+                    <label class="question-label">Has the client attended a job interview?</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="attended-interview" value="yes" onchange="toggleFollowUp('interview-followup', 'attended-interview')">
+                        Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="attended-interview" value="no" onchange="toggleFollowUp('interview-followup', 'attended-interview')">
+                        No
                     </label>
                     <div id="interview-followup" class="followup-question" style="display: none;">
-                        <label class="checkbox-label indent">
-                            <input type="checkbox" name="presented-well">
-                            If yes >> did they feel that they presented well and are able to tell employers about their skills and personal qualities?
+                        <label class="question-label indent">If yes >> did they feel that they presented well and are able to tell employers about their skills and personal qualities?</label>
+                        <label class="radio-inline indent">
+                            <input type="radio" name="presented-well" value="yes">
+                            Yes
+                        </label>
+                        <label class="radio-inline indent">
+                            <input type="radio" name="presented-well" value="no">
+                            No
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="filled-application" name="filled-application" onchange="toggleFollowUp('application-followup')">
-                        Have they ever filled out a job application?
+                    <label class="question-label">Have they ever filled out a job application?</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="filled-application" value="yes" onchange="toggleFollowUp('application-followup', 'filled-application')">
+                        Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="filled-application" value="no" onchange="toggleFollowUp('application-followup', 'filled-application')">
+                        No
                     </label>
                     <div id="application-followup" class="followup-question" style="display: none;">
-                        <label class="checkbox-label indent">
-                            <input type="checkbox" name="application-difficulty">
-                            If yes >> did they find any difficulty?
+                        <label class="question-label indent">If yes >> did they find any difficulty?</label>
+                        <label class="radio-inline indent">
+                            <input type="radio" name="application-difficulty" value="yes">
+                            Yes
+                        </label>
+                        <label class="radio-inline indent">
+                            <input type="radio" name="application-difficulty" value="no">
+                            No
                         </label>
                     </div>
                 </div>
@@ -120,34 +150,59 @@
             <h2 class="section-header">Life Management Factors</h2>
             <div class="section-content">
                 <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="stable-housing" name="stable-housing" onchange="toggleFollowUp('housing-followup')">
-                        Does the client have stable housing?
+                    <label class="question-label">Does the client have stable housing?</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="stable-housing" value="yes" onchange="toggleFollowUp('housing-followup', 'stable-housing')">
+                        Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="stable-housing" value="no" onchange="toggleFollowUp('housing-followup', 'stable-housing')">
+                        No
                     </label>
                     <div id="housing-followup" class="followup-question" style="display: none;">
-                        <label class="checkbox-label indent">
-                            <input type="checkbox" name="housing-continue">
-                            If yes >> Are they able to continue staying there for the immediate future?
+                        <label class="question-label indent">If yes >> Are they able to continue staying there for the immediate future?</label>
+                        <label class="radio-inline indent">
+                            <input type="radio" name="housing-continue" value="yes">
+                            Yes
+                        </label>
+                        <label class="radio-inline indent">
+                            <input type="radio" name="housing-continue" value="no">
+                            No
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="childcare-support">
-                        Does the client have reliable childcare/dependent and back up support?
+                    <label class="question-label">Does the client have reliable childcare/dependent and back up support?</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="childcare-support" value="yes">
+                        Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="childcare-support" value="no">
+                        No
                     </label>
                 </div>
 
                 <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="medical-concerns" name="medical-concerns" onchange="toggleFollowUp('medical-followup')">
-                        Does the client have any medical concerns (physical health, mental health, or disability) that would prevent the client from participating in employment or training?
+                    <label class="question-label">Does the client have any medical concerns (physical health, mental health, or disability) that would prevent the client from participating in employment or training?</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="medical-concerns" value="yes" onchange="toggleFollowUp('medical-followup', 'medical-concerns')">
+                        Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="medical-concerns" value="no" onchange="toggleFollowUp('medical-followup', 'medical-concerns')">
+                        No
                     </label>
                     <div id="medical-followup" class="followup-question" style="display: none;">
-                        <label class="checkbox-label indent">
-                            <input type="checkbox" name="accommodation-required">
-                            If yes >> does the client require any accommodation to participate in employment or training?
+                        <label class="question-label indent">If yes >> does the client require any accommodation to participate in employment or training?</label>
+                        <label class="radio-inline indent">
+                            <input type="radio" name="accommodation-required" value="yes">
+                            Yes
+                        </label>
+                        <label class="radio-inline indent">
+                            <input type="radio" name="accommodation-required" value="no">
+                            No
                         </label>
                     </div>
                 </div>
@@ -159,9 +214,14 @@
             <h2 class="section-header">Personal Barriers</h2>
             <div class="section-content">
                 <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="personal-barrier" name="personal-barrier" onchange="toggleFollowUp('barrier-followup')">
-                        Does the client have any personal barrier (involvement with the justice system, addiction issues, personal or family concerns) that would prevent the client from participating in employment or training?
+                    <label class="question-label">Does the client have any personal barrier (involvement with the justice system, addiction issues, personal or family concerns) that would prevent the client from participating in employment or training?</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="personal-barrier" value="yes" onchange="toggleFollowUp('barrier-followup', 'personal-barrier')">
+                        Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="personal-barrier" value="no" onchange="toggleFollowUp('barrier-followup', 'personal-barrier')">
+                        No
                     </label>
                     <div id="barrier-followup" class="followup-question" style="display: none;">
                         <p class="note indent">If yes >> please refer to the guided conversation for further exploration</p>
@@ -169,9 +229,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="transportation">
-                        Does the client have access to accessible and reliable transportation?
+                    <label class="question-label">Does the client have access to accessible and reliable transportation?</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="transportation" value="yes">
+                        Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="transportation" value="no">
+                        No
                     </label>
                 </div>
             </div>
@@ -180,16 +245,18 @@
     </div>
 
     <script>
-        function toggleFollowUp(followupId) {
-            const checkbox = event.target;
+        function toggleFollowUp(followupId, radioName) {
+            const radio = event.target;
             const followup = document.getElementById(followupId);
-            if (checkbox.checked) {
+
+            // Show follow-up if "yes" is selected, hide if "no" is selected
+            if (radio.value === 'yes') {
                 followup.style.display = 'block';
             } else {
                 followup.style.display = 'none';
-                // Uncheck the followup checkboxes when hiding
-                const followupCheckboxes = followup.querySelectorAll('input[type="checkbox"]');
-                followupCheckboxes.forEach(cb => cb.checked = false);
+                // Clear the follow-up radio buttons when hiding
+                const followupRadios = followup.querySelectorAll('input[type="radio"]');
+                followupRadios.forEach(rb => rb.checked = false);
             }
         }
     </script>

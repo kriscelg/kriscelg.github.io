@@ -77,6 +77,12 @@ label {
     font-weight: normal;
 }
 
+.question-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
 .text-input {
     width: 100%;
     max-width: 600px;
