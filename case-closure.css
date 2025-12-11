@@ -119,11 +119,15 @@ label {
     display: inline-block;
     margin-right: 30px;
     cursor: pointer;
+    font-size: 14px;
+    line-height: 1.5;
+    vertical-align: middle;
 }
 
 .radio-inline input[type="radio"] {
     margin-right: 8px;
     cursor: pointer;
+    vertical-align: middle;
 }
 
 /* Checkboxes */
