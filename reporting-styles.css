@@ -236,13 +236,25 @@
     flex-direction: column;
     align-items: center;
     flex: 1;
+    position: relative;
+    padding-right: 15px;
+}
+
+.bar-group:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -7.5px;
+    top: 0;
+    bottom: 30px;
+    width: 1px;
+    background-color: #cbd5e1;
 }
 
 .bars {
     display: flex;
     align-items: flex-end;
     gap: 8px;
-    height: 100%;
+    height: 320px;
     width: 100%;
     justify-content: center;
 }
@@ -469,6 +481,10 @@
         height: 300px;
     }
 
+    .bars {
+        height: 270px;
+    }
+
     .bar {
         max-width: 50px;
     }
@@ -542,12 +558,17 @@
         padding-right: 5px;
     }
 
+    .bar-group:not(:last-child)::after {
+        bottom: 25px;
+    }
+
     .bar-graph-container {
         height: 250px;
         gap: 10px;
     }
 
     .bars {
+        height: 220px;
         gap: 5px;
     }
 
