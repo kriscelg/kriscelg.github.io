@@ -30,9 +30,9 @@ const NAV_TEMPLATE = `
                     </div>
                 </div>
                 <div class="nav-item">
-                    <a href="#" class="nav-link">REPORTING</a>
+                    <a href="reporting.html" class="nav-link" data-page="reporting">REPORTING</a>
                     <div class="dropdown-menu">
-                        <a href="#">Dashboards</a>
+                        <a href="reporting.html">Dashboards</a>
                         <a href="#">Data Checks</a>
                         <a href="#">Analytics</a>
                         <a href="#">Reports</a>
@@ -93,7 +93,7 @@ const FOOTER_TEMPLATE = `
                 <div class="footer-column">
                     <h4>REPORTING</h4>
                     <ul>
-                        <li><a href="#">Dashboards</a></li>
+                        <li><a href="reporting.html">Dashboards</a></li>
                         <li><a href="#">Data Checks</a></li>
                         <li><a href="#">Analytics</a></li>
                     </ul>
