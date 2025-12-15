@@ -114,19 +114,17 @@
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
 }
 
-.graphs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 30px;
-    margin-bottom: 20px;
-}
-
 .graph-card {
     background-color: #f8f9fa;
     border-radius: 16px;
     padding: 25px;
     border-left: 4px solid #0d5f5f;
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    margin-bottom: 30px;
+}
+
+.graph-card:last-of-type {
+    margin-bottom: 20px;
 }
 
 .graph-card h3 {
@@ -167,102 +165,106 @@
     background-color: #9dd9d9;
 }
 
+.q3-color {
+    background-color: #5da5a5;
+}
+
+.q4-color {
+    background-color: #b8e5e5;
+}
+
 .bar-graph-wrapper {
-    width: 100%;
-}
-
-.bar-graph-area {
-    background-color: white;
-    border-radius: 12px;
-    padding: 20px;
-}
-
-.x-axis {
     display: flex;
-    justify-content: space-between;
-    padding: 0 80px 10px 80px;
-    margin-bottom: 10px;
+    gap: 10px;
+    align-items: stretch;
 }
 
-.x-axis-label {
+.y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 0;
+    min-width: 60px;
+}
+
+.y-axis-label {
     font-size: 11px;
     color: #64748b;
     font-weight: 600;
-    text-align: center;
+    text-align: right;
+    padding-right: 8px;
+    line-height: 1;
 }
 
-.gridlines-container {
+.bar-graph-area {
+    flex: 1;
     position: relative;
+    background-color: white;
+    border-radius: 12px;
+    padding: 10px 10px 40px 10px;
 }
 
 .gridlines {
     position: absolute;
-    top: 0;
-    left: 80px;
-    right: 0;
-    bottom: 0;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 40px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     pointer-events: none;
-    padding-right: 80px;
 }
 
 .gridline {
-    width: 1px;
+    height: 1px;
     background-color: #e5e7eb;
-    height: 100%;
-}
-
-.bar-rows {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.bar-row {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.program-label {
-    font-size: 13px;
-    font-weight: 700;
-    color: #1e293b;
-    min-width: 65px;
-    text-align: left;
-}
-
-.bars-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.bar-track {
-    position: relative;
-    height: 28px;
     width: 100%;
 }
 
-.bar {
-    height: 100%;
-    border-radius: 0 6px 6px 0;
+.bar-graph-container {
     display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    gap: 15px;
+    height: 350px;
+    position: relative;
+}
+
+.bar-group {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
-    padding: 0 8px;
+    flex: 1;
+}
+
+.bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+}
+
+.bar {
+    min-height: 30px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px 4px;
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
-    min-width: 40px;
+    flex: 1;
+    max-width: 60px;
 }
 
 .bar:hover {
     opacity: 0.85;
-    transform: scaleX(1.01);
+    transform: scaleY(1.02);
 }
 
 .q1-bar {
@@ -273,6 +275,14 @@
     background-color: #9dd9d9;
 }
 
+.q3-bar {
+    background-color: #5da5a5;
+}
+
+.q4-bar {
+    background-color: #b8e5e5;
+}
+
 .bar-value {
     font-size: 11px;
     font-weight: 700;
@@ -281,9 +291,18 @@
     white-space: nowrap;
 }
 
-.q2-bar .bar-value {
+.q2-bar .bar-value,
+.q4-bar .bar-value {
     color: #1e293b;
     text-shadow: none;
+}
+
+.bar-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e293b;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .graph-note {
@@ -399,10 +418,6 @@
     .banner-stats {
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     }
-
-    .graphs-grid {
-        grid-template-columns: 1fr;
-    }
 }
 
 @media (max-width: 768px) {
@@ -442,30 +457,20 @@
         padding: 25px;
     }
 
-    .graphs-grid {
-        grid-template-columns: 1fr;
+    .y-axis {
+        min-width: 50px;
     }
 
-    .x-axis {
-        padding: 0 60px 10px 60px;
-    }
-
-    .x-axis-label {
+    .y-axis-label {
         font-size: 10px;
     }
 
-    .gridlines {
-        left: 60px;
-        padding-right: 60px;
+    .bar-graph-container {
+        height: 300px;
     }
 
-    .program-label {
-        min-width: 55px;
-        font-size: 12px;
-    }
-
-    .bar-track {
-        height: 24px;
+    .bar {
+        max-width: 50px;
     }
 
     .bar-value {
@@ -525,41 +530,39 @@
     }
 
     .bar-graph-area {
-        padding: 15px;
+        padding: 10px 10px 30px 10px;
     }
 
-    .x-axis {
-        padding: 0 45px 8px 45px;
+    .y-axis {
+        min-width: 45px;
     }
 
-    .x-axis-label {
+    .y-axis-label {
         font-size: 9px;
+        padding-right: 5px;
     }
 
-    .gridlines {
-        left: 45px;
-        padding-right: 45px;
-    }
-
-    .program-label {
-        min-width: 40px;
-        font-size: 11px;
-    }
-
-    .bar-row {
+    .bar-graph-container {
+        height: 250px;
         gap: 10px;
     }
 
-    .bar-track {
-        height: 22px;
+    .bars {
+        gap: 5px;
     }
 
     .bar {
-        padding: 0 6px;
+        max-width: 40px;
+        padding: 6px 3px;
     }
 
     .bar-value {
         font-size: 9px;
+    }
+
+    .bar-label {
+        font-size: 12px;
+        margin-top: 8px;
     }
 
     .graph-note {

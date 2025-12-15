@@ -2,21 +2,21 @@
 // Edit the values below to update the bar graphs on the reporting page
 
 const CLIENTS_SERVED_DATA = [
-    { program: "EAS", q1: 8031, q2: 11564 },
-    { program: "EAPD", q1: 1601, q2: 1713 },
-    { program: "SD", q1: 2970, q2: 3575 },
-    { program: "FJF", q1: 18, q2: 52 },
-    { program: "FWY", q1: 686, q2: 922 },
-    { program: "EP", q1: 661, q2: 818 }
+    { program: "EAS", q1: 8031, q2: 11564, q3: null, q4: null },
+    { program: "EAPD", q1: 1601, q2: 1713, q3: null, q4: null },
+    { program: "SD", q1: 2970, q2: 3575, q3: null, q4: null },
+    { program: "FJF", q1: 18, q2: 52, q3: null, q4: null },
+    { program: "FWY", q1: 686, q2: 922, q3: null, q4: null },
+    { program: "EP", q1: 661, q2: 818, q3: null, q4: null }
 ];
 
 const CLIENTS_EMPLOYED_DATA = [
-    { program: "EAS", q1: 2140, q2: 4633 },
-    { program: "EAPD", q1: 40, q2: 94 },
-    { program: "SD", q1: 432, q2: 795 },
-    { program: "FJF", q1: 14, q2: 14 },
-    { program: "FWY", q1: 152, q2: 367 },
-    { program: "EP", q1: 475, q2: 869 }
+    { program: "EAS", q1: 2140, q2: 4633, q3: null, q4: null },
+    { program: "EAPD", q1: 40, q2: 94, q3: null, q4: null },
+    { program: "SD", q1: 432, q2: 795, q3: null, q4: null },
+    { program: "FJF", q1: 14, q2: 14, q3: null, q4: null },
+    { program: "FWY", q1: 152, q2: 367, q3: null, q4: null },
+    { program: "EP", q1: 475, q2: 869, q3: null, q4: null }
 ];
 
 // Power BI Dashboard Embeds
@@ -62,25 +62,25 @@ function calculateAxisScale(maxValue) {
     return { axisMax, interval };
 }
 
-// Function to generate X-axis
-function generateXAxis(axisMax, interval) {
-    let html = '<div class="x-axis">';
+// Function to generate Y-axis
+function generateYAxis(axisMax, interval) {
+    let html = '<div class="y-axis">';
 
     // Generate 6 labels (0 to max, with 5 intervals)
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 5; i >= 0; i--) {
         const value = (interval * i);
-        html += `<div class="x-axis-label">${formatNumber(Math.round(value))}</div>`;
+        html += `<div class="y-axis-label">${formatNumber(Math.round(value))}</div>`;
     }
 
     html += '</div>';
     return html;
 }
 
-// Function to generate gridlines (vertical for horizontal bars)
+// Function to generate gridlines (horizontal for vertical bars)
 function generateGridlines() {
     let html = '<div class="gridlines">';
 
-    // 5 vertical gridlines
+    // 5 horizontal gridlines
     for (let i = 0; i < 5; i++) {
         html += '<div class="gridline"></div>';
     }
@@ -94,49 +94,46 @@ function generateClientsServedGraph() {
     const container = document.getElementById('clients-served-graph');
     if (!container) return;
 
-    const maxValue = Math.max(...CLIENTS_SERVED_DATA.flatMap(d => [d.q1, d.q2]));
+    // Get all quarters that have data
+    const allValues = CLIENTS_SERVED_DATA.flatMap(d => [d.q1, d.q2, d.q3, d.q4].filter(v => v !== null));
+    const maxValue = Math.max(...allValues);
     const { axisMax, interval } = calculateAxisScale(maxValue);
 
     let html = '<div class="bar-graph-wrapper">';
 
-    // Add graph area with x-axis and gridlines
+    // Add Y-axis
+    html += generateYAxis(axisMax, interval);
+
+    // Add graph area with gridlines
     html += '<div class="bar-graph-area">';
-
-    // Add X-axis at top
-    html += generateXAxis(axisMax, interval);
-
-    // Add gridlines container
-    html += '<div class="gridlines-container">';
     html += generateGridlines();
-
-    // Add bar rows
-    html += '<div class="bar-rows">';
+    html += '<div class="bar-graph-container">';
 
     CLIENTS_SERVED_DATA.forEach(data => {
-        const q1Width = (data.q1 / axisMax) * 100;
-        const q2Width = (data.q2 / axisMax) * 100;
+        const quarters = [];
+        if (data.q1 !== null) quarters.push({ value: data.q1, class: 'q1-bar' });
+        if (data.q2 !== null) quarters.push({ value: data.q2, class: 'q2-bar' });
+        if (data.q3 !== null) quarters.push({ value: data.q3, class: 'q3-bar' });
+        if (data.q4 !== null) quarters.push({ value: data.q4, class: 'q4-bar' });
 
-        html += `
-            <div class="bar-row">
-                <div class="program-label">${data.program}</div>
-                <div class="bars-container">
-                    <div class="bar-track">
-                        <div class="bar q1-bar" style="width: ${q1Width}%">
-                            <span class="bar-value">${formatNumber(data.q1)}</span>
-                        </div>
-                    </div>
-                    <div class="bar-track">
-                        <div class="bar q2-bar" style="width: ${q2Width}%">
-                            <span class="bar-value">${formatNumber(data.q2)}</span>
-                        </div>
-                    </div>
+        html += `<div class="bar-group">`;
+        html += `<div class="bars">`;
+
+        quarters.forEach(q => {
+            const height = (q.value / axisMax) * 100;
+            html += `
+                <div class="bar ${q.class}" style="height: ${height}%">
+                    <span class="bar-value">${formatNumber(q.value)}</span>
                 </div>
-            </div>
-        `;
+            `;
+        });
+
+        html += `</div>`; // bars
+        html += `<div class="bar-label">${data.program}</div>`;
+        html += `</div>`; // bar-group
     });
 
-    html += '</div>'; // bar-rows
-    html += '</div>'; // gridlines-container
+    html += '</div>'; // bar-graph-container
     html += '</div>'; // bar-graph-area
     html += '</div>'; // bar-graph-wrapper
 
@@ -148,49 +145,46 @@ function generateClientsEmployedGraph() {
     const container = document.getElementById('clients-employed-graph');
     if (!container) return;
 
-    const maxValue = Math.max(...CLIENTS_EMPLOYED_DATA.flatMap(d => [d.q1, d.q2]));
+    // Get all quarters that have data
+    const allValues = CLIENTS_EMPLOYED_DATA.flatMap(d => [d.q1, d.q2, d.q3, d.q4].filter(v => v !== null));
+    const maxValue = Math.max(...allValues);
     const { axisMax, interval } = calculateAxisScale(maxValue);
 
     let html = '<div class="bar-graph-wrapper">';
 
-    // Add graph area with x-axis and gridlines
+    // Add Y-axis
+    html += generateYAxis(axisMax, interval);
+
+    // Add graph area with gridlines
     html += '<div class="bar-graph-area">';
-
-    // Add X-axis at top
-    html += generateXAxis(axisMax, interval);
-
-    // Add gridlines container
-    html += '<div class="gridlines-container">';
     html += generateGridlines();
-
-    // Add bar rows
-    html += '<div class="bar-rows">';
+    html += '<div class="bar-graph-container">';
 
     CLIENTS_EMPLOYED_DATA.forEach(data => {
-        const q1Width = (data.q1 / axisMax) * 100;
-        const q2Width = (data.q2 / axisMax) * 100;
+        const quarters = [];
+        if (data.q1 !== null) quarters.push({ value: data.q1, class: 'q1-bar' });
+        if (data.q2 !== null) quarters.push({ value: data.q2, class: 'q2-bar' });
+        if (data.q3 !== null) quarters.push({ value: data.q3, class: 'q3-bar' });
+        if (data.q4 !== null) quarters.push({ value: data.q4, class: 'q4-bar' });
 
-        html += `
-            <div class="bar-row">
-                <div class="program-label">${data.program}</div>
-                <div class="bars-container">
-                    <div class="bar-track">
-                        <div class="bar q1-bar" style="width: ${q1Width}%">
-                            <span class="bar-value">${formatNumber(data.q1)}</span>
-                        </div>
-                    </div>
-                    <div class="bar-track">
-                        <div class="bar q2-bar" style="width: ${q2Width}%">
-                            <span class="bar-value">${formatNumber(data.q2)}</span>
-                        </div>
-                    </div>
+        html += `<div class="bar-group">`;
+        html += `<div class="bars">`;
+
+        quarters.forEach(q => {
+            const height = (q.value / axisMax) * 100;
+            html += `
+                <div class="bar ${q.class}" style="height: ${height}%">
+                    <span class="bar-value">${formatNumber(q.value)}</span>
                 </div>
-            </div>
-        `;
+            `;
+        });
+
+        html += `</div>`; // bars
+        html += `<div class="bar-label">${data.program}</div>`;
+        html += `</div>`; // bar-group
     });
 
-    html += '</div>'; // bar-rows
-    html += '</div>'; // gridlines-container
+    html += '</div>'; // bar-graph-container
     html += '</div>'; // bar-graph-area
     html += '</div>'; // bar-graph-wrapper
 
