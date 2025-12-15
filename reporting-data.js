@@ -44,18 +44,72 @@ function formatNumber(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+// Function to calculate nice axis intervals
+function calculateAxisScale(maxValue) {
+    // Round up to next nice number
+    const magnitude = Math.pow(10, Math.floor(Math.log10(maxValue)));
+    const normalizedMax = maxValue / magnitude;
+
+    let niceMax;
+    if (normalizedMax <= 1) niceMax = 1;
+    else if (normalizedMax <= 2) niceMax = 2;
+    else if (normalizedMax <= 5) niceMax = 5;
+    else niceMax = 10;
+
+    const axisMax = niceMax * magnitude;
+    const interval = axisMax / 5; // 5 gridlines
+
+    return { axisMax, interval };
+}
+
+// Function to generate Y-axis
+function generateYAxis(axisMax, interval) {
+    let html = '<div class="y-axis">';
+
+    // Generate 6 labels (0 to max, with 5 intervals)
+    for (let i = 5; i >= 0; i--) {
+        const value = (interval * i);
+        html += `<div class="y-axis-label">${formatNumber(Math.round(value))}</div>`;
+    }
+
+    html += '</div>';
+    return html;
+}
+
+// Function to generate gridlines
+function generateGridlines() {
+    let html = '<div class="gridlines">';
+
+    // 5 horizontal gridlines
+    for (let i = 0; i < 5; i++) {
+        html += '<div class="gridline"></div>';
+    }
+
+    html += '</div>';
+    return html;
+}
+
 // Function to generate Clients Served bar graph
 function generateClientsServedGraph() {
     const container = document.getElementById('clients-served-graph');
     if (!container) return;
 
     const maxValue = Math.max(...CLIENTS_SERVED_DATA.flatMap(d => [d.q1, d.q2]));
+    const { axisMax, interval } = calculateAxisScale(maxValue);
 
-    let html = '<div class="bar-graph-container">';
+    let html = '<div class="bar-graph-wrapper">';
+
+    // Add Y-axis
+    html += generateYAxis(axisMax, interval);
+
+    // Add graph area with gridlines
+    html += '<div class="bar-graph-area">';
+    html += generateGridlines();
+    html += '<div class="bar-graph-container">';
 
     CLIENTS_SERVED_DATA.forEach(data => {
-        const q1Height = (data.q1 / maxValue) * 100;
-        const q2Height = (data.q2 / maxValue) * 100;
+        const q1Height = (data.q1 / axisMax) * 100;
+        const q2Height = (data.q2 / axisMax) * 100;
 
         html += `
             <div class="bar-group">
@@ -72,7 +126,10 @@ function generateClientsServedGraph() {
         `;
     });
 
-    html += '</div>';
+    html += '</div>'; // bar-graph-container
+    html += '</div>'; // bar-graph-area
+    html += '</div>'; // bar-graph-wrapper
+
     container.innerHTML = html;
 }
 
@@ -82,12 +139,21 @@ function generateClientsEmployedGraph() {
     if (!container) return;
 
     const maxValue = Math.max(...CLIENTS_EMPLOYED_DATA.flatMap(d => [d.q1, d.q2]));
+    const { axisMax, interval } = calculateAxisScale(maxValue);
 
-    let html = '<div class="bar-graph-container">';
+    let html = '<div class="bar-graph-wrapper">';
+
+    // Add Y-axis
+    html += generateYAxis(axisMax, interval);
+
+    // Add graph area with gridlines
+    html += '<div class="bar-graph-area">';
+    html += generateGridlines();
+    html += '<div class="bar-graph-container">';
 
     CLIENTS_EMPLOYED_DATA.forEach(data => {
-        const q1Height = (data.q1 / maxValue) * 100;
-        const q2Height = (data.q2 / maxValue) * 100;
+        const q1Height = (data.q1 / axisMax) * 100;
+        const q2Height = (data.q2 / axisMax) * 100;
 
         html += `
             <div class="bar-group">
@@ -104,7 +170,10 @@ function generateClientsEmployedGraph() {
         `;
     });
 
-    html += '</div>';
+    html += '</div>'; // bar-graph-container
+    html += '</div>'; // bar-graph-area
+    html += '</div>'; // bar-graph-wrapper
+
     container.innerHTML = html;
 }
 

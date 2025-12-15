@@ -167,15 +167,62 @@
     background-color: #9dd9d9;
 }
 
+.bar-graph-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 0;
+    min-width: 60px;
+}
+
+.y-axis-label {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 600;
+    text-align: right;
+    padding-right: 8px;
+    line-height: 1;
+}
+
+.bar-graph-area {
+    flex: 1;
+    position: relative;
+    background-color: white;
+    border-radius: 12px;
+    padding: 10px 10px 40px 10px;
+}
+
+.gridlines {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.gridline {
+    height: 1px;
+    background-color: #e5e7eb;
+    width: 100%;
+}
+
 .bar-graph-container {
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
     gap: 15px;
     height: 350px;
-    padding: 20px 10px;
-    background-color: white;
-    border-radius: 12px;
+    position: relative;
 }
 
 .bar-group {
@@ -405,9 +452,16 @@
         grid-template-columns: 1fr;
     }
 
+    .y-axis {
+        min-width: 50px;
+    }
+
+    .y-axis-label {
+        font-size: 10px;
+    }
+
     .bar-graph-container {
         height: 300px;
-        padding: 15px 5px;
     }
 
     .bar-value {
@@ -464,6 +518,15 @@
 
     .graph-card h3 {
         font-size: 18px;
+    }
+
+    .y-axis {
+        min-width: 45px;
+    }
+
+    .y-axis-label {
+        font-size: 9px;
+        padding-right: 5px;
     }
 
     .bar-graph-container {
