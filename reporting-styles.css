@@ -235,7 +235,7 @@
 .bars {
     display: flex;
     align-items: flex-end;
-    gap: 6px;
+    gap: 10px;
     height: 320px;
     width: 100%;
     justify-content: center;
@@ -252,8 +252,7 @@
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
-    width: 100%;
-    max-width: 50px;
+    width: 45px;
     flex-shrink: 0;
 }
 
@@ -466,6 +465,11 @@
 
     .bars {
         height: 270px;
+        gap: 8px;
+    }
+
+    .bar {
+        width: 38px;
     }
 
     .bar-value {
@@ -540,10 +544,11 @@
 
     .bars {
         height: 220px;
+        gap: 6px;
     }
 
     .bar {
-        max-width: 40px;
+        width: 32px;
         padding: 6px 3px;
     }
 
