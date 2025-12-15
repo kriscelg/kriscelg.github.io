@@ -315,6 +315,15 @@
     color: #1e293b;
     text-align: center;
     margin-top: 10px;
+    cursor: help;
+    border-bottom: 1px dashed #cbd5e1;
+    padding-bottom: 2px;
+    transition: all 0.2s ease;
+}
+
+.bar-label:hover {
+    color: #0d5f5f;
+    border-bottom-color: #0d5f5f;
 }
 
 .graph-note {

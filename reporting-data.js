@@ -1,6 +1,16 @@
 // Bar Graph Data for 2025/26 Client Outcomes by Program
 // Edit the values below to update the bar graphs on the reporting page
 
+// Program name mappings (Acronym to Full Name)
+const PROGRAM_NAMES = {
+    "EAS": "Employment Assistance Services",
+    "EAPD": "Employment Assistance for Persons with Disabilities",
+    "SD": "Skills Development",
+    "FJF": "First Job Fund",
+    "FWY": "Forum for Young Workers",
+    "EP": "Employment Program"
+};
+
 const CLIENTS_SERVED_DATA = [
     { program: "EAS", q1: 8031, q2: 11564, q3: null, q4: null },
     { program: "EAPD", q1: 1601, q2: 1713, q3: null, q4: null },
@@ -129,7 +139,7 @@ function generateClientsServedGraph() {
         });
 
         html += `</div>`; // bars
-        html += `<div class="bar-label">${data.program}</div>`;
+        html += `<div class="bar-label" title="${PROGRAM_NAMES[data.program]}">${data.program}</div>`;
         html += `</div>`; // bar-group
     });
 
@@ -180,7 +190,7 @@ function generateClientsEmployedGraph() {
         });
 
         html += `</div>`; // bars
-        html += `<div class="bar-label">${data.program}</div>`;
+        html += `<div class="bar-label" title="${PROGRAM_NAMES[data.program]}">${data.program}</div>`;
         html += `</div>`; // bar-group
     });
 
