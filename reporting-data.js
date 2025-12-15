@@ -36,20 +36,27 @@ const POWERBI_DASHBOARDS = [
         title: "Skills Development Dashboard",
         description: "Dashboard is updated quarterly",
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=f2621809-854b-4c47-8009-61a04adcd539&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
-        powerBiUrl: "" // Add your Power BI direct link here (opens in new tab)
+        powerBiUrl: "https://app.powerbi.com/links/_SJmd-cGjV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare" // Add your Power BI direct link here (opens in new tab)
     },
     {
-        title: "Dashboard 2",
-        description: "Secondary metrics dashboard",
-        embedUrl: "", // Add your Power BI embed URL here
-        powerBiUrl: "" // Add your Power BI direct link here (opens in new tab)
+        title: "SPRS Dashboard",
+        description: "Updated Monthly",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=3d1a6025-378a-4ec6-be49-f05c33eda7f3&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false", // Add your Power BI embed URL here
+        powerBiUrl: "https://app.powerbi.com/links/TCjsPuqVg3?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=8de54f27-1722-4139-a5c7-c841fd5c53ed" // Add your Power BI direct link here (opens in new tab)
     },
     {
-        title: "Dashboard 3",
-        description: "Additional reporting dashboard",
-        embedUrl: "", // Add your Power BI embed URL here
-        powerBiUrl: "" // Add your Power BI direct link here (opens in new tab)
-    }
+        title: "EAPD Direct Client Services Dashboard",
+        description: "Updated Monthly",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=5599c1d2-4ef7-46aa-8de5-84a89dcd17ff&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false", // Add your Power BI embed URL here
+        powerBiUrl: "https://app.powerbi.com/links/eMQGT_YqGO?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare" // Add your Power BI direct link here (opens in new tab)
+    },
+
+    {
+        title: "MCIEPP Dashboard",
+        description: "Updated Weekly",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=debef0f1-0a58-4be3-9197-5974ada42cbf&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a", // Add your Power BI embed URL here
+        powerBiUrl: "https://app.powerbi.com/links/S6C3IVGSSV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=e460cd2e-c93d-494a-9189-7dec4e5ded98&filterPaneEnabled=false" // Add your Power BI direct link here (opens in new tab)
+    },
 ];
 
 // Function to format numbers with commas
