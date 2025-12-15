@@ -36,27 +36,30 @@ const POWERBI_DASHBOARDS = [
         title: "Skills Development Dashboard",
         description: "Dashboard is updated quarterly",
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=f2621809-854b-4c47-8009-61a04adcd539&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
-        powerBiUrl: "https://app.powerbi.com/links/_SJmd-cGjV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare" // Add your Power BI direct link here (opens in new tab)
+        powerBiUrl: "https://app.powerbi.com/links/_SJmd-cGjV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
+        lastRefreshed: "" // Format: YYYY-MM-DD
     },
     {
         title: "SPRS Dashboard",
         description: "Updated Monthly",
-        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=3d1a6025-378a-4ec6-be49-f05c33eda7f3&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false", // Add your Power BI embed URL here
-        powerBiUrl: "https://app.powerbi.com/links/TCjsPuqVg3?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=8de54f27-1722-4139-a5c7-c841fd5c53ed" // Add your Power BI direct link here (opens in new tab)
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=3d1a6025-378a-4ec6-be49-f05c33eda7f3&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false",
+        powerBiUrl: "https://app.powerbi.com/links/TCjsPuqVg3?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=8de54f27-1722-4139-a5c7-c841fd5c53ed",
+        lastRefreshed: "" // Format: YYYY-MM-DD
     },
     {
         title: "EAPD Direct Client Services Dashboard",
         description: "Updated Monthly",
-        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=5599c1d2-4ef7-46aa-8de5-84a89dcd17ff&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false", // Add your Power BI embed URL here
-        powerBiUrl: "https://app.powerbi.com/links/eMQGT_YqGO?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare" // Add your Power BI direct link here (opens in new tab)
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=5599c1d2-4ef7-46aa-8de5-84a89dcd17ff&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false",
+        powerBiUrl: "https://app.powerbi.com/links/eMQGT_YqGO?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
+        lastRefreshed: "" // Format: YYYY-MM-DD
     },
-
     {
         title: "MCIEPP Dashboard",
         description: "Updated Weekly",
-        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=debef0f1-0a58-4be3-9197-5974ada42cbf&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a", // Add your Power BI embed URL here
-        powerBiUrl: "https://app.powerbi.com/links/S6C3IVGSSV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=e460cd2e-c93d-494a-9189-7dec4e5ded98&filterPaneEnabled=false" // Add your Power BI direct link here (opens in new tab)
-    },
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=debef0f1-0a58-4be3-9197-5974ada42cbf&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
+        powerBiUrl: "https://app.powerbi.com/links/S6C3IVGSSV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=e460cd2e-c93d-494a-9189-7dec4e5ded98&filterPaneEnabled=false",
+        lastRefreshed: "" // Format: YYYY-MM-DD
+    }
 ];
 
 // Function to format numbers with commas
@@ -211,6 +214,38 @@ function generateClientsEmployedGraph() {
     container.innerHTML = html;
 }
 
+// Function to format date for display
+function formatDate(dateString) {
+    if (!dateString) return "Not available";
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+// Function to handle zoom for Power BI dashboards
+function handleZoom(iframeId, action) {
+    const iframe = document.getElementById(iframeId);
+    if (!iframe) return;
+
+    let currentZoom = parseFloat(iframe.style.zoom || 1);
+
+    if (action === 'in') {
+        currentZoom = Math.min(currentZoom + 0.1, 2); // Max zoom 200%
+    } else if (action === 'out') {
+        currentZoom = Math.max(currentZoom - 0.1, 0.5); // Min zoom 50%
+    } else if (action === 'reset') {
+        currentZoom = 1;
+    }
+
+    iframe.style.zoom = currentZoom;
+
+    // Update zoom level display
+    const zoomDisplay = document.getElementById(`zoom-level-${iframeId}`);
+    if (zoomDisplay) {
+        zoomDisplay.textContent = Math.round(currentZoom * 100) + '%';
+    }
+}
+
 // Function to generate Power BI dashboard embeds
 function generatePowerBIDashboards() {
     const container = document.getElementById('powerbi-dashboards-container');
@@ -219,23 +254,48 @@ function generatePowerBIDashboards() {
     let html = '';
 
     POWERBI_DASHBOARDS.forEach((dashboard, index) => {
+        const iframeId = `powerbi-iframe-${index}`;
+
         html += `
             <div class="powerbi-dashboard-item">
                 <div class="powerbi-header">
-                    <div>
+                    <div class="powerbi-info">
                         <h3>${dashboard.title}</h3>
                         <p>${dashboard.description}</p>
+                        ${dashboard.lastRefreshed ?
+                            `<p class="last-refreshed">
+                                <i class="fas fa-sync-alt"></i>
+                                <span>Last Refreshed: ${formatDate(dashboard.lastRefreshed)}</span>
+                            </p>` :
+                            ''
+                        }
                     </div>
-                    ${dashboard.powerBiUrl ?
-                        `<a href="${dashboard.powerBiUrl}" target="_blank" class="open-powerbi-btn" title="Open in Power BI">
-                            <i class="fas fa-external-link-alt"></i>
-                            <span>Open in Power BI</span>
-                        </a>` :
-                        ''
-                    }
+                    <div class="powerbi-actions">
+                        ${dashboard.powerBiUrl ?
+                            `<a href="${dashboard.powerBiUrl}" target="_blank" class="open-powerbi-btn" title="Open in Power BI">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Open in Power BI</span>
+                            </a>` :
+                            ''
+                        }
+                    </div>
                 </div>
                 ${dashboard.embedUrl ?
-                    `<iframe src="${dashboard.embedUrl}" frameborder="0" allowFullScreen="true"></iframe>` :
+                    `<div class="powerbi-controls">
+                        <button class="zoom-btn" onclick="handleZoom('${iframeId}', 'out')" title="Zoom Out">
+                            <i class="fas fa-search-minus"></i>
+                        </button>
+                        <span class="zoom-level" id="zoom-level-${iframeId}">100%</span>
+                        <button class="zoom-btn" onclick="handleZoom('${iframeId}', 'in')" title="Zoom In">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                        <button class="zoom-btn" onclick="handleZoom('${iframeId}', 'reset')" title="Reset Zoom">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                    <div class="iframe-wrapper">
+                        <iframe id="${iframeId}" src="${dashboard.embedUrl}" frameborder="0" allowFullScreen="true" style="zoom: 1;"></iframe>
+                    </div>` :
                     `<div class="powerbi-placeholder">
                         <i class="fas fa-chart-bar"></i>
                         <p>Power BI Dashboard ${index + 1}</p>
@@ -248,6 +308,9 @@ function generatePowerBIDashboards() {
 
     container.innerHTML = html;
 }
+
+// Make handleZoom available globally
+window.handleZoom = handleZoom;
 
 // Initialize graphs when page loads
 document.addEventListener('DOMContentLoaded', function() {

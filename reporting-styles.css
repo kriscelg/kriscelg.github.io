@@ -391,18 +391,35 @@
     gap: 20px;
 }
 
-.powerbi-header h3 {
+.powerbi-info h3 {
     font-size: 20px;
     color: #1e293b;
     margin: 0 0 8px 0;
     font-weight: 700;
 }
 
-.powerbi-header p {
+.powerbi-info p {
     font-size: 14px;
     color: #64748b;
-    margin: 0;
+    margin: 0 0 8px 0;
     line-height: 1.6;
+}
+
+.powerbi-info p:last-child {
+    margin-bottom: 0;
+}
+
+.last-refreshed {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px !important;
+    color: #0d5f5f !important;
+    font-weight: 600 !important;
+}
+
+.last-refreshed i {
+    font-size: 12px;
 }
 
 .open-powerbi-btn {
@@ -431,13 +448,61 @@
     font-size: 12px;
 }
 
-.powerbi-dashboard-item iframe {
-    width: 100%;
-    height: 600px;
-    border: none;
+.powerbi-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    justify-content: center;
+}
+
+.zoom-btn {
+    background-color: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zoom-btn:hover {
+    background-color: #0d5f5f;
+    border-color: #0d5f5f;
+    color: white;
+}
+
+.zoom-btn i {
+    font-size: 14px;
+}
+
+.zoom-level {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+    min-width: 50px;
+    text-align: center;
+}
+
+.iframe-wrapper {
+    position: relative;
+    overflow: hidden;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     background-color: white;
+}
+
+.iframe-wrapper iframe {
+    width: 100%;
+    height: 600px;
+    border: none;
+    display: block;
+    transform-origin: top left;
 }
 
 .powerbi-placeholder {
@@ -667,7 +732,7 @@
         gap: 15px;
     }
 
-    .powerbi-header h3 {
+    .powerbi-info h3 {
         font-size: 18px;
     }
 
@@ -676,7 +741,21 @@
         width: 100%;
     }
 
-    .powerbi-dashboard-item iframe {
+    .powerbi-controls {
+        padding: 8px 12px;
+        gap: 8px;
+    }
+
+    .zoom-btn {
+        padding: 6px 10px;
+    }
+
+    .zoom-level {
+        font-size: 13px;
+        min-width: 45px;
+    }
+
+    .iframe-wrapper iframe {
         height: 400px;
     }
 }
