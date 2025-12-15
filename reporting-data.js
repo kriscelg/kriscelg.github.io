@@ -6,9 +6,9 @@ const PROGRAM_NAMES = {
     "EAS": "Employment Assistance Services",
     "EAPD": "Employment Assistance for Persons with Disabilities",
     "SD": "Skills Development",
-    "FJF": "First Job Fund",
-    "FWY": "Forum for Young Workers",
-    "EP": "Employment Program"
+    "FJF": "First Jobs Fund",
+    "PWY": "Programs With Youth",
+    "EP": "Employment Partnerships"
 };
 
 const CLIENTS_SERVED_DATA = [
@@ -16,7 +16,7 @@ const CLIENTS_SERVED_DATA = [
     { program: "EAPD", q1: 1601, q2: 1713, q3: null, q4: null },
     { program: "SD", q1: 2970, q2: 3575, q3: null, q4: null },
     { program: "FJF", q1: 18, q2: 52, q3: null, q4: null },
-    { program: "FWY", q1: 686, q2: 922, q3: null, q4: null },
+    { program: "PWY", q1: 686, q2: 922, q3: null, q4: null },
     { program: "EP", q1: 661, q2: 818, q3: null, q4: null }
 ];
 
@@ -25,7 +25,7 @@ const CLIENTS_EMPLOYED_DATA = [
     { program: "EAPD", q1: 40, q2: 94, q3: null, q4: null },
     { program: "SD", q1: 432, q2: 795, q3: null, q4: null },
     { program: "FJF", q1: 14, q2: 14, q3: null, q4: null },
-    { program: "FWY", q1: 152, q2: 367, q3: null, q4: null },
+    { program: "PWY", q1: 152, q2: 367, q3: null, q4: null },
     { program: "EP", q1: 475, q2: 869, q3: null, q4: null }
 ];
 
@@ -33,9 +33,9 @@ const CLIENTS_EMPLOYED_DATA = [
 // Replace the src URL with your actual Power BI embed URL
 const POWERBI_DASHBOARDS = [
     {
-        title: "Dashboard 1",
-        description: "Primary analytics dashboard",
-        embedUrl: "" // Add your Power BI embed URL here
+        title: "Skills Development Dashboard",
+        description: "Dashboard is updated quarterly",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=f2621809-854b-4c47-8009-61a04adcd539&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a" // Add your Power BI embed URL here
     },
     {
         title: "Dashboard 2",
