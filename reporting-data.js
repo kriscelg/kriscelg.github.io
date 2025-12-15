@@ -35,17 +35,20 @@ const POWERBI_DASHBOARDS = [
     {
         title: "Skills Development Dashboard",
         description: "Dashboard is updated quarterly",
-        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=f2621809-854b-4c47-8009-61a04adcd539&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a" // Add your Power BI embed URL here
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=f2621809-854b-4c47-8009-61a04adcd539&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
+        powerBiUrl: "" // Add your Power BI direct link here (opens in new tab)
     },
     {
         title: "Dashboard 2",
         description: "Secondary metrics dashboard",
-        embedUrl: "" // Add your Power BI embed URL here
+        embedUrl: "", // Add your Power BI embed URL here
+        powerBiUrl: "" // Add your Power BI direct link here (opens in new tab)
     },
     {
         title: "Dashboard 3",
         description: "Additional reporting dashboard",
-        embedUrl: "" // Add your Power BI embed URL here
+        embedUrl: "", // Add your Power BI embed URL here
+        powerBiUrl: "" // Add your Power BI direct link here (opens in new tab)
     }
 ];
 
@@ -211,8 +214,19 @@ function generatePowerBIDashboards() {
     POWERBI_DASHBOARDS.forEach((dashboard, index) => {
         html += `
             <div class="powerbi-dashboard-item">
-                <h3>${dashboard.title}</h3>
-                <p>${dashboard.description}</p>
+                <div class="powerbi-header">
+                    <div>
+                        <h3>${dashboard.title}</h3>
+                        <p>${dashboard.description}</p>
+                    </div>
+                    ${dashboard.powerBiUrl ?
+                        `<a href="${dashboard.powerBiUrl}" target="_blank" class="open-powerbi-btn" title="Open in Power BI">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>Open in Power BI</span>
+                        </a>` :
+                        ''
+                    }
+                </div>
                 ${dashboard.embedUrl ?
                     `<iframe src="${dashboard.embedUrl}" frameborder="0" allowFullScreen="true"></iframe>` :
                     `<div class="powerbi-placeholder">
