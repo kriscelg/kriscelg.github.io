@@ -60,161 +60,62 @@
                 </div>
             </div>
 
+            <!-- Client Outcomes Bar Graphs Section -->
+            <section class="bar-graphs-section">
+                <div class="section-header">
+                    <i class="fas fa-chart-bar"></i>
+                    <h2>2025/26 Client Outcomes by Program</h2>
+                </div>
+                <p class="section-description">Track client engagement and employment outcomes across all programs</p>
+
+                <div class="graphs-grid">
+                    <!-- Clients Served Graph -->
+                    <div class="graph-card">
+                        <h3>Clients Served</h3>
+                        <div class="graph-legend">
+                            <div class="legend-item">
+                                <span class="legend-color q1-color"></span>
+                                <span>Q1</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color q2-color"></span>
+                                <span>Q2*</span>
+                            </div>
+                        </div>
+                        <div id="clients-served-graph"></div>
+                    </div>
+
+                    <!-- Clients Employed Graph -->
+                    <div class="graph-card">
+                        <h3>Clients Employed</h3>
+                        <div class="graph-legend">
+                            <div class="legend-item">
+                                <span class="legend-color q1-color"></span>
+                                <span>Q1</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color q2-color"></span>
+                                <span>Q2*</span>
+                            </div>
+                        </div>
+                        <div id="clients-employed-graph"></div>
+                    </div>
+                </div>
+
+                <p class="graph-note">* Reflects clients contacted in the quarter and closed to employment. May have started receiving service in previous quarters.<br>
+                Note: FJF experienced limited participation due to community-wide evacuations from provincial wildfires in Q1 and Q2.</p>
+            </section>
+
             <!-- Power BI Dashboards Section -->
             <section class="dashboards-section">
                 <div class="section-header">
                     <i class="fas fa-tachometer-alt"></i>
-                    <h2>Power BI Dashboards</h2>
+                    <h2>Dashboards</h2>
                 </div>
-                <p class="section-description">Interactive dashboards providing real-time insights and analytics</p>
+                <p class="section-description">Interactive Power BI dashboards providing real-time insights and analytics</p>
 
-                <!-- Dashboard Tabs -->
-                <div class="dashboard-tabs">
-                    <button class="dashboard-tab active" data-dashboard="overview">
-                        <i class="fas fa-home"></i>
-                        <span>Overview</span>
-                    </button>
-                    <button class="dashboard-tab" data-dashboard="performance">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Performance</span>
-                    </button>
-                    <button class="dashboard-tab" data-dashboard="analytics">
-                        <i class="fas fa-analytics"></i>
-                        <span>Analytics</span>
-                    </button>
-                    <button class="dashboard-tab" data-dashboard="reports">
-                        <i class="fas fa-file-alt"></i>
-                        <span>Reports</span>
-                    </button>
-                </div>
-
-                <!-- Dashboard Container -->
-                <div class="dashboard-container">
-                    <!-- Overview Dashboard -->
-                    <div class="dashboard-content active" id="dashboard-overview">
-                        <div class="dashboard-placeholder">
-                            <i class="fas fa-chart-pie"></i>
-                            <h3>Overview Dashboard</h3>
-                            <p>Embed your Power BI dashboard here</p>
-                            <div class="embed-instructions">
-                                <h4>To embed your Power BI dashboard:</h4>
-                                <ol>
-                                    <li>Go to your Power BI workspace</li>
-                                    <li>Select the report you want to embed</li>
-                                    <li>Click "File" → "Embed report" → "Website or portal"</li>
-                                    <li>Copy the embed code</li>
-                                    <li>Replace the placeholder iframe below with your embed code</li>
-                                </ol>
-                            </div>
-                            <!-- Replace the comment below with your Power BI embed code -->
-                            <!-- <iframe title="Your Dashboard" width="100%" height="600" src="YOUR_POWER_BI_EMBED_URL" frameborder="0" allowFullScreen="true"></iframe> -->
-                        </div>
-                    </div>
-
-                    <!-- Performance Dashboard -->
-                    <div class="dashboard-content" id="dashboard-performance">
-                        <div class="dashboard-placeholder">
-                            <i class="fas fa-chart-line"></i>
-                            <h3>Performance Dashboard</h3>
-                            <p>Embed your Power BI performance dashboard here</p>
-                            <!-- Replace with your Power BI embed code -->
-                            <!-- <iframe title="Performance Dashboard" width="100%" height="600" src="YOUR_POWER_BI_EMBED_URL" frameborder="0" allowFullScreen="true"></iframe> -->
-                        </div>
-                    </div>
-
-                    <!-- Analytics Dashboard -->
-                    <div class="dashboard-content" id="dashboard-analytics">
-                        <div class="dashboard-placeholder">
-                            <i class="fas fa-analytics"></i>
-                            <h3>Analytics Dashboard</h3>
-                            <p>Embed your Power BI analytics dashboard here</p>
-                            <!-- Replace with your Power BI embed code -->
-                            <!-- <iframe title="Analytics Dashboard" width="100%" height="600" src="YOUR_POWER_BI_EMBED_URL" frameborder="0" allowFullScreen="true"></iframe> -->
-                        </div>
-                    </div>
-
-                    <!-- Reports Dashboard -->
-                    <div class="dashboard-content" id="dashboard-reports">
-                        <div class="dashboard-placeholder">
-                            <i class="fas fa-file-chart-line"></i>
-                            <h3>Reports Dashboard</h3>
-                            <p>Embed your Power BI reports dashboard here</p>
-                            <!-- Replace with your Power BI embed code -->
-                            <!-- <iframe title="Reports Dashboard" width="100%" height="600" src="YOUR_POWER_BI_EMBED_URL" frameborder="0" allowFullScreen="true"></iframe> -->
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Quick Access Section -->
-            <section class="quick-access-section">
-                <div class="section-header">
-                    <i class="fas fa-bolt"></i>
-                    <h2>Quick Access</h2>
-                </div>
-                <p class="section-description">Frequently used reports and data exports</p>
-
-                <div class="quick-access-grid">
-                    <a href="#" class="access-card">
-                        <div class="access-icon">
-                            <i class="fas fa-download"></i>
-                        </div>
-                        <div class="access-content">
-                            <h3>Export Data</h3>
-                            <p>Download current dashboard data</p>
-                        </div>
-                    </a>
-
-                    <a href="#" class="access-card">
-                        <div class="access-icon">
-                            <i class="fas fa-calendar-week"></i>
-                        </div>
-                        <div class="access-content">
-                            <h3>Weekly Report</h3>
-                            <p>View this week's summary</p>
-                        </div>
-                    </a>
-
-                    <a href="#" class="access-card">
-                        <div class="access-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <div class="access-content">
-                            <h3>Monthly Report</h3>
-                            <p>View monthly analytics</p>
-                        </div>
-                    </a>
-
-                    <a href="#" class="access-card">
-                        <div class="access-icon">
-                            <i class="fas fa-file-excel"></i>
-                        </div>
-                        <div class="access-content">
-                            <h3>Excel Export</h3>
-                            <p>Export to Excel format</p>
-                        </div>
-                    </a>
-
-                    <a href="#" class="access-card">
-                        <div class="access-icon">
-                            <i class="fas fa-file-pdf"></i>
-                        </div>
-                        <div class="access-content">
-                            <h3>PDF Reports</h3>
-                            <p>Download PDF versions</p>
-                        </div>
-                    </a>
-
-                    <a href="#" class="access-card">
-                        <div class="access-icon">
-                            <i class="fas fa-cog"></i>
-                        </div>
-                        <div class="access-content">
-                            <h3>Settings</h3>
-                            <p>Configure report preferences</p>
-                        </div>
-                    </a>
-                </div>
+                <!-- Power BI Dashboards Container (Dynamically Generated) -->
+                <div id="powerbi-dashboards-container"></div>
             </section>
         </div>
     </main>
@@ -239,29 +140,7 @@
     <!-- Load shared navigation and footer -->
     <script src="nav-footer-loader.js"></script>
 
-    <!-- Dashboard Tab Switching Script -->
-    <script>
-        // Dashboard tab switching functionality
-        const dashboardTabs = document.querySelectorAll('.dashboard-tab');
-        const dashboardContents = document.querySelectorAll('.dashboard-content');
-
-        dashboardTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active class from all tabs and contents
-                dashboardTabs.forEach(t => t.classList.remove('active'));
-                dashboardContents.forEach(c => c.classList.remove('active'));
-
-                // Add active class to clicked tab
-                tab.classList.add('active');
-
-                // Show corresponding dashboard content
-                const dashboardId = tab.getAttribute('data-dashboard');
-                const dashboardContent = document.getElementById(`dashboard-${dashboardId}`);
-                if (dashboardContent) {
-                    dashboardContent.classList.add('active');
-                }
-            });
-        });
-    </script>
+    <!-- Load reporting data and generate bar graphs -->
+    <script src="reporting-data.js"></script>
 </body>
 </html>
