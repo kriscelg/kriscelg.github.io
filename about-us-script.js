@@ -3,9 +3,18 @@
  */
 
 // Function to toggle branch units visibility
-function toggleBranchUnits(headerElement) {
+function toggleBranchUnits(headerElement, event) {
+    // Prevent event bubbling
+    if (event) {
+        event.stopPropagation();
+    }
+
+    // Get the specific branch card and units for this click
     const branchCard = headerElement.closest('.branch-card');
+    if (!branchCard) return;
+
     const branchUnits = branchCard.querySelector('.branch-units');
+    if (!branchUnits) return;
 
     // Toggle expanded class on card
     branchCard.classList.toggle('expanded');
