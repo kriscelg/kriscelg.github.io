@@ -1,0 +1,518 @@
+/* About Us Page Styles */
+
+/* Page Header */
+.about-header {
+    background: linear-gradient(135deg, #0d5f5f 0%, #0a4a4a 100%);
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 40px rgba(13, 95, 95, 0.3);
+    color: white;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.header-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.header-icon i {
+    font-size: 40px;
+    color: white;
+}
+
+.header-text h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    color: white;
+}
+
+.header-text p {
+    font-size: 16px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.5;
+}
+
+/* Common Section Styles */
+.org-charts-section,
+.mandates-section {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.section-header i {
+    font-size: 28px;
+    color: #0d5f5f;
+}
+
+.section-header h2 {
+    font-size: 28px;
+    color: #1e293b;
+    font-weight: 700;
+    margin: 0;
+}
+
+.section-description {
+    color: #64748b;
+    font-size: 15px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* Organization Charts Grid */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.chart-card {
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.chart-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(13, 95, 95, 0.15);
+    border-color: #0d5f5f;
+}
+
+.chart-thumbnail {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #e8f6f6 0%, #d0eded 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.chart-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chart-thumbnail i {
+    font-size: 60px;
+    color: #0d5f5f;
+    opacity: 0.3;
+}
+
+.chart-info {
+    padding: 20px;
+}
+
+.chart-info h3 {
+    font-size: 18px;
+    color: #1e293b;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.chart-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 12px;
+}
+
+.chart-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.chart-meta-item i {
+    font-size: 12px;
+    color: #0d5f5f;
+}
+
+.chart-view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #0d5f5f;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.chart-view-btn:hover {
+    background-color: #0a4a4a;
+    transform: translateX(3px);
+}
+
+.chart-view-btn i {
+    font-size: 12px;
+}
+
+/* Mandates Section */
+.mandates-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.mandate-card {
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    padding: 25px;
+    display: flex;
+    gap: 20px;
+    border-left: 4px solid #0d5f5f;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+}
+
+.mandate-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(13, 95, 95, 0.15);
+}
+
+.mandate-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #0d5f5f 0%, #0a4a4a 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.mandate-icon i {
+    font-size: 28px;
+    color: white;
+}
+
+.mandate-content h3 {
+    font-size: 18px;
+    color: #1e293b;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+.mandate-content p {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* No Results Message */
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: #94a3b8;
+}
+
+.no-results i {
+    font-size: 60px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.no-results p {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* PDF Viewer Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    overflow-y: auto;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-modal-content {
+    background-color: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    border-bottom: 2px solid #e5e7eb;
+    background-color: #f8f9fa;
+}
+
+.modal-header h2 {
+    font-size: 22px;
+    color: #1e293b;
+    margin: 0;
+    font-weight: 700;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 32px;
+    color: #64748b;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    background-color: #e5e7eb;
+    color: #1e293b;
+}
+
+.modal-body {
+    padding: 30px;
+    overflow-y: auto;
+    max-height: calc(90vh - 100px);
+}
+
+.pdf-viewer-container {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.pdf-viewer-container iframe {
+    display: block;
+    border: none;
+}
+
+.chart-description {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    border-left: 4px solid #0d5f5f;
+}
+
+.chart-description p {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-header {
+        padding: 30px 25px;
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .header-icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .header-icon i {
+        font-size: 35px;
+    }
+
+    .header-text h1 {
+        font-size: 26px;
+    }
+
+    .header-text p {
+        font-size: 15px;
+    }
+
+    .org-charts-section,
+    .mandates-section {
+        padding: 30px 25px;
+    }
+
+    .section-header h2 {
+        font-size: 24px;
+    }
+
+    .section-header i {
+        font-size: 24px;
+    }
+
+    .charts-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .mandates-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .chart-modal-content {
+        width: 95%;
+        max-height: 95vh;
+    }
+
+    .modal-header {
+        padding: 20px;
+    }
+
+    .modal-header h2 {
+        font-size: 18px;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .pdf-viewer-container iframe {
+        height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-header {
+        padding: 25px 20px;
+    }
+
+    .header-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .header-icon i {
+        font-size: 30px;
+    }
+
+    .header-text h1 {
+        font-size: 22px;
+    }
+
+    .org-charts-section,
+    .mandates-section {
+        padding: 25px 20px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .section-header h2 {
+        font-size: 20px;
+    }
+
+    .section-header i {
+        font-size: 20px;
+    }
+
+    .mandate-card {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .mandate-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .mandate-icon i {
+        font-size: 24px;
+    }
+
+    .mandate-content h3 {
+        font-size: 16px;
+    }
+
+    .mandate-content p {
+        font-size: 13px;
+    }
+
+    .chart-info {
+        padding: 15px;
+    }
+
+    .chart-info h3 {
+        font-size: 16px;
+    }
+
+    .chart-meta {
+        font-size: 12px;
+    }
+
+    .pdf-viewer-container iframe {
+        height: 300px;
+    }
+}

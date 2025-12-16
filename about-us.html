@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="about-us-styles.css">
+</head>
+<body data-page="about">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="about-header">
+                <div class="header-content">
+                    <div class="header-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="header-text">
+                        <h1>About Us</h1>
+                        <p>Learn about our organization structure, mission, and mandates</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Organization Charts Section -->
+            <section class="org-charts-section">
+                <div class="section-header">
+                    <i class="fas fa-sitemap"></i>
+                    <h2>Organization Charts</h2>
+                </div>
+                <p class="section-description">View our organizational structure and department hierarchies</p>
+
+                <div class="charts-grid" id="chartsGrid">
+                    <!-- Organization charts will be loaded here dynamically -->
+                </div>
+
+                <div class="no-results" id="noChartsMessage" style="display: none;">
+                    <i class="fas fa-file-slash"></i>
+                    <p>No organization charts available</p>
+                </div>
+            </section>
+
+            <!-- Mandates Section -->
+            <section class="mandates-section">
+                <div class="section-header">
+                    <i class="fas fa-scroll"></i>
+                    <h2>Our Mandates</h2>
+                </div>
+                <p class="section-description">The key mandates and responsibilities that guide our work</p>
+
+                <div class="mandates-content">
+                    <!-- Mandate 1 -->
+                    <div class="mandate-card">
+                        <div class="mandate-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="mandate-content">
+                            <h3>Employment Services</h3>
+                            <p>Provide comprehensive employment assistance services to help British Columbians find and maintain meaningful employment. This includes job search support, skills training, and career counseling.</p>
+                        </div>
+                    </div>
+
+                    <!-- Mandate 2 -->
+                    <div class="mandate-card">
+                        <div class="mandate-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="mandate-content">
+                            <h3>Skills Development</h3>
+                            <p>Deliver skills development programs that enhance workforce capabilities and prepare individuals for in-demand occupations. We focus on bridging skill gaps and supporting continuous learning.</p>
+                        </div>
+                    </div>
+
+                    <!-- Mandate 3 -->
+                    <div class="mandate-card">
+                        <div class="mandate-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="mandate-content">
+                            <h3>Employer Partnerships</h3>
+                            <p>Build and maintain strong partnerships with employers to understand labor market needs, facilitate job placements, and support workforce development initiatives that benefit both employers and job seekers.</p>
+                        </div>
+                    </div>
+
+                    <!-- Mandate 4 -->
+                    <div class="mandate-card">
+                        <div class="mandate-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="mandate-content">
+                            <h3>Inclusive Programs</h3>
+                            <p>Ensure all programs are accessible and inclusive, with specialized support for persons with disabilities, youth, Indigenous peoples, and other underserved communities to promote equitable access to employment opportunities.</p>
+                        </div>
+                    </div>
+
+                    <!-- Mandate 5 -->
+                    <div class="mandate-card">
+                        <div class="mandate-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="mandate-content">
+                            <h3>Performance & Accountability</h3>
+                            <p>Monitor and evaluate program effectiveness through data-driven insights and reporting. We are committed to transparency, continuous improvement, and achieving measurable outcomes for clients and stakeholders.</p>
+                        </div>
+                    </div>
+
+                    <!-- Mandate 6 -->
+                    <div class="mandate-card">
+                        <div class="mandate-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="mandate-content">
+                            <h3>Innovation & Excellence</h3>
+                            <p>Foster a culture of innovation and excellence by adopting best practices, exploring new service delivery models, and leveraging technology to enhance program efficiency and client experiences.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- PDF Viewer Modal -->
+    <div class="modal" id="chartModal">
+        <div class="modal-content chart-modal-content">
+            <div class="modal-header">
+                <h2 id="chartModalTitle"></h2>
+                <button class="modal-close" onclick="closeChartModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="pdf-viewer-container">
+                    <iframe id="chartViewer" src="" width="100%" height="600px"></iframe>
+                </div>
+                <div class="chart-description">
+                    <p id="chartDescription"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+
+    <!-- Load about us data and script -->
+    <script src="about-us-data.js"></script>
+    <script src="about-us-script.js"></script>
+</body>
+</html>
