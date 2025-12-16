@@ -2,6 +2,18 @@
  * About Us Page - Organization Charts Functionality
  */
 
+// Function to toggle branch units visibility
+function toggleBranchUnits(headerElement) {
+    const branchCard = headerElement.closest('.branch-card');
+    const branchUnits = branchCard.querySelector('.branch-units');
+
+    // Toggle expanded class on card
+    branchCard.classList.toggle('expanded');
+
+    // Toggle collapsed class on units
+    branchUnits.classList.toggle('collapsed');
+}
+
 // Function to format date for display
 function formatDate(dateString) {
     const date = new Date(dateString);
