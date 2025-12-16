@@ -222,30 +222,6 @@ function formatDate(dateString) {
     return date.toLocaleDateString('en-US', options);
 }
 
-// Function to handle zoom for Power BI dashboards
-function handleZoom(iframeId, action) {
-    const iframe = document.getElementById(iframeId);
-    if (!iframe) return;
-
-    let currentZoom = parseFloat(iframe.style.zoom || 1);
-
-    if (action === 'in') {
-        currentZoom = Math.min(currentZoom + 0.1, 2); // Max zoom 200%
-    } else if (action === 'out') {
-        currentZoom = Math.max(currentZoom - 0.1, 0.5); // Min zoom 50%
-    } else if (action === 'reset') {
-        currentZoom = 1;
-    }
-
-    iframe.style.zoom = currentZoom;
-
-    // Update zoom level display
-    const zoomDisplay = document.getElementById(`zoom-level-${iframeId}`);
-    if (zoomDisplay) {
-        zoomDisplay.textContent = Math.round(currentZoom * 100) + '%';
-    }
-}
-
 // Function to generate Power BI dashboard embeds
 function generatePowerBIDashboards() {
     const container = document.getElementById('powerbi-dashboards-container');
@@ -281,20 +257,8 @@ function generatePowerBIDashboards() {
                     </div>
                 </div>
                 ${dashboard.embedUrl ?
-                    `<div class="powerbi-controls">
-                        <button class="zoom-btn" onclick="handleZoom('${iframeId}', 'out')" title="Zoom Out">
-                            <i class="fas fa-search-minus"></i>
-                        </button>
-                        <span class="zoom-level" id="zoom-level-${iframeId}">100%</span>
-                        <button class="zoom-btn" onclick="handleZoom('${iframeId}', 'in')" title="Zoom In">
-                            <i class="fas fa-search-plus"></i>
-                        </button>
-                        <button class="zoom-btn" onclick="handleZoom('${iframeId}', 'reset')" title="Reset Zoom">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                    </div>
-                    <div class="iframe-wrapper">
-                        <iframe id="${iframeId}" src="${dashboard.embedUrl}" frameborder="0" allowFullScreen="true" style="zoom: 1;"></iframe>
+                    `<div class="iframe-wrapper">
+                        <iframe id="${iframeId}" src="${dashboard.embedUrl}" frameborder="0" allowFullScreen="true"></iframe>
                     </div>` :
                     `<div class="powerbi-placeholder">
                         <i class="fas fa-chart-bar"></i>
@@ -308,9 +272,6 @@ function generatePowerBIDashboards() {
 
     container.innerHTML = html;
 }
-
-// Make handleZoom available globally
-window.handleZoom = handleZoom;
 
 // Initialize graphs when page loads
 document.addEventListener('DOMContentLoaded', function() {

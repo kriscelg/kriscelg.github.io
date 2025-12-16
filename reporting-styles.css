@@ -448,47 +448,6 @@
     font-size: 12px;
 }
 
-.powerbi-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-    padding: 10px 15px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    justify-content: center;
-}
-
-.zoom-btn {
-    background-color: white;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    padding: 8px 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.zoom-btn:hover {
-    background-color: #0d5f5f;
-    border-color: #0d5f5f;
-    color: white;
-}
-
-.zoom-btn i {
-    font-size: 14px;
-}
-
-.zoom-level {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1e293b;
-    min-width: 50px;
-    text-align: center;
-}
-
 .iframe-wrapper {
     position: relative;
     overflow: hidden;
@@ -739,20 +698,6 @@
     .open-powerbi-btn {
         justify-content: center;
         width: 100%;
-    }
-
-    .powerbi-controls {
-        padding: 8px 12px;
-        gap: 8px;
-    }
-
-    .zoom-btn {
-        padding: 6px 10px;
-    }
-
-    .zoom-level {
-        font-size: 13px;
-        min-width: 45px;
     }
 
     .iframe-wrapper iframe {
