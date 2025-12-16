@@ -16,24 +16,11 @@ function toggleBranchUnits(headerElement, event) {
     const branchUnits = branchCard.querySelector('.branch-units');
     if (!branchUnits) return;
 
-    // Check if this card is currently expanded
-    const isExpanded = branchCard.classList.contains('expanded');
+    // Toggle expanded class on card
+    branchCard.classList.toggle('expanded');
 
-    // Close all branch cards first
-    const allBranchCards = document.querySelectorAll('.branch-card');
-    allBranchCards.forEach(card => {
-        card.classList.remove('expanded');
-        const units = card.querySelector('.branch-units');
-        if (units) {
-            units.classList.add('collapsed');
-        }
-    });
-
-    // If the clicked card was not expanded, expand it
-    if (!isExpanded) {
-        branchCard.classList.add('expanded');
-        branchUnits.classList.remove('collapsed');
-    }
+    // Toggle collapsed class on units
+    branchUnits.classList.toggle('collapsed');
 }
 
 // Function to format date for display
