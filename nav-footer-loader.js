@@ -13,9 +13,9 @@ const NAV_TEMPLATE = `
                 <div class="nav-item">
                     <a href="#" class="nav-link">DIVISION INFO</a>
                     <div class="dropdown-menu">
+                        <a href="about-us.html">About Us</a>
                         <a href="#">Org Charts</a>
                         <a href="#">Regions</a>
-                        <a href="#">About Us</a>
                         <a href="#">Leadership</a>
                     </div>
                 </div>
@@ -76,9 +76,9 @@ const FOOTER_TEMPLATE = `
                 <div class="footer-column">
                     <h4>DIVISION INFO</h4>
                     <ul>
+                        <li><a href="about-us.html">About Us</a></li>
                         <li><a href="#">Org Charts</a></li>
                         <li><a href="#">Regions</a></li>
-                        <li><a href="#">About Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
