@@ -12,7 +12,7 @@ const PROGRAM_NAMES = {
 };
 
 const CLIENTS_SERVED_DATA = [
-    { program: "EAS", q1: 8031, q2: 11564, q3: null, q4: null },
+    { program: "EAS", q1: 8031, q2: 11564, q3: 123, q4: null },
     { program: "EAPD", q1: 1601, q2: 1713, q3: null, q4: null },
     { program: "SD", q1: 2970, q2: 3575, q3: null, q4: null },
     { program: "FJF", q1: 18, q2: 52, q3: null, q4: null },
@@ -56,8 +56,8 @@ const POWERBI_DASHBOARDS = [
     {
         title: "MCIEPP Dashboard",
         description: "Updated Weekly",
-        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=debef0f1-0a58-4be3-9197-5974ada42cbf&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
-        powerBiUrl: "https://app.powerbi.com/links/S6C3IVGSSV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=e460cd2e-c93d-494a-9189-7dec4e5ded98&filterPaneEnabled=false",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=debef0f1-0a58-4be3-9197-5974ada42cbf&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false",
+        powerBiUrl: "https://app.powerbi.com/links/S6C3IVGSSV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=e460cd2e-c93d-494a-9189-7dec4e5ded98",
         lastRefreshed: "" // Format: YYYY-MM-DD
     }
 ];
