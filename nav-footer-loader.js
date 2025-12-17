@@ -54,12 +54,11 @@ const NAV_TEMPLATE = `
                     </div>
                 </div>
                 <div class="nav-item">
-                    <a href="#" class="nav-link">CONTACT</a>
+                    <a href="#" class="nav-link">CONTACT & RESOURCES</a>
                     <div class="dropdown-menu">
-                        <a href="contact-resources.html">Contact & Resources</a>
-                        <a href="#">Help Center</a>
-                        <a href="#">Support</a>
-                        <a href="#">FAQ</a>
+                        <a href="contact-resources.html#osu-support">OSU Support</a>
+                        <a href="contact-resources.html#key-contacts">Key Contacts</a>
+                        <a href="contact-resources.html#staff-resources">Staff Resources</a>
                     </div>
                 </div>
                 <button class="search-btn"><i class="fas fa-search"></i></button>
@@ -117,11 +116,11 @@ const FOOTER_TEMPLATE = `
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h4>SUPPORT</h4>
+                    <h4>CONTACT & RESOURCES</h4>
                     <ul>
-                        <li><a href="contact-resources.html">Contact & Resources</a></li>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="contact-resources.html#osu-support">OSU Support</a></li>
+                        <li><a href="contact-resources.html#key-contacts">Key Contacts</a></li>
+                        <li><a href="contact-resources.html#staff-resources">Staff Resources</a></li>
                     </ul>
                 </div>
             </div>
