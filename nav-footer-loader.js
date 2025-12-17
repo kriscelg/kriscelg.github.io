@@ -31,10 +31,10 @@ const NAV_TEMPLATE = `
                 <div class="nav-item">
                     <a href="reporting.html" class="nav-link" data-page="reporting">REPORTING</a>
                     <div class="dropdown-menu">
-                        <a href="reporting.html">Dashboards</a>
-                        <a href="#">Data Checks</a>
-                        <a href="#">Analytics</a>
-                        <a href="#">Reports</a>
+                        <a href="reporting.html">TES Charts and Dashboards</a>
+                        <a href="#">SIB Charts and Dashboards</a>
+                        <a href="#">Apprenticeship Charts and Dashboards</a>
+                        <a href="#">BITS Charts and Dashboards</a>
                     </div>
                 </div>
                 <div class="nav-item">
@@ -92,9 +92,10 @@ const FOOTER_TEMPLATE = `
                 <div class="footer-column">
                     <h4>REPORTING</h4>
                     <ul>
-                        <li><a href="reporting.html">Dashboards</a></li>
-                        <li><a href="#">Data Checks</a></li>
-                        <li><a href="#">Analytics</a></li>
+                        <li><a href="reporting.html">TES Charts and Dashboards</a></li>
+                        <li><a href="#">SIB Charts and Dashboards</a></li>
+                        <li><a href="#">Apprenticeship Charts and Dashboards</a></li>
+                        <li><a href="#">BITS Charts and Dashboards</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
