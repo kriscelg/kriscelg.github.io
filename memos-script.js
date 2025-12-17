@@ -137,10 +137,6 @@ function displayMemos() {
                             <i class="fas fa-calendar"></i>
                             ${formatDate(memo.date)}
                         </span>
-                        <span class="memo-number">
-                            <i class="fas fa-hashtag"></i>
-                            ${memo.memoNumber}
-                        </span>
                     </div>
                 </div>
             </div>
@@ -151,7 +147,6 @@ function displayMemos() {
                 </div>
             ` : ''}
             <div class="memo-footer">
-                <span class="memo-from"><strong>From:</strong> ${memo.from}</span>
                 <span class="view-link">
                     View Memo <i class="fas fa-arrow-right"></i>
                 </span>
@@ -169,14 +164,10 @@ function openPdfModal(memoId) {
     const pdfViewer = document.getElementById('pdfViewer');
     const modalTitle = document.getElementById('pdfModalTitle');
     const pdfDate = document.getElementById('pdfDate');
-    const pdfNumber = document.getElementById('pdfNumber');
-    const pdfFrom = document.getElementById('pdfFrom');
     const pdfDescription = document.getElementById('pdfDescription');
 
     modalTitle.textContent = memo.title;
     pdfDate.textContent = formatDate(memo.date);
-    pdfNumber.textContent = memo.memoNumber;
-    pdfFrom.textContent = memo.from;
     pdfDescription.textContent = memo.subject;
 
     if (memo.pdfFile && memo.pdfFile.trim() !== '') {
@@ -285,8 +276,6 @@ function filterMemos() {
         const matchesSearch = !searchQuery ||
             memo.title.toLowerCase().includes(searchQuery) ||
             memo.subject.toLowerCase().includes(searchQuery) ||
-            memo.memoNumber.toLowerCase().includes(searchQuery) ||
-            memo.from.toLowerCase().includes(searchQuery) ||
             (memo.tags && memo.tags.some(tag => tag.toLowerCase().includes(searchQuery)));
 
         // Fiscal year filter
