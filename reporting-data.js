@@ -12,7 +12,7 @@ const PROGRAM_NAMES = {
 };
 
 const CLIENTS_SERVED_DATA = [
-    { program: "EAS", q1: 8031, q2: 11564, q3: 123, q4: null },
+    { program: "EAS", q1: 8031, q2: 11564, q3: null, q4: null },
     { program: "EAPD", q1: 1601, q2: 1713, q3: null, q4: null },
     { program: "SD", q1: 2970, q2: 3575, q3: null, q4: null },
     { program: "FJF", q1: 18, q2: 52, q3: null, q4: null },
