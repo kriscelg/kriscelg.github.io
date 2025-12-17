@@ -11,7 +11,7 @@ const NAV_TEMPLATE = `
                     <a href="index.html" class="nav-link" data-page="index">HOME</a>
                 </div>
                 <div class="nav-item">
-                    <a href="#" class="nav-link">DIVISION INFO</a>
+                    <a href="about-us.html" class="nav-link">DIVISION INFO</a>
                     <div class="dropdown-menu">
                         <a href="about-us.html">About Us</a>
                         <a href="about-us.html#organization-charts">Organization Charts</a>
@@ -22,10 +22,9 @@ const NAV_TEMPLATE = `
                     <a href="#" class="nav-link">DOCUMENTS</a>
                     <div class="dropdown-menu">
                         <a href="#">Policy</a>
-                        <a href="#">Manuals/Directives</a>
-                        <a href="#">Tools & Templates</a>
-                        <a href="#">Forms & Instructions</a>
-                        <a href="#">FAQ & Resources</a>
+                        <a href="#">Forms and Templates</a>
+                        <a href="#">Job Aids and Guidelines</a>
+                        <a href="#">Resources</a>
                     </div>
                 </div>
                 <div class="nav-item">
@@ -33,7 +32,7 @@ const NAV_TEMPLATE = `
                     <div class="dropdown-menu">
                         <a href="reporting.html">TES Charts and Dashboards</a>
                         <a href="#">SIB Charts and Dashboards</a>
-                        <a href="#">Apprenticeship Charts and Dashboards</a>
+                        <a href="#">AM Charts and Dashboards</a>
                         <a href="#">BITS Charts and Dashboards</a>
                     </div>
                 </div>
@@ -41,7 +40,7 @@ const NAV_TEMPLATE = `
                     <a href="#" class="nav-link">TRAINING & DEVELOPMENT</a>
                     <div class="dropdown-menu">
                         <a href="videos-presentations.html">TES Videos and Presentations</a>
-                        <a href="#">Apprenticeship Videos and Presentations</a>
+                        <a href="#">AM Videos and Presentations</a>
                         <a href="#">BITS Videos and Presentations</a>
                     </div>
                 </div>
@@ -50,11 +49,11 @@ const NAV_TEMPLATE = `
                     <div class="dropdown-menu">
                         <a href="communications.html">Bulletins & Newsletters</a>
                         <a href="events.html">Events</a>
-                        <a href="#">Announcements</a>
+                        <a href="#">Memos</a>
                     </div>
                 </div>
                 <div class="nav-item">
-                    <a href="#" class="nav-link">CONTACT & RESOURCES</a>
+                    <a href="contact-resources.html" class="nav-link">CONTACT & RESOURCES</a>
                     <div class="dropdown-menu">
                         <a href="contact-resources.html#osu-support">OSU Support</a>
                         <a href="contact-resources.html#key-contacts">Key Contacts</a>
@@ -85,9 +84,9 @@ const FOOTER_TEMPLATE = `
                     <h4>DOCUMENTS</h4>
                     <ul>
                         <li><a href="#">Policy</a></li>
-                        <li><a href="#">Manuals/Directives</a></li>
-                        <li><a href="#">Tools & Templates</a></li>
-                        <li><a href="#">Forms & Instructions</a></li>
+                        <li><a href="#">Forms and Templates</a></li>
+                        <li><a href="#">Job Aids and Guidelines</a></li>
+                        <li><a href="#">Resources</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -95,7 +94,7 @@ const FOOTER_TEMPLATE = `
                     <ul>
                         <li><a href="reporting.html">TES Charts and Dashboards</a></li>
                         <li><a href="#">SIB Charts and Dashboards</a></li>
-                        <li><a href="#">Apprenticeship Charts and Dashboards</a></li>
+                        <li><a href="#">AM Charts and Dashboards</a></li>
                         <li><a href="#">BITS Charts and Dashboards</a></li>
                     </ul>
                 </div>
@@ -103,7 +102,7 @@ const FOOTER_TEMPLATE = `
                     <h4>TRAINING</h4>
                     <ul>
                         <li><a href="videos-presentations.html">TES Videos and Presentations</a></li>
-                        <li><a href="#">Apprenticeship Videos and Presentations</a></li>
+                        <li><a href="#">AM Videos and Presentations</a></li>
                         <li><a href="#">BITS Videos and Presentations</a></li>
                     </ul>
                 </div>
@@ -112,7 +111,7 @@ const FOOTER_TEMPLATE = `
                     <ul>
                         <li><a href="communications.html">Bulletins & Newsletters</a></li>
                         <li><a href="events.html">Events</a></li>
-                        <li><a href="#">Announcements</a></li>
+                        <li><a href="#">Memos</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -132,9 +131,10 @@ const FOOTER_TEMPLATE = `
                 <div class="footer-logo">WDT Intranet</div>
                 <div class="footer-info">&copy; 2025 WDT. All rights reserved.</div>
                 <div class="footer-social">
-                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+
+                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-x"></i></a>
+                    <a href="https://www.intranet.mbgov.ca/editnr/index.html" class="social-link" aria-label="BMTJC"><i class="fa-regular fa-building"></i></a>
+
                 </div>
             </div>
         </div>
