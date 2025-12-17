@@ -59,7 +59,7 @@
     margin: 0;
     color: rgba(255, 255, 255, 0.95);
     line-height: 1.6;
-    max-width: 500px;
+    max-width: 700px;
 }
 
 /* Header Stats */
@@ -192,13 +192,27 @@
     color: white;
 }
 
+.branch-header-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
 .branch-header h3 {
     font-size: 17px;
     font-weight: 800;
     color: white;
     margin: 0;
     line-height: 1.3;
-    flex: 1;
+}
+
+.branch-description {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    line-height: 1.4;
+    font-weight: 500;
 }
 
 .branch-toggle {
@@ -245,6 +259,17 @@
 
 .branch-card.expanded .branch-toggle i {
     transform: rotate(180deg);
+}
+
+.units-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .unit-item {
@@ -646,6 +671,10 @@
         font-size: 16px;
     }
 
+    .branch-description {
+        font-size: 12px;
+    }
+
     .unit-item h4 {
         font-size: 13px;
     }
@@ -793,6 +822,14 @@
 
     .branch-header h3 {
         font-size: 15px;
+    }
+
+    .branch-description {
+        font-size: 11px;
+    }
+
+    .units-label {
+        font-size: 11px;
     }
 
     .unit-item {
@@ -948,6 +985,16 @@
 
     .branch-header h3 {
         font-size: 14px;
+    }
+
+    .branch-description {
+        font-size: 10px;
+    }
+
+    .units-label {
+        font-size: 10px;
+        margin-bottom: 8px;
+        padding-bottom: 6px;
     }
 
     .branch-units {

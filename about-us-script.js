@@ -25,7 +25,9 @@ function toggleBranchUnits(headerElement, event) {
 
 // Function to format date for display
 function formatDate(dateString) {
-    const date = new Date(dateString);
+    // Parse the date string as UTC to avoid timezone issues
+    const [year, month, day] = dateString.split('-');
+    const date = new Date(year, month - 1, day); // month is 0-indexed
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
 }
