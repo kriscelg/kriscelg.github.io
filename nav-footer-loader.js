@@ -14,9 +14,8 @@ const NAV_TEMPLATE = `
                     <a href="#" class="nav-link">DIVISION INFO</a>
                     <div class="dropdown-menu">
                         <a href="about-us.html">About Us</a>
-                        <a href="#">Org Charts</a>
-                        <a href="#">Regions</a>
-                        <a href="#">Leadership</a>
+                        <a href="about-us.html#organization-charts">Organization Charts</a>
+                        <a href="about-us.html#mandates">Mandates</a>
                     </div>
                 </div>
                 <div class="nav-item">
@@ -77,8 +76,8 @@ const FOOTER_TEMPLATE = `
                     <h4>DIVISION INFO</h4>
                     <ul>
                         <li><a href="about-us.html">About Us</a></li>
-                        <li><a href="#">Org Charts</a></li>
-                        <li><a href="#">Regions</a></li>
+                        <li><a href="about-us.html#organization-charts">Organization Charts</a></li>
+                        <li><a href="about-us.html#mandates">Mandates</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
