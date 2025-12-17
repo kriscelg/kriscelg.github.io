@@ -18,34 +18,34 @@ const ORGANIZATION_CHARTS = [
     // Example Organization Chart 1
     {
         id: 1,
-        title: 'Executive Leadership Team',
-        description: 'Overview of the executive leadership structure and reporting lines',
-        pdfFile: 'org-charts/executive-leadership.pdf',
-        thumbnail: 'org-charts/thumbnails/executive-leadership.png',  // Optional: leave empty to use default icon
-        date: '2025-12-01',  // Format: YYYY-MM-DD
-        department: 'Executive'
+        title: 'TES Org Chart',
+        description: 'Organizational structure of program operations and delivery teams',
+        pdfFile: '',
+        thumbnail: '',  // Optional: leave empty to use default icon
+        date: '2025-12-02',  // Format: YYYY-MM-DD
+        department: 'BMTJC'
     },
 
     // Example Organization Chart 2
     {
         id: 2,
-        title: 'Program Operations',
+        title: 'BITS Org Chart',
         description: 'Organizational structure of program operations and delivery teams',
-        pdfFile: 'org-charts/program-operations.pdf',
-        thumbnail: 'org-charts/thumbnails/program-operations.png',
+        pdfFile: '',
+        thumbnail: '',
         date: '2025-12-01',
-        department: 'Operations'
+        department: 'BMTJC'
     },
 
     // Example Organization Chart 3
     {
         id: 3,
-        title: 'Finance & Administration',
-        description: 'Finance and administrative support team structure',
-        pdfFile: 'org-charts/finance-admin.pdf',
-        thumbnail: 'org-charts/thumbnails/finance-admin.png',
+        title: 'Apprenticeship Org Chart',
+        description: 'Organizational structure of program operations and delivery teams',
+        pdfFile: '',
+        thumbnail: '',
         date: '2025-12-01',
-        department: 'Finance'
+        department: 'BMTJC'
     },
 
     // ADD YOUR ORGANIZATION CHARTS BELOW THIS LINE
