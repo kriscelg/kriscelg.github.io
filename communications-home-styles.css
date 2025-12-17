@@ -23,7 +23,7 @@
 
 .page-header .header-left {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 25px;
     flex: 1;
 }
