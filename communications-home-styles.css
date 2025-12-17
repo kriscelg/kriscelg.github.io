@@ -1,14 +1,28 @@
 /* Communications Home Page Styles */
 
+/* Page Header Banner */
 .page-header {
-    display: flex;
-    align-items: center;
-    gap: 25px;
     margin-bottom: 50px;
-    padding: 40px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 0;
+    background: linear-gradient(135deg, #0d5f5f 0%, #0a4848 100%);
     border-radius: 20px;
     color: white;
+    overflow: hidden;
+}
+
+.page-header .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+    gap: 40px;
+}
+
+.page-header .header-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex: 1;
 }
 
 .page-header .header-icon {
@@ -17,23 +31,30 @@
     justify-content: center;
     width: 80px;
     height: 80px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
     backdrop-filter: blur(10px);
-    font-size: 36px;
+    font-size: 40px;
+    flex-shrink: 0;
+}
+
+.page-header .header-text {
+    flex: 1;
 }
 
 .page-header .header-text h1 {
-    margin: 0 0 10px 0;
+    margin: 0 0 12px 0;
     font-size: 42px;
     font-weight: 800;
+    letter-spacing: -0.5px;
 }
 
 .page-header .header-text p {
     margin: 0;
-    font-size: 18px;
+    font-size: 17px;
     opacity: 0.95;
     line-height: 1.6;
+    max-width: 600px;
 }
 
 /* Communications Hub Grid */
@@ -68,7 +89,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    background: #0d5f5f;
     transform: scaleX(0);
     transition: transform 0.3s ease;
 }
@@ -79,8 +100,8 @@
 
 .comm-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(102, 126, 234, 0.15);
-    border-color: rgba(102, 126, 234, 0.2);
+    box-shadow: 0 12px 24px rgba(13, 95, 95, 0.15);
+    border-color: rgba(13, 95, 95, 0.2);
 }
 
 .comm-card .card-icon {
@@ -89,7 +110,7 @@
     justify-content: center;
     width: 70px;
     height: 70px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #0d5f5f;
     border-radius: 16px;
     color: white;
     font-size: 32px;
@@ -98,7 +119,7 @@
 }
 
 .comm-card:hover .card-icon {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.05);
 }
 
 .comm-card .card-content {
@@ -114,7 +135,7 @@
 }
 
 .comm-card:hover .card-content h2 {
-    color: #667eea;
+    color: #0d5f5f;
 }
 
 .comm-card .card-content p {
@@ -130,32 +151,37 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    background: rgba(102, 126, 234, 0.1);
+    background: rgba(13, 95, 95, 0.1);
     border-radius: 50%;
-    color: #667eea;
+    color: #0d5f5f;
     font-size: 18px;
     transition: all 0.3s ease;
     flex-shrink: 0;
 }
 
 .comm-card:hover .card-arrow {
-    background: #667eea;
+    background: #0d5f5f;
     color: white;
     transform: translateX(5px);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .page-header {
+    .page-header .header-content {
         flex-direction: column;
         text-align: center;
-        padding: 30px;
+        padding: 40px 30px;
+    }
+
+    .page-header .header-left {
+        flex-direction: column;
+        text-align: center;
     }
 
     .page-header .header-icon {
         width: 70px;
         height: 70px;
-        font-size: 32px;
+        font-size: 36px;
     }
 
     .page-header .header-text h1 {
@@ -164,6 +190,7 @@
 
     .page-header .header-text p {
         font-size: 16px;
+        max-width: 100%;
     }
 
     .communications-hub {
@@ -197,8 +224,8 @@
 }
 
 @media (max-width: 480px) {
-    .page-header {
-        padding: 25px;
+    .page-header .header-content {
+        padding: 30px 25px;
     }
 
     .page-header .header-text h1 {
