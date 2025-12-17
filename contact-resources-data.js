@@ -36,108 +36,98 @@ const OSU_SUPPORT = [
 
 // Key Contacts
 // Add or edit key personnel contacts here
-// Note: Only icon, title, and email are currently displayed
-// phone, extra, and extraIcon fields are optional and not shown
 const KEY_CONTACTS = [
     {
-        icon: "fas fa-user-tie",
-        title: "Director General (DG)",
-        email: "dg@example.com",
-        phone: "(555) 123-4567", // Optional - not displayed
-        extra: "Room 100, Main Building", // Optional - not displayed
-        extraIcon: "fas fa-map-marker-alt" // Optional - not displayed
+        icon: "fas fa-laptop",
+        title: "WDT - Data Admin Mailbox",
+        email: "Data.Administrators@gov.mb.ca",
     },
     {
         icon: "fas fa-dollar-sign",
-        title: "Finance Department",
-        email: "finance@example.com",
-        phone: "(555) 123-4568",
-        extra: "Mon-Fri: 8:30 AM - 4:30 PM",
-        extraIcon: "fas fa-clock"
+        title: "TES - Finance",
+        email: "FinAdmin@gov.mb.ca",
     },
+
     {
-        icon: "fas fa-users",
-        title: "Human Resources",
-        email: "hr@example.com",
-        phone: "(555) 123-4569",
-        extra: "Mon-Fri: 8:30 AM - 4:30 PM",
-        extraIcon: "fas fa-clock"
+        icon: "fas fa-headsest",
+        title: "DTS Service Desk",
+        email: "Winnipeg: 204-926-3400 / Toll-free: 1-888-281-1139",
     },
-    {
-        icon: "fas fa-laptop",
-        title: "IT Support",
-        email: "itsupport@example.com",
-        phone: "(555) 123-4570",
-        extra: "Mon-Fri: 7:00 AM - 6:00 PM",
-        extraIcon: "fas fa-clock"
-    },
-    {
-        icon: "fas fa-graduation-cap",
-        title: "Learning & Development",
-        email: "learning@example.com",
-        phone: "(555) 123-4571",
-        extra: "Mon-Fri: 8:30 AM - 4:30 PM",
-        extraIcon: "fas fa-clock"
-    },
-    {
-        icon: "fas fa-info-circle",
-        title: "General Support",
-        email: "support@example.com",
-        phone: "(555) 123-4572",
-        extra: "Mon-Fri: 8:30 AM - 4:30 PM",
-        extraIcon: "fas fa-clock"
-    }
+
+    
 ];
 
 // Staff Resources
 // Add or edit staff resource links here
 const STAFF_RESOURCES = [
     {
-        icon: "fas fa-file-alt",
-        title: "Employee Handbook",
-        description: "Policies, procedures, and guidelines",
-        link: "#" // Replace with actual link
+        icon: "fas fa-user",
+        title: "Employee Self-Service (ESS)",
+        description: "View personal information stored in SAP",
+        link: "https://employeeselfservice.me.mbgov.ca/" // Replace with actual link
+    },
+
+    {
+        icon: "fas fa-lock",
+        title: "Self Service Password Reset",
+        description: "Change Government Network Password",
+        link: "https://sspr.me.mbgov.ca/" // Replace with actual link
+    },
+
+    {
+        icon: "fas fa-file-arrow-down",
+        title: "TES Referral Form",
+        description: "Refer an individual to Training and Employment Services",
+        link: "staff resources/newTesReferralFormDraft.docx" // Replace with actual link
     },
     {
-        icon: "fas fa-calendar-alt",
-        title: "Leave Calendar",
-        description: "Request time off and view schedules",
-        link: "#" // Replace with actual link
+        icon: "fas fa-file-contract",
+        title: "GEMA Collective Agreement",
+        description: "View Agreements",
+        link: "https://www.manitoba.ca/csc/labour/salary/gema.html" // Replace with actual link
     },
     {
         icon: "fas fa-clipboard-list",
-        title: "Forms & Templates",
-        description: "Downloadable forms and documents",
-        link: "#" // Replace with actual link
+        title: "Classification Specifications",
+        description: "View Job Classifications",
+        link: "https://www.manitoba.ca/csc/labour/program/class_specs.html" // Replace with actual link
     },
     {
-        icon: "fas fa-chart-bar",
-        title: "Performance Reviews",
-        description: "Submit and track performance reviews",
-        link: "#" // Replace with actual link
+        icon: "fas fa-money-check",
+        title: "Salary Schedules",
+        description: "View Salary Schedules",
+        link: "https://www.manitoba.ca/csc/labour/salary/salary.html" // Replace with actual link
     },
+
     {
-        icon: "fas fa-briefcase",
-        title: "Benefits Portal",
-        description: "Health, retirement, and benefit info",
-        link: "#" // Replace with actual link
+        icon: "fas fa-file-lines",
+        title: "Pay and Benefits",
+        description: "View Salary Schedules",
+        link: "http://intranet.mbgov.ca/csc/intranet/Pages/index.html" // Replace with actual link
     },
+
     {
-        icon: "fas fa-hands-helping",
-        title: "Employee Assistance",
-        description: "Wellness and support services",
-        link: "#" // Replace with actual link
+        icon: "fas fa-calendar-day",
+        title: "Payday Calendar",
+        description: "Download MDA Payday Calendar",
+        link: "https://www.manitoba.ca/mda/" // Replace with actual link
     },
+
     {
-        icon: "fas fa-map",
-        title: "Office Directory",
-        description: "Building maps and office locations",
-        link: "#" // Replace with actual link
+        icon: "fas fa-phone",
+        title: "Manitoba Phonebook",
+        description: "View contact information for elected and appointed officials",
+        link: "https://web30.intranet.mbgov.ca/manitobaphonebook/" // Replace with actual link
     },
+
     {
-        icon: "fas fa-question-circle",
-        title: "FAQ & Help Center",
-        description: "Answers to common questions",
-        link: "#" // Replace with actual link
-    }
+        icon: "fas fa-f",
+        title: "French Language Services (FLS)",
+        description: "View resources for FLS",
+        link: "http://intranet.mbgov.ca/lcpgs/resources/Pages/French-Language-Services.aspx" // Replace with actual link
+    },
+
+
+
+    
 ];
