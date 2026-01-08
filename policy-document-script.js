@@ -357,9 +357,19 @@ function setupScrollToTop() {
 
     // Scroll to top when clicked
     scrollBtn.addEventListener('click', function() {
+        // Scroll main page to top
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
+
+        // Scroll sidebar to top
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+            sidebar.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
     });
 }
