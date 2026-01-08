@@ -285,14 +285,14 @@ function setupMobileMenu() {
 
 // Highlight active section on initial load
 window.addEventListener('load', function() {
-    // Expand all sections by default on page load
+    // Collapse all sections by default on page load
     const sectionHeaders = document.querySelectorAll('.nav-section-header');
     sectionHeaders.forEach(header => {
         const subsections = header.parentElement.querySelector('.nav-subsections');
         if (subsections) {
-            // Start expanded
-            header.classList.remove('collapsed');
-            subsections.classList.remove('collapsed');
+            // Start collapsed
+            header.classList.add('collapsed');
+            subsections.classList.add('collapsed');
         }
     });
 
@@ -301,4 +301,30 @@ window.addEventListener('load', function() {
     if (firstNavElement) {
         firstNavElement.classList.add('active');
     }
+
+    // Setup scroll to top button
+    setupScrollToTop();
 });
+
+// Setup scroll to top button functionality
+function setupScrollToTop() {
+    const scrollBtn = document.getElementById('scrollToTopBtn');
+    if (!scrollBtn) return;
+
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            scrollBtn.classList.add('visible');
+        } else {
+            scrollBtn.classList.remove('visible');
+        }
+    });
+
+    // Scroll to top when clicked
+    scrollBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}

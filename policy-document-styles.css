@@ -367,6 +367,40 @@ body {
     color: #0d5f5f;
 }
 
+/* Scroll to Top Button */
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: #0d5f5f;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#scrollToTopBtn.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#scrollToTopBtn:hover {
+    background: #0a4a4a;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .sidebar {
@@ -424,6 +458,14 @@ body {
     .document-links {
         grid-template-columns: 1fr;
     }
+
+    #scrollToTopBtn {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
 }
 
 /* Print Styles */
@@ -437,6 +479,10 @@ body {
     }
 
     .mobile-menu-btn {
+        display: none;
+    }
+
+    #scrollToTopBtn {
         display: none;
     }
 }

@@ -222,8 +222,16 @@ The left sidebar navigation is **automatically generated** from your headings!
 Main sections that have subsections will automatically be **collapsible**:
 - Click on a section title to collapse/expand its subsections
 - A chevron icon (▼) indicates collapsible sections
-- Sections start expanded by default when the page loads
+- Sections start **collapsed by default** when the page loads
 - When you navigate to a subsection, its parent section will automatically expand
+
+### Scroll to Top Button
+
+A floating button appears in the bottom-right corner:
+- Automatically appears when you scroll down the page (after 300px)
+- Click it to smoothly scroll back to the top
+- Hides when you're at the top of the page
+- Styled in the same teal color as your theme
 
 ### Automatic Inclusion
 
