@@ -53,9 +53,56 @@ body {
 }
 
 .nav-section {
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
+/* Parent Section Header (Collapsible) */
+.nav-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 25px;
+    color: rgba(255, 255, 255, 0.95);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-section-header:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-left-color: white;
+}
+
+.nav-section-header.active {
+    background: rgba(255, 255, 255, 0.15);
+    border-left-color: white;
+}
+
+.nav-section-toggle {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.nav-section-header.collapsed .nav-section-toggle {
+    transform: rotate(-90deg);
+}
+
+/* Collapsible Subsection Container */
+.nav-subsections {
+    max-height: 2000px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.nav-subsections.collapsed {
+    max-height: 0;
+}
+
+/* Navigation Links */
 .nav-link {
     display: block;
     padding: 10px 25px;
@@ -84,6 +131,11 @@ body {
 
 .nav-link.sub-sub-link {
     padding-left: 55px;
+    font-size: 12px;
+}
+
+.nav-link.sub-sub-sub-link {
+    padding-left: 70px;
     font-size: 12px;
 }
 
@@ -169,6 +221,28 @@ body {
     font-weight: 600;
     color: #4a5568;
     margin: 20px 0 12px;
+}
+
+.sub-sub-subsection-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #4a5568;
+    margin: 18px 0 10px;
+}
+
+.minor-heading {
+    font-size: 15px;
+    font-weight: 600;
+    color: #718096;
+    margin: 15px 0 10px;
+}
+
+.document-image {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .section p {

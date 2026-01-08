@@ -217,6 +217,21 @@ Find the "Version History" table and add entries:
 
 The left sidebar navigation is **automatically generated** from your headings!
 
+### Collapsible Sections
+
+Main sections that have subsections will automatically be **collapsible**:
+- Click on a section title to collapse/expand its subsections
+- A chevron icon (▼) indicates collapsible sections
+- Sections start expanded by default when the page loads
+- When you navigate to a subsection, its parent section will automatically expand
+
+### Automatic Inclusion
+
+The following sections are **automatically included** in the sidebar navigation:
+- ✅ All main sections (h2.section-title)
+- ✅ Related Documents / Supporting Documents section
+- ✅ Version History section
+
 ### To Include a Heading in Navigation:
 
 1. **Main Sections**: Already included automatically
