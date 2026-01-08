@@ -164,6 +164,9 @@ function setupSmoothScrolling() {
                 // Add active class to clicked link
                 this.classList.add('active');
 
+                // Scroll the clicked link into view in the sidebar
+                scrollSidebarToActive(this);
+
                 // If this is a section header with subsections, expand it
                 const parentSection = this.parentElement;
                 const subsections = parentSection.querySelector('.nav-subsections');
@@ -192,6 +195,35 @@ function setupSmoothScrolling() {
             }
         });
     });
+}
+
+// Scroll sidebar to show active link
+function scrollSidebarToActive(activeLink) {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar || !activeLink) return;
+
+    // Get the position of the active link relative to the sidebar
+    const sidebarRect = sidebar.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+
+    // Calculate if the link is out of view
+    const linkTop = linkRect.top - sidebarRect.top;
+    const linkBottom = linkRect.bottom - sidebarRect.top;
+
+    // If link is above the visible area
+    if (linkTop < 100) {
+        sidebar.scrollTo({
+            top: sidebar.scrollTop + linkTop - 100,
+            behavior: 'smooth'
+        });
+    }
+    // If link is below the visible area
+    else if (linkBottom > sidebarRect.height - 50) {
+        sidebar.scrollTo({
+            top: sidebar.scrollTop + linkBottom - sidebarRect.height + 50,
+            behavior: 'smooth'
+        });
+    }
 }
 
 // Setup scroll spy for active navigation highlighting
@@ -234,6 +266,9 @@ function setupScrollSpy() {
                             }
                         }
                     }
+
+                    // Scroll the active link into view in the sidebar
+                    scrollSidebarToActive(activeLink);
                 }
             }
         });
