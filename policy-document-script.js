@@ -42,7 +42,8 @@ function generateNavigation() {
 
                     // Add subsections
                     subsections.forEach(subsection => {
-                        const subsectionId = subsection.parentElement.id || subsection.id;
+                        // Check for ID on the heading first, then parent element
+                        const subsectionId = subsection.id || subsection.parentElement.id;
                         if (subsectionId) {
                             const text = subsection.textContent;
                             let linkClass = 'nav-link';
