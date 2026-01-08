@@ -246,18 +246,39 @@ body {
 }
 
 .section p {
+    margin-top: 15px;
     margin-bottom: 15px;
     line-height: 1.8;
 }
 
 .section ul {
-    margin: 15px 0;
+    margin-top: 0px;
+    margin-bottom: 0;
+    margin-left: 20px;
+    margin-right: 50px;
     padding-left: 25px;
+
 }
 
 .section li {
     margin-bottom: 10px;
-    line-height: 1.8;
+    
+}
+
+.section p.bullet-list-title {
+    margin-top: 15px;
+    margin-bottom: 10px;
+
+}
+
+.section ol {
+    margin-left: 20px;
+
+}
+
+.section ol ul li {
+    list-style: disc;
+
 }
 
 .note {
