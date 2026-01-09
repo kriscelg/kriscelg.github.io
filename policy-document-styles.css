@@ -53,11 +53,11 @@ body {
 }
 
 .sidebar-nav {
-    padding: 25px 0 20px 0;
+    padding: 75px 0 20px 0;
 }
 
 .nav-section:first-child {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .nav-section {

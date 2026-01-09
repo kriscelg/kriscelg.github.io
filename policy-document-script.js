@@ -367,6 +367,7 @@ function setupScrollToTop() {
         const sidebar = document.getElementById('sidebar');
         if (sidebar) {
             // Directly set scrollTop to 0 immediately (no smooth scroll)
+            // The padding-top on sidebar-nav ensures first item is visible below sticky header
             sidebar.scrollTop = 0;
         }
     });
