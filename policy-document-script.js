@@ -1,5 +1,8 @@
 // Policy Document Navigation and Functionality
 
+// Global flag to prevent scroll spy from interfering with manual navigation
+let isManualNavigation = false;
+
 document.addEventListener('DOMContentLoaded', function() {
     generateNavigation();
     setupScrollSpy();
@@ -158,6 +161,9 @@ function setupSmoothScrolling() {
             const targetElement = document.getElementById(targetId);
 
             if (targetElement) {
+                // Set flag to disable scroll spy during manual navigation
+                isManualNavigation = true;
+
                 // Remove active class from all links
                 navLinks.forEach(l => l.classList.remove('active'));
 
@@ -180,6 +186,11 @@ function setupSmoothScrolling() {
                     behavior: 'smooth',
                     block: 'start'
                 });
+
+                // Re-enable scroll spy after scroll completes (1 second for smooth scroll)
+                setTimeout(() => {
+                    isManualNavigation = false;
+                }, 1000);
 
                 // Close mobile menu if open
                 const sidebar = document.getElementById('sidebar');
@@ -241,6 +252,11 @@ function setupScrollSpy() {
 
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
+            // Skip automatic highlighting if user is manually navigating
+            if (isManualNavigation) {
+                return;
+            }
+
             if (entry.isIntersecting) {
                 const id = entry.target.id;
 
@@ -357,6 +373,9 @@ function setupScrollToTop() {
 
     // Scroll to top when clicked
     scrollBtn.addEventListener('click', function() {
+        // Set flag to disable scroll spy during scroll-to-top
+        isManualNavigation = true;
+
         // Scroll main page to top
         window.scrollTo({
             top: 0,
@@ -370,5 +389,10 @@ function setupScrollToTop() {
             // The padding-top on sidebar-nav ensures first item is visible below sticky header
             sidebar.scrollTop = 0;
         }
+
+        // Re-enable scroll spy after scroll completes
+        setTimeout(() => {
+            isManualNavigation = false;
+        }, 1000);
     });
 }
