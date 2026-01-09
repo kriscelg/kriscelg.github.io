@@ -213,6 +213,16 @@ function scrollSidebarToActive(activeLink) {
     const sidebar = document.getElementById('sidebar');
     if (!sidebar || !activeLink) return;
 
+    // Check if this is the first navigation item (Description or first section)
+    const allNavItems = sidebar.querySelectorAll('.nav-link, .nav-section-header');
+    const isFirstItem = allNavItems[0] === activeLink;
+
+    // If it's the first item, scroll to absolute top
+    if (isFirstItem) {
+        sidebar.scrollTop = 0;
+        return;
+    }
+
     // Get the position of the active link relative to the sidebar
     const sidebarRect = sidebar.getBoundingClientRect();
     const linkRect = activeLink.getBoundingClientRect();
