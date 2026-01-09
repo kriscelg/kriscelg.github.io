@@ -363,20 +363,11 @@ function setupScrollToTop() {
             behavior: 'smooth'
         });
 
-        // Scroll sidebar to top - use scrollTop for more reliable behavior
+        // Scroll sidebar to top - directly set scrollTop for immediate effect
         const sidebar = document.getElementById('sidebar');
         if (sidebar) {
-            // Use requestAnimationFrame to ensure it happens after the click event completes
-            requestAnimationFrame(() => {
-                sidebar.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-                // Also set scrollTop directly as a fallback
-                setTimeout(() => {
-                    sidebar.scrollTop = 0;
-                }, 100);
-            });
+            // Directly set scrollTop to 0 immediately (no smooth scroll)
+            sidebar.scrollTop = 0;
         }
     });
 }
