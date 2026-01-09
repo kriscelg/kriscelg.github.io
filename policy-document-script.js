@@ -187,10 +187,10 @@ function setupSmoothScrolling() {
                     block: 'start'
                 });
 
-                // Re-enable scroll spy after scroll completes (1 second for smooth scroll)
+                // Re-enable scroll spy after scroll completes (increased to 1.5 seconds)
                 setTimeout(() => {
                     isManualNavigation = false;
-                }, 1000);
+                }, 1500);
 
                 // Close mobile menu if open
                 const sidebar = document.getElementById('sidebar');
@@ -283,8 +283,14 @@ function setupScrollSpy() {
                         }
                     }
 
-                    // Scroll the active link into view in the sidebar
-                    scrollSidebarToActive(activeLink);
+                    // If we're at the top of the page, scroll sidebar to absolute top
+                    const sidebar = document.getElementById('sidebar');
+                    if (window.pageYOffset < 50 && sidebar) {
+                        sidebar.scrollTop = 0;
+                    } else {
+                        // Otherwise, scroll the active link into view in the sidebar
+                        scrollSidebarToActive(activeLink);
+                    }
                 }
             }
         });
@@ -393,6 +399,6 @@ function setupScrollToTop() {
         // Re-enable scroll spy after scroll completes
         setTimeout(() => {
             isManualNavigation = false;
-        }, 1000);
+        }, 1500);
     });
 }
