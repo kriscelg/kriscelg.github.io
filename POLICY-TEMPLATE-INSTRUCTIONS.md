@@ -191,6 +191,68 @@ Use this for important notices that should appear at the very top of your docume
 
 ---
 
+#### **DATA TABLES**
+
+Use tables to display structured data like budgets, metrics, schedules, etc.
+
+**Basic Table:**
+```html
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Column 3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Row 1, Cell 1</td>
+            <td>Row 1, Cell 2</td>
+            <td>Row 1, Cell 3</td>
+        </tr>
+        <tr>
+            <td>Row 2, Cell 1</td>
+            <td>Row 2, Cell 2</td>
+            <td>Row 2, Cell 3</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+**Table Variants:**
+
+Add extra classes for different styles:
+
+- **Striped Table** (alternating row colors):
+  ```html
+  <table class="data-table striped">
+  ```
+
+- **Compact Table** (smaller padding):
+  ```html
+  <table class="data-table compact">
+  ```
+
+- **Bordered Table** (cell borders):
+  ```html
+  <table class="data-table bordered">
+  ```
+
+- **Combine variants**:
+  ```html
+  <table class="data-table striped compact">
+  ```
+
+**Table Features:**
+- Teal header row (#0d5f5f) matching your theme
+- Hover effect on rows for better readability
+- Clean, professional styling
+- Responsive and print-friendly
+- Automatic shadow and rounded corners
+
+---
+
 ### STEP 4: Add Related Documents
 
 Find the "Related Documents" section and add links:
