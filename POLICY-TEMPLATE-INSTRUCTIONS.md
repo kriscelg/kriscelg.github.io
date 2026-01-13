@@ -137,12 +137,31 @@ Now add your content using these building blocks:
 
 ---
 
+#### **DOCUMENT FLAG/ALERT** (Red Alert at Top of Page)
+Use this for important notices that should appear at the very top of your document:
+
+```html
+<div class="document-flag">
+    <strong>Under Review – Refer to Labour Market Transfer Agreement (LMTA) Reduction Policy Changes Memo</strong>
+    <p>This document is currently under review. Please refer to the LMTA Reduction Policy Changes Memo for the most current information.</p>
+</div>
+```
+
+**Style**: Red background with dark red text, thicker border, shadow effect
+**Use for**: Important alerts, review notices, policy changes, urgent information
+**Placement**: At the very top of `<article class="document-content">`, before any sections
+
+---
+
 #### **NOTES/CALLOUTS** (Highlighted Box)
 ```html
 <div class="note">
     <p><strong>Note:</strong> Your important note text here.</p>
 </div>
 ```
+
+**Style**: Yellow background with orange text
+**Use for**: Additional information, clarifications, helpful tips
 
 ---
 
@@ -395,6 +414,12 @@ If you get stuck:
 ## Quick Reference: All Building Blocks
 
 ```html
+<!-- Document Flag/Alert (at top of page) -->
+<div class="document-flag">
+    <strong>Alert Title</strong>
+    <p>Alert message text</p>
+</div>
+
 <!-- Main Section -->
 <section class="section" id="section-name">
     <h2 class="section-title">Section Title</h2>
