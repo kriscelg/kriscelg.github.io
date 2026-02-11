@@ -19,11 +19,11 @@ const NAV_TEMPLATE = `
                     </div>
                 </div>
                 <div class="nav-item">
-                    <a href="#" class="nav-link">DOCUMENTS</a>
+                    <a href="documents.html" class="nav-link">DOCUMENTS</a>
                     <div class="dropdown-menu">
-                        <a href="#">Policy</a>
-                        <a href="#">Forms and Templates</a>
-                        <a href="#">Job Aids and Guidelines</a>
+                        <a href="#">Policy Documents</a>
+                        <a href="#">Job Aids & Guidelines</a>
+                        <a href="#">Forms & Templates</a>
                         <a href="#">Resources</a>
                     </div>
                 </div>
@@ -45,7 +45,7 @@ const NAV_TEMPLATE = `
                     </div>
                 </div>
                 <div class="nav-item">
-                    <a href="#" class="nav-link" data-page="communications">COMMUNICATIONS</a>
+                    <a href="communications.html" class="nav-link" data-page="communications">COMMUNICATIONS</a>
                     <div class="dropdown-menu">
                         <a href="bulletins-newsletters.html">Bulletins & Newsletters</a>
                         <a href="events.html">Events</a>
@@ -83,9 +83,9 @@ const FOOTER_TEMPLATE = `
                 <div class="footer-column">
                     <h4>DOCUMENTS</h4>
                     <ul>
-                        <li><a href="#">Policy</a></li>
-                        <li><a href="#">Forms and Templates</a></li>
-                        <li><a href="#">Job Aids and Guidelines</a></li>
+                        <li><a href="#">Policy Documents</a></li>
+                        <li><a href="#">Job Aids & Guidelines</a></li>
+                        <li><a href="#">Forms & Templates</a></li>
                         <li><a href="#">Resources</a></li>
                     </ul>
                 </div>
