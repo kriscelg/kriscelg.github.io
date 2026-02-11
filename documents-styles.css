@@ -1,0 +1,246 @@
+/* Documents Hub Page Styles */
+
+/* Page Header Banner */
+.docs-page-header {
+    background: linear-gradient(135deg, #0d5f5f 0%, #0a4a4a 100%);
+    border-radius: 24px;
+    padding: 50px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 40px rgba(13, 95, 95, 0.3);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.docs-page-header .header-icon {
+    width: 90px;
+    height: 90px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.docs-page-header .header-icon i {
+    font-size: 45px;
+    color: white;
+}
+
+.docs-page-header .header-text h1 {
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0 0 12px 0;
+    color: white;
+    letter-spacing: -0.5px;
+}
+
+.docs-page-header .header-text p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 700px;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* Documents Hub Grid */
+.docs-hub {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Document Cards */
+.doc-card {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    padding: 35px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.doc-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #0d5f5f;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.doc-card:hover::before {
+    transform: scaleX(1);
+}
+
+.doc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(13, 95, 95, 0.15);
+    border-color: rgba(13, 95, 95, 0.2);
+}
+
+.doc-card .card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    background: #0d5f5f;
+    border-radius: 16px;
+    color: white;
+    font-size: 32px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.doc-card:hover .card-icon {
+    transform: scale(1.05);
+}
+
+.doc-card .card-content {
+    flex: 1;
+}
+
+.doc-card .card-content h2 {
+    margin: 0 0 10px 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+    transition: color 0.3s ease;
+}
+
+.doc-card:hover .card-content h2 {
+    color: #0d5f5f;
+}
+
+.doc-card .card-content p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: #475569;
+}
+
+.doc-card .card-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(13, 95, 95, 0.1);
+    border-radius: 50%;
+    color: #0d5f5f;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.doc-card:hover .card-arrow {
+    background: #0d5f5f;
+    color: white;
+    transform: translateX(5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .docs-page-header {
+        padding: 35px 30px;
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .docs-page-header .header-icon {
+        width: 75px;
+        height: 75px;
+    }
+
+    .docs-page-header .header-icon i {
+        font-size: 38px;
+    }
+
+    .docs-page-header .header-text h1 {
+        font-size: 28px;
+    }
+
+    .docs-page-header .header-text p {
+        font-size: 15px;
+        max-width: 100%;
+    }
+
+    .docs-hub {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .doc-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px;
+    }
+
+    .doc-card .card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+    }
+
+    .doc-card .card-content h2 {
+        font-size: 20px;
+    }
+
+    .doc-card .card-content p {
+        font-size: 14px;
+    }
+
+    .doc-card .card-arrow {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .docs-page-header {
+        padding: 30px 20px;
+    }
+
+    .docs-page-header .header-icon {
+        width: 65px;
+        height: 65px;
+    }
+
+    .docs-page-header .header-icon i {
+        font-size: 32px;
+    }
+
+    .docs-page-header .header-text h1 {
+        font-size: 24px;
+    }
+
+    .docs-page-header .header-text p {
+        font-size: 14px;
+    }
+
+    .doc-card {
+        padding: 25px;
+    }
+
+    .doc-card .card-content h2 {
+        font-size: 18px;
+    }
+}
