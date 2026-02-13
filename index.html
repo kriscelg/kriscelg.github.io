@@ -19,19 +19,22 @@
         <div class="container">
             <!-- Top Section: Bulletins and Events -->
             <div class="top-section">
-                <!-- Recent Bulletins -->
+                <!-- Recent Communications -->
                 <div class="bulletins-section">
-                    <div class="bulletins-carousel">
-                        <button class="carousel-btn prev"><i class="fas fa-chevron-left"></i></button>
-                        <div class="bulletin-content" id="bulletinContent">
-                            <!-- Pages will be loaded dynamically from communications-data.js -->
-                        </div>
-                        <button class="carousel-btn next"><i class="fas fa-chevron-right"></i></button>
+                    <div class="home-tab-list">
+                        <button class="home-tab-btn active" data-tab="newsletters">
+                            <i class="fas fa-newspaper"></i> Newsletter
+                        </button>
+                        <button class="home-tab-btn" data-tab="bulletins">
+                            <i class="fas fa-bullhorn"></i> Bulletins
+                        </button>
+                        <button class="home-tab-btn" data-tab="policy-changes">
+                            <i class="fas fa-file-alt"></i> Recent Policy Changes
+                        </button>
                     </div>
-                    <div class="carousel-indicators">
-                        <span class="indicator-dot active" data-index="0"></span>
-                        <span class="indicator-dot" data-index="1"></span>
-                    </div>
+                    <div class="home-tab-panel active" id="panel-newsletters"></div>
+                    <div class="home-tab-panel" id="panel-bulletins"></div>
+                    <div class="home-tab-panel" id="panel-policy-changes"></div>
                     <a href="communications.html" class="see-more-btn">See More...</a>
                 </div>
 
@@ -208,149 +211,49 @@
     <script src="communications-data.js"></script>
 
     <script>
-
-        // Load newsletters and bulletins dynamically
-        function loadBulletinsCarousel() {
-            const bulletinContent = document.getElementById('bulletinContent');
-
-            // Get data from arrays (defined in communications-data.js)
-            const newsletters = typeof NEWSLETTERS !== 'undefined' ? NEWSLETTERS : [];
-            const bulletins = typeof BULLETINS !== 'undefined' ? BULLETINS : [];
-
-            // Sort by date (newest first) and get top 3 of each
-            const latestNewsletters = [...newsletters]
-                .sort((a, b) => b.date.localeCompare(a.date))
-                .slice(0, 3);
-
-            const latestBulletins = [...bulletins]
-                .sort((a, b) => b.date.localeCompare(a.date))
-                .slice(0, 3);
-
-            // Helper function to encode file paths
-            function encodeFilePath(filePath) {
-                return filePath.split('/').map(part => encodeURIComponent(part)).join('/');
-            }
-
-            // Create newsletter page
-            let newsletterHTML = '<div class="bulletin-page"><h2 class="page-title">The Weekly Newsletter</h2>';
-            if (latestNewsletters.length === 0) {
-                newsletterHTML += '<p class="no-items">No newsletters available.</p>';
-            } else {
-                latestNewsletters.forEach(newsletter => {
-                    const encodedPath = encodeFilePath(newsletter.fileName);
-                    newsletterHTML += `
-                        <a href="${encodedPath}" class="bulletin-item" target="_blank">
-                            <p class="bulletin-title">${newsletter.subject}</p>
-                        </a>
-                    `;
-                });
-            }
-            newsletterHTML += '</div>';
-
-            // Create bulletins page
-            let bulletinsHTML = '<div class="bulletin-page"><h2 class="page-title">Bulletins</h2>';
-            if (latestBulletins.length === 0) {
-                bulletinsHTML += '<p class="no-items">No bulletins available.</p>';
-            } else {
-                latestBulletins.forEach(bulletin => {
-                    const encodedPath = encodeFilePath(bulletin.fileName);
-                    bulletinsHTML += `
-                        <a href="${encodedPath}" class="bulletin-item" target="_blank">
-                            <p class="bulletin-title">${bulletin.subject}</p>
-                        </a>
-                    `;
-                });
-            }
-            bulletinsHTML += '</div>';
-
-            // Insert into DOM
-            bulletinContent.innerHTML = newsletterHTML + bulletinsHTML;
+        // Helper: encode file paths for use in href attributes
+        function encodeFilePath(filePath) {
+            return filePath.split('/').map(part => encodeURIComponent(part)).join('/');
         }
 
-        // Load carousel content
-        loadBulletinsCarousel();
-
-        // Carousel functionality - Fixed for pages
-        const prevBtn = document.querySelector('.carousel-btn.prev');
-        const nextBtn = document.querySelector('.carousel-btn.next');
-        const indicatorDots = document.querySelectorAll('.indicator-dot');
-
-        let currentIndex = 0;
-        let bulletinPages = [];
-
-        // Show specific page
-        function showPage(index) {
-            bulletinPages.forEach((page, i) => {
-                if (i === index) {
-                    page.classList.add('active');
-                    page.style.animation = 'slideIn 0.5s ease';
-                } else {
-                    page.classList.remove('active');
-                }
-            });
-
-            // Update indicator dots
-            indicatorDots.forEach((dot, i) => {
-                if (i === index) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-
-            // Update button states
-            prevBtn.style.opacity = index === 0 ? '0.5' : '1';
-            prevBtn.style.cursor = index === 0 ? 'not-allowed' : 'pointer';
-            nextBtn.style.opacity = index === bulletinPages.length - 1 ? '0.5' : '1';
-            nextBtn.style.cursor = index === bulletinPages.length - 1 ? 'not-allowed' : 'pointer';
+        // Helper: render a list of items into a panel element
+        function renderItems(items, panelId, emptyMsg) {
+            const panel = document.getElementById(panelId);
+            if (items.length === 0) {
+                panel.innerHTML = `<p class="no-items">${emptyMsg}</p>`;
+                return;
+            }
+            panel.innerHTML = items.map(item => `
+                <a href="${encodeFilePath(item.fileName)}" class="bulletin-item" target="_blank">
+                    <p class="bulletin-title">${item.subject}</p>
+                </a>
+            `).join('');
         }
 
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < bulletinPages.length - 1) {
-                currentIndex++;
-                showPage(currentIndex);
-            }
-        });
+        // Load tab content from data files
+        function loadCommunicationsTabs() {
+            const newsletters   = typeof NEWSLETTERS    !== 'undefined' ? NEWSLETTERS    : [];
+            const bulletins     = typeof BULLETINS      !== 'undefined' ? BULLETINS      : [];
+            const policyChanges = typeof POLICY_CHANGES !== 'undefined' ? POLICY_CHANGES : [];
 
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                showPage(currentIndex);
-            }
-        });
+            const latest = arr => [...arr].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
 
-        // Indicator dot click handlers
-        indicatorDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentIndex = index;
-                showPage(currentIndex);
+            renderItems(latest(newsletters),   'panel-newsletters',   'No newsletters available.');
+            renderItems(latest(bulletins),     'panel-bulletins',     'No bulletins available.');
+            renderItems(latest(policyChanges), 'panel-policy-changes','No recent policy changes.');
+        }
+
+        // Tab switching
+        document.querySelectorAll('.home-tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.home-tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.home-tab-panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
             });
         });
 
-        // Initialize carousel after pages are loaded
-        function initializeCarousel() {
-            bulletinPages = document.querySelectorAll('.bulletin-page');
-            showPage(0);
-        }
-
-        // Call initialization after content is loaded
-        setTimeout(initializeCarousel, 100);
-
-        // Add animation keyframes
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    opacity: 0;
-                    transform: translateX(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
-            }
-        `;
-        document.head.appendChild(style);
+        loadCommunicationsTabs();
     </script>
 
     <script>

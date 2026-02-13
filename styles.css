@@ -186,71 +186,57 @@ body {
 }
 
 
-.bulletins-carousel {
-    position: relative;
+/* Home Tab Navigation */
+.home-tab-list {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 15px;
+    border-bottom: 2px solid #e2e8f0;
+    margin-bottom: 18px;
+    gap: 0;
 }
 
-.carousel-btn {
-    background-color: #0d5f5f;
-    color: white;
+.home-tab-btn {
+    background: none;
     border: none;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
+    border-bottom: 3px solid transparent;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 15px rgba(13, 95, 95, 0.3);
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}
-
-.carousel-btn i {
-    font-size: 14px;
-}
-
-.carousel-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(13, 95, 95, 0.5);
-    background-color: #0a4a4a;
-}
-
-.bulletin-content {
-    flex: 1;
-    overflow: hidden;
+    transition: color 0.2s ease, border-color 0.2s ease;
     position: relative;
+    bottom: -2px;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+    letter-spacing: 0.2px;
 }
 
-.bulletin-page {
+.home-tab-btn i {
+    margin-right: 5px;
+}
+
+.home-tab-btn:hover {
+    color: #0d5f5f;
+}
+
+.home-tab-btn.active {
+    color: #0d5f5f;
+    border-bottom-color: #0d5f5f;
+}
+
+/* Home Tab Panels */
+.home-tab-panel {
     display: none;
 }
 
-.bulletin-page.active {
+.home-tab-panel.active {
     display: block;
+    animation: fadeInTab 0.2s ease;
 }
 
-.page-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 18px;
-    position: relative;
-}
-
-.page-title::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 50px;
-    height: 4px;
-    background-color: #0d5f5f;
-    border-radius: 2px;
+@keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .bulletin-item {
@@ -290,34 +276,6 @@ body {
     margin: 0;
     font-weight: 400;
     line-height: 1.4;
-}
-
-/* Carousel Indicators */
-.carousel-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 15px;
-}
-
-.indicator-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #d1d5db;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.indicator-dot:hover {
-    background-color: #9ca3af;
-    transform: scale(1.2);
-}
-
-.indicator-dot.active {
-    background-color: #0d5f5f;
-    width: 10px;
-    height: 10px;
 }
 
 .see-more-btn {
