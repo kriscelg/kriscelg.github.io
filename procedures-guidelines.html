@@ -29,50 +29,64 @@
                 </div>
             </div>
 
-            <!-- Search Bar -->
-            <div class="search-bar-container">
-                <div class="search-bar">
-                    <i class="fas fa-search search-icon"></i>
-                    <input
-                        type="text"
-                        id="documentSearch"
-                        class="search-input-doc"
-                        placeholder="Search procedures and guidelines by title..."
-                    >
-                    <button id="clearSearch" class="clear-search-btn" style="display: none;">
-                        <i class="fas fa-times"></i>
-                    </button>
+            <!-- Main Layout with Sidebar -->
+            <div class="docs-layout">
+                <!-- Left Sidebar -->
+                <aside class="docs-sidebar">
+                    <!-- Search Section -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-section-title">
+                            <i class="fas fa-search"></i>
+                            Search
+                        </h3>
+                        <div class="sidebar-search">
+                            <i class="fas fa-search sidebar-search-icon"></i>
+                            <input
+                                type="text"
+                                id="documentSearch"
+                                class="sidebar-search-input"
+                                placeholder="Search documents..."
+                            >
+                            <button id="clearSearch" class="sidebar-clear-search" style="display: none;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div id="searchResults" class="search-results-info"></div>
+                    </div>
+
+                    <!-- Tag Filters Section -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-section-title">
+                            <i class="fas fa-filter"></i>
+                            Filter by Tags
+                        </h3>
+                        <div class="tag-categories" id="tagCategories">
+                            <!-- Tag categories will be dynamically generated -->
+                        </div>
+                        <button class="clear-all-filters" id="clearFilters">Clear All Filters</button>
+                    </div>
+                </aside>
+
+                <!-- Main Content -->
+                <div class="docs-main-content">
+                    <!-- Active Filters Display -->
+                    <div class="active-filters" id="activeFilters" style="display: none;">
+                        <span class="active-filters-label">Active filters:</span>
+                        <div class="active-filters-list" id="activeFiltersList"></div>
+                    </div>
+
+                    <!-- Documents Grid -->
+                    <div class="documents-grid" id="documents-list">
+                        <p class="loading-message">Loading documents...</p>
+                    </div>
+
+                    <!-- No Results Message -->
+                    <div class="no-results-container" id="noResults" style="display: none;">
+                        <i class="fas fa-search"></i>
+                        <h3>No documents found</h3>
+                        <p>Try adjusting your search or clearing filters</p>
+                    </div>
                 </div>
-                <div id="searchResults" class="search-results-info"></div>
-            </div>
-
-            <!-- Tag Filter Section -->
-            <div class="filter-section">
-                <div class="filter-header">
-                    <span class="filter-label"><i class="fas fa-tags"></i> Filter by tags:</span>
-                    <button class="clear-filters-btn" id="clearFilters">Clear All</button>
-                </div>
-                <div class="filter-tags" id="filterTags">
-                    <!-- Tags will be dynamically generated -->
-                </div>
-            </div>
-
-            <!-- Active Filters Display -->
-            <div class="active-filters" id="activeFilters" style="display: none;">
-                <span class="active-filters-label">Active filters:</span>
-                <div class="active-filters-list" id="activeFiltersList"></div>
-            </div>
-
-            <!-- Documents Grid -->
-            <div class="documents-grid" id="documents-list">
-                <p class="loading-message">Loading documents...</p>
-            </div>
-
-            <!-- No Results Message -->
-            <div class="no-results-container" id="noResults" style="display: none;">
-                <i class="fas fa-search"></i>
-                <h3>No documents found</h3>
-                <p>Try adjusting your search or clearing filters</p>
             </div>
         </div>
     </main>
@@ -103,6 +117,13 @@
         let activeSearchTerm = '';
         let activeTags = new Set();
 
+        // Define tag categories for procedures and guidelines
+        const TAG_CATEGORIES = {
+            'Document Type': ['procedure', 'guideline', 'manual', 'reference'],
+            'Program Area': ['TES', 'SIB', 'Apprenticeship', 'BITS', 'ELMP'],
+            'Topic': ['case management', 'workflow', 'operations', 'administration']
+        };
+
         function encodeFilePath(filePath) {
             return filePath.split('/').map(part => encodeURIComponent(part)).join('/');
         }
@@ -128,6 +149,10 @@
             return icons[fileType.toUpperCase()] || 'fa-file';
         }
 
+        function countTagDocuments(tag) {
+            return documents.filter(doc => doc.tags && doc.tags.includes(tag)).length;
+        }
+
         function renderDocuments(docs) {
             const container = document.getElementById('documents-list');
             const noResults = document.getElementById('noResults');
@@ -146,20 +171,14 @@
                     </div>
                     <div class="doc-content">
                         <h3 class="doc-title">${doc.title}</h3>
-                        ${doc.description ? `<p class="doc-description">${doc.description}</p>` : ''}
                         <div class="doc-meta">
                             <span class="doc-meta-item">
-                                <i class="fas fa-calendar"></i> Uploaded ${formatDate(doc.uploadDate)}
+                                <i class="fas fa-calendar"></i> ${formatDate(doc.uploadDate)}
                             </span>
                             <span class="doc-meta-item doc-type">
                                 <i class="fas fa-tag"></i> ${doc.fileType}
                             </span>
                         </div>
-                        ${doc.tags && doc.tags.length > 0 ? `
-                            <div class="doc-tags">
-                                ${doc.tags.map(tag => `<span class="doc-tag">${tag}</span>`).join('')}
-                            </div>
-                        ` : ''}
                     </div>
                     <div class="doc-arrow">
                         <i class="fas fa-chevron-right"></i>
@@ -171,34 +190,56 @@
         }
 
         function generateTagFilters() {
-            const allTags = new Set();
-            documents.forEach(doc => {
-                if (doc.tags) {
-                    doc.tags.forEach(tag => allTags.add(tag));
-                }
+            const tagCategoriesContainer = document.getElementById('tagCategories');
+
+            const categoriesHTML = Object.entries(TAG_CATEGORIES).map(([categoryName, tags]) => {
+                const categoryTagsHTML = tags.map(tag => {
+                    const count = countTagDocuments(tag);
+                    if (count === 0) return '';
+                    return `
+                        <div class="tag-filter-item" data-tag="${tag}">
+                            <div class="tag-filter-checkbox">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="tag-filter-label">${tag}</span>
+                            <span class="tag-filter-count">${count}</span>
+                        </div>
+                    `;
+                }).filter(html => html !== '').join('');
+
+                if (categoryTagsHTML === '') return '';
+
+                return `
+                    <div class="tag-category">
+                        <div class="tag-category-header">
+                            <span class="tag-category-title">${categoryName}</span>
+                            <i class="fas fa-chevron-down tag-category-toggle"></i>
+                        </div>
+                        <div class="tag-category-items">
+                            ${categoryTagsHTML}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            tagCategoriesContainer.innerHTML = categoriesHTML || '<p class="no-tags-message" style="text-align: center; color: #94a3b8; font-size: 13px; margin: 10px 0;">No tags available</p>';
+
+            document.querySelectorAll('.tag-category-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const category = header.closest('.tag-category');
+                    category.classList.toggle('collapsed');
+                });
             });
 
-            const filterTagsContainer = document.getElementById('filterTags');
-            if (allTags.size === 0) {
-                filterTagsContainer.innerHTML = '<p class="no-tags-message">No tags available</p>';
-                return;
-            }
-
-            filterTagsContainer.innerHTML = Array.from(allTags).sort().map(tag => `
-                <button class="filter-tag-btn" data-tag="${tag}">
-                    ${tag}
-                </button>
-            `).join('');
-
-            document.querySelectorAll('.filter-tag-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const tag = btn.dataset.tag;
+            document.querySelectorAll('.tag-filter-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const tag = item.dataset.tag;
                     if (activeTags.has(tag)) {
                         activeTags.delete(tag);
-                        btn.classList.remove('active');
+                        item.classList.remove('active');
                     } else {
                         activeTags.add(tag);
-                        btn.classList.add('active');
+                        item.classList.add('active');
                     }
                     filterDocuments();
                     updateActiveFilters();
@@ -228,7 +269,7 @@
 
         function removeFilter(tag) {
             activeTags.delete(tag);
-            document.querySelector(`.filter-tag-btn[data-tag="${tag}"]`)?.classList.remove('active');
+            document.querySelector(`.tag-filter-item[data-tag="${tag}"]`)?.classList.remove('active');
             filterDocuments();
             updateActiveFilters();
         }
@@ -276,7 +317,7 @@
 
         document.getElementById('clearFilters').addEventListener('click', () => {
             activeTags.clear();
-            document.querySelectorAll('.filter-tag-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tag-filter-item').forEach(item => item.classList.remove('active'));
             filterDocuments();
             updateActiveFilters();
         });
