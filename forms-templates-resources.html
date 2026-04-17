@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms, Templates & Resources - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="document-pages-styles.css">
+</head>
+<body data-page="documents">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="docs-page-header-banner">
+                <div class="docs-header-icon">
+                    <i class="fas fa-toolbox"></i>
+                </div>
+                <div class="docs-header-text">
+                    <h1>Forms, Templates & Resources</h1>
+                    <p>Download forms, templates, and resources used across the division</p>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar-container">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input
+                        type="text"
+                        id="documentSearch"
+                        class="search-input-doc"
+                        placeholder="Search forms, templates and resources by title..."
+                    >
+                    <button id="clearSearch" class="clear-search-btn" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="searchResults" class="search-results-info"></div>
+            </div>
+
+            <!-- Tag Filter Section -->
+            <div class="filter-section">
+                <div class="filter-header">
+                    <span class="filter-label"><i class="fas fa-tags"></i> Filter by tags:</span>
+                    <button class="clear-filters-btn" id="clearFilters">Clear All</button>
+                </div>
+                <div class="filter-tags" id="filterTags">
+                    <!-- Tags will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- Active Filters Display -->
+            <div class="active-filters" id="activeFilters" style="display: none;">
+                <span class="active-filters-label">Active filters:</span>
+                <div class="active-filters-list" id="activeFiltersList"></div>
+            </div>
+
+            <!-- Documents Grid -->
+            <div class="documents-grid" id="documents-list">
+                <p class="loading-message">Loading documents...</p>
+            </div>
+
+            <!-- No Results Message -->
+            <div class="no-results-container" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No documents found</h3>
+                <p>Try adjusting your search or clearing filters</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+    <script src="documents-data.js"></script>
+    <script>
+        const documents = typeof FORMS_TEMPLATES_RESOURCES !== 'undefined' ? FORMS_TEMPLATES_RESOURCES : [];
+        let filteredDocuments = [...documents];
+        let activeSearchTerm = '';
+        let activeTags = new Set();
+
+        function encodeFilePath(filePath) {
+            return filePath.split('/').map(part => encodeURIComponent(part)).join('/');
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function getFileIcon(fileType) {
+            const icons = {
+                'HTML': 'fa-file-code',
+                'PDF': 'fa-file-pdf',
+                'DOCX': 'fa-file-word',
+                'DOC': 'fa-file-word',
+                'XLSX': 'fa-file-excel',
+                'XLS': 'fa-file-excel',
+                'PPTX': 'fa-file-powerpoint',
+                'PPT': 'fa-file-powerpoint',
+                'TXT': 'fa-file-alt'
+            };
+            return icons[fileType.toUpperCase()] || 'fa-file';
+        }
+
+        function renderDocuments(docs) {
+            const container = document.getElementById('documents-list');
+            const noResults = document.getElementById('noResults');
+
+            if (docs.length === 0) {
+                container.innerHTML = '';
+                noResults.style.display = 'flex';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            container.innerHTML = docs.map(doc => `
+                <a href="${encodeFilePath(doc.fileName)}" class="document-card" target="_blank">
+                    <div class="doc-icon">
+                        <i class="fas ${getFileIcon(doc.fileType)}"></i>
+                    </div>
+                    <div class="doc-content">
+                        <h3 class="doc-title">${doc.title}</h3>
+                        ${doc.description ? `<p class="doc-description">${doc.description}</p>` : ''}
+                        <div class="doc-meta">
+                            <span class="doc-meta-item">
+                                <i class="fas fa-calendar"></i> Uploaded ${formatDate(doc.uploadDate)}
+                            </span>
+                            <span class="doc-meta-item doc-type">
+                                <i class="fas fa-tag"></i> ${doc.fileType}
+                            </span>
+                        </div>
+                        ${doc.tags && doc.tags.length > 0 ? `
+                            <div class="doc-tags">
+                                ${doc.tags.map(tag => `<span class="doc-tag">${tag}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="doc-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+            `).join('');
+
+            updateSearchResults(docs.length);
+        }
+
+        function generateTagFilters() {
+            const allTags = new Set();
+            documents.forEach(doc => {
+                if (doc.tags) {
+                    doc.tags.forEach(tag => allTags.add(tag));
+                }
+            });
+
+            const filterTagsContainer = document.getElementById('filterTags');
+            if (allTags.size === 0) {
+                filterTagsContainer.innerHTML = '<p class="no-tags-message">No tags available</p>';
+                return;
+            }
+
+            filterTagsContainer.innerHTML = Array.from(allTags).sort().map(tag => `
+                <button class="filter-tag-btn" data-tag="${tag}">
+                    ${tag}
+                </button>
+            `).join('');
+
+            document.querySelectorAll('.filter-tag-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tag = btn.dataset.tag;
+                    if (activeTags.has(tag)) {
+                        activeTags.delete(tag);
+                        btn.classList.remove('active');
+                    } else {
+                        activeTags.add(tag);
+                        btn.classList.add('active');
+                    }
+                    filterDocuments();
+                    updateActiveFilters();
+                });
+            });
+        }
+
+        function updateActiveFilters() {
+            const activeFiltersContainer = document.getElementById('activeFilters');
+            const activeFiltersList = document.getElementById('activeFiltersList');
+
+            if (activeTags.size === 0) {
+                activeFiltersContainer.style.display = 'none';
+                return;
+            }
+
+            activeFiltersContainer.style.display = 'flex';
+            activeFiltersList.innerHTML = Array.from(activeTags).map(tag => `
+                <span class="active-filter-chip" data-tag="${tag}">
+                    ${tag}
+                    <button class="remove-filter-btn" onclick="removeFilter('${tag}')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </span>
+            `).join('');
+        }
+
+        function removeFilter(tag) {
+            activeTags.delete(tag);
+            document.querySelector(`.filter-tag-btn[data-tag="${tag}"]`)?.classList.remove('active');
+            filterDocuments();
+            updateActiveFilters();
+        }
+
+        function filterDocuments() {
+            filteredDocuments = documents.filter(doc => {
+                const matchesSearch = !activeSearchTerm ||
+                    doc.title.toLowerCase().includes(activeSearchTerm.toLowerCase());
+
+                const matchesTags = activeTags.size === 0 ||
+                    (doc.tags && Array.from(activeTags).every(tag => doc.tags.includes(tag)));
+
+                return matchesSearch && matchesTags;
+            });
+
+            renderDocuments(filteredDocuments);
+        }
+
+        function updateSearchResults(count) {
+            const resultsInfo = document.getElementById('searchResults');
+            if (activeSearchTerm || activeTags.size > 0) {
+                resultsInfo.textContent = `Found ${count} document${count !== 1 ? 's' : ''}`;
+                resultsInfo.classList.add('active');
+            } else {
+                resultsInfo.textContent = '';
+                resultsInfo.classList.remove('active');
+            }
+        }
+
+        const searchInput = document.getElementById('documentSearch');
+        const clearSearchBtn = document.getElementById('clearSearch');
+
+        searchInput.addEventListener('input', (e) => {
+            activeSearchTerm = e.target.value;
+            clearSearchBtn.style.display = activeSearchTerm ? 'flex' : 'none';
+            filterDocuments();
+        });
+
+        clearSearchBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            activeSearchTerm = '';
+            clearSearchBtn.style.display = 'none';
+            filterDocuments();
+        });
+
+        document.getElementById('clearFilters').addEventListener('click', () => {
+            activeTags.clear();
+            document.querySelectorAll('.filter-tag-btn').forEach(btn => btn.classList.remove('active'));
+            filterDocuments();
+            updateActiveFilters();
+        });
+
+        generateTagFilters();
+        renderDocuments(documents);
+    </script>
+</body>
+</html>
