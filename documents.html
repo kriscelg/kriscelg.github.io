@@ -29,6 +29,27 @@
                 </div>
             </div>
 
+            <!-- Search Bar with Predictive Search -->
+            <div class="docs-search-section">
+                <div class="docs-search-bar">
+                    <i class="fas fa-search docs-search-icon"></i>
+                    <input
+                        type="text"
+                        id="docsSearchInput"
+                        class="docs-search-input"
+                        placeholder="Search all documents by title, tags, or keywords..."
+                        autocomplete="off"
+                    >
+                    <button id="clearDocsSearch" class="docs-clear-search" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <!-- Predictive Search Dropdown -->
+                <div class="search-suggestions" id="searchSuggestions" style="display: none;">
+                    <!-- Suggestions will be populated here -->
+                </div>
+            </div>
+
             <!-- Documents Cards -->
             <div class="docs-hub">
                 <!-- Policy Documents Card -->
@@ -108,5 +129,221 @@
 
     <!-- Load shared navigation and footer -->
     <script src="nav-footer-loader.js"></script>
+
+    <!-- Load documents data -->
+    <script src="documents-data.js"></script>
+
+    <!-- Predictive Search Script -->
+    <script>
+        // Combine all documents from all categories
+        function getAllDocuments() {
+            const allDocs = [];
+
+            if (typeof POLICY_DOCUMENTS !== 'undefined') {
+                POLICY_DOCUMENTS.forEach(doc => {
+                    allDocs.push({...doc, category: 'Policy Documents'});
+                });
+            }
+
+            if (typeof PROCEDURES_GUIDELINES !== 'undefined') {
+                PROCEDURES_GUIDELINES.forEach(doc => {
+                    allDocs.push({...doc, category: 'Procedures & Guidelines'});
+                });
+            }
+
+            if (typeof FORMS_TEMPLATES_RESOURCES !== 'undefined') {
+                FORMS_TEMPLATES_RESOURCES.forEach(doc => {
+                    allDocs.push({...doc, category: 'Forms, Templates & Resources'});
+                });
+            }
+
+            return allDocs;
+        }
+
+        const allDocuments = getAllDocuments();
+        const searchInput = document.getElementById('docsSearchInput');
+        const clearBtn = document.getElementById('clearDocsSearch');
+        const suggestionsContainer = document.getElementById('searchSuggestions');
+        let selectedSuggestionIndex = -1;
+
+        // Search function - matches title, tags, description
+        function searchDocuments(query) {
+            if (!query || query.length < 2) return [];
+
+            const lowerQuery = query.toLowerCase();
+            const results = allDocuments.filter(doc => {
+                const titleMatch = doc.title.toLowerCase().includes(lowerQuery);
+                const tagsMatch = doc.tags && doc.tags.some(tag =>
+                    tag.toLowerCase().includes(lowerQuery)
+                );
+                const descMatch = doc.description &&
+                    doc.description.toLowerCase().includes(lowerQuery);
+
+                return titleMatch || tagsMatch || descMatch;
+            });
+
+            return results.slice(0, 8); // Limit to 8 suggestions
+        }
+
+        // Highlight matching text
+        function highlightMatch(text, query) {
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<strong>$1</strong>');
+        }
+
+        // Render suggestions
+        function renderSuggestions(results, query) {
+            if (results.length === 0) {
+                suggestionsContainer.innerHTML = `
+                    <div class="suggestion-item no-results">
+                        <i class="fas fa-search"></i>
+                        <span>No documents found</span>
+                    </div>
+                `;
+                suggestionsContainer.style.display = 'block';
+                return;
+            }
+
+            const suggestionsHTML = results.map((doc, index) => `
+                <div class="suggestion-item" data-index="${index}" data-url="${doc.fileName}">
+                    <div class="suggestion-icon">
+                        <i class="fas ${getFileIcon(doc.fileType)}"></i>
+                    </div>
+                    <div class="suggestion-content">
+                        <div class="suggestion-title">${highlightMatch(doc.title, query)}</div>
+                        <div class="suggestion-meta">
+                            <span class="suggestion-category">${doc.category}</span>
+                            ${doc.tags ? `<span class="suggestion-tags">${doc.tags.slice(0, 2).join(', ')}</span>` : ''}
+                        </div>
+                    </div>
+                    <i class="fas fa-arrow-right suggestion-arrow"></i>
+                </div>
+            `).join('');
+
+            const viewAllHTML = `
+                <div class="suggestion-item view-all-results" data-action="view-all">
+                    <i class="fas fa-list"></i>
+                    <span>View all ${results.length} result${results.length !== 1 ? 's' : ''}</span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            `;
+
+            suggestionsContainer.innerHTML = suggestionsHTML + viewAllHTML;
+            suggestionsContainer.style.display = 'block';
+
+            // Add click handlers
+            document.querySelectorAll('.suggestion-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    if (item.dataset.action === 'view-all') {
+                        navigateToSearchResults(searchInput.value);
+                    } else {
+                        window.open(item.dataset.url, '_blank');
+                    }
+                });
+
+                item.addEventListener('mouseenter', () => {
+                    removeActiveClass();
+                    item.classList.add('active');
+                });
+            });
+        }
+
+        function getFileIcon(fileType) {
+            const icons = {
+                'HTML': 'fa-file-code',
+                'PDF': 'fa-file-pdf',
+                'DOCX': 'fa-file-word',
+                'DOC': 'fa-file-word',
+                'XLSX': 'fa-file-excel',
+                'XLS': 'fa-file-excel',
+                'PPTX': 'fa-file-powerpoint',
+                'PPT': 'fa-file-powerpoint',
+                'TXT': 'fa-file-alt'
+            };
+            return icons[fileType.toUpperCase()] || 'fa-file';
+        }
+
+        function removeActiveClass() {
+            document.querySelectorAll('.suggestion-item').forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+
+        function navigateToSearchResults(query) {
+            window.location.href = `search-results.html?q=${encodeURIComponent(query)}`;
+        }
+
+        // Input event handler
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            clearBtn.style.display = query ? 'flex' : 'none';
+
+            if (query.length >= 2) {
+                const results = searchDocuments(query);
+                renderSuggestions(results, query);
+            } else {
+                suggestionsContainer.style.display = 'none';
+            }
+
+            selectedSuggestionIndex = -1;
+        });
+
+        // Clear button handler
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            clearBtn.style.display = 'none';
+            suggestionsContainer.style.display = 'none';
+            searchInput.focus();
+        });
+
+        // Keyboard navigation
+        searchInput.addEventListener('keydown', (e) => {
+            const suggestions = document.querySelectorAll('.suggestion-item');
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedSuggestionIndex = Math.min(selectedSuggestionIndex + 1, suggestions.length - 1);
+                updateActiveSuggestion(suggestions);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedSuggestionIndex = Math.max(selectedSuggestionIndex - 1, -1);
+                updateActiveSuggestion(suggestions);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (selectedSuggestionIndex >= 0 && suggestions[selectedSuggestionIndex]) {
+                    suggestions[selectedSuggestionIndex].click();
+                } else if (searchInput.value.trim()) {
+                    navigateToSearchResults(searchInput.value.trim());
+                }
+            } else if (e.key === 'Escape') {
+                suggestionsContainer.style.display = 'none';
+                selectedSuggestionIndex = -1;
+            }
+        });
+
+        function updateActiveSuggestion(suggestions) {
+            removeActiveClass();
+            if (selectedSuggestionIndex >= 0 && suggestions[selectedSuggestionIndex]) {
+                suggestions[selectedSuggestionIndex].classList.add('active');
+                suggestions[selectedSuggestionIndex].scrollIntoView({ block: 'nearest' });
+            }
+        }
+
+        // Close suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.docs-search-section')) {
+                suggestionsContainer.style.display = 'none';
+                selectedSuggestionIndex = -1;
+            }
+        });
+
+        // Show suggestions again when focusing if there's a query
+        searchInput.addEventListener('focus', () => {
+            if (searchInput.value.trim().length >= 2) {
+                const results = searchDocuments(searchInput.value.trim());
+                renderSuggestions(results, searchInput.value.trim());
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="document-pages-styles.css">
+</head>
+<body data-page="documents">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Search Header -->
+            <div class="search-results-header">
+                <div class="search-results-title">
+                    <i class="fas fa-search"></i>
+                    <h1>Search Results</h1>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-results-input-wrapper">
+                    <i class="fas fa-search search-input-icon"></i>
+                    <input
+                        type="text"
+                        id="searchQueryInput"
+                        class="search-results-input"
+                        placeholder="Search documents..."
+                        autocomplete="off"
+                    >
+                    <button id="clearSearchQuery" class="clear-search-query-btn" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Summary -->
+            <div class="results-summary" id="resultsSummary">
+                <span id="resultsCount">Searching...</span>
+            </div>
+
+            <!-- Filter Pills -->
+            <div class="filter-pills" id="filterPills">
+                <button class="filter-pill active" data-category="all">
+                    All Documents
+                </button>
+                <button class="filter-pill" data-category="Policy Documents">
+                    Policy Documents
+                </button>
+                <button class="filter-pill" data-category="Procedures & Guidelines">
+                    Procedures & Guidelines
+                </button>
+                <button class="filter-pill" data-category="Forms, Templates & Resources">
+                    Forms & Resources
+                </button>
+            </div>
+
+            <!-- Search Results Grid -->
+            <div class="documents-grid" id="searchResultsList">
+                <p class="loading-message">Searching documents...</p>
+            </div>
+
+            <!-- No Results Message -->
+            <div class="no-results-container" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No documents found</h3>
+                <p id="noResultsMessage">Try adjusting your search terms or browse by category</p>
+                <div style="margin-top: 30px;">
+                    <a href="documents.html" class="back-to-docs-btn">
+                        <i class="fas fa-arrow-left"></i> Back to Documents
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+    <script src="documents-data.js"></script>
+
+    <script>
+        // Get query parameter from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchQuery = urlParams.get('q') || '';
+
+        let allDocuments = [];
+        let filteredResults = [];
+        let activeCategory = 'all';
+
+        // Combine all documents from all categories
+        function getAllDocuments() {
+            const docs = [];
+
+            if (typeof POLICY_DOCUMENTS !== 'undefined') {
+                POLICY_DOCUMENTS.forEach(doc => {
+                    docs.push({...doc, category: 'Policy Documents'});
+                });
+            }
+
+            if (typeof PROCEDURES_GUIDELINES !== 'undefined') {
+                PROCEDURES_GUIDELINES.forEach(doc => {
+                    docs.push({...doc, category: 'Procedures & Guidelines'});
+                });
+            }
+
+            if (typeof FORMS_TEMPLATES_RESOURCES !== 'undefined') {
+                FORMS_TEMPLATES_RESOURCES.forEach(doc => {
+                    docs.push({...doc, category: 'Forms, Templates & Resources'});
+                });
+            }
+
+            return docs;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function getFileIcon(fileType) {
+            const icons = {
+                'HTML': 'fa-file-code',
+                'PDF': 'fa-file-pdf',
+                'DOCX': 'fa-file-word',
+                'DOC': 'fa-file-word',
+                'XLSX': 'fa-file-excel',
+                'XLS': 'fa-file-excel',
+                'PPTX': 'fa-file-powerpoint',
+                'PPT': 'fa-file-powerpoint',
+                'TXT': 'fa-file-alt'
+            };
+            return icons[fileType.toUpperCase()] || 'fa-file';
+        }
+
+        function encodeFilePath(filePath) {
+            return filePath.split('/').map(part => encodeURIComponent(part)).join('/');
+        }
+
+        // Search function
+        function searchDocuments(query, category = 'all') {
+            if (!query || query.length < 1) return [];
+
+            const lowerQuery = query.toLowerCase();
+            let results = allDocuments.filter(doc => {
+                const titleMatch = doc.title.toLowerCase().includes(lowerQuery);
+                const tagsMatch = doc.tags && doc.tags.some(tag =>
+                    tag.toLowerCase().includes(lowerQuery)
+                );
+                const descMatch = doc.description &&
+                    doc.description.toLowerCase().includes(lowerQuery);
+                const categoryMatch = category === 'all' || doc.category === category;
+
+                return (titleMatch || tagsMatch || descMatch) && categoryMatch;
+            });
+
+            // Sort by relevance (title matches first)
+            results.sort((a, b) => {
+                const aTitle = a.title.toLowerCase().includes(lowerQuery);
+                const bTitle = b.title.toLowerCase().includes(lowerQuery);
+                if (aTitle && !bTitle) return -1;
+                if (!aTitle && bTitle) return 1;
+                return 0;
+            });
+
+            return results;
+        }
+
+        // Render search results
+        function renderResults(results) {
+            const container = document.getElementById('searchResultsList');
+            const noResults = document.getElementById('noResults');
+            const resultsSummary = document.getElementById('resultsSummary');
+            const resultsCount = document.getElementById('resultsCount');
+
+            if (results.length === 0) {
+                container.innerHTML = '';
+                noResults.style.display = 'flex';
+                resultsCount.textContent = `No results found for "${searchQuery}"`;
+                return;
+            }
+
+            noResults.style.display = 'none';
+            const categoryText = activeCategory === 'all' ? '' : ` in ${activeCategory}`;
+            resultsCount.innerHTML = `Found <strong>${results.length}</strong> document${results.length !== 1 ? 's' : ''} for "<strong>${searchQuery}</strong>"${categoryText}`;
+
+            container.innerHTML = results.map(doc => `
+                <a href="${encodeFilePath(doc.fileName)}" class="document-card" target="_blank">
+                    <div class="doc-icon">
+                        <i class="fas ${getFileIcon(doc.fileType)}"></i>
+                    </div>
+                    <div class="doc-content">
+                        <div class="doc-category-label">${doc.category}</div>
+                        <h3 class="doc-title">${doc.title}</h3>
+                        ${doc.description ? `<p class="doc-description-search">${doc.description}</p>` : ''}
+                        <div class="doc-meta">
+                            <span class="doc-meta-item">
+                                <i class="fas fa-calendar"></i> ${formatDate(doc.uploadDate)}
+                            </span>
+                            <span class="doc-meta-item doc-type">
+                                <i class="fas fa-tag"></i> ${doc.fileType}
+                            </span>
+                        </div>
+                        ${doc.tags && doc.tags.length > 0 ? `
+                            <div class="doc-tags-search">
+                                ${doc.tags.slice(0, 4).map(tag => `<span class="doc-tag-search">${tag}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="doc-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        // Initialize
+        allDocuments = getAllDocuments();
+        const searchInput = document.getElementById('searchQueryInput');
+        const clearBtn = document.getElementById('clearSearchQuery');
+
+        // Set initial query in search box
+        if (searchQuery) {
+            searchInput.value = searchQuery;
+            clearBtn.style.display = 'flex';
+            filteredResults = searchDocuments(searchQuery);
+            renderResults(filteredResults);
+        }
+
+        // Search input handler
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            clearBtn.style.display = query ? 'flex' : 'none';
+
+            if (query) {
+                // Update URL without reloading page
+                const newUrl = `${window.location.pathname}?q=${encodeURIComponent(query)}`;
+                window.history.replaceState({}, '', newUrl);
+
+                filteredResults = searchDocuments(query, activeCategory);
+                renderResults(filteredResults);
+            } else {
+                document.getElementById('searchResultsList').innerHTML = '<p class="loading-message">Enter a search query</p>';
+                document.getElementById('noResults').style.display = 'none';
+            }
+        });
+
+        // Search on Enter key
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const query = searchInput.value.trim();
+                if (query) {
+                    filteredResults = searchDocuments(query, activeCategory);
+                    renderResults(filteredResults);
+                }
+            }
+        });
+
+        // Clear button
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            clearBtn.style.display = 'none';
+            window.history.replaceState({}, '', window.location.pathname);
+            document.getElementById('searchResultsList').innerHTML = '<p class="loading-message">Enter a search query</p>';
+            document.getElementById('noResults').style.display = 'none';
+            document.getElementById('resultsCount').textContent = '';
+        });
+
+        // Category filter pills
+        document.querySelectorAll('.filter-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                activeCategory = pill.dataset.category;
+
+                if (searchInput.value.trim()) {
+                    filteredResults = searchDocuments(searchInput.value.trim(), activeCategory);
+                    renderResults(filteredResults);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
