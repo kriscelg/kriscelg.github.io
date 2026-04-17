@@ -166,7 +166,7 @@
         const suggestionsContainer = document.getElementById('searchSuggestions');
         let selectedSuggestionIndex = -1;
 
-        // Search function - matches title, tags, description
+        // Search function - matches title and tags only
         function searchDocuments(query) {
             if (!query || query.length < 2) return [];
 
@@ -176,10 +176,8 @@
                 const tagsMatch = doc.tags && doc.tags.some(tag =>
                     tag.toLowerCase().includes(lowerQuery)
                 );
-                const descMatch = doc.description &&
-                    doc.description.toLowerCase().includes(lowerQuery);
 
-                return titleMatch || tagsMatch || descMatch;
+                return titleMatch || tagsMatch;
             });
 
             return results.slice(0, 8); // Limit to 8 suggestions

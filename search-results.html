@@ -171,11 +171,9 @@
                 const tagsMatch = doc.tags && doc.tags.some(tag =>
                     tag.toLowerCase().includes(lowerQuery)
                 );
-                const descMatch = doc.description &&
-                    doc.description.toLowerCase().includes(lowerQuery);
                 const categoryMatch = category === 'all' || doc.category === category;
 
-                return (titleMatch || tagsMatch || descMatch) && categoryMatch;
+                return (titleMatch || tagsMatch) && categoryMatch;
             });
 
             // Sort by relevance (title matches first)
@@ -216,7 +214,6 @@
                     <div class="doc-content">
                         <div class="doc-category-label">${doc.category}</div>
                         <h3 class="doc-title">${doc.title}</h3>
-                        ${doc.description ? `<p class="doc-description-search">${doc.description}</p>` : ''}
                         <div class="doc-meta">
                             <span class="doc-meta-item">
                                 <i class="fas fa-calendar"></i> ${formatDate(doc.uploadDate)}
