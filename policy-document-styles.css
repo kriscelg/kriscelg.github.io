@@ -192,6 +192,38 @@ body {
     font-weight: 600;
 }
 
+/* Terminology Notice */
+.terminology-notice {
+    background: #f0f9ff;
+    border-left: 4px solid #0ea5e9;
+    padding: 14px 18px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #0c4a6e;
+}
+
+.terminology-notice i {
+    color: #0ea5e9;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.terminology-notice a {
+    color: #0369a1;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.terminology-notice a:hover {
+    color: #0c4a6e;
+    text-decoration: underline;
+}
+
 /* Document Content */
 .document-content {
     background: white;
