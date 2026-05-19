@@ -219,13 +219,16 @@
 
   <script>
     function toggleCalDropdown(e) {
-      var btn = e.currentTarget;
+      e.stopPropagation();
       var dropdown = document.getElementById('calDropdown');
+      var btn = document.querySelector('.cal-btn');
       var isOpen = !dropdown.hidden;
       dropdown.hidden = isOpen;
-      btn.setAttribute('aria-expanded', !isOpen);
-      if (!isOpen) {
-        document.addEventListener('click', closeCalDropdown, { once: true });
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      if (isOpen) {
+        document.removeEventListener('click', closeCalDropdown);
+      } else {
+        document.addEventListener('click', closeCalDropdown);
       }
     }
 
@@ -234,6 +237,7 @@
       if (dropdown) {
         dropdown.hidden = true;
         document.querySelector('.cal-btn').setAttribute('aria-expanded', 'false');
+        document.removeEventListener('click', closeCalDropdown);
       }
     }
 
