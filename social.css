@@ -368,6 +368,63 @@ section {
   font-style: italic;
 }
 
+/* ── ADD TO CALENDAR ── */
+.cal-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0 0.5rem;
+}
+
+.cal-btn {
+  background: transparent;
+  border: 1px solid var(--border-dark);
+  color: var(--parchment-dim);
+  font-family: 'ThinFont', Georgia, serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 0.55rem 1.4rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.cal-btn:hover,
+.cal-btn[aria-expanded="true"] {
+  border-color: var(--crimson-mid);
+  color: var(--parchment);
+  background: rgba(100, 0, 20, 0.15);
+}
+
+.cal-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 190px;
+  background: #120008;
+  border: 1px solid var(--border-dark);
+  border-top: 2px solid var(--crimson-mid);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+  z-index: 50;
+}
+
+.cal-option {
+  display: block;
+  padding: 0.75rem 1.2rem;
+  font-family: 'ThinFont', Georgia, serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--parchment-dim);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-dark);
+  transition: background 0.15s, color 0.15s;
+}
+.cal-option:last-child { border-bottom: none; }
+.cal-option:hover {
+  background: rgba(100, 0, 20, 0.25);
+  color: var(--gold-light);
+}
+
 /* ── TICKET BLOCK ── */
 .ticket-block {
   margin-top: 2.5rem;

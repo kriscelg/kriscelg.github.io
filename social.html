@@ -74,6 +74,18 @@
 
       </div>
 
+      <!-- ADD TO CALENDAR -->
+      <div class="cal-wrap">
+        <button class="cal-btn" onclick="toggleCalDropdown(event)" aria-haspopup="true" aria-expanded="false">
+          + Add to Calendar
+        </button>
+        <div class="cal-dropdown" id="calDropdown" hidden>
+          <a class="cal-option" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Alex+%26+Bea+Halloween+Wedding+Social&dates=20261023T200000%2F20261024T010000&details=Come+celebrate+with+Alex+Brant-Ganding+%26+Bea+Lasao+Basaran+at+their+Halloween+Themed+Wedding+Social!+Costumes+encouraged.+Tickets+%2410.&location=Petrus+Hall%2C+2624+Inkster+Blvd%2C+Winnipeg%2C+MB+R2W+3W1" target="_blank" rel="noopener">Google Calendar</a>
+          <a class="cal-option" href="#" onclick="downloadICS(event)">Apple Calendar</a>
+          <a class="cal-option" href="https://outlook.live.com/calendar/0/deeplink/compose?subject=Alex+%26+Bea+Halloween+Wedding+Social&startdt=2026-10-23T20%3A00%3A00&enddt=2026-10-24T01%3A00%3A00&location=Petrus+Hall%2C+2624+Inkster+Blvd%2C+Winnipeg%2C+MB+R2W+3W1&body=Come+celebrate+with+Alex+%26+Bea+at+their+Halloween+Themed+Wedding+Social!+Costumes+encouraged." target="_blank" rel="noopener">Outlook</a>
+        </div>
+      </div>
+
       <!-- TICKETS -->
       <div class="ticket-block">
         <div class="ticket-header">
@@ -206,6 +218,50 @@
   </footer>
 
   <script>
+    function toggleCalDropdown(e) {
+      var btn = e.currentTarget;
+      var dropdown = document.getElementById('calDropdown');
+      var isOpen = !dropdown.hidden;
+      dropdown.hidden = isOpen;
+      btn.setAttribute('aria-expanded', !isOpen);
+      if (!isOpen) {
+        document.addEventListener('click', closeCalDropdown, { once: true });
+      }
+    }
+
+    function closeCalDropdown() {
+      var dropdown = document.getElementById('calDropdown');
+      if (dropdown) {
+        dropdown.hidden = true;
+        document.querySelector('.cal-btn').setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function downloadICS(e) {
+      e.preventDefault();
+      var ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Alex & Bea Wedding Social//EN',
+        'BEGIN:VEVENT',
+        'DTSTART;TZID=America/Winnipeg:20261023T200000',
+        'DTEND;TZID=America/Winnipeg:20261024T010000',
+        'SUMMARY:Alex & Bea Halloween Wedding Social',
+        'LOCATION:Petrus Hall\\, 2624 Inkster Blvd\\, Winnipeg\\, MB R2W 3W1',
+        'DESCRIPTION:Come celebrate with Alex Brant-Ganding & Bea Lasao Basaran at their Halloween Themed Wedding Social! Costumes encouraged. Tickets $10.',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+      var blob = new Blob([ics], { type: 'text/calendar' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'alex-bea-halloween-social.ics';
+      a.click();
+      URL.revokeObjectURL(url);
+      closeCalDropdown();
+    }
+
     function copyEmail(btn) {
       navigator.clipboard.writeText('alexbeawedding2027@gmail.com').then(function() {
         btn.textContent = 'Copied!';
