@@ -674,7 +674,7 @@ section {
   font-family: 'ThinFont', Georgia, serif;
   font-size: 0.95rem;
   color: var(--parchment-dim);
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto 3rem;
   line-height: 1.9;
   letter-spacing: 0.04em;
