@@ -660,9 +660,6 @@ section {
   filter: sepia(0.04) saturate(1) brightness(0.95) contrast(1.02);
 }
 
-@media (max-width: 600px) {
-  .photos-grid { grid-template-columns: 1fr; }
-}
 
 /* ── PRIZES TEASER ── */
 .prizes-teaser {
@@ -1077,9 +1074,43 @@ footer p {
 }
 
 @media (max-width: 600px) {
-  nav { gap: 1.2rem; }
-  nav a { font-size: 0.7rem; letter-spacing: 0.12em; }
-  section { padding: 3.5rem 1.2rem; }
+  /* Nav */
+  nav { gap: 1rem; padding: 0.8rem 1rem; }
+  nav a { font-size: 0.65rem; letter-spacing: 0.1em; }
+
+  /* Hero */
+  .hero { padding: 5rem 1.5rem 3rem; }
+  .hero-title { font-size: 56pt; }
+  .hero-subtitle { font-size: 0.72rem; letter-spacing: 0.18em; }
+
+  /* Section headings */
+  .section-title { font-size: 36pt; white-space: normal; }
+  .section-ornament { font-size: 11pt; }
+
+  /* Sections */
+  section { padding: 3rem 1.2rem; }
+
+  /* Event card */
   .event-card { padding: 2rem 1.4rem; }
+  .event-card-photo { margin: -2rem -1.4rem 1.8rem; height: 220px; }
+  .event-item-label { font-size: 12pt; }
+  .event-item-value { font-size: 16pt; }
+  .event-item-sub { font-size: 10pt; }
+  .event-intro { font-size: 11pt; }
+  .event-intro strong { font-size: 13pt; }
+
+  /* Party grid */
+  .party-col span { font-size: 10pt; letter-spacing: 0.03em; }
+
+  /* Photo gallery */
+  .photos-grid { grid-template-columns: 1fr; }
+
+  /* Prize page */
+  .prizes-header { padding: 6rem 1.2rem 2.5rem; }
+  .prize-section { padding: 0 1.2rem 1rem; }
+  .prize-section-title { font-size: 28pt; }
   .prizes-grid { grid-template-columns: 1fr; }
+
+  /* Corner webs */
+  .web-corner { width: 150px; height: 150px; }
 }
