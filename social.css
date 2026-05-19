@@ -574,7 +574,7 @@ section {
 /* ── ENGAGEMENT PHOTOS ── */
 .photos-section {
   text-align: center;
-  padding: 5rem 2rem;
+  padding: 0;
   max-width: 960px;
   margin: 0 auto;
 }
@@ -583,7 +583,7 @@ section {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.2rem;
-  margin-top: 2rem;
+  margin-top: 0;
 }
 
 .photo-slot {
