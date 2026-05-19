@@ -40,6 +40,10 @@
 
     <div class="event-card">
 
+      <div class="event-card-photo">
+        <img class="event-card-photo-img" src="photos/evening.jpg" alt="Alex &amp; Bea" />
+      </div>
+
       <p class="event-intro">
         <strong>Alex Brant-Ganding &amp; Bea Lasao Basaran are getting married!</strong>
         Come celebrate with them at their Halloween Themed Wedding Social.
@@ -250,7 +254,7 @@ parents, Mommy and Daddy, thank you for always loving and supporting us! </p>
       });
     }
 
-    document.querySelectorAll('.photo-img').forEach(function(img) {
+    document.querySelectorAll('.photo-img, .event-card-photo-img').forEach(function(img) {
       function show() { img.classList.add('loaded'); }
       if (img.complete && img.naturalWidth) { show(); }
       else { img.addEventListener('load', show); }
