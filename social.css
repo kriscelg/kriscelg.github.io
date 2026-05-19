@@ -889,6 +889,21 @@ footer p {
   box-shadow: 0 8px 30px rgba(100, 0, 20, 0.35);
 }
 
+/* ── MORE PRIZES COMING ── */
+.prizes-more {
+  text-align: center;
+  padding: 2.5rem 2rem 4rem;
+}
+
+.prizes-more-text {
+  font-family: 'DisplayFont', Georgia, serif;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--parchment-dim);
+  letter-spacing: 0.08em;
+  opacity: 0.55;
+  font-style: italic;
+}
+
 /* ── PRIZE IMAGE ── */
 .prize-img-wrap {
   position: relative;
