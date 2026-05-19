@@ -136,6 +136,27 @@
 
   <div class="full-divider"></div>
 
+  <!-- ENGAGEMENT PHOTOS -->
+  <section class="photos-section">
+    <div class="section-rule">
+      <p class="section-title">Alex <span class="ampersand">&amp;</span> Bea</p>
+    </div>
+    <p class="section-ornament">&#10022; &#10022; &#10022;</p>
+    <div class="photos-grid">
+      <div class="photo-slot">
+        <img class="photo-img" src="photos/photo1.jpg" alt="Alex &amp; Bea" />
+      </div>
+      <div class="photo-slot">
+        <img class="photo-img" src="photos/photo2.jpg" alt="Alex &amp; Bea" />
+      </div>
+      <div class="photo-slot">
+        <img class="photo-img" src="photos/photo3.jpg" alt="Alex &amp; Bea" />
+      </div>
+    </div>
+  </section>
+
+  <div class="full-divider"></div>
+
   <!-- PRIZES TEASER -->
   <section id="prizes-teaser" class="prizes-teaser">
     <div class="section-rule">
@@ -232,6 +253,12 @@ parents, Mommy and Daddy, thank you for always loving and supporting us! </p>
         }, 2000);
       });
     }
+
+    document.querySelectorAll('.photo-img').forEach(function(img) {
+      function show() { img.classList.add('loaded'); }
+      if (img.complete && img.naturalWidth) { show(); }
+      else { img.addEventListener('load', show); }
+    });
   </script>
 </body>
 </html>
