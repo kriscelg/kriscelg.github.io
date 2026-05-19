@@ -322,12 +322,10 @@ section {
 .event-venue-link {
   display: block;
   text-decoration: none;
-  border-bottom: 1px solid rgba(180, 150, 62, 0.35);
-  transition: color 0.2s, border-color 0.2s;
+  transition: color 0.2s;
 }
 .event-venue-link:hover {
   color: var(--gold-light);
-  border-color: var(--gold-light);
 }
 
 .event-item-sub {
