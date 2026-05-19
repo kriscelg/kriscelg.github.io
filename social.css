@@ -941,6 +941,12 @@ footer p {
   height: 100%;
   object-fit: cover;
   display: none;
+  filter: sepia(0.25) saturate(0.8) brightness(0.82) contrast(1.08);
+  transition: filter 0.3s;
+}
+
+.prize-img:hover {
+  filter: sepia(0.1) saturate(0.95) brightness(0.92) contrast(1.04);
 }
 
 .prize-img.loaded {
