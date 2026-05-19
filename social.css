@@ -964,6 +964,21 @@ footer p {
 .hero > *:nth-child(6) { animation-delay: 1.1s; }
 .hero > *:nth-child(7) { animation-delay: 1.2s; }
 
+/* ── CORNER SPIDER WEBS ── */
+.web-corner {
+  position: fixed;
+  width: 320px;
+  height: 320px;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.55;
+}
+.web-corner--tl { top: 0; left: 0; }
+.web-corner--tr { top: 0; right: 0; }
+.web-corner--bl { bottom: 0; left: 0; }
+.web-corner--br { bottom: 0; right: 0; }
+
 /* ── RESPONSIVE ── */
 @media (min-width: 600px) {
   .event-divider { display: block; }
