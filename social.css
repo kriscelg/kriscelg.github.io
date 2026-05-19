@@ -334,6 +334,154 @@ section {
   display: none;
 }
 
+/* event card intro text */
+.event-intro {
+  font-family: 'ThinFont', Georgia, serif;
+  font-size: 0.92rem;
+  color: var(--parchment-dim);
+  line-height: 1.85;
+  letter-spacing: 0.04em;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+}
+
+.event-intro strong {
+  font-family: 'BoldFont', Georgia, serif;
+  color: var(--parchment);
+  display: block;
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.event-intro-highlight {
+  color: var(--gold-light);
+  font-style: italic;
+}
+
+/* ── TICKET BLOCK ── */
+.ticket-block {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-dark);
+}
+
+.ticket-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ticket-label {
+  font-family: 'ThinFont', Georgia, serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--crimson-light);
+}
+
+.ticket-price {
+  font-family: 'DisplayFont', Georgia, serif;
+  font-size: 1.5rem;
+  color: var(--gold-light);
+  text-shadow: 0 0 12px rgba(180, 150, 62, 0.3);
+}
+
+.ticket-body {
+  font-family: 'ThinFont', Georgia, serif;
+  font-size: 0.85rem;
+  color: var(--parchment-dim);
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+}
+
+.ticket-body strong {
+  color: var(--parchment);
+  font-family: 'BoldFont', Georgia, serif;
+}
+
+.ticket-etransfer {
+  margin: 0.4rem 0;
+  color: var(--parchment);
+}
+
+.ticket-etransfer a {
+  color: var(--gold-light);
+  text-decoration: none;
+  font-style: italic;
+  transition: color 0.2s;
+}
+.ticket-etransfer a:hover { color: var(--crimson-light); }
+
+.ticket-include {
+  margin: 0.4rem 0;
+}
+
+.ticket-nodoor {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  color: var(--crimson-light);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ── SUPPORT BLOCK ── */
+.support-block {
+  margin-top: 2rem;
+  padding: 1.4rem 1.6rem;
+  background: rgba(100, 0, 20, 0.12);
+  border: 1px solid rgba(120, 0, 25, 0.35);
+  border-left: 3px solid var(--crimson-mid);
+  font-family: 'ThinFont', Georgia, serif;
+  font-size: 0.85rem;
+  color: var(--parchment-dim);
+  line-height: 1.8;
+}
+
+.support-block strong { color: var(--gold-light); font-family: 'BoldFont', Georgia, serif; }
+
+.support-title {
+  font-family: 'DisplayFont', Georgia, serif;
+  font-size: 1.05rem;
+  color: var(--parchment);
+  margin-bottom: 0.5rem;
+}
+
+/* ── WEDDING PARTY ── */
+.party-block {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-dark);
+}
+
+.party-title {
+  font-family: 'ThinFont', Georgia, serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--parchment-dim);
+  text-align: center;
+  margin-bottom: 1.2rem;
+  opacity: 0.7;
+}
+
+.party-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 0.6rem 1.5rem;
+  text-align: center;
+}
+
+.party-grid span {
+  font-family: 'ThinFont', Georgia, serif;
+  font-size: 0.82rem;
+  color: var(--parchment);
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(58, 0, 18, 0.5);
+}
+
 .costume-note {
   text-align: center;
   margin-top: 2.5rem;
