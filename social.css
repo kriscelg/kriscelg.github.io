@@ -137,80 +137,14 @@ nav a:hover { color: var(--gold-light); }
   margin: 1.2rem 0 2.5rem;
 }
 
-/* ── WAX SEAL ── */
-.wax-seal {
-  position: relative;
-  width: 130px;
-  height: 130px;
+/* ── WAX SEAL IMAGE ── */
+.wax-seal-img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
   margin: 2rem auto 1rem;
-  cursor: default;
-  filter: drop-shadow(0 4px 20px rgba(150, 0, 30, 0.6));
-}
-
-.wax-seal-outer {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #5a0012, #8a0020, #6a0018, #9b0025, #5a0012,
-    #8a0020, #6a0018, #7a001c, #5a0012
-  );
-  box-shadow:
-    inset 0 0 15px rgba(0,0,0,0.6),
-    inset 0 0 4px rgba(200,50,70,0.3),
-    0 4px 12px rgba(0,0,0,0.7);
-}
-
-.wax-seal-ring {
-  position: absolute;
-  inset: 8px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(212, 175, 106, 0.45);
-  box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
-}
-
-.wax-seal-inner {
-  position: absolute;
-  inset: 16px;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at 35% 35%, rgba(160, 20, 40, 0.4) 0%, transparent 65%);
-}
-
-.wax-seal-text {
-  font-family: 'DisplayFont', Georgia, serif;
-  font-size: 1.8rem;
-  color: rgba(232, 213, 176, 0.9);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
-  letter-spacing: 0.05em;
-  line-height: 1;
-}
-
-.wax-seal-small {
-  font-family: 'ThinFont', Georgia, serif;
-  font-size: 0.42rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(212, 175, 106, 0.7);
-  margin-top: 3px;
-}
-
-/* drip */
-.wax-seal::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 22px;
-  height: 18px;
-  background: radial-gradient(ellipse at top, #8a0020 0%, #5a0012 100%);
-  border-radius: 0 0 50% 50% / 0 0 100% 100%;
-  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+  display: block;
+  filter: drop-shadow(0 4px 20px rgba(150, 0, 30, 0.5));
 }
 
 .scroll-hint {
