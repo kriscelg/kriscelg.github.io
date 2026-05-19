@@ -414,6 +414,32 @@ section {
 }
 .ticket-etransfer a:hover { color: var(--crimson-light); }
 
+.copy-btn {
+  display: inline-block;
+  margin-left: 0.6rem;
+  padding: 0.15rem 0.65rem;
+  background: transparent;
+  border: 1px solid var(--border-dark);
+  color: var(--parchment-dim);
+  font-family: 'ThinFont', Georgia, serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.copy-btn:hover {
+  border-color: var(--crimson-mid);
+  color: var(--parchment);
+  background: rgba(100, 0, 20, 0.15);
+}
+.copy-btn--done {
+  border-color: var(--gold);
+  color: var(--gold-light);
+  background: rgba(180, 150, 62, 0.08);
+}
+
 .ticket-include {
   margin: 0.4rem 0;
 }

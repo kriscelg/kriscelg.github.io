@@ -86,6 +86,7 @@
           <p class="ticket-etransfer">
             E-transfer to:
             <a href="mailto:alexbeawedding2027@gmail.com">alexbeawedding2027@gmail.com</a>
+            <button class="copy-btn" onclick="copyEmail(this)" aria-label="Copy email address">Copy</button>
           </p>
           <p class="ticket-include">
             Please include: <strong>your name + number of tickets + ticket type</strong>
@@ -236,5 +237,17 @@
     <p>Alex &amp; Bea &mdash; Halloween Wedding Social &mdash; 2026</p>
   </footer>
 
+  <script>
+    function copyEmail(btn) {
+      navigator.clipboard.writeText('alexbeawedding2027@gmail.com').then(function() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copy-btn--done');
+        setTimeout(function() {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copy-btn--done');
+        }, 2000);
+      });
+    }
+  </script>
 </body>
 </html>
