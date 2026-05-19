@@ -38,12 +38,18 @@
     <div class="prizes-grid">
 
       <div class="prize-card prize-card--golden">
+        <div class="prize-img-wrap">
+          <img class="prize-img" src="" alt="Prize photo" />
+        </div>
         <p class="prize-rank">Golden Prize</p>
         <p class="prize-name">Prize Placeholder</p>
         <p class="prize-description">The most coveted reward of the evening. Details to be revealed on the night.</p>
       </div>
 
       <div class="prize-card prize-card--golden">
+        <div class="prize-img-wrap">
+          <img class="prize-img" src="" alt="Prize photo" />
+        </div>
         <p class="prize-rank">Golden Prize</p>
         <p class="prize-name">Prize Placeholder</p>
         <p class="prize-description">A prize worthy of the most daring and spectacular guest of the evening.</p>
@@ -62,18 +68,27 @@
     <div class="prizes-grid">
 
       <div class="prize-card prize-card--grand">
+        <div class="prize-img-wrap">
+          <img class="prize-img" src="" alt="Prize photo" />
+        </div>
         <p class="prize-rank">Grand Prize</p>
         <p class="prize-name">Prize Placeholder</p>
         <p class="prize-description">A grand reward for those who rise to the occasion. Fortune favours the bold.</p>
       </div>
 
       <div class="prize-card prize-card--grand">
+        <div class="prize-img-wrap">
+          <img class="prize-img" src="" alt="Prize photo" />
+        </div>
         <p class="prize-rank">Grand Prize</p>
         <p class="prize-name">Prize Placeholder</p>
         <p class="prize-description">Awarded to the guest whose presence commands the room. Step up and claim it.</p>
       </div>
 
       <div class="prize-card prize-card--grand">
+        <div class="prize-img-wrap">
+          <img class="prize-img" src="" alt="Prize photo" />
+        </div>
         <p class="prize-rank">Grand Prize</p>
         <p class="prize-name">Prize Placeholder</p>
         <p class="prize-description">The spirits of the night smile on the worthy. Will luck find you?</p>
@@ -92,24 +107,36 @@
     <div class="prizes-grid">
 
       <div class="prize-card">
+        <div class="prize-img-wrap">
+          <img class="prize-img" src="" alt="Prize photo" />
+        </div>
         <p class="prize-rank">Prize</p>
         <p class="prize-name">Prize Placeholder</p>
         <p class="prize-description">A reward for the guests who keep the night alive with their energy and spirit.</p>
       </div>
 
       <div class="prize-card">
+        <div class="prize-img-wrap">
+          <img class="prize-img" src="" alt="Prize photo" />
+        </div>
         <p class="prize-rank">Prize</p>
         <p class="prize-name">Prize Placeholder</p>
         <p class="prize-description">Every guest deserves a chance. Luck may be on your side tonight.</p>
       </div>
 
       <div class="prize-card">
+        <div class="prize-img-wrap">
+          <img class="prize-img" src="" alt="Prize photo" />
+        </div>
         <p class="prize-rank">Prize</p>
         <p class="prize-name">Prize Placeholder</p>
         <p class="prize-description">A little something for those who dare to play. Details on the night.</p>
       </div>
 
       <div class="prize-card">
+        <div class="prize-img-wrap">
+          <img class="prize-img" src="" alt="Prize photo" />
+        </div>
         <p class="prize-rank">Prize</p>
         <p class="prize-name">Prize Placeholder</p>
         <p class="prize-description">For the guest who makes the evening just a little more memorable.</p>
@@ -117,6 +144,15 @@
 
     </div>
   </div>
+
+  <script>
+    document.querySelectorAll('.prize-img').forEach(function(img) {
+      if (img.src && img.src !== window.location.href) {
+        img.onload = function() { img.classList.add('loaded'); };
+        if (img.complete && img.naturalWidth) img.classList.add('loaded');
+      }
+    });
+  </script>
 
   <footer>
     <div class="footer-seal"><span>A&amp;B</span></div>

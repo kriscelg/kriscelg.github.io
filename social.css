@@ -889,6 +889,49 @@ footer p {
   box-shadow: 0 8px 30px rgba(100, 0, 20, 0.35);
 }
 
+/* ── PRIZE IMAGE ── */
+.prize-img-wrap {
+  position: relative;
+  height: 170px;
+  margin: -2rem -1.8rem 1.4rem;
+  overflow: hidden;
+  background: rgba(12, 0, 8, 0.9);
+  border-bottom: 1px solid var(--border-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prize-img-wrap::before {
+  content: '✦';
+  font-size: 2.2rem;
+  color: rgba(232, 213, 176, 0.07);
+  pointer-events: none;
+}
+
+.prize-img-wrap::after {
+  content: 'Add image';
+  position: absolute;
+  font-family: 'ThinFont', Georgia, serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(196, 176, 144, 0.18);
+}
+
+.prize-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+.prize-img.loaded {
+  display: block;
+}
+
 .prize-rank {
   font-family: 'ThinFont', Georgia, serif;
   font-size: 0.65rem;
