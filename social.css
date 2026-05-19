@@ -974,10 +974,9 @@ footer p {
   z-index: 2;
   opacity: 0.55;
 }
-.web-corner--tl { top: 0; left: 0; }
-.web-corner--tr { top: 0; right: 0; }
-.web-corner--bl { bottom: 0; left: 0; }
-.web-corner--br { bottom: 0; right: 0; }
+.web-corner--tl { top: 47px; left: -5px; }
+.web-corner--tr { top: 34px; right: 0; }
+
 
 /* ── RESPONSIVE ── */
 @media (min-width: 600px) {
