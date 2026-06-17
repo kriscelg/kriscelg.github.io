@@ -8,24 +8,28 @@
 // OSU Support Forms
 // Add or edit support request forms here
 const OSU_SUPPORT = [
+
     {
         icon: "fas fa-laptop",
         title: "IT Support Request",
-        description: "Hardware, software, and general IT issues",
+        description: "Hardware, software, and general system issues",
         link: "#" // Replace with your Microsoft Forms URL
     },
+
     {
         icon: "fas fa-shield-alt",
         title: "Security & Access",
         description: "Account access, permissions, and security issues",
         link: "#" // Replace with your Microsoft Forms URL
     },
+
     {
-        icon: "fas fa-network-wired",
-        title: "Network Issues",
-        description: "Internet, VPN, and connectivity problems",
+        icon: "fas fa-rectangle-list",
+        title: "Communications",
+        description: "Documents, Webpage, Bulletins and Social Media Updates",
         link: "#" // Replace with your Microsoft Forms URL
     },
+
     {
         icon: "fas fa-tools",
         title: "Other Support",
@@ -42,6 +46,14 @@ const KEY_CONTACTS = [
         title: "WDT - Data Admin Mailbox",
         email: "Data.Administrators@gov.mb.ca",
     },
+
+    {
+        icon: "fas fa-laptop",
+        title: "WDT - Service Modernization Unit",
+        email: "service.modernization@gov.mb.ca",
+    },
+    
+
     {
         icon: "fas fa-dollar-sign",
         title: "TES - Finance",
