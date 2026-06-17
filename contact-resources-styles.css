@@ -1,12 +1,65 @@
 /* Contact & Resources Page Styles */
 
-/* Contact OSU Section */
-.contact-osu-section {
+/* SIB Support Wrapper */
+.sib-support-wrapper {
     background-color: #ffffff;
     border-radius: 24px;
-    padding: 35px 40px;
+    padding: 40px;
     margin-bottom: 40px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+.sib-support-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.sib-support-header i {
+    font-size: 28px;
+    color: #0d5f5f;
+}
+
+.sib-support-header h2 {
+    font-size: 28px;
+    color: #1e293b;
+    font-weight: 700;
+    margin: 0;
+}
+
+.support-sections-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.contact-support-section {
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    padding: 25px;
+    border: 2px solid #e8e8e8;
+    transition: all 0.3s ease;
+}
+
+.contact-support-section:hover {
+    border-color: #0d5f5f;
+    box-shadow: 0 4px 12px rgba(13, 95, 95, 0.1);
+}
+
+.support-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 10px 0;
+}
+
+.support-section-description {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
 }
 
 .section-header {
@@ -35,17 +88,13 @@
     line-height: 1.6;
 }
 
-.contact-osu-button-container {
-    max-width: 500px;
-}
-
-.contact-osu-button {
+.support-button {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 16px;
     background: linear-gradient(135deg, #0d5f5f 0%, #0a4a4a 100%);
-    border-radius: 14px;
-    padding: 20px 24px;
+    border-radius: 12px;
+    padding: 16px 20px;
     text-decoration: none;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(13, 95, 95, 0.2);
@@ -54,7 +103,7 @@
     overflow: hidden;
 }
 
-.contact-osu-button::before {
+.support-button::before {
     content: '';
     position: absolute;
     top: 0;
@@ -66,20 +115,20 @@
     transition: opacity 0.3s ease;
 }
 
-.contact-osu-button:hover::before {
+.support-button:hover::before {
     opacity: 1;
 }
 
-.contact-osu-button:hover {
+.support-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(13, 95, 95, 0.3);
 }
 
 .button-icon {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     background: rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,13 +136,13 @@
     transition: all 0.3s ease;
 }
 
-.contact-osu-button:hover .button-icon {
+.support-button:hover .button-icon {
     background: rgba(255, 255, 255, 0.25);
     transform: scale(1.05);
 }
 
 .button-icon i {
-    font-size: 24px;
+    font-size: 20px;
     color: white;
 }
 
@@ -105,26 +154,26 @@
 }
 
 .button-title {
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 700;
     color: white;
     line-height: 1.2;
 }
 
 .button-subtitle {
-    font-size: 13px;
+    font-size: 12px;
     color: rgba(255, 255, 255, 0.8);
     line-height: 1.2;
 }
 
 .button-arrow {
-    font-size: 18px;
+    font-size: 16px;
     color: rgba(255, 255, 255, 0.7);
     transition: all 0.3s ease;
     flex-shrink: 0;
 }
 
-.contact-osu-button:hover .button-arrow {
+.support-button:hover .button-arrow {
     color: white;
     transform: translateX(4px);
 }
@@ -339,18 +388,25 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .contact-osu-section,
+    .sib-support-wrapper,
     .contacts-section,
     .resources-section {
         padding: 25px;
     }
 
+    .sib-support-header h2,
     .section-header h2 {
         font-size: 24px;
     }
 
+    .sib-support-header i,
     .section-header i {
         font-size: 24px;
+    }
+
+    .support-sections-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .contacts-grid {
@@ -361,46 +417,8 @@
         grid-template-columns: 1fr;
     }
 
-    .contact-osu-button {
-        padding: 18px 20px;
-    }
-
-    .button-icon {
-        width: 45px;
-        height: 45px;
-    }
-
-    .button-icon i {
-        font-size: 20px;
-    }
-
-    .button-title {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .contact-osu-section,
-    .contacts-section,
-    .resources-section {
-        padding: 20px;
-    }
-
-    .section-header {
-        gap: 8px;
-    }
-
-    .section-header h2 {
-        font-size: 20px;
-    }
-
-    .section-header i {
-        font-size: 20px;
-    }
-
-    .contact-osu-button {
+    .support-button {
         padding: 16px 18px;
-        gap: 14px;
     }
 
     .button-icon {
@@ -413,11 +431,72 @@
     }
 
     .button-title {
-        font-size: 15px;
+        font-size: 14px;
     }
 
     .button-subtitle {
-        font-size: 12px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sib-support-wrapper,
+    .contacts-section,
+    .resources-section {
+        padding: 20px;
+    }
+
+    .sib-support-header,
+    .section-header {
+        gap: 8px;
+    }
+
+    .sib-support-header h2,
+    .section-header h2 {
+        font-size: 20px;
+    }
+
+    .sib-support-header i,
+    .section-header i {
+        font-size: 20px;
+    }
+
+    .contact-support-section {
+        padding: 20px;
+    }
+
+    .support-section-title {
+        font-size: 18px;
+    }
+
+    .support-section-description {
+        font-size: 13px;
+    }
+
+    .support-button {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+
+    .button-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .button-icon i {
+        font-size: 16px;
+    }
+
+    .button-title {
+        font-size: 13px;
+    }
+
+    .button-subtitle {
+        font-size: 11px;
+    }
+
+    .button-arrow {
+        font-size: 14px;
     }
 
     .contact-card {
