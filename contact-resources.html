@@ -23,16 +23,25 @@
                 <p>Get help, find resources, and connect with key personnel</p>
             </div>
 
-            <!-- OSU Support Section -->
-            <section class="support-section" id="osu-support">
+            <!-- Contact OSU Section -->
+            <section class="contact-osu-section" id="osu-support">
                 <div class="section-header">
                     <i class="fas fa-headset"></i>
-                    <h2>OSU Support</h2>
+                    <h2>Contact OSU</h2>
                 </div>
-                <p class="section-description">Submit a support request using the forms below for technical assistance</p>
+                <p class="section-description">Submit a support request to the Operational Support Unit</p>
 
-                <div class="support-cards" id="supportCards">
-                    <!-- OSU Support cards will be loaded dynamically from contact-resources-data.js -->
+                <div class="contact-osu-button-container">
+                    <a href="YOUR_MICROSOFT_FORMS_LINK_HERE" class="contact-osu-button" target="_blank" rel="noopener noreferrer">
+                        <div class="button-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="button-content">
+                            <span class="button-title">Submit Support Request</span>
+                            <span class="button-subtitle">Open support form</span>
+                        </div>
+                        <i class="fas fa-external-link-alt button-arrow"></i>
+                    </a>
                 </div>
             </section>
 
@@ -89,28 +98,6 @@
 
     <!-- Load and display contact and resources data -->
     <script>
-        // Load OSU Support cards
-        function loadOSUSupport() {
-            const supportCards = document.getElementById('supportCards');
-            const support = typeof OSU_SUPPORT !== 'undefined' ? OSU_SUPPORT : [];
-
-            if (support.length === 0) {
-                supportCards.innerHTML = '<p class="no-items">No support forms available.</p>';
-                return;
-            }
-
-            supportCards.innerHTML = support.map(item => `
-                <a href="${item.link}" class="support-card" target="_blank">
-                    <div class="support-icon">
-                        <i class="${item.icon}"></i>
-                    </div>
-                    <h3>${item.title}</h3>
-                    <p>${item.description}</p>
-                    <span class="support-link">Submit Request <i class="fas fa-arrow-right"></i></span>
-                </a>
-            `).join('');
-        }
-
         // Load Key Contacts
         function loadKeyContacts() {
             const contactsGrid = document.getElementById('contactsGrid');
@@ -208,7 +195,6 @@
 
         // Load all sections when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            loadOSUSupport();
             loadKeyContacts();
             loadStaffResources();
         });
