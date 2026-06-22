@@ -12,26 +12,42 @@ const PROGRAM_NAMES = {
 };
 
 const CLIENTS_SERVED_DATA = [
-    { program: "EAS", q1: 8031, q2: 11564, q3: null, q4: null },
-    { program: "EAPD", q1: 1601, q2: 1713, q3: null, q4: null },
-    { program: "SD", q1: 2970, q2: 3575, q3: null, q4: null },
-    { program: "FJF", q1: 18, q2: 52, q3: null, q4: null },
-    { program: "PWY", q1: 686, q2: 922, q3: null, q4: null },
-    { program: "EP", q1: 661, q2: 818, q3: null, q4: null }
+    { program: "EAS", q1: 8031, q2: 11564, q3: 15621, q4: 18546 },
+    { program: "EAPD", q1: 1601, q2: 1713, q3: 1999, q4: 2168 },
+    { program: "SD", q1: 2970, q2: 3575, q3: 3952, q4: 4355 },
+    { program: "FJF", q1: 18, q2: 52, q3: 52, q4: 54 },
+    { program: "PWY", q1: 686, q2: 922, q3: 1255, q4: 1482 },
+    { program: "EP", q1: 661, q2: 818, q3: 1223, q4: 1398 }
 ];
 
 const CLIENTS_EMPLOYED_DATA = [
-    { program: "EAS", q1: 2140, q2: 4633, q3: null, q4: null },
-    { program: "EAPD", q1: 40, q2: 94, q3: null, q4: null },
-    { program: "SD", q1: 432, q2: 795, q3: null, q4: null },
-    { program: "FJF", q1: 14, q2: 14, q3: null, q4: null },
-    { program: "PWY", q1: 152, q2: 367, q3: null, q4: null },
-    { program: "EP", q1: 475, q2: 869, q3: null, q4: null }
+    { program: "EAS", q1: 2140, q2: 4633, q3: 6932, q4: 9254 },
+    { program: "EAPD", q1: 40, q2: 94, q3: 134, q4: 194 },
+    { program: "SD", q1: 432, q2: 795, q3: 1182, q4: 1472 },
+    { program: "FJF", q1: 14, q2: 14, q3: 16, q4: 34 },
+    { program: "PWY", q1: 152, q2: 367, q3: 544, q4: 898 },
+    { program: "EP", q1: 475, q2: 869, q3: 868, q4: 1169 }
 ];
 
 // Power BI Dashboard Embeds
 // Replace the src URL with your actual Power BI embed URL
 const POWERBI_DASHBOARDS = [
+
+    {
+        title: "Performance Measures and Balanced Scoredcard",
+        description: "Updated Weekly",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=1839fccb-8863-4824-a80d-020ea9347c17&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
+        powerBiUrl: "https://app.powerbi.com/links/TqeclCd5HZ?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
+        lastRefreshed: "" // Format: YYYY-MM-DD
+    },
+
+    {
+        title: "MCIEPP Dashboard",
+        description: "Updated Weekly",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=debef0f1-0a58-4be3-9197-5974ada42cbf&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false",
+        powerBiUrl: "https://app.powerbi.com/links/S6C3IVGSSV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=e460cd2e-c93d-494a-9189-7dec4e5ded98",
+        lastRefreshed: "" // Format: YYYY-MM-DD
+    },
     
     {
         title: "SPRS Dashboard",
@@ -45,21 +61,6 @@ const POWERBI_DASHBOARDS = [
         description: "Updated Monthly",
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=5599c1d2-4ef7-46aa-8de5-84a89dcd17ff&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false",
         powerBiUrl: "https://app.powerbi.com/links/eMQGT_YqGO?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
-        lastRefreshed: "" // Format: YYYY-MM-DD
-    },
-    {
-        title: "MCIEPP Dashboard",
-        description: "Updated Weekly",
-        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=debef0f1-0a58-4be3-9197-5974ada42cbf&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false",
-        powerBiUrl: "https://app.powerbi.com/links/S6C3IVGSSV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=e460cd2e-c93d-494a-9189-7dec4e5ded98",
-        lastRefreshed: "" // Format: YYYY-MM-DD
-    },
-
-    {
-        title: "Performance Measures and Balanced Scoredcard",
-        description: "Updated Weekly",
-        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=1839fccb-8863-4824-a80d-020ea9347c17&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
-        powerBiUrl: "https://app.powerbi.com/links/TqeclCd5HZ?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
         lastRefreshed: "" // Format: YYYY-MM-DD
     },
 
