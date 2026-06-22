@@ -105,6 +105,78 @@
     font-weight: 700;
 }
 
+/* Access Request Banner */
+.access-request-banner {
+    background: linear-gradient(135deg, #0369a1 0%, #0c4a6e 100%);
+    border-radius: 16px;
+    padding: 24px 30px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 16px rgba(3, 105, 161, 0.2);
+}
+
+.access-request-banner .banner-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.access-request-banner .banner-icon i {
+    font-size: 28px;
+    color: white;
+}
+
+.access-request-banner .banner-content {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.access-request-banner .banner-content h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 6px 0;
+}
+
+.access-request-banner .banner-content p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.access-request-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    color: #0369a1;
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.access-request-btn:hover {
+    background: #f0f9ff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.access-request-btn i {
+    font-size: 16px;
+}
+
 /* Bar Graphs Section */
 .bar-graphs-section {
     background-color: #ffffff;
@@ -422,6 +494,32 @@
     font-size: 12px;
 }
 
+.supporting-docs-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #0369a1;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.supporting-docs-btn:hover {
+    background-color: #0c4a6e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(3, 105, 161, 0.3);
+}
+
+.supporting-docs-btn i {
+    font-size: 12px;
+}
+
 .open-powerbi-btn {
     display: inline-flex;
     align-items: center;
@@ -529,6 +627,29 @@
 
     .banner-stats {
         grid-template-columns: 1fr;
+    }
+
+    .access-request-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .access-request-banner .banner-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .access-request-banner .banner-icon i {
+        font-size: 24px;
+    }
+
+    .access-request-banner .banner-content h3 {
+        font-size: 16px;
+    }
+
+    .access-request-banner .banner-content p {
+        font-size: 13px;
     }
 
     .bar-graphs-section,

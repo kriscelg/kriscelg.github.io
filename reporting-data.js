@@ -38,7 +38,8 @@ const POWERBI_DASHBOARDS = [
         description: "Updated Weekly",
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=1839fccb-8863-4824-a80d-020ea9347c17&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
         powerBiUrl: "https://app.powerbi.com/links/TqeclCd5HZ?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
-        lastRefreshed: "" // Format: YYYY-MM-DD
+        lastRefreshed: "", // Format: YYYY-MM-DD
+        supportingDocumentsUrl: "" // Link to supporting documents (optional)
     },
 
     {
@@ -46,22 +47,25 @@ const POWERBI_DASHBOARDS = [
         description: "Updated Weekly",
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=debef0f1-0a58-4be3-9197-5974ada42cbf&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false",
         powerBiUrl: "https://app.powerbi.com/links/S6C3IVGSSV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=e460cd2e-c93d-494a-9189-7dec4e5ded98",
-        lastRefreshed: "" // Format: YYYY-MM-DD
+        lastRefreshed: "", // Format: YYYY-MM-DD
+        supportingDocumentsUrl: "" // Link to supporting documents (optional)
     },
-    
+
     {
         title: "SPRS Dashboard",
         description: "Updated Monthly",
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=3d1a6025-378a-4ec6-be49-f05c33eda7f3&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false",
         powerBiUrl: "https://app.powerbi.com/links/TCjsPuqVg3?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=8de54f27-1722-4139-a5c7-c841fd5c53ed",
-        lastRefreshed: "" // Format: YYYY-MM-DD
+        lastRefreshed: "", // Format: YYYY-MM-DD
+        supportingDocumentsUrl: "" // Link to supporting documents (optional)
     },
     {
         title: "EAPD Direct Client Services Dashboard",
         description: "Updated Monthly",
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=5599c1d2-4ef7-46aa-8de5-84a89dcd17ff&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false",
         powerBiUrl: "https://app.powerbi.com/links/eMQGT_YqGO?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
-        lastRefreshed: "" // Format: YYYY-MM-DD
+        lastRefreshed: "", // Format: YYYY-MM-DD
+        supportingDocumentsUrl: "" // Link to supporting documents (optional)
     },
 
     {
@@ -69,7 +73,8 @@ const POWERBI_DASHBOARDS = [
         description: "Dashboard is updated quarterly",
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=f2621809-854b-4c47-8009-61a04adcd539&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
         powerBiUrl: "https://app.powerbi.com/links/_SJmd-cGjV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
-        lastRefreshed: "" // Format: YYYY-MM-DD
+        lastRefreshed: "", // Format: YYYY-MM-DD
+        supportingDocumentsUrl: "" // Link to supporting documents (optional)
     },
 ];
 
@@ -258,6 +263,13 @@ function generatePowerBIDashboards() {
                         }
                     </div>
                     <div class="powerbi-actions">
+                        ${dashboard.supportingDocumentsUrl ?
+                            `<a href="${dashboard.supportingDocumentsUrl}" target="_blank" class="supporting-docs-btn" title="View Supporting Documents">
+                                <i class="fas fa-file-alt"></i>
+                                <span>Supporting Documents</span>
+                            </a>` :
+                            ''
+                        }
                         ${dashboard.powerBiUrl ?
                             `<a href="${dashboard.powerBiUrl}" target="_blank" class="open-powerbi-btn" title="Open in Power BI">
                                 <i class="fas fa-external-link-alt"></i>
