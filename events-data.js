@@ -19,7 +19,7 @@ const EVENTS = [
     {
         id: 1,
         title: 'Staff Meeting',
-        date: '2025-12-15',          // Format: YYYY-MM-DD
+        date: '2026-12-15',          // Format: YYYY-MM-DD
         time: '10:00',               // Format: HH:MM (24-hour time)
         location: 'Conference Room A',
         description: 'Monthly staff meeting to discuss departmental updates and initiatives'
@@ -29,7 +29,7 @@ const EVENTS = [
     {
         id: 2,
         title: 'Training Session',
-        date: '2025-12-20',
+        date: '2026-12-20',
         time: '14:00',
         location: 'Training Center',
         description: 'New employee orientation and training'
@@ -39,10 +39,19 @@ const EVENTS = [
     {
         id: 3,
         title: 'Holiday Party',
-        date: '2025-12-23',
+        date: '2026-12-23',
         time: '17:00',
         location: 'Main Hall',
         description: 'Annual holiday celebration for all staff'
+    },
+	
+	{
+        id: 4,
+        title: 'Staff Event',
+        date: '2026-03-01',
+        time: '17:00',
+        location: 'Boardroom 260',
+        description: 'Join us for our quarterly staff event'
     },
 
     // ADD YOUR EVENTS BELOW THIS LINE
