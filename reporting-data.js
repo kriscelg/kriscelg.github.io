@@ -32,13 +32,7 @@ const CLIENTS_EMPLOYED_DATA = [
 // Power BI Dashboard Embeds
 // Replace the src URL with your actual Power BI embed URL
 const POWERBI_DASHBOARDS = [
-    {
-        title: "Skills Development Dashboard",
-        description: "Dashboard is updated quarterly",
-        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=f2621809-854b-4c47-8009-61a04adcd539&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
-        powerBiUrl: "https://app.powerbi.com/links/_SJmd-cGjV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
-        lastRefreshed: "" // Format: YYYY-MM-DD
-    },
+    
     {
         title: "SPRS Dashboard",
         description: "Updated Monthly",
@@ -59,7 +53,23 @@ const POWERBI_DASHBOARDS = [
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=debef0f1-0a58-4be3-9197-5974ada42cbf&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false",
         powerBiUrl: "https://app.powerbi.com/links/S6C3IVGSSV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=e460cd2e-c93d-494a-9189-7dec4e5ded98",
         lastRefreshed: "" // Format: YYYY-MM-DD
-    }
+    },
+
+    {
+        title: "Performance Measures and Balanced Scoredcard",
+        description: "Updated Weekly",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=1839fccb-8863-4824-a80d-020ea9347c17&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
+        powerBiUrl: "https://app.powerbi.com/links/TqeclCd5HZ?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
+        lastRefreshed: "" // Format: YYYY-MM-DD
+    },
+
+    {
+        title: "Skills Development Dashboard",
+        description: "Dashboard is updated quarterly",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=f2621809-854b-4c47-8009-61a04adcd539&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
+        powerBiUrl: "https://app.powerbi.com/links/_SJmd-cGjV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
+        lastRefreshed: "" // Format: YYYY-MM-DD
+    },
 ];
 
 // Function to format numbers with commas
