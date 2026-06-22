@@ -21,10 +21,11 @@ const NAV_TEMPLATE = `
                 <div class="nav-item">
                     <a href="documents.html" class="nav-link">DOCUMENTS</a>
                     <div class="dropdown-menu">
-                        <a href="#">Policy Documents</a>
-                        <a href="#">Job Aids & Guidelines</a>
-                        <a href="#">Forms & Templates</a>
-                        <a href="#">Resources</a>
+                        <a href="policy-documents.html">Policy Documents</a>
+                        <a href="jobaids-guidelines.html">Job Aids & Guidelines</a>
+                        <a href="forms-templates.html">Forms & Templates</a>
+                        <a href="financial-operations.html">Financial Operations</a>
+                        <a href="resources.html">Resources</a>
                     </div>
                 </div>
                 <div class="nav-item">
@@ -55,7 +56,7 @@ const NAV_TEMPLATE = `
                 <div class="nav-item">
                     <a href="contact-resources.html" class="nav-link">CONTACT & RESOURCES</a>
                     <div class="dropdown-menu">
-                        <a href="contact-resources.html#osu-support">OSU Support</a>
+                        <a href="contact-resources.html#sib-support">SIB Support</a>
                         <a href="contact-resources.html#key-contacts">Key Contacts</a>
                         <a href="contact-resources.html#staff-resources">Staff Resources</a>
                     </div>
@@ -83,10 +84,12 @@ const FOOTER_TEMPLATE = `
                 <div class="footer-column">
                     <h4>DOCUMENTS</h4>
                     <ul>
-                        <li><a href="#">Policy Documents</a></li>
-                        <li><a href="#">Job Aids & Guidelines</a></li>
-                        <li><a href="#">Forms & Templates</a></li>
-                        <li><a href="#">Resources</a></li>
+                        <li><a href="policy-documents.html">Policy Documents</a></li>
+                        <li><a href="jobaids-guidelines.html">Job Aids & Guidelines</a></li>
+                        <li><a href="forms-templates.html">Forms & Templates</a></li>
+                        <li><a href="financial-operations.html">Financial Operations</a></li>
+
+                        <li><a href="resources.html">Resources</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -117,7 +120,7 @@ const FOOTER_TEMPLATE = `
                 <div class="footer-column">
                     <h4>CONTACT & RESOURCES</h4>
                     <ul>
-                        <li><a href="contact-resources.html#osu-support">OSU Support</a></li>
+                        <li><a href="contact-resources.html#sib-support">SIB Support</a></li>
                         <li><a href="contact-resources.html#key-contacts">Key Contacts</a></li>
                         <li><a href="contact-resources.html#staff-resources">Staff Resources</a></li>
                     </ul>
