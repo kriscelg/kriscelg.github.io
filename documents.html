@@ -67,7 +67,7 @@
                 </a>
 
                 <!-- Procedures and Guidelines Card -->
-                <a href="procedures-guidelines.html" class="doc-card">
+                <a href="jobaids-guidelines.html" class="doc-card">
                     <div class="card-icon">
                         <i class="fas fa-book-open"></i>
                     </div>
@@ -81,7 +81,7 @@
                 </a>
 
                 <!-- Forms, Templates and Resources Card -->
-                <a href="forms-templates-resources.html" class="doc-card">
+                <a href="forms-templates.html" class="doc-card">
                     <div class="card-icon">
                         <i class="fas fa-toolbox"></i>
                     </div>
@@ -94,9 +94,23 @@
                     </div>
                 </a>
 
-                <a href="forms-templates-resources.html" class="doc-card">
+                <!-- Forms, Templates and Resources Card -->
+                <a href="financial-operations.html" class="doc-card">
                     <div class="card-icon">
-                        <i class="fas fa-toolbox"></i>
+                        <i class="fa-solid fa-coins"></i>
+                    </div>
+                    <div class="card-content">
+                        <h2>Financial Operations</h2>
+                        <p>Access finance-related documents.</p>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="resources.html" class="doc-card">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-code-fork"></i>
                     </div>
                     <div class="card-content">
                         <h2>Resources</h2>
@@ -147,15 +161,30 @@
 
             if (typeof PROCEDURES_GUIDELINES !== 'undefined') {
                 PROCEDURES_GUIDELINES.forEach(doc => {
-                    allDocs.push({...doc, category: 'Procedures & Guidelines'});
+                    allDocs.push({...doc, category: 'Job Aids and Guidelines'});
                 });
             }
 
-            if (typeof FORMS_TEMPLATES_RESOURCES !== 'undefined') {
-                FORMS_TEMPLATES_RESOURCES.forEach(doc => {
-                    allDocs.push({...doc, category: 'Forms, Templates & Resources'});
+            if (typeof FORMS_TEMPLATES !== 'undefined') {
+                FORMS_TEMPLATES.forEach(doc => {
+                    allDocs.push({...doc, category: 'Forms & Templates'});
                 });
             }
+
+            if (typeof RESOURCE_DOCS !== 'undefined') {
+                RESOURCE_DOCS.forEach(doc => {
+                    allDocs.push({...doc, category: 'Resource Document'});
+                });
+            }
+
+
+            if (typeof FINANCE_OPERATIONS !== 'undefined') {
+                FINANCE_OPERATIONS.forEach(doc => {
+                    allDocs.push({...doc, category: 'Finance Operations'});
+                });
+            }
+
+            
 
             return allDocs;
         }
@@ -250,15 +279,13 @@
             const icons = {
                 'HTML': 'fa-file-code',
                 'PDF': 'fa-file-pdf',
-                'DOCX': 'fa-file-word',
-                'DOC': 'fa-file-word',
-                'XLSX': 'fa-file-excel',
-                'XLS': 'fa-file-excel',
-                'PPTX': 'fa-file-powerpoint',
-                'PPT': 'fa-file-powerpoint',
-                'TXT': 'fa-file-alt'
+                'Word': 'fa-file-word',
+                'Excel': 'fa-file-excel',
+                'PowerPoint': 'fa-file-powerpoint',
+                'Text': 'fa-file-alt',
+                'Image': 'fa-file-image'
             };
-            return icons[fileType.toUpperCase()] || 'fa-file';
+            return icons[fileType] || 'fa-file';
         }
 
         function removeActiveClass() {
