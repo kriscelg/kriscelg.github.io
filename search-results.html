@@ -46,21 +46,7 @@
                 <span id="resultsCount">Searching...</span>
             </div>
 
-            <!-- Filter Pills -->
-            <div class="filter-pills" id="filterPills">
-                <button class="filter-pill active" data-category="all">
-                    All Documents
-                </button>
-                <button class="filter-pill" data-category="Policy Documents">
-                    Policy Documents
-                </button>
-                <button class="filter-pill" data-category="Procedures & Guidelines">
-                    Procedures & Guidelines
-                </button>
-                <button class="filter-pill" data-category="Forms, Templates & Resources">
-                    Forms & Resources
-                </button>
-            </div>
+            
 
             <!-- Search Results Grid -->
             <div class="documents-grid" id="searchResultsList">
@@ -69,8 +55,8 @@
 
             <!-- No Results Message -->
             <div class="no-results-container" id="noResults" style="display: none;">
-                <i class="fas fa-search"></i>
-                <h3>No documents found - Try adjusting your search terms or browse by category</h3>
+                <i class="fas fa-search" style=" font-size: 35px; margin-right: 12px"></i>
+                <h3>No documents found - Try adjusting your search or clearing filters</h3>
                 
             </div>
         </div>
@@ -118,15 +104,29 @@
 
             if (typeof PROCEDURES_GUIDELINES !== 'undefined') {
                 PROCEDURES_GUIDELINES.forEach(doc => {
-                    docs.push({...doc, category: 'Procedures & Guidelines'});
+                    docs.push({...doc, category: 'Job Aids and Guidelines'});
                 });
             }
 
-            if (typeof FORMS_TEMPLATES_RESOURCES !== 'undefined') {
-                FORMS_TEMPLATES_RESOURCES.forEach(doc => {
-                    docs.push({...doc, category: 'Forms, Templates & Resources'});
+            if (typeof FORMS_TEMPLATES !== 'undefined') {
+                FORMS_TEMPLATES.forEach(doc => {
+                    docs.push({...doc, category: 'Forms & Templates'});
                 });
             }
+
+            if (typeof RESOURCE_DOCS !== 'undefined') {
+                RESOURCE_DOCS.forEach(doc => {
+                    docs.push({...doc, category: 'Resource Document'});
+                });
+            }
+
+            if (typeof FINANCE_OPERATIONS !== 'undefined') {
+                FINANCE_OPERATIONS.forEach(doc => {
+                    docs.push({...doc, category: 'Finance Operations'});
+                });
+            }
+
+            
 
             return docs;
         }
@@ -141,15 +141,13 @@
             const icons = {
                 'HTML': 'fa-file-code',
                 'PDF': 'fa-file-pdf',
-                'DOCX': 'fa-file-word',
-                'DOC': 'fa-file-word',
-                'XLSX': 'fa-file-excel',
-                'XLS': 'fa-file-excel',
-                'PPTX': 'fa-file-powerpoint',
-                'PPT': 'fa-file-powerpoint',
-                'TXT': 'fa-file-alt'
+                'Word': 'fa-file-word',
+                'Excel': 'fa-file-excel',
+                'PowerPoint': 'fa-file-powerpoint',
+                'Text': 'fa-file-alt',
+                'Image': 'fa-file-image'
             };
-            return icons[fileType.toUpperCase()] || 'fa-file';
+            return icons[fileType] || 'fa-file';
         }
 
         function encodeFilePath(filePath) {
@@ -193,13 +191,13 @@
             if (results.length === 0) {
                 container.innerHTML = '';
                 noResults.style.display = 'flex';
-                resultsCount.textContent = `No results found for "${searchQuery}"`;
+                resultsCount.textContent = `No results found`;
                 return;
             }
 
             noResults.style.display = 'none';
             const categoryText = activeCategory === 'all' ? '' : ` in ${activeCategory}`;
-            resultsCount.innerHTML = `Found <strong>${results.length}</strong> document${results.length !== 1 ? 's' : ''} for "<strong>${searchQuery}</strong>"${categoryText}`;
+            resultsCount.innerHTML = `Found <strong>${results.length}</strong> document${results.length !== 1 ? 's' : ''}`;
 
             container.innerHTML = results.map(doc => `
                 <a href="${encodeFilePath(doc.fileName)}" class="document-card" target="_blank">
@@ -249,18 +247,19 @@
             clearBtn.style.display = query ? 'flex' : 'none';
 
             if (query) {
-                // Update URL without reloading page
                 const newUrl = `${window.location.pathname}?q=${encodeURIComponent(query)}`;
                 window.history.replaceState({}, '', newUrl);
 
                 filteredResults = searchDocuments(query, activeCategory);
                 renderResults(filteredResults);
             } else {
+                filteredResults = [];  // ← add this
                 document.getElementById('searchResultsList').innerHTML = '<p class="loading-message">Enter a search query</p>';
                 document.getElementById('noResults').style.display = 'none';
+                document.getElementById('resultsCount').textContent = '';  // ← also clear the count text
+                window.history.replaceState({}, '', window.location.pathname);  // ← clear the URL param too
             }
         });
-
         // Search on Enter key
         searchInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
