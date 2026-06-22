@@ -107,7 +107,7 @@
 
 /* Access Request Banner */
 .access-request-banner {
-    background: linear-gradient(135deg, #0369a1 0%, #0c4a6e 100%);
+    background: linear-gradient(135deg, #0d5f5f 0%, #0a4a4a 100%);
     border-radius: 16px;
     padding: 24px 30px;
     margin-bottom: 40px;
@@ -157,7 +157,7 @@
     align-items: center;
     gap: 10px;
     background: white;
-    color: #0369a1;
+    color: #0d5f5f;
     padding: 12px 20px;
     border-radius: 10px;
     text-decoration: none;
