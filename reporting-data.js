@@ -39,7 +39,11 @@ const POWERBI_DASHBOARDS = [
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=1839fccb-8863-4824-a80d-020ea9347c17&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
         powerBiUrl: "https://app.powerbi.com/links/TqeclCd5HZ?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
         lastRefreshed: "", // Format: YYYY-MM-DD
-        supportingDocumentsUrl: "" // Link to supporting documents (optional)
+        supportingDocuments: [
+            // Add supporting documents here
+            // { title: "User Guide", url: "link-to-document", icon: "fa-file-pdf" },
+            // { title: "Data Dictionary", url: "link-to-document", icon: "fa-file-word" }
+        ]
     },
 
     {
@@ -48,7 +52,7 @@ const POWERBI_DASHBOARDS = [
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=debef0f1-0a58-4be3-9197-5974ada42cbf&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false",
         powerBiUrl: "https://app.powerbi.com/links/S6C3IVGSSV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=e460cd2e-c93d-494a-9189-7dec4e5ded98",
         lastRefreshed: "", // Format: YYYY-MM-DD
-        supportingDocumentsUrl: "" // Link to supporting documents (optional)
+        supportingDocuments: []
     },
 
     {
@@ -57,7 +61,7 @@ const POWERBI_DASHBOARDS = [
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=3d1a6025-378a-4ec6-be49-f05c33eda7f3&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false",
         powerBiUrl: "https://app.powerbi.com/links/TCjsPuqVg3?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare&bookmarkGuid=8de54f27-1722-4139-a5c7-c841fd5c53ed",
         lastRefreshed: "", // Format: YYYY-MM-DD
-        supportingDocumentsUrl: "" // Link to supporting documents (optional)
+        supportingDocuments: []
     },
     {
         title: "EAPD Direct Client Services Dashboard",
@@ -65,7 +69,7 @@ const POWERBI_DASHBOARDS = [
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=5599c1d2-4ef7-46aa-8de5-84a89dcd17ff&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&filterPaneEnabled=false",
         powerBiUrl: "https://app.powerbi.com/links/eMQGT_YqGO?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
         lastRefreshed: "", // Format: YYYY-MM-DD
-        supportingDocumentsUrl: "" // Link to supporting documents (optional)
+        supportingDocuments: []
     },
 
     {
@@ -74,7 +78,7 @@ const POWERBI_DASHBOARDS = [
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=f2621809-854b-4c47-8009-61a04adcd539&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
         powerBiUrl: "https://app.powerbi.com/links/_SJmd-cGjV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
         lastRefreshed: "", // Format: YYYY-MM-DD
-        supportingDocumentsUrl: "" // Link to supporting documents (optional)
+        supportingDocuments: []
     },
 ];
 
@@ -263,13 +267,6 @@ function generatePowerBIDashboards() {
                         }
                     </div>
                     <div class="powerbi-actions">
-                        ${dashboard.supportingDocumentsUrl ?
-                            `<a href="${dashboard.supportingDocumentsUrl}" target="_blank" class="supporting-docs-btn" title="View Supporting Documents">
-                                <i class="fas fa-file-alt"></i>
-                                <span>Supporting Documents</span>
-                            </a>` :
-                            ''
-                        }
                         ${dashboard.powerBiUrl ?
                             `<a href="${dashboard.powerBiUrl}" target="_blank" class="open-powerbi-btn" title="Open in Power BI">
                                 <i class="fas fa-external-link-alt"></i>
@@ -288,6 +285,26 @@ function generatePowerBIDashboards() {
                         <p>Power BI Dashboard ${index + 1}</p>
                         <p class="placeholder-instructions">Add your Power BI embed URL in reporting-data.js</p>
                     </div>`
+                }
+                ${dashboard.supportingDocuments && dashboard.supportingDocuments.length > 0 ?
+                    `<div class="supporting-documents-section">
+                        <h4 class="supporting-docs-title">
+                            <i class="fas fa-folder-open"></i>
+                            Supporting Documents
+                        </h4>
+                        <div class="supporting-docs-grid">
+                            ${dashboard.supportingDocuments.map(doc => `
+                                <a href="${doc.url}" class="supporting-doc-item" target="_blank" rel="noopener noreferrer">
+                                    <div class="doc-icon-wrapper">
+                                        <i class="fas ${doc.icon}"></i>
+                                    </div>
+                                    <span class="doc-title">${doc.title}</span>
+                                    <i class="fas fa-external-link-alt doc-external-icon"></i>
+                                </a>
+                            `).join('')}
+                        </div>
+                    </div>` :
+                    ''
                 }
             </div>
         `;

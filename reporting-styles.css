@@ -494,32 +494,6 @@
     font-size: 12px;
 }
 
-.supporting-docs-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background-color: #0369a1;
-    color: white;
-    padding: 10px 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.supporting-docs-btn:hover {
-    background-color: #0c4a6e;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(3, 105, 161, 0.3);
-}
-
-.supporting-docs-btn i {
-    font-size: 12px;
-}
-
 .open-powerbi-btn {
     display: inline-flex;
     align-items: center;
@@ -544,6 +518,85 @@
 
 .open-powerbi-btn i {
     font-size: 12px;
+}
+
+/* Supporting Documents Section */
+.supporting-documents-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f0f9ff;
+    border-radius: 12px;
+    border: 1px solid #bae6fd;
+}
+
+.supporting-docs-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0c4a6e;
+    margin: 0 0 16px 0;
+}
+
+.supporting-docs-title i {
+    font-size: 18px;
+    color: #0369a1;
+}
+
+.supporting-docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.supporting-doc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #e0f2fe;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    color: #0c4a6e;
+}
+
+.supporting-doc-item:hover {
+    background-color: #f0f9ff;
+    border-color: #7dd3fc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(3, 105, 161, 0.15);
+}
+
+.doc-icon-wrapper {
+    width: 36px;
+    height: 36px;
+    background-color: #e0f2fe;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.doc-icon-wrapper i {
+    font-size: 18px;
+    color: #0369a1;
+}
+
+.doc-title {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0c4a6e;
+}
+
+.doc-external-icon {
+    font-size: 12px;
+    color: #64748b;
+    flex-shrink: 0;
 }
 
 .iframe-wrapper {
@@ -823,5 +876,26 @@
 
     .iframe-wrapper iframe {
         height: 400px;
+    }
+
+    .supporting-docs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .supporting-doc-item {
+        padding: 10px 12px;
+    }
+
+    .doc-icon-wrapper {
+        width: 32px;
+        height: 32px;
+    }
+
+    .doc-icon-wrapper i {
+        font-size: 16px;
+    }
+
+    .doc-title {
+        font-size: 13px;
     }
 }
