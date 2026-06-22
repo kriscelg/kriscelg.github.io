@@ -82,9 +82,8 @@
 
                     <!-- No Results Message -->
                     <div class="no-results-container" id="noResults" style="display: none;">
-                        <i class="fas fa-search"></i>
-                        <h3>No documents found</h3>
-                        <p>Try adjusting your search or clearing filters</p>
+                        <i class="fas fa-search" style=" font-size: 35px; margin-right: 12px"></i>
+                        <h3>No documents found - Try adjusting your search or clearing filters</h3>
                     </div>
                 </div>
             </div>
@@ -139,22 +138,28 @@
             const icons = {
                 'HTML': 'fa-file-code',
                 'PDF': 'fa-file-pdf',
-                'DOCX': 'fa-file-word',
-                'DOC': 'fa-file-word',
-                'XLSX': 'fa-file-excel',
-                'XLS': 'fa-file-excel',
-                'PPTX': 'fa-file-powerpoint',
-                'PPT': 'fa-file-powerpoint',
-                'TXT': 'fa-file-alt'
+                'Word': 'fa-file-word',
+                'Excel': 'fa-file-excel',
+                'PowerPoint': 'fa-file-powerpoint',
+                'Text': 'fa-file-alt',
+                'Image': 'fa-file-image'
             };
-            return icons[fileType.toUpperCase()] || 'fa-file';
+            return icons[fileType] || 'fa-file';
         }
 
         // Define tag categories
         const TAG_CATEGORIES = {
-            'Document Type': ['policy', 'guidelines'],
-            'Topic': ['monitoring', 'eligibility', 'delivery'],
-            'Related To': ['agreements', 'contracts', 'clients', 'programs', 'service providers']
+            'Programs' : ['Skills Development', 'Wage Subsidy', 'EAPD', 'ETP', 'Self Employment', 'Intitiatives'],
+            'Systems' : ['ICM', 'SPRS', 'EIBIS', 'SAP'],
+            'Financials' : ['Finance', 'Overpayments', 'Vendor Management'],
+            'Document Type': ['HTML', 'PDF', 'Word', 'Excel', 'PowerPoint', 'Image'],
+            'Position' : ['Mananger', 'CDC', 'PO', 'VC', 'LMSA', 'PSC', 'ASO'],
+            'Information Systems' : ['User Access', 'Operations', 'Procedure', 'Office Administration', 'Tech Tips', 'Generative AI'],
+            'Services / Resource' : ['Direct Services', 'Indirect Services', 'General Service Delivery', 'Case Management', 'Career Development', 'Service Provider Resource', 'Client Resource'],
+            'Promotional' : ['Marketing', 'Business', 'Community'],
+            'HR' : ['Respectful Workplace Policy and Toolkit'],
+            'Language' : ['English', 'French']
+            
         };
 
         // Render documents (condensed, no descriptions)
@@ -169,7 +174,8 @@
             }
 
             noResults.style.display = 'none';
-            container.innerHTML = docs.map(doc => `
+            const sortedDocs = [...docs].sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+            container.innerHTML = sortedDocs.map(doc => `
                 <a href="${encodeFilePath(doc.fileName)}" class="document-card" target="_blank">
                     <div class="doc-icon">
                         <i class="fas ${getFileIcon(doc.fileType)}"></i>
