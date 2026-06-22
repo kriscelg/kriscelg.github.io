@@ -1,223 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact & Resources - WDT Intranet</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="contact-resources-styles.css">
-</head>
-<body data-page="contact">
-    <!-- Navigation loaded from nav.html -->
-    <div id="nav-container"></div>
+/**
+ * Contact & Resources Data
+ *
+ * Edit this file to manage OSU Support forms, Key Contacts, and Staff Resources
+ * Changes here will automatically update the Contact & Resources page
+ */
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <div class="page-header">
-                <h1>Contact & Resources</h1>
-                <p>Get help, find resources, and connect with key personnel</p>
-            </div>
+// OSU Support Forms
+// Add or edit support request forms here
+const OSU_SUPPORT = [
 
-            <!-- SIB Support Section -->
-            <section class="sib-support-wrapper" id="sib-support">
-                <div class="sib-support-header">
-                    <i class="fas fa-headset"></i>
-                    <h2>SIB - Support</h2>
-                </div>
+    {
+        icon: "fas fa-laptop",
+        title: "IT Support Request",
+        description: "Hardware, software, and general system issues",
+        link: "#" // Replace with your Microsoft Forms URL
+    },
 
-                <div class="support-sections-container">
-                    <!-- Contact OSU Section -->
-                    <div class="contact-support-section">
-                        <h3 class="support-section-title">Contact OSU</h3>
-                        <p class="support-section-description">Submit a support request to the Operational Supports Unit</p>
-                        <a href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=6U32q1wqd026oqdiZTZ9Ols_4B3VO2xIjuNj7cHFvIVUNDFFVlBNV0E2WTIxQUk3MTFEWVFaTlNXRyQlQCN0PWcu" class="support-button" target="_blank" rel="noopener noreferrer">
-                            <div class="button-icon">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <div class="button-content">
-                                <span class="button-title">Submit OSU Request</span>
-                                <span class="button-subtitle">Open support form</span>
-                            </div>
-                            <i class="fas fa-external-link-alt button-arrow"></i>
-                        </a>
-                    </div>
+    {
+        icon: "fas fa-shield-alt",
+        title: "Security & Access",
+        description: "Account access, permissions, and security issues",
+        link: "#" // Replace with your Microsoft Forms URL
+    },
 
-                    <!-- Contact SMU Section -->
-                    <div class="contact-support-section">
-                        <h3 class="support-section-title">Contact SMU</h3>
-                        <p class="support-section-description">Submit a support request to the Service Modernization Unit</p>
-                        <a href="YOUR_SMU_MICROSOFT_FORMS_LINK_HERE" class="support-button" target="_blank" rel="noopener noreferrer">
-                            <div class="button-icon">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <div class="button-content">
-                                <span class="button-title">Submit SMU Request</span>
-                                <span class="button-subtitle">Open support form</span>
-                            </div>
-                            <i class="fas fa-external-link-alt button-arrow"></i>
-                        </a>
-                    </div>
-                </div>
-            </section>
+    {
+        icon: "fas fa-rectangle-list",
+        title: "Communications",
+        description: "Documents, Webpage, Bulletins and Social Media Updates",
+        link: "#" // Replace with your Microsoft Forms URL
+    },
 
-            <!-- Key Contacts Section -->
-            <section class="contacts-section" id="key-contacts">
-                <div class="section-header">
-                    <i class="fas fa-address-book"></i>
-                    <h2>Key Contacts</h2>
-                </div>
-                <p class="section-description">Important contacts for different departments and services</p>
+    {
+        icon: "fas fa-tools",
+        title: "Other Support",
+        description: "General inquiries and other technical needs",
+        link: "#" // Replace with your Microsoft Forms URL
+    }
+];
 
-                <div class="contacts-grid" id="contactsGrid">
-                    <!-- Key contacts will be loaded dynamically from contact-resources-data.js -->
-                </div>
-            </section>
+// Key Contacts
+// Add or edit key personnel contacts here
+const KEY_CONTACTS = [
+    {
+        icon: "fas fa-laptop",
+        title: "WDT - Data Admin Mailbox",
+        email: "Data.Administrators@gov.mb.ca",
+    },
 
-            <!-- Staff Resources Section -->
-            <section class="resources-section" id="staff-resources">
-                <div class="section-header">
-                    <i class="fas fa-book"></i>
-                    <h2>Staff Resources</h2>
-                </div>
-                <p class="section-description">Quick access to important resources and tools</p>
+    {
+        icon: "fas fa-laptop",
+        title: "WDT - Service Modernization Unit",
+        email: "service.modernization@gov.mb.ca",
+    },
+    
 
-                <div class="resources-grid" id="resourcesGrid">
-                    <!-- Staff resources will be loaded dynamically from contact-resources-data.js -->
-                </div>
-            </section>
-        </div>
-    </main>
+    {
+        icon: "fas fa-dollar-sign",
+        title: "TES - Finance",
+        email: "FinAdmin@gov.mb.ca",
+    },
 
-    <!-- Search Overlay -->
-    <div class="search-overlay" id="searchOverlay">
-        <div class="search-container">
-            <div class="search-header">
-                <h3>Search</h3>
-                <button class="close-search" id="closeSearch">&times;</button>
-            </div>
-            <div class="search-input-wrapper">
-                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
-                <button class="search-submit">Search</button>
-            </div>
-        </div>
-    </div>
+    {
+        icon: "fas fa-headsest",
+        title: "DTS Service Desk",
+        email: "Winnipeg: 204-926-3400 / Toll-free: 1-888-281-1139",
+    },
 
-    <!-- Footer loaded from footer.html -->
-    <div id="footer-container"></div>
+    
+];
 
-    <!-- Load shared navigation and footer -->
-    <script src="nav-footer-loader.js"></script>
+// Staff Resources
+// Add or edit staff resource links here
+const STAFF_RESOURCES = [
+    {
+        icon: "fas fa-user",
+        title: "Employee Self-Service (ESS)",
+        description: "View personal information stored in SAP",
+        link: "https://employeeselfservice.me.mbgov.ca/" // Replace with actual link
+    },
 
-    <!-- Load contact and resources data -->
-    <script src="contact-resources-data.js"></script>
+    {
+        icon: "fas fa-lock",
+        title: "Self Service Password Reset",
+        description: "Change Government Network Password",
+        link: "https://sspr.me.mbgov.ca/" // Replace with actual link
+    },
 
-    <!-- Load and display contact and resources data -->
-    <script>
-        // Load Key Contacts
-        function loadKeyContacts() {
-            const contactsGrid = document.getElementById('contactsGrid');
-            const contacts = typeof KEY_CONTACTS !== 'undefined' ? KEY_CONTACTS : [];
+    {
+        icon: "fas fa-file-arrow-down",
+        title: "TES Referral Form",
+        description: "Refer an individual to Training and Employment Services",
+        link: "staff resources/newTesReferralFormDraft.docx" // Replace with actual link
+    },
+    {
+        icon: "fas fa-file-contract",
+        title: "GEMA Collective Agreement",
+        description: "View Agreements",
+        link: "https://www.manitoba.ca/csc/labour/salary/gema.html" // Replace with actual link
+    },
+    {
+        icon: "fas fa-clipboard-list",
+        title: "Classification Specifications",
+        description: "View Job Classifications",
+        link: "https://www.manitoba.ca/csc/labour/program/class_specs.html" // Replace with actual link
+    },
+    {
+        icon: "fas fa-money-check",
+        title: "Salary Schedules",
+        description: "View Salary Schedules",
+        link: "https://www.manitoba.ca/csc/labour/salary/salary.html" // Replace with actual link
+    },
 
-            if (contacts.length === 0) {
-                contactsGrid.innerHTML = '<p class="no-items">No contacts available.</p>';
-                return;
-            }
+    {
+        icon: "fas fa-file-lines",
+        title: "Pay and Benefits",
+        description: "View Salary Schedules",
+        link: "http://intranet.mbgov.ca/csc/intranet/Pages/index.html" // Replace with actual link
+    },
 
-            contactsGrid.innerHTML = contacts.map(contact => `
-                <div class="contact-card">
-                    <div class="contact-header">
-                        <i class="${contact.icon}"></i>
-                        <h3>${contact.title}</h3>
-                    </div>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:${contact.email}">${contact.email}</a>
-                            <button class="copy-email-btn" onclick="copyEmail('${contact.email}', this)" title="Copy email">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
+    {
+        icon: "fas fa-calendar-day",
+        title: "Payday Calendar",
+        description: "Download MDA Payday Calendar",
+        link: "https://www.manitoba.ca/mda/" // Replace with actual link
+    },
 
-        // Copy email to clipboard
-        function copyEmail(email, button) {
-            // Use the Clipboard API to copy the email
-            navigator.clipboard.writeText(email).then(() => {
-                // Change icon to checkmark temporarily
-                const icon = button.querySelector('i');
-                icon.classList.remove('fa-copy');
-                icon.classList.add('fa-check');
-                button.classList.add('copied');
+    {
+        icon: "fas fa-phone",
+        title: "Manitoba Phonebook",
+        description: "View contact information for elected and appointed officials",
+        link: "https://web30.intranet.mbgov.ca/manitobaphonebook/" // Replace with actual link
+    },
 
-                // Reset after 2 seconds
-                setTimeout(() => {
-                    icon.classList.remove('fa-check');
-                    icon.classList.add('fa-copy');
-                    button.classList.remove('copied');
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy email: ', err);
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = email;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    const icon = button.querySelector('i');
-                    icon.classList.remove('fa-copy');
-                    icon.classList.add('fa-check');
-                    button.classList.add('copied');
+    {
+        icon: "fas fa-f",
+        title: "French Language Services (FLS)",
+        description: "View resources for FLS",
+        link: "http://intranet.mbgov.ca/lcpgs/resources/Pages/French-Language-Services.aspx" // Replace with actual link
+    },
 
-                    setTimeout(() => {
-                        icon.classList.remove('fa-check');
-                        icon.classList.add('fa-copy');
-                        button.classList.remove('copied');
-                    }, 2000);
-                } catch (err) {
-                    console.error('Fallback: Failed to copy', err);
-                }
-                document.body.removeChild(textArea);
-            });
-        }
 
-        // Load Staff Resources
-        function loadStaffResources() {
-            const resourcesGrid = document.getElementById('resourcesGrid');
-            const resources = typeof STAFF_RESOURCES !== 'undefined' ? STAFF_RESOURCES : [];
 
-            if (resources.length === 0) {
-                resourcesGrid.innerHTML = '<p class="no-items">No resources available.</p>';
-                return;
-            }
-
-            resourcesGrid.innerHTML = resources.map(resource => `
-                <a href="${resource.link}" class="resource-card" target="_blank" rel="noopener noreferrer">
-                    <div class="resource-icon">
-                        <i class="${resource.icon}"></i>
-                    </div>
-                    <div class="resource-content">
-                        <h3>${resource.title}</h3>
-                        <p>${resource.description}</p>
-                    </div>
-                    <i class="fas fa-chevron-right resource-arrow"></i>
-                </a>
-            `).join('');
-        }
-
-        // Load all sections when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            loadKeyContacts();
-            loadStaffResources();
-        });
-    </script>
-</body>
-</html>
+    
+];
