@@ -1,101 +1,326 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<link rel="stylesheet" type="text/css" href="styles.css" />
-	<title>Happy Birthday</title>
-
-	<script type="text/javascript">
-	
-		var colors = ["red","blue","green","yellow","purple"];
-		var i = 0;
-		var selectedColor;
-		var red = 0;
-		var blue = 0;
-		var green = 0;
-		var yellow = 0;
-		var purple = 0;
-		var total = 0;
-		function button_click(element_id) {
-			selectedColor = colors[i];
-			document.getElementById(element_id).style.backgroundColor = selectedColor;
-			i++;
-			if (element_id == "circle" && i == 5){
-				purple = 1;
-
-			}
-			else if (element_id == "circle" && i != 5){
-				purple = 0;
-
-			}
-
-			if (element_id == "circlea" && i == 1){
-				red = 1;
-
-			}
-			else if (element_id == "circlea" && i != 1){
-				red = 0;
-
-			}
-
-			if (element_id == "circleb" && i == 3){
-				green = 1;
-
-			}
-			else if (element_id == "circleb" && i != 3){
-				green = 0;
-			}
-
-			if (element_id == "circlec" && i == 2){
-				blue = 1;
-
-			}
-			else if (element_id == "circlec" && i != 2){
-				blue = 0;
-			}
-
-
-			if (element_id == "circled" && i == 4){
-				yellow = 1;
-
-			}
-			else if (element_id == "circled" && i != 4){
-				yellow = 0;
-			}
-			if(i > colors.length){
-				i = 0;
-			}
-
-	    	}
-
-	    	function onSubmit() {
-			total = red + blue + yellow + green + purple;
-
-			if (total == 5) {window.location.href = 'rules.html';}
-	    	}
-	</script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body data-page="index">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
 
-	<div class="fade">
-		<h1>Welcome Alex</h1>
-	</div>
-	
-	<div class="circle" id="circle" onclick="button_click(this.id); onSubmit()"></div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Top Section: Bulletins and Events -->
+            <div class="top-section">
+                <!-- Recent Communications -->
+                <div class="bulletins-section">
+                    <div class="home-tab-list">
+                        <button class="home-tab-btn active" data-tab="newsletters">
+                            <i class="fas fa-newspaper"></i> Newsletter
+                        </button>
+                        <button class="home-tab-btn" data-tab="bulletins">
+                            <i class="fas fa-bullhorn"></i> Bulletins
+                        </button>
+                        <button class="home-tab-btn" data-tab="policy-changes">
+                            <i class="fas fa-file-alt"></i> Recent Policy Changes
+                        </button>
+                    </div>
+                    <div class="home-tab-panel active" id="panel-newsletters"></div>
+                    <div class="home-tab-panel" id="panel-bulletins"></div>
+                    <div class="home-tab-panel" id="panel-policy-changes"></div>
+                    <a href="communications.html" class="see-more-btn">See More...</a>
+                </div>
 
-	<div class="circlea" id="circlea" onclick="button_click(this.id); onSubmit()"></div>
+                <!-- Events -->
+                <div class="events-section">
+                    <div class="events-header">
+                        <h2>Events</h2>
+                        <a href="events.html" class="view-calendar">View Calendar</a>
+                    </div>
+                    <div class="events-list" id="upcomingEventsList">
+                        <!-- Events will be loaded dynamically from the calendar -->
+                        <p class="loading-events">Loading upcoming events...</p>
+                    </div>
+                </div>
+            </div>
 
-	<div class="circleb" id="circleb" onclick="button_click(this.id); onSubmit()"></div>
+            <!-- Quick Links -->
+            <div class="quick-links-section">
+                <h2>Quick Links</h2>
+                <div class="quick-links-grid">
+                    <a href="https://direct.intranet.mbgov.ca/icm/loginInit.action" target="_blank" class="quick-link-card">
+                        <div class="link-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="link-content">
+                            <h3>ICM</h3>
+                            <p>Integrated Case Management System</p>
+                        </div>
+                        <i class="fas fa-arrow-right link-arrow"></i>
+                    </a>
+                    <a href="https://direct.intranet.mbgov.ca/sprs/index.action" target="_blank" class="quick-link-card">
+                        <div class="link-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="link-content">
+                            <h3>SPRS</h3>
+                            <p>Service Provider Reporting Solution</p>
+                        </div>
+                        <i class="fas fa-arrow-right link-arrow"></i>
+                    </a>
+                    <a href="https://apps.powerapps.com/play/e/default-abf64de9-2a5c-4d77-baa2-a76265367d3a/a/496cfd78-3c9c-40b2-88ae-2e52eb51db02?tenantId=abf64de9-2a5c-4d77-baa2-a76265367d3a&hint=2cef5dc8-434a-4441-a0fb-aa962de551cb&sourcetime=1765397385593"  class="quick-link-card " target="_blank">
+                        <div class="link-icon">
+                            <i class="fas fa-list-ul"></i>
+                        </div>
+                        <div class="link-content">
+                            <h3> TES Project Listing</h3>
+                            <p>View all active projects</p>
+                        </div>
+                        <i class="fas fa-arrow-right link-arrow"></i>
+                    </a>
+                    <a href="https://employer.jobbank.gc.ca/internal/"  target="_blank" class="quick-link-card">
+                        <div class="link-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="link-content">
+                            <h3>Internal Job Bank</h3>
+                            <p>Internal Job Bank Login Portal</p>
+                        </div>
+                        <i class="fas fa-arrow-right link-arrow"></i>
+                    </a>
+                    <a href="https://noc.esdc.gc.ca/"  target="_blank" class="quick-link-card">
+                        <div class="link-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="link-content">
+                            <h3>NOC Lookup</h3>
+                            <p>National Occupational Classification</p>
+                        </div>
+                        <i class="fas fa-arrow-right link-arrow"></i>
+                    </a>
+                    <a href="https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=1181553"  target="_blank" class="quick-link-card">
+                        <div class="link-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="link-content">
+                            <h3>NAICS Lookup</h3>
+                            <p>North American Industry Classification System</p>
+                        </div>
+                        <i class="fas fa-arrow-right link-arrow"></i>
+                    </a>
+                    <a href="https://appgate-sdp.rna.esdc.gc.ca/client" target="_blank" class="quick-link-card">
+                        <div class="link-icon">
+                            <i class="fas fa-address-card"></i>
+                        </div>
+                        <div class="link-content">
+                            <h3>AppGate</h3>
+                            <p>AppGate Software Defined Parameter</p>
+                        </div>
+                        <i class="fas fa-arrow-right link-arrow"></i>
+                    </a>
+                    <a href="http://nmborange.me.mbgov.ca:8044/sap/bc/bsp/sap/crm_ui_start/default.htm?sap%e2%80%90client=200&sap%e2%80%90sessioncmd=open"  target="_blank" class="quick-link-card">
+                        <div class="link-icon">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <div class="link-content">
+                            <h3>SAP/CRM</h3>
+                            <p>SAP NetWeaver</p>
+                        </div>
+                        <i class="fas fa-arrow-right link-arrow"></i>
+                    </a>
+                    <a href="https://www.edu.gov.mb.ca/pvi/list/index.html"  target="_blank" class="quick-link-card">
+                        <div class="link-icon">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <div class="link-content">
+                            <h3>PVI List</h3>
+                            <p>Listing of Private Vocational Institutions</p>
+                        </div>
+                        <i class="fas fa-arrow-right link-arrow"></i>
+                    </a>
+                </div>
+            </div>
 
-	<div class="circlec" id="circlec" onclick="button_click(this.id); onSubmit()"></div>
-	<div class="circled" id="circled" onclick="button_click(this.id); onSubmit()"></div>
-	
-	<h2>colours speak louder than words</h2>
-	
-	<br>
-	
-	<h3>@Th3CreatorBot on Telegram can help you out</h3>
-	
+            <!-- Info Cards -->
+            <div class="info-cards-section">
+                <div class="info-card">
+                    <h3>Division Info</h3>
+                    <p>This page provides divisional information.</p>
+                    <a href="about-us.html" class="card-btn">Click for more...</a>
+                </div>
+                <div class="info-card">
+                    <h3>Documents</h3>
+                    <p>Access the division's policies, procedures, guidelines, forms, and resources in one place</p>
+                    <a href="documents.html" class="card-btn">Click for more...</a>
+                </div>
+                <div class="info-card">
+                    <h3>Reporting</h3>
+                    <p>Access to all dashboards and reports.</p>
+                    <a href="reporting.html" class="card-btn">Click for more...</a>
+                </div>
+                <div class="info-card">
+                    <h3>Training &<br>Development</h3>
+                    <p>Access your repository of recorded training videos and presentations, continuous learning and skill enhancement all at your pace.</p>
+                    <a href="videos-presentations.html" class="card-btn">Click for more...</a>
+                </div>
+                <div class="info-card">
+                    <h3>Communications</h3>
+                    <p>This page centralizes all essential departmental communications, including bulletins and the weekly newsletters.</p>
+                    <a href="communications.html" class="card-btn">Click for more...</a>
+                </div>
+                <div class="info-card">
+                    <h3>Contact<br>& Resources</h3>
+                    <p>This page provides consolidated access to OSU support, key contacts, and staff resource links.</p>
+                    <a href="contact-resources.html" class="card-btn">Click for more...</a>
+                </div>
+                
+                
+            </div>
+        </div>
+    </main>
 
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+
+    <!-- Load data files FIRST, before any scripts that use them -->
+    <script src="events-data.js"></script>
+    <script src="communications-data.js"></script>
+
+    <script>
+        // Helper: encode file paths for use in href attributes
+        function encodeFilePath(filePath) {
+            return filePath.split('/').map(part => encodeURIComponent(part)).join('/');
+        }
+
+        // Helper: render a list of items into a panel element
+        function renderItems(items, panelId, emptyMsg) {
+            const panel = document.getElementById(panelId);
+            if (items.length === 0) {
+                panel.innerHTML = `<p class="no-items">${emptyMsg}</p>`;
+                return;
+            }
+            panel.innerHTML = items.map(item => `
+                <a href="${encodeFilePath(item.fileName)}" class="bulletin-item" target="_blank">
+                    <p class="bulletin-title">${item.subject}</p>
+                </a>
+            `).join('');
+        }
+
+        // Load tab content from data files
+        function loadCommunicationsTabs() {
+            const newsletters   = typeof NEWSLETTERS    !== 'undefined' ? NEWSLETTERS    : [];
+            const bulletins     = typeof BULLETINS      !== 'undefined' ? BULLETINS      : [];
+            const policyChanges = typeof POLICY_CHANGES !== 'undefined' ? POLICY_CHANGES : [];
+
+            const latest = arr => [...arr].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
+
+            renderItems(latest(newsletters),   'panel-newsletters',   'No newsletters available.');
+            renderItems(latest(bulletins),     'panel-bulletins',     'No bulletins available.');
+            renderItems(latest(policyChanges), 'panel-policy-changes','No recent policy changes.');
+        }
+
+        // Tab switching
+        document.querySelectorAll('.home-tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.home-tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.home-tab-panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        loadCommunicationsTabs();
+    </script>
+
+    <script>
+        // Load upcoming events from EVENTS array (defined in events-data.js)
+        function loadUpcomingEvents() {
+            const eventsList = document.getElementById('upcomingEventsList');
+
+            // Get events from EVENTS array (loaded from events-data.js)
+            const events = typeof EVENTS !== 'undefined' ? EVENTS : [];
+
+            // Get today's date at midnight for comparison
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            // Filter for upcoming events (today or future)
+            const upcomingEvents = events.filter(event => {
+                const eventDate = new Date(event.date + 'T00:00:00');
+                return eventDate >= today;
+            });
+
+            // Sort by date and time
+            upcomingEvents.sort((a, b) => {
+                const dateCompare = a.date.localeCompare(b.date);
+                if (dateCompare !== 0) return dateCompare;
+                return a.time.localeCompare(b.time);
+            });
+
+            // Take only the first 3
+            const nextThreeEvents = upcomingEvents.slice(0, 3);
+
+            // Display events
+            if (nextThreeEvents.length === 0) {
+                eventsList.innerHTML = '<p class="no-events-home">No upcoming events scheduled. <a href="events.html">View Calendar</a></p>';
+            } else {
+                eventsList.innerHTML = nextThreeEvents.map(event => {
+                    const eventDate = new Date(event.date + 'T00:00:00');
+                    const monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+                                       'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+                    const month = monthNames[eventDate.getMonth()];
+                    const day = eventDate.getDate();
+
+                    // Format time
+                    const [hours, minutes] = event.time.split(':');
+                    const hour = parseInt(hours);
+                    const ampm = hour >= 12 ? 'PM' : 'AM';
+                    const displayHour = hour % 12 || 12;
+                    const timeFormatted = `${displayHour}:${minutes} ${ampm}`;
+
+                    return `
+                        <div class="event-item">
+                            <div class="event-date">
+                                <span class="month">${month}</span>
+                                <span class="day">${day}</span>
+                            </div>
+                            <div class="event-details">
+                                <h3>${event.title}</h3>
+                                <p><i class="far fa-clock"></i> ${timeFormatted}</p>
+                                ${event.location ? `<p><i class="fas fa-map-marker-alt"></i> ${event.location}</p>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        // Load events when page loads
+        loadUpcomingEvents();
+    </script>
 </body>
 </html>

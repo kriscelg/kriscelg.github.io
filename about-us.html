@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="about-us-styles.css">
+</head>
+<body data-page="about">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="about-header">
+                <div class="header-content">
+                    <div class="header-left">
+                        <div class="header-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="header-text">
+                            <h1>About Us</h1>
+                            <p>This site is designed to provide an overview of the organization with access to useful, relevant and shared information for all employees. It also serves as a hub for information from all branches and their respective units.</p>
+                            <br>
+                            <p>Please check back as the site is updated regularly</p>
+                        </div>
+                    </div>
+                    <div class="header-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-label">Department</div>
+                                <div class="stat-value">Business, Mining, Trade and Job Creation (BMTJC)</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-label">Division</div>
+                                <div class="stat-value">Workforce Development & Training (WDT)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Branches Section -->
+                <div class="branches-section">
+                    <h2 class="branches-title">Our Branches</h2>
+                    <div class="branches-grid">
+                        <!-- Branch 1: Training and Employment Services -->
+                        <div class="branch-card">
+                            <div class="branch-header" onclick="toggleBranchUnits(this, event)">
+                                <div class="branch-icon">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <div class="branch-header-text">
+                                    <h3>Training and Employment Services (TES)</h3>
+                                    <p class="branch-description">Provides employment assistance and skills development programs.</p>
+                                </div>
+                                <div class="branch-toggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="branch-units collapsed">
+                                <div class="units-label">Units</div>
+                                <div class="unit-item">
+                                    <h4>Employment and Training Partnerships (ETP)</h4>
+                                    <p>Employment and Training Partnerships provides funding that enables industry sectors, employers, communities and other organizations to address labour force development needs.</p>
+                                </div>
+                                <div class="unit-item">
+                                    <h4>Employability Assistance for People with Disabilities (EAPD)</h4>
+                                    <p>Employability Assistance for People with Disabilities provides a wide range of employment related supports, services, and training primarily for unemployed adults who have a disability.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Branch 2: Apprenticeship Manitoba -->
+                        <div class="branch-card">
+                            <div class="branch-header" onclick="toggleBranchUnits(this, event)">
+                                <div class="branch-icon">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <div class="branch-header-text">
+                                    <h3>Apprenticeship Manitoba (AM)</h3>
+                                    <p class="branch-description">Oversees apprenticeship programs and supports skilled trades development.</p>
+                                </div>
+                                <div class="branch-toggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="branch-units collapsed">
+                                <div class="units-label">Units</div>
+                                <div class="unit-item">
+                                    <h4></h4>
+                                    <p></p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Branch 3: Business and Industry Training Supports -->
+                        <div class="branch-card">
+                            <div class="branch-header" onclick="toggleBranchUnits(this, event)">
+                                <div class="branch-icon">
+                                    <i class="fas fa-industry"></i>
+                                </div>
+                                <div class="branch-header-text">
+                                    <h3>Business and Industry Training Supports (BITS)</h3>
+                                    <p class="branch-description">Partners with businesses to deliver workforce training and development solutions.</p>
+                                </div>
+                                <div class="branch-toggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="branch-units collapsed">
+                                <div class="units-label">Units</div>
+                                <div class="unit-item">
+                                    <h4>Business Supports Unit</h4>
+                                    <p></p>
+                                </div>
+
+                                <div class="unit-item">
+                                    <h4>Industry and Sector Supports</h4>
+                                    <p></p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Branch 4: Service Innovation Branch -->
+                        <div class="branch-card">
+                            <div class="branch-header" onclick="toggleBranchUnits(this, event)">
+                                <div class="branch-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="branch-header-text">
+                                    <h3>Service Innovation Branch (SIB)</h3>
+                                    <p class="branch-description">Drives innovation and continuous improvement across all programs and services.</p>
+                                </div>
+                                <div class="branch-toggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="branch-units collapsed">
+                                <div class="units-label">Units</div>
+                                <div class="unit-item">
+                                    <h4>Operational Supports Unit (OSU)</h4>
+                                    <p>The Operational Supports Unit (OSU) delivers comprehensive support to frontline staff through programming, training, security and access coordination, reporting, and system enhancements.</p>
+                                </div>
+                                <div class="unit-item">
+                                    <h4>Service Modernization Unit (SMU)</h4>
+                                    <p>The Service Modernization Unit leads modernization efforts throughout the division to enhance service delivery and operational efficiency.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Branch 5: Economic and Workforce Policy and Strategy -->
+                        <div class="branch-card">
+                            <div class="branch-header" onclick="toggleBranchUnits(this, event)">
+                                <div class="branch-icon">
+                                    <i class="fas fa-landmark"></i>
+                                </div>
+                                <div class="branch-header-text">
+                                    <h3>Economic and Labour Market Policy (ELMP)</h3>
+                                    <p class="branch-description">Develops economic and workforce policy strategies to support labour market outcomes.</p>
+                                </div>
+                                <div class="branch-toggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="branch-units collapsed">
+                                <div class="units-label">Units</div>
+                                <div class="unit-item">
+                                    <h4></h4>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-decorations">
+                    <div class="decoration-circle circle-1"></div>
+                    <div class="decoration-circle circle-2"></div>
+                    <div class="decoration-circle circle-3"></div>
+                </div>
+            </div>
+
+            <!-- Organization Charts Section -->
+            <section class="org-charts-section" id="organization-charts">
+                <div class="section-header">
+                    <i class="fas fa-sitemap"></i>
+                    <h2>Organization Charts</h2>
+                </div>
+                <p class="section-description">View our organizational structure and department hierarchies</p>
+
+                <div class="charts-grid" id="chartsGrid">
+                    <!-- Organization charts will be loaded here dynamically -->
+                </div>
+
+                <div class="no-results" id="noChartsMessage" style="display: none;">
+                    <i class="fas fa-file-slash"></i>
+                    <p>No organization charts available</p>
+                </div>
+            </section>
+
+            <!-- Mandates Section -->
+            <section class="mandates-section" id="mandates">
+                <div class="section-header">
+                    <i class="fas fa-scroll"></i>
+                    <h2>Our Mandates</h2>
+                </div>
+                <p class="section-description">The key mandates and responsibilities that guide our work</p>
+
+                <div class="mandates-content">
+                    <!-- Mandate 1 -->
+                    <div class="mandate-card">
+                        <div class="mandate-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="mandate-content">
+                            <h3>Client-centred</h3>
+                            <p>Flexibility to meet the needs of unemployed, underemployed and employed individuals, including the precariously employed, and employers using the best available labour market information; and minimize barriers in accessing programs and supports.</p>
+                        </div>
+                    </div>
+
+                    <!-- Mandate 2 -->
+                    <div class="mandate-card">
+                        <div class="mandate-icon">
+                            <i class="fas fa-hands-holding"></i>
+                        </div>
+                        <div class="mandate-content">
+                            <h3>Inclusion</h3>
+                            <p>Support individuals from underrepresented groups and those further from the labour market.</p>
+                        </div>
+                    </div>
+
+                    <!-- Mandate 3 -->
+                    <div class="mandate-card">
+                        <div class="mandate-icon">
+                            <i class="fas fa-list-check"></i>
+                        </div>
+                        <div class="mandate-content">
+                            <h3>Outcomes-focused</h3>
+                            <p>Track measurable milestones and targets; and develop ways to measure different forms of progress toward the labour market (e.g. improved employability).</p>
+                        </div>
+                    </div>
+
+                    <!-- Mandate 4 -->
+                    <div class="mandate-card">
+                        <div class="mandate-icon">
+                            <i class="fas fa-shuffle"></i>
+                        </div>
+                        <div class="mandate-content">
+                            <h3>Flexibility and responsiveness</h3>
+                            <p>Flexibility to address unique local labour market priorities and respond to emerging issues.</p>
+                        </div>
+                    </div>
+
+                    <!-- Mandate 5 -->
+                    <div class="mandate-card">
+                        <div class="mandate-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="mandate-content">
+                            <h3>Innovation</h3>
+                            <p>Identify and explore collaborative models for innovation, including continuous sharing of best practices and lessons learned.</p>
+                        </div>
+                    </div>
+
+                    <!-- Mandate 6 -->
+                    <div class="mandate-card">
+                        <div class="mandate-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="mandate-content">
+                            <h3>Engagement</h3>
+                            <p>Collaboration between federal and provincial or territorial governments; engagement with organizations representing Indigenous peoples; consultation and engagement with stakeholders; and coordination to enhance program complementarity.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- PDF Viewer Modal -->
+    <div class="modal" id="chartModal">
+        <div class="modal-content chart-modal-content">
+            <div class="modal-header">
+                <h2 id="chartModalTitle"></h2>
+                <button class="modal-close" onclick="closeChartModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="pdf-viewer-container">
+                    <iframe id="chartViewer" src="" width="100%" height="600px"></iframe>
+                </div>
+                <div class="chart-description">
+                    <p id="chartDescription"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+
+    <!-- Load about us data and script -->
+    <script src="about-us-data.js"></script>
+    <script src="about-us-script.js"></script>
+</body>
+</html>

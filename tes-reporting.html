@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporting & Analytics - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="reporting-styles.css">
+</head>
+<body data-page="reporting">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Dashboard Access Request Banner -->
+            <div class="access-request-banner">
+                <div class="banner-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="banner-content">
+                    <h3>Need Dashboard Access?</h3>
+                    <p>Complete the dashboard access request form to gain access to Power BI dashboards</p>
+                </div>
+                <a href="YOUR_PDF_ACCESS_FORM_LINK_HERE" class="access-request-btn" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-download"></i>
+                    <span>Download Request Form</span>
+                </a>
+            </div>
+
+            <!-- Client Outcomes Bar Graphs Section -->
+            <section class="bar-graphs-section">
+                <div class="section-header">
+                    <i class="fas fa-chart-bar"></i>
+                    <h2>TES 2025/26 Client Outcomes by Program</h2>
+                </div>
+                <p class="section-description">Track client engagement and employment outcomes across all programs</p>
+
+                <!-- Clients Served Graph -->
+                <div class="graph-card">
+                    <h3>Clients Served</h3>
+                    <div class="graph-legend">
+                        <div class="legend-item">
+                            <span class="legend-color q1-color"></span>
+                            <span>Q1</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color q2-color"></span>
+                            <span>Q2*</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color q3-color"></span>
+                            <span>Q3</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color q4-color"></span>
+                            <span>Q4</span>
+                        </div>
+                    </div>
+                    <div id="clients-served-graph"></div>
+                </div>
+
+                <!-- Clients Employed Graph -->
+                <div class="graph-card">
+                    <h3>Clients Employed</h3>
+                    <div class="graph-legend">
+                        <div class="legend-item">
+                            <span class="legend-color q1-color"></span>
+                            <span>Q1</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color q2-color"></span>
+                            <span>Q2*</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color q3-color"></span>
+                            <span>Q3</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color q4-color"></span>
+                            <span>Q4</span>
+                        </div>
+                    </div>
+                    <div id="clients-employed-graph"></div>
+                </div>
+
+                <p class="graph-note">* Reflects clients contacted in the quarter and closed to employment. May have started receiving service in previous quarters.<br>
+                Note: FJF experienced limited participation due to community-wide evacuations from provincial wildfires in Q1 and Q2.</p>
+            </section>
+
+            <!-- Power BI Dashboards Section -->
+            <section class="dashboards-section">
+                <div class="section-header">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h2>TES Dashboards</h2>
+                </div>
+                <p class="section-description">Interactive Power BI dashboards providing real-time insights and analytics</p>
+
+                <!-- Power BI Dashboards Container (Dynamically Generated) -->
+                <div id="powerbi-dashboards-container"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+
+    <!-- Load reporting data and generate bar graphs -->
+    <script src="reporting-data.js"></script>
+</body>
+</html>
