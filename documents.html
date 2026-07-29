@@ -29,6 +29,61 @@
                 </div>
             </div>
 
+            <!-- Terms of Reference - Collapsible Section -->
+            <div class="terms-reference-section">
+                <button class="terms-toggle-btn" id="termsToggle" aria-expanded="false" onclick="toggleTerms()">
+                    <div class="terms-toggle-left">
+                        <div class="terms-toggle-icon-wrap">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="terms-toggle-text">
+                            <span class="terms-toggle-title">Terms of Reference</span>
+                            <span class="terms-toggle-subtitle">Standard terminology used across all internal documents</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-down terms-chevron" id="termsChevron"></i>
+                </button>
+                <div class="terms-content" id="termsContent">
+                    <div class="terms-content-inner">
+                        <p class="terms-intro">This Terms of Reference section establishes standard terminology used across internal documents to support consistency, clarity, and long-term usability. Using generic and functional terms reduces the need to update documents when organizational names, structures, or position titles change.</p>
+                        <p class="terms-intro">Unless otherwise noted, all internal user guides, guidelines, job aids, and system documentation should be read using the definitions below.</p>
+                        <div class="terms-table-wrapper">
+                            <table class="terms-table">
+                                <thead>
+                                    <tr>
+                                        <th>Term</th>
+                                        <th>Meaning</th>
+                                        <th>Applies To / Includes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Division</strong></td>
+                                        <td>Relevant departmental division (generic term used instead of specific names).</td>
+                                        <td>Workforce Development and Training (WDT) or successor divisions</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Program Area</strong></td>
+                                        <td>Organizational unit responsible for program delivery or administration</td>
+                                        <td>Training and Employment Services (Winnipeg and Eastern Manitoba Service Area, Western and Northern Manitoba Service Area, and Provincial Services); Business and Industry Training Supports (BITS); or any successor program area</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Client / Participant</strong></td>
+                                        <td>Individual receiving services; terms used interchangeably by program context</td>
+                                        <td>Individuals receiving services across all programs</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Caseworker</strong></td>
+                                        <td>Generic term for staff delivering services, managing cases or completing system activities</td>
+                                        <td>User (system documents only); Labour Market Services Advisor (LMSA); Career Development Consultant (CDC); Project Officer (PO); Vocational Counsellor (VC); Accountability Support Officer (ASO); Program Support Clerk (PSC); Workforce Development Consultant (WDC)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Search Bar with Predictive Search -->
             <div class="docs-search-section">
                 <div class="docs-search-bar">
@@ -143,6 +198,33 @@
 
     <!-- Load shared navigation and footer -->
     <script src="nav-footer-loader.js"></script>
+
+    <!-- Terms of Reference Toggle -->
+    <script>
+        function toggleTerms() {
+            const content = document.getElementById('termsContent');
+            const chevron = document.getElementById('termsChevron');
+            const btn = document.getElementById('termsToggle');
+            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+            if (isExpanded) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                requestAnimationFrame(() => {
+                    content.style.maxHeight = '0';
+                });
+                chevron.style.transform = 'rotate(0deg)';
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                chevron.style.transform = 'rotate(180deg)';
+                btn.setAttribute('aria-expanded', 'true');
+                content.addEventListener('transitionend', function onEnd() {
+                    content.style.maxHeight = 'none';
+                    content.removeEventListener('transitionend', onEnd);
+                });
+            }
+        }
+    </script>
 
     <!-- Load documents data -->
     <script src="documents-data.js"></script>
