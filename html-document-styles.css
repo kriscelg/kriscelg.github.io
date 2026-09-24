@@ -282,6 +282,12 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.document-image.bordered {
+    border: 2px solid #000000;
+    border-radius: 4px;
+    box-shadow: none;
+}
+
 .section p {
     margin-top: 15px;
     margin-bottom: 15px;
@@ -317,6 +323,192 @@ body {
     list-style: disc;
 
 }
+
+.section ol.decimal-list{
+    margin-left: 0px;
+
+}
+
+.decimal-list{
+    list-style-type: none;
+    counter-reset: item 0;
+    padding-left: 0;
+    
+}
+
+.decimal-list li{
+    counter-increment: item;
+    padding-left: 2.6em;        /* Space for the number */
+    text-indent: -2.6em;        /* Pull first line back */
+}
+
+.decimal-list li::before {
+    content: "2." counter(item);
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+
+
+.section ol.decimal-list-one{
+    margin-left: 0px;
+
+}
+
+.decimal-list-one{
+    list-style-type: none;
+    counter-reset: item 0;
+    padding-left: 0;
+    
+}
+
+.decimal-list-one li{
+    counter-increment: item;
+    padding-left: 2.6em;        /* Space for the number */
+    text-indent: -2.6em;        /* Pull first line back */
+}
+
+.decimal-list-one li::before {
+    content: "1." counter(item);
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+
+
+
+
+
+.section ol.bracket-list{
+    margin-left: 0px;
+
+}
+
+.bracket-list{
+    list-style-type: none;
+    counter-reset: item 0;
+    padding-left: 0;
+    
+}
+
+.bracket-list li{
+    counter-increment: item;
+    padding-left: 2.6em;        /* Space for the number */
+    text-indent: -2.6em;        /* Pull first line back */
+}
+
+.bracket-list li::before {
+    content: "(" counter(item) ")";
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+
+
+.section ol.bracket-list-letters{
+    margin-left: 0px;
+
+}
+
+.bracket-list-letters{
+    list-style-type: none;
+    counter-reset: letter-counter;
+    padding-left: 0;
+    
+}
+
+.bracket-list-letters li{
+    
+    padding-left: 2.6em;        /* Space for the number */
+    text-indent: -2.6em;        /* Pull first line back */
+}
+
+.bracket-list-letters li::before {
+    counter-increment: letter-counter;
+    content: "(" counter(letter-counter, lower-alpha) ")       ";
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+
+.section ol.bracket-list-letters-double{
+    margin-left: 0px;
+
+}
+
+.bracket-list-letters-double{
+    list-style-type: none;
+    counter-reset: letter-counter;
+    padding-left: 0;
+    
+}
+
+.bracket-list-letters-double > li{
+    
+    padding-left: 2.6em;        /* Space for the number */
+    text-indent: -2.6em;        /* Pull first line back */
+}
+
+.bracket-list-letters-double li::before {
+    counter-increment: letter-counter;
+    content: "(" counter(letter-counter, lower-alpha) counter(letter-counter, lower-alpha) ")       ";
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+
+.section ol.bracket-list-roman{
+    margin-left: 0px;
+
+}
+
+.bracket-list-roman{
+    list-style-type: none;
+    counter-reset: roman-counter;
+    padding-left: 0;
+    
+}
+
+.bracket-list-roman > li{
+    
+    padding-left: 2.6em;        /* Space for the number */
+    text-indent: -2.6em;        /* Pull first line back */
+}
+
+.bracket-list-roman > li::before {
+    counter-increment: roman-counter;
+    content: "(" counter(roman-counter, lower-roman) ")       ";
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+
+.section ol.bracket-list-letters-sub{
+    margin-left: 0px;
+    
+}
+
+
+.bracket-list-letters-sub {
+    list-style-type: none;
+    counter-reset: subletter-counter;
+    padding-left: 0;
+    margin-left: -7.6em;
+    margin-top: 0.5em;
+}
+
+.bracket-list-letters-sub li {
+    padding-left: 2.5em;
+    text-indent: -2.5em;
+}
+
+.bracket-list-letters-sub > li::before {
+    counter-increment: subletter-counter;
+    content: "(" counter(letter-counter, lower-alpha) "." counter(subletter-counter) ")    ";
+    font-weight: bold;
+    margin-right: 0.4em;
+}
+
 
 /* Document Flag/Alert at Top of Page */
 .document-flag {
@@ -415,6 +607,116 @@ body {
 
 .note strong {
     color: #f57c00;
+}
+
+/* FAQ Collapsible Dropdown */
+.faq-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.faq-question {
+    cursor: pointer;
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #2d3748;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8fafc;
+    transition: background-color 0.2s ease;
+}
+
+.faq-question:hover {
+    background-color: #e8f4f4;
+}
+
+.faq-item[open] .faq-question {
+    background-color: #0d5f5f;
+    color: white;
+}
+
+.faq-question::-webkit-details-marker {
+    display: none;
+}
+
+.faq-question::after {
+    content: "\f078";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    margin-left: 15px;
+}
+
+.faq-item[open] .faq-question::after {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 18px 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.faq-answer p {
+    margin-top: 0;
+}
+
+.faq-answer p:last-child {
+    margin-bottom: 0;
+}
+
+/* Nested H3 Sub-Group (collapsible within a section) */
+.nav-subsection-group {
+    margin-bottom: 2px;
+}
+
+.nav-subsection-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 25px 10px 40px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+.nav-subsection-header:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-left-color: white;
+}
+
+.nav-subsection-header.active {
+    background: rgba(255, 255, 255, 0.12);
+    border-left-color: white;
+    font-weight: 600;
+}
+
+.nav-subsection-toggle {
+    font-size: 10px;
+    transition: transform 0.3s ease;
+}
+
+.nav-subsection-header.collapsed .nav-subsection-toggle {
+    transform: rotate(-90deg);
+}
+
+.nav-sub-subsections {
+    max-height: 1000px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.nav-sub-subsections.collapsed {
+    max-height: 0;
 }
 
 /* Linked Documents Section */
