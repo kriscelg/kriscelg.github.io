@@ -814,6 +814,113 @@ body {
     color: #0d5f5f;
 }
 
+/* Document Buttons */
+.doc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.doc-btn i {
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+/* Primary - solid teal */
+.doc-btn-primary {
+    background: #0d5f5f;
+    color: white;
+    border-color: #0d5f5f;
+}
+
+.doc-btn-primary:hover {
+    background: #0a4a4a;
+    border-color: #0a4a4a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(13, 95, 95, 0.3);
+}
+
+/* Secondary - light teal fill */
+.doc-btn-secondary {
+    background: #e8f4f4;
+    color: #0d5f5f;
+    border-color: #e8f4f4;
+}
+
+.doc-btn-secondary:hover {
+    background: #d0ecec;
+    border-color: #d0ecec;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 95, 95, 0.15);
+}
+
+/* Outline - transparent with teal border */
+.doc-btn-outline {
+    background: transparent;
+    color: #0d5f5f;
+    border-color: #0d5f5f;
+}
+
+.doc-btn-outline:hover {
+    background: #0d5f5f;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 95, 95, 0.25);
+}
+
+/* Danger - red for warnings or destructive actions */
+.doc-btn-danger {
+    background: #dc2626;
+    color: white;
+    border-color: #dc2626;
+}
+
+.doc-btn-danger:hover {
+    background: #b91c1c;
+    border-color: #b91c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+/* Size variants */
+.doc-btn-sm {
+    padding: 7px 14px;
+    font-size: 13px;
+}
+
+.doc-btn-sm i {
+    font-size: 12px;
+}
+
+.doc-btn-lg {
+    padding: 14px 28px;
+    font-size: 16px;
+}
+
+.doc-btn-lg i {
+    font-size: 16px;
+}
+
+/* Button group — place buttons side by side */
+.doc-btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin: 20px 0;
+}
+
 /* Scroll to Top Button */
 #scrollToTopBtn {
     position: fixed;
