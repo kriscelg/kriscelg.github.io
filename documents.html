@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documents - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="documents-styles.css">
+</head>
+<body data-page="documents">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="docs-page-header">
+                <div class="header-icon">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+                <div class="header-text">
+                    <h1>Documents</h1>
+                    <p>Access the division's policies, procedures, guidelines, forms, and resources in one place</p>
+                </div>
+            </div>
+
+            <!-- Terms of Reference - Collapsible Section -->
+            <div class="terms-reference-section">
+                <button class="terms-toggle-btn" id="termsToggle" aria-expanded="false" onclick="toggleTerms()">
+                    <div class="terms-toggle-left">
+                        <div class="terms-toggle-icon-wrap">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="terms-toggle-text">
+                            <span class="terms-toggle-title">Terms of Reference</span>
+                            <span class="terms-toggle-subtitle">Standard terminology used across all internal documents</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-down terms-chevron" id="termsChevron"></i>
+                </button>
+                <div class="terms-content" id="termsContent">
+                    <div class="terms-content-inner">
+                        <p class="terms-intro">This Terms of Reference section establishes standard terminology used across internal documents to support consistency, clarity, and long-term usability. Using generic and functional terms reduces the need to update documents when organizational names, structures, or position titles change.</p>
+                        <p class="terms-intro">Unless otherwise noted, all internal user guides, guidelines, job aids, and system documentation should be read using the definitions below.</p>
+                        <div class="terms-table-wrapper">
+                            <table class="terms-table">
+                                <thead>
+                                    <tr>
+                                        <th>Term</th>
+                                        <th>Meaning</th>
+                                        <th>Applies To / Includes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Division</strong></td>
+                                        <td>Relevant departmental division (generic term used instead of specific names).</td>
+                                        <td>Workforce Development and Training (WDT) or successor divisions</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Program Area</strong></td>
+                                        <td>Organizational unit responsible for program delivery or administration</td>
+                                        <td>Training and Employment Services (Winnipeg and Eastern Manitoba Service Area, Western and Northern Manitoba Service Area, and Provincial Services); Business and Industry Training Supports (BITS); or any successor program area</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Client / Participant</strong></td>
+                                        <td>Individual receiving services; terms used interchangeably by program context</td>
+                                        <td>Individuals receiving services across all programs</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Caseworker</strong></td>
+                                        <td>Generic term for staff delivering services, managing cases or completing system activities</td>
+                                        <td>User (system documents only); Labour Market Services Advisor (LMSA); Career Development Consultant (CDC); Project Officer (PO); Vocational Counsellor (VC); Accountability Support Officer (ASO); Program Support Clerk (PSC); Workforce Development Consultant (WDC)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Bar with Predictive Search -->
+            <div class="docs-search-section">
+                <div class="docs-search-bar">
+                    <i class="fas fa-search docs-search-icon"></i>
+                    <input
+                        type="text"
+                        id="docsSearchInput"
+                        class="docs-search-input"
+                        placeholder="Search all documents by title, tags, or keywords..."
+                        autocomplete="off"
+                    >
+                    <button id="clearDocsSearch" class="docs-clear-search" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <!-- Predictive Search Dropdown -->
+                <div class="search-suggestions" id="searchSuggestions" style="display: none;">
+                    <!-- Suggestions will be populated here -->
+                </div>
+            </div>
+
+            <!-- Documents Cards -->
+            <div class="docs-hub">
+                <!-- Policy Documents Card -->
+                <a href="policy-documents.html" class="doc-card">
+                    <div class="card-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="card-content">
+                        <h2>Policy Documents</h2>
+                        <p>Access official policies, standards, and directives.</p>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- Procedures and Guidelines Card -->
+                <a href="jobaids-guidelines.html" class="doc-card">
+                    <div class="card-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="card-content">
+                        <h2>Job Aids & Guidelines</h2>
+                        <p>Find procedures, operational guidelines, and reference manuals.</p>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- Forms, Templates and Resources Card -->
+                <a href="forms-templates.html" class="doc-card">
+                    <div class="card-icon">
+                        <i class="fas fa-toolbox"></i>
+                    </div>
+                    <div class="card-content">
+                        <h2>Forms & Templates</h2>
+                        <p>Download forms and document templates.</p>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- Forms, Templates and Resources Card -->
+                <a href="financial-operations.html" class="doc-card">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-coins"></i>
+                    </div>
+                    <div class="card-content">
+                        <h2>Financial Operations</h2>
+                        <p>Access finance-related documents.</p>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="resources.html" class="doc-card">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-code-fork"></i>
+                    </div>
+                    <div class="card-content">
+                        <h2>Resources</h2>
+                        <p>Access supporting resources used across the division.</p>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+
+    <!-- Terms of Reference Toggle -->
+    <script>
+        function toggleTerms() {
+            const content = document.getElementById('termsContent');
+            const chevron = document.getElementById('termsChevron');
+            const btn = document.getElementById('termsToggle');
+            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+            if (isExpanded) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                requestAnimationFrame(() => {
+                    content.style.maxHeight = '0';
+                });
+                chevron.style.transform = 'rotate(0deg)';
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                chevron.style.transform = 'rotate(180deg)';
+                btn.setAttribute('aria-expanded', 'true');
+                content.addEventListener('transitionend', function onEnd() {
+                    content.style.maxHeight = 'none';
+                    content.removeEventListener('transitionend', onEnd);
+                });
+            }
+        }
+    </script>
+
+    <!-- Load documents data -->
+    <script src="documents-data.js"></script>
+
+    <!-- Predictive Search Script -->
+    <script>
+        // Combine all documents from all categories
+        function getAllDocuments() {
+            const allDocs = [];
+
+            if (typeof POLICY_DOCUMENTS !== 'undefined') {
+                POLICY_DOCUMENTS.forEach(doc => {
+                    allDocs.push({...doc, category: 'Policy Documents'});
+                });
+            }
+
+            if (typeof PROCEDURES_GUIDELINES !== 'undefined') {
+                PROCEDURES_GUIDELINES.forEach(doc => {
+                    allDocs.push({...doc, category: 'Job Aids and Guidelines'});
+                });
+            }
+
+            if (typeof FORMS_TEMPLATES !== 'undefined') {
+                FORMS_TEMPLATES.forEach(doc => {
+                    allDocs.push({...doc, category: 'Forms & Templates'});
+                });
+            }
+
+            if (typeof RESOURCE_DOCS !== 'undefined') {
+                RESOURCE_DOCS.forEach(doc => {
+                    allDocs.push({...doc, category: 'Resource Document'});
+                });
+            }
+
+
+            if (typeof FINANCE_OPERATIONS !== 'undefined') {
+                FINANCE_OPERATIONS.forEach(doc => {
+                    allDocs.push({...doc, category: 'Finance Operations'});
+                });
+            }
+
+            
+
+            return allDocs;
+        }
+
+        const allDocuments = getAllDocuments();
+        const searchInput = document.getElementById('docsSearchInput');
+        const clearBtn = document.getElementById('clearDocsSearch');
+        const suggestionsContainer = document.getElementById('searchSuggestions');
+        let selectedSuggestionIndex = -1;
+
+        // Search function - matches title and tags only
+        function searchDocuments(query) {
+            if (!query || query.length < 2) return [];
+
+            const lowerQuery = query.toLowerCase();
+            const results = allDocuments.filter(doc => {
+                const titleMatch = doc.title.toLowerCase().includes(lowerQuery);
+                const tagsMatch = doc.tags && doc.tags.some(tag =>
+                    tag.toLowerCase().includes(lowerQuery)
+                );
+
+                return titleMatch || tagsMatch;
+            });
+
+            return results.slice(0, 8); // Limit to 8 suggestions
+        }
+
+        // Highlight matching text
+        function highlightMatch(text, query) {
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<strong>$1</strong>');
+        }
+
+        // Render suggestions
+        function renderSuggestions(results, query) {
+            if (results.length === 0) {
+                suggestionsContainer.innerHTML = `
+                    <div class="suggestion-item no-results">
+                        <i class="fas fa-search"></i>
+                        <span>No documents found</span>
+                    </div>
+                `;
+                suggestionsContainer.style.display = 'block';
+                return;
+            }
+
+            const suggestionsHTML = results.map((doc, index) => `
+                <div class="suggestion-item" data-index="${index}" data-url="${doc.fileName}">
+                    <div class="suggestion-icon">
+                        <i class="fas ${getFileIcon(doc.fileType)}"></i>
+                    </div>
+                    <div class="suggestion-content">
+                        <div class="suggestion-title">${highlightMatch(doc.title, query)}</div>
+                        <div class="suggestion-meta">
+                            <span class="suggestion-category">${doc.category}</span>
+                            ${doc.tags ? `<span class="suggestion-tags">${doc.tags.slice(0, 2).join(', ')}</span>` : ''}
+                        </div>
+                    </div>
+                    <i class="fas fa-arrow-right suggestion-arrow"></i>
+                </div>
+            `).join('');
+
+            const viewAllHTML = `
+                <div class="suggestion-item view-all-results" data-action="view-all">
+                    <i class="fas fa-list"></i>
+                    <span>View all ${results.length} result${results.length !== 1 ? 's' : ''}</span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            `;
+
+            suggestionsContainer.innerHTML = suggestionsHTML + viewAllHTML;
+            suggestionsContainer.style.display = 'block';
+
+            // Add click handlers
+            document.querySelectorAll('.suggestion-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    if (item.dataset.action === 'view-all') {
+                        navigateToSearchResults(searchInput.value);
+                    } else {
+                        window.open(item.dataset.url, '_blank');
+                    }
+                });
+
+                item.addEventListener('mouseenter', () => {
+                    removeActiveClass();
+                    item.classList.add('active');
+                });
+            });
+        }
+
+        function getFileIcon(fileType) {
+            const icons = {
+                'HTML': 'fa-file-code',
+                'PDF': 'fa-file-pdf',
+                'Word': 'fa-file-word',
+                'Excel': 'fa-file-excel',
+                'PowerPoint': 'fa-file-powerpoint',
+                'Text': 'fa-file-alt',
+                'Image': 'fa-file-image'
+            };
+            return icons[fileType] || 'fa-file';
+        }
+
+        function removeActiveClass() {
+            document.querySelectorAll('.suggestion-item').forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+
+        function navigateToSearchResults(query) {
+            window.location.href = `search-results.html?q=${encodeURIComponent(query)}`;
+        }
+
+        // Input event handler
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            clearBtn.style.display = query ? 'flex' : 'none';
+
+            if (query.length >= 2) {
+                const results = searchDocuments(query);
+                renderSuggestions(results, query);
+            } else {
+                suggestionsContainer.style.display = 'none';
+            }
+
+            selectedSuggestionIndex = -1;
+        });
+
+        // Clear button handler
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            clearBtn.style.display = 'none';
+            suggestionsContainer.style.display = 'none';
+            searchInput.focus();
+        });
+
+        // Keyboard navigation
+        searchInput.addEventListener('keydown', (e) => {
+            const suggestions = document.querySelectorAll('.suggestion-item');
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedSuggestionIndex = Math.min(selectedSuggestionIndex + 1, suggestions.length - 1);
+                updateActiveSuggestion(suggestions);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedSuggestionIndex = Math.max(selectedSuggestionIndex - 1, -1);
+                updateActiveSuggestion(suggestions);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (selectedSuggestionIndex >= 0 && suggestions[selectedSuggestionIndex]) {
+                    suggestions[selectedSuggestionIndex].click();
+                } else if (searchInput.value.trim()) {
+                    navigateToSearchResults(searchInput.value.trim());
+                }
+            } else if (e.key === 'Escape') {
+                suggestionsContainer.style.display = 'none';
+                selectedSuggestionIndex = -1;
+            }
+        });
+
+        function updateActiveSuggestion(suggestions) {
+            removeActiveClass();
+            if (selectedSuggestionIndex >= 0 && suggestions[selectedSuggestionIndex]) {
+                suggestions[selectedSuggestionIndex].classList.add('active');
+                suggestions[selectedSuggestionIndex].scrollIntoView({ block: 'nearest' });
+            }
+        }
+
+        // Close suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.docs-search-section')) {
+                suggestionsContainer.style.display = 'none';
+                selectedSuggestionIndex = -1;
+            }
+        });
+
+        // Show suggestions again when focusing if there's a query
+        searchInput.addEventListener('focus', () => {
+            if (searchInput.value.trim().length >= 2) {
+                const results = searchDocuments(searchInput.value.trim());
+                renderSuggestions(results, searchInput.value.trim());
+            }
+        });
+    </script>
+</body>
+</html>

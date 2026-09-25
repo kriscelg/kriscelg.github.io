@@ -1,0 +1,519 @@
+/* Contact & Resources Page Styles */
+
+/* SIB Support Wrapper */
+.sib-support-wrapper {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+.sib-support-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.sib-support-header i {
+    font-size: 28px;
+    color: #0d5f5f;
+}
+
+.sib-support-header h2 {
+    font-size: 28px;
+    color: #1e293b;
+    font-weight: 700;
+    margin: 0;
+}
+
+.support-sections-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.contact-support-section {
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    padding: 25px;
+    border: 2px solid #e8e8e8;
+    transition: all 0.3s ease;
+}
+
+.contact-support-section:hover {
+    border-color: #0d5f5f;
+    box-shadow: 0 4px 12px rgba(13, 95, 95, 0.1);
+}
+
+.support-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 10px 0;
+}
+
+.support-section-description {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.section-header i {
+    font-size: 28px;
+    color: #0d5f5f;
+}
+
+.section-header h2 {
+    font-size: 28px;
+    color: #1e293b;
+    font-weight: 700;
+    margin: 0;
+}
+
+.section-description {
+    color: #64748b;
+    font-size: 15px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.support-button {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(135deg, #0d5f5f 0%, #0a4a4a 100%);
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(13, 95, 95, 0.2);
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.support-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.support-button:hover::before {
+    opacity: 1;
+}
+
+.support-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(13, 95, 95, 0.3);
+}
+
+.button-icon {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.support-button:hover .button-icon {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+.button-icon i {
+    font-size: 20px;
+    color: white;
+}
+
+.button-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+
+.button-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+}
+
+.button-subtitle {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.2;
+}
+
+.button-arrow {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.support-button:hover .button-arrow {
+    color: white;
+    transform: translateX(4px);
+}
+
+/* Key Contacts Section */
+.contacts-section {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+.contacts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+}
+
+.contact-card {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 16px 18px;
+    border-left: 4px solid #0d5f5f;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(13, 95, 95, 0.15);
+}
+
+.contact-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e8e8e8;
+}
+
+.contact-header i {
+    font-size: 20px;
+    color: #0d5f5f;
+}
+
+.contact-header h3 {
+    font-size: 16px;
+    color: #1e293b;
+    margin: 0;
+    font-weight: 700;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.contact-item i {
+    font-size: 12px;
+    color: #0d5f5f;
+    width: 16px;
+    text-align: center;
+}
+
+.contact-item a {
+    color: #0d5f5f;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+    color: #0a4a4a;
+    text-decoration: underline;
+}
+
+.copy-email-btn {
+    background-color: #e8f6f6;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.copy-email-btn i {
+    font-size: 12px;
+    color: #0d5f5f;
+    transition: color 0.3s ease;
+}
+
+.copy-email-btn:hover {
+    background-color: #0d5f5f;
+}
+
+.copy-email-btn:hover i {
+    color: white;
+}
+
+.copy-email-btn.copied {
+    background-color: #22c55e;
+}
+
+.copy-email-btn.copied i {
+    color: white;
+}
+
+/* Staff Resources Section */
+.resources-section {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.resource-card {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.resource-card:hover {
+    background-color: #e8f6f6;
+    border-color: #0d5f5f;
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(13, 95, 95, 0.15);
+}
+
+.resource-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #e8f6f6;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.resource-card:hover .resource-icon {
+    background-color: #0d5f5f;
+}
+
+.resource-icon i {
+    font-size: 22px;
+    color: #0d5f5f;
+    transition: color 0.3s ease;
+}
+
+.resource-card:hover .resource-icon i {
+    color: white;
+}
+
+.resource-content {
+    flex: 1;
+}
+
+.resource-content h3 {
+    font-size: 16px;
+    color: #1e293b;
+    margin: 0 0 5px 0;
+    font-weight: 700;
+}
+
+.resource-content p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.resource-arrow {
+    font-size: 14px;
+    color: #cbd5e1;
+    transition: all 0.3s ease;
+}
+
+.resource-card:hover .resource-arrow {
+    color: #0d5f5f;
+    transform: translateX(3px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sib-support-wrapper,
+    .contacts-section,
+    .resources-section {
+        padding: 25px;
+    }
+
+    .sib-support-header h2,
+    .section-header h2 {
+        font-size: 24px;
+    }
+
+    .sib-support-header i,
+    .section-header i {
+        font-size: 24px;
+    }
+
+    .support-sections-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .contacts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resources-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .support-button {
+        padding: 16px 18px;
+    }
+
+    .button-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .button-icon i {
+        font-size: 18px;
+    }
+
+    .button-title {
+        font-size: 14px;
+    }
+
+    .button-subtitle {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sib-support-wrapper,
+    .contacts-section,
+    .resources-section {
+        padding: 20px;
+    }
+
+    .sib-support-header,
+    .section-header {
+        gap: 8px;
+    }
+
+    .sib-support-header h2,
+    .section-header h2 {
+        font-size: 20px;
+    }
+
+    .sib-support-header i,
+    .section-header i {
+        font-size: 20px;
+    }
+
+    .contact-support-section {
+        padding: 20px;
+    }
+
+    .support-section-title {
+        font-size: 18px;
+    }
+
+    .support-section-description {
+        font-size: 13px;
+    }
+
+    .support-button {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+
+    .button-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .button-icon i {
+        font-size: 16px;
+    }
+
+    .button-title {
+        font-size: 13px;
+    }
+
+    .button-subtitle {
+        font-size: 11px;
+    }
+
+    .button-arrow {
+        font-size: 14px;
+    }
+
+    .contact-card {
+        padding: 14px 16px;
+    }
+
+    .resource-card {
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .resource-icon {
+        width: 45px;
+        height: 45px;
+    }
+
+    .resource-icon i {
+        font-size: 20px;
+    }
+}
