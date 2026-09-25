@@ -313,9 +313,115 @@ function generatePowerBIDashboards() {
     container.innerHTML = html;
 }
 
+// Reporting Documents
+// Add documents here — they will appear automatically in the Reporting Documents section
+// fileType options: "PDF", "Word", "Excel", "PowerPoint"
+const REPORTING_DOCUMENTS = [
+    {
+        category: "Annual Reports",
+        icon: "fa-file-contract",
+        documents: [
+            // { title: "2024-25 Annual Report", url: "", fileType: "PDF", year: "2024-25", description: "" },
+            // { title: "2023-24 Annual Report", url: "", fileType: "PDF", year: "2023-24", description: "" },
+        ]
+    },
+    {
+        category: "Quarterly Reports",
+        icon: "fa-calendar-check",
+        documents: [
+            // { title: "Q4 2024-25 Quarterly Report", url: "", fileType: "PDF", year: "2024-25 Q4", description: "" },
+            // { title: "Q3 2024-25 Quarterly Report", url: "", fileType: "PDF", year: "2024-25 Q3", description: "" },
+        ]
+    },
+    {
+        category: "Other Reports",
+        icon: "fa-folder-open",
+        documents: [
+            // { title: "Report Title", url: "", fileType: "PDF", year: "2024-25", description: "" },
+        ]
+    }
+];
+
+// Function to get file icon class based on file type
+function getReportFileIcon(fileType) {
+    const icons = {
+        'PDF': 'fa-file-pdf',
+        'Word': 'fa-file-word',
+        'Excel': 'fa-file-excel',
+        'PowerPoint': 'fa-file-powerpoint'
+    };
+    return icons[fileType] || 'fa-file';
+}
+
+// Function to get file type color class
+function getReportFileColor(fileType) {
+    const colors = {
+        'PDF': 'report-doc-pdf',
+        'Word': 'report-doc-word',
+        'Excel': 'report-doc-excel',
+        'PowerPoint': 'report-doc-ppt'
+    };
+    return colors[fileType] || 'report-doc-default';
+}
+
+// Function to generate Reporting Documents section
+function generateReportingDocuments() {
+    const container = document.getElementById('reporting-docs-container');
+    if (!container) return;
+
+    const hasDocuments = REPORTING_DOCUMENTS.some(cat => cat.documents.length > 0);
+
+    if (!hasDocuments) {
+        container.innerHTML = `
+            <div class="report-docs-empty">
+                <i class="fas fa-folder-open"></i>
+                <p>No documents yet — add them in <strong>reporting-data.js</strong> under <code>REPORTING_DOCUMENTS</code></p>
+            </div>
+        `;
+        return;
+    }
+
+    let html = '';
+
+    REPORTING_DOCUMENTS.forEach(category => {
+        if (category.documents.length === 0) return;
+
+        html += `
+            <div class="report-doc-category">
+                <div class="report-doc-category-header">
+                    <i class="fas ${category.icon}"></i>
+                    <h3>${category.category}</h3>
+                    <span class="report-doc-count">${category.documents.length}</span>
+                </div>
+                <div class="report-doc-grid">
+                    ${category.documents.map(doc => `
+                        <a href="${doc.url}" class="report-doc-card" target="_blank" rel="noopener noreferrer">
+                            <div class="report-doc-icon ${getReportFileColor(doc.fileType)}">
+                                <i class="fas ${getReportFileIcon(doc.fileType)}"></i>
+                            </div>
+                            <div class="report-doc-info">
+                                <span class="report-doc-title">${doc.title}</span>
+                                ${doc.description ? `<span class="report-doc-desc">${doc.description}</span>` : ''}
+                                <div class="report-doc-meta">
+                                    ${doc.year ? `<span class="report-doc-year">${doc.year}</span>` : ''}
+                                    <span class="report-doc-type">${doc.fileType}</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-arrow-down report-doc-download"></i>
+                        </a>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
 // Initialize graphs when page loads
 document.addEventListener('DOMContentLoaded', function() {
     generateClientsServedGraph();
     generateClientsEmployedGraph();
     generatePowerBIDashboards();
+    generateReportingDocuments();
 });
