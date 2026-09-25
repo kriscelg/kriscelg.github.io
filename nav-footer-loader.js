@@ -48,7 +48,7 @@ const NAV_TEMPLATE = `
                 <div class="nav-item">
                     <a href="communications.html" class="nav-link" data-page="communications">COMMUNICATIONS</a>
                     <div class="dropdown-menu">
-                        <a href="bulletins-newsletters.html">Bulletins & Newsletters</a>
+                        <a href="bulletins-newsletters.html">Bulletins</a>
                         <a href="events.html">Events</a>
                         <a href="memos.html">Memos</a>
                     </div>
@@ -112,7 +112,7 @@ const FOOTER_TEMPLATE = `
                 <div class="footer-column">
                     <h4>COMMUNICATIONS</h4>
                     <ul>
-                        <li><a href="bulletins-newsletters.html">Bulletins & Newsletters</a></li>
+                        <li><a href="bulletins-newsletters.html">Bulletins</a></li>
                         <li><a href="events.html">Events</a></li>
                         <li><a href="memos.html">Memos</a></li>
                     </ul>

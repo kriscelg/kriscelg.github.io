@@ -22,18 +22,14 @@
                 <!-- Recent Communications -->
                 <div class="bulletins-section">
                     <div class="home-tab-list">
-                        <button class="home-tab-btn active" data-tab="newsletters">
-                            <i class="fas fa-newspaper"></i> Newsletter
-                        </button>
-                        <button class="home-tab-btn" data-tab="bulletins">
+                        <button class="home-tab-btn active" data-tab="bulletins">
                             <i class="fas fa-bullhorn"></i> Bulletins
                         </button>
                         <button class="home-tab-btn" data-tab="policy-changes">
                             <i class="fas fa-file-alt"></i> Recent Policy Changes
                         </button>
                     </div>
-                    <div class="home-tab-panel active" id="panel-newsletters"></div>
-                    <div class="home-tab-panel" id="panel-bulletins"></div>
+                    <div class="home-tab-panel active" id="panel-bulletins"></div>
                     <div class="home-tab-panel" id="panel-policy-changes"></div>
                     <a href="communications.html" class="see-more-btn">See More...</a>
                 </div>
@@ -172,7 +168,7 @@
                 </div>
                 <div class="info-card">
                     <h3>Communications</h3>
-                    <p>This page centralizes all essential departmental communications, including bulletins and the weekly newsletters.</p>
+                    <p>This page centralizes all essential departmental communications, including bulletins and recent policy changes.</p>
                     <a href="communications.html" class="card-btn">Click for more...</a>
                 </div>
                 <div class="info-card">
@@ -232,13 +228,11 @@
 
         // Load tab content from data files
         function loadCommunicationsTabs() {
-            const newsletters   = typeof NEWSLETTERS    !== 'undefined' ? NEWSLETTERS    : [];
             const bulletins     = typeof BULLETINS      !== 'undefined' ? BULLETINS      : [];
             const policyChanges = typeof POLICY_CHANGES !== 'undefined' ? POLICY_CHANGES : [];
 
             const latest = arr => [...arr].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
 
-            renderItems(latest(newsletters),   'panel-newsletters',   'No newsletters available.');
             renderItems(latest(bulletins),     'panel-bulletins',     'No bulletins available.');
             renderItems(latest(policyChanges), 'panel-policy-changes','No recent policy changes.');
         }
