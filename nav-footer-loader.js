@@ -182,8 +182,16 @@ const FOOTER_TEMPLATE = `
         const searchOverlay = document.getElementById('searchOverlay');
         const closeSearch = document.getElementById('closeSearch');
         const searchInput = document.getElementById('searchInput');
+        const searchSubmit = document.querySelector('.search-submit');
 
         if (!searchBtn || !searchOverlay) return;
+
+        function navigateToSearch() {
+            const query = searchInput ? searchInput.value.trim() : '';
+            if (query) {
+                window.location.href = 'search-results.html?q=' + encodeURIComponent(query);
+            }
+        }
 
         searchBtn.addEventListener('click', () => {
             searchOverlay.classList.add('active');
@@ -195,6 +203,16 @@ const FOOTER_TEMPLATE = `
         if (closeSearch) {
             closeSearch.addEventListener('click', () => {
                 searchOverlay.classList.remove('active');
+            });
+        }
+
+        if (searchSubmit) {
+            searchSubmit.addEventListener('click', navigateToSearch);
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') navigateToSearch();
             });
         }
 
