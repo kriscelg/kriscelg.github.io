@@ -242,25 +242,33 @@
             `).join('');
         }
 
-        // Collect all documents and memos tagged "Policy", sort by date, take latest 3
+        // Collect recent policy documents:
+        // - Everything in POLICY_DOCUMENTS (always included — they are policy docs by definition)
+        // - Any item from other doc arrays or memos tagged "Policy"
         function getRecentPolicyDocs() {
             const hasPolicy = tags => Array.isArray(tags) && tags.some(t => t.toLowerCase() === 'policy');
-            const docArrays = [
-                typeof POLICY_DOCUMENTS      !== 'undefined' ? POLICY_DOCUMENTS      : [],
+
+            // All items from POLICY_DOCUMENTS regardless of tags
+            const policyDocs = (typeof POLICY_DOCUMENTS !== 'undefined' ? POLICY_DOCUMENTS : [])
+                .map(d => ({ title: d.title, url: encodeFilePath(d.fileName), date: d.uploadDate || '' }));
+
+            // Other doc arrays — only if tagged "Policy"
+            const otherDocArrays = [
                 typeof PROCEDURES_GUIDELINES !== 'undefined' ? PROCEDURES_GUIDELINES : [],
                 typeof FORMS_TEMPLATES       !== 'undefined' ? FORMS_TEMPLATES       : [],
                 typeof RESOURCE_DOCS         !== 'undefined' ? RESOURCE_DOCS         : [],
                 typeof FINANCE_OPERATIONS    !== 'undefined' ? FINANCE_OPERATIONS    : [],
             ];
-            const docs = docArrays.flat()
+            const taggedDocs = otherDocArrays.flat()
                 .filter(d => hasPolicy(d.tags))
                 .map(d => ({ title: d.title, url: encodeFilePath(d.fileName), date: d.uploadDate || '' }));
 
-            const memos = (typeof MEMOS !== 'undefined' ? MEMOS : [])
+            // Memos tagged "Policy"
+            const taggedMemos = (typeof MEMOS !== 'undefined' ? MEMOS : [])
                 .filter(m => hasPolicy(m.tags))
                 .map(m => ({ title: m.title, url: m.pdfFile ? encodeFilePath(m.pdfFile) : 'memos.html', date: m.date || '' }));
 
-            return [...docs, ...memos]
+            return [...policyDocs, ...taggedDocs, ...taggedMemos]
                 .sort((a, b) => b.date.localeCompare(a.date))
                 .slice(0, 3);
         }
