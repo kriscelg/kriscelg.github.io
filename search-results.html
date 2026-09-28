@@ -272,14 +272,13 @@
 
         // ---- Documents ----
         const docSources = [
-            { arr: 'POLICY_DOCUMENTS',      category: 'Policy Documents' },
-            { arr: 'PROCEDURES_GUIDELINES', category: 'Job Aids & Guidelines' },
-            { arr: 'FORMS_TEMPLATES',       category: 'Forms & Templates' },
-            { arr: 'RESOURCE_DOCS',         category: 'Resources' },
-            { arr: 'FINANCE_OPERATIONS',    category: 'Finance Operations' },
+            { data: typeof POLICY_DOCUMENTS      !== 'undefined' ? POLICY_DOCUMENTS      : [], category: 'Policy Documents' },
+            { data: typeof PROCEDURES_GUIDELINES !== 'undefined' ? PROCEDURES_GUIDELINES : [], category: 'Job Aids & Guidelines' },
+            { data: typeof FORMS_TEMPLATES       !== 'undefined' ? FORMS_TEMPLATES       : [], category: 'Forms & Templates' },
+            { data: typeof RESOURCE_DOCS         !== 'undefined' ? RESOURCE_DOCS         : [], category: 'Resources' },
+            { data: typeof FINANCE_OPERATIONS    !== 'undefined' ? FINANCE_OPERATIONS    : [], category: 'Finance Operations' },
         ];
-        docSources.forEach(({ arr, category }) => {
-            const data = typeof window[arr] !== 'undefined' ? window[arr] : [];
+        docSources.forEach(({ data, category }) => {
             data.forEach(doc => items.push({
                 title: doc.title,
                 url: encodePath(doc.fileName),
@@ -291,6 +290,7 @@
                 date: doc.uploadDate || '',
                 tags: doc.tags || [],
                 meta: doc.fileType || '',
+                searchExtra: doc.description || '',
                 openNewTab: true,
             }));
         });
