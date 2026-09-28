@@ -190,8 +190,15 @@ const FOOTER_TEMPLATE = `
                 box-shadow: 0 4px 20px rgba(0,0,0,0.12);
                 max-height: 0;
                 transition: max-height 0.2s ease;
+                display: flex;
+                flex-direction: column;
             }
-            .nav-search-suggestions.has-results { max-height: 420px; }
+            .nav-search-suggestions.has-results { max-height: 380px; }
+            .nav-suggestion-scroll {
+                overflow-y: auto;
+                flex: 1 1 auto;
+                min-height: 0;
+            }
             .nav-suggestion-item {
                 display: flex;
                 align-items: center;
@@ -237,6 +244,7 @@ const FOOTER_TEMPLATE = `
                 padding: 10px 16px; font-size: 12px; font-weight: 600;
                 color: #0d5f5f; cursor: pointer; background: #f0fafa;
                 border-top: 1px solid #e2e8f0;
+                flex-shrink: 0;
             }
             .nav-search-see-all:hover { background: #cceeee; }
         `;
@@ -371,7 +379,9 @@ const FOOTER_TEMPLATE = `
 
             const isNewTab = (url) => !url.endsWith('.html') && !url.startsWith('events') && !url.startsWith('memos') && !url.startsWith('tes-') && !url.startsWith('about-') && !url.startsWith('videos-');
 
-            suggestionsEl.innerHTML = results.map((item, i) => `
+            suggestionsEl.innerHTML =
+                `<div class="nav-suggestion-scroll">` +
+                results.map((item, i) => `
                 <div class="nav-suggestion-item${i === highlightedIdx ? ' highlighted' : ''}"
                      role="option" data-idx="${i}" data-url="${item.url}" data-newtab="${isNewTab(item.url)}">
                     <div class="nav-suggestion-icon ${item.iconClass}">
@@ -383,11 +393,11 @@ const FOOTER_TEMPLATE = `
                     </div>
                     <i class="fas fa-arrow-right nav-suggestion-arrow"></i>
                 </div>
-            `).join('') + `
+            `).join('') +
+                `</div>
                 <div class="nav-search-see-all" data-query="${escapeHtml(query)}">
                     <i class="fas fa-search"></i> See all results for "${escapeHtml(query)}"
-                </div>
-            `;
+                </div>`;
 
             suggestionsEl.classList.add('has-results');
 
