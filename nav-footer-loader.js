@@ -176,6 +176,73 @@ const FOOTER_TEMPLATE = `
         });
     }
 
+    // Inject CSS for predictive search suggestions
+    function injectSuggestionsCSS() {
+        if (document.getElementById('nav-search-suggestions-css')) return;
+        const style = document.createElement('style');
+        style.id = 'nav-search-suggestions-css';
+        style.textContent = `
+            .nav-search-suggestions {
+                margin-top: 8px;
+                border-radius: 10px;
+                overflow: hidden;
+                background: #fff;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+                max-height: 0;
+                transition: max-height 0.2s ease;
+            }
+            .nav-search-suggestions.has-results { max-height: 420px; }
+            .nav-suggestion-item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 11px 16px;
+                cursor: pointer;
+                border-bottom: 1px solid #f1f5f9;
+                text-decoration: none;
+                color: inherit;
+                transition: background 0.15s;
+            }
+            .nav-suggestion-item:last-child { border-bottom: none; }
+            .nav-suggestion-item:hover,
+            .nav-suggestion-item.highlighted {
+                background: #f0fafa;
+                border-left: 3px solid #0d5f5f;
+                padding-left: 13px;
+            }
+            .nav-suggestion-icon {
+                width: 32px; height: 32px; border-radius: 8px;
+                display: flex; align-items: center; justify-content: center;
+                flex-shrink: 0; font-size: 13px;
+            }
+            .nav-suggestion-icon.ic-doc        { background:#e0f2f1; color:#0d5f5f; }
+            .nav-suggestion-icon.ic-bulletin   { background:#fef9c3; color:#92400e; }
+            .nav-suggestion-icon.ic-memo       { background:#ede9fe; color:#5b21b6; }
+            .nav-suggestion-icon.ic-event      { background:#dbeafe; color:#1d4ed8; }
+            .nav-suggestion-icon.ic-video      { background:#fee2e2; color:#b91c1c; }
+            .nav-suggestion-icon.ic-present    { background:#ffedd5; color:#c2410c; }
+            .nav-suggestion-icon.ic-dashboard  { background:#e0e7ff; color:#3730a3; }
+            .nav-suggestion-icon.ic-orgchart   { background:#dcfce7; color:#15803d; }
+            .nav-suggestion-text { flex: 1; min-width: 0; }
+            .nav-suggestion-title {
+                font-size: 13px; font-weight: 600; color: #1e293b;
+                white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            }
+            .nav-suggestion-cat {
+                font-size: 11px; color: #64748b; margin-top: 1px;
+            }
+            .nav-suggestion-arrow { color: #94a3b8; font-size: 11px; }
+            .nav-search-see-all {
+                display: flex; align-items: center; justify-content: center; gap: 6px;
+                padding: 10px 16px; font-size: 12px; font-weight: 600;
+                color: #0d5f5f; cursor: pointer; background: #f0fafa;
+                border-top: 1px solid #e2e8f0;
+            }
+            .nav-search-see-all:hover { background: #cceeee; }
+        `;
+        document.head.appendChild(style);
+    }
+
     // Function to initialize search functionality
     function initializeSearch() {
         const searchBtn = document.querySelector('.search-btn');
@@ -186,6 +253,176 @@ const FOOTER_TEMPLATE = `
 
         if (!searchBtn || !searchOverlay) return;
 
+        injectSuggestionsCSS();
+
+        // Inject suggestions container below the input wrapper
+        const inputWrapper = searchOverlay.querySelector('.search-input-wrapper');
+        const suggestionsEl = document.createElement('div');
+        suggestionsEl.className = 'nav-search-suggestions';
+        suggestionsEl.setAttribute('role', 'listbox');
+        inputWrapper.insertAdjacentElement('afterend', suggestionsEl);
+
+        // ---- Data loading ----
+        let indexReady = false;
+        let searchIndex = [];
+        let loadStarted = false;
+
+        function loadScript(src) {
+            return new Promise(resolve => {
+                if (document.querySelector('script[src="' + src + '"]')) { resolve(); return; }
+                const s = document.createElement('script');
+                s.src = src; s.onload = resolve; s.onerror = resolve;
+                document.head.appendChild(s);
+            });
+        }
+
+        function ensureIndex() {
+            if (indexReady || loadStarted) return;
+            loadStarted = true;
+            Promise.all([
+                'documents-data.js', 'communications-data.js', 'memos-data.js',
+                'events-data.js', 'videos-presentations-data.js',
+                'reporting-data.js', 'about-us-data.js'
+            ].map(loadScript)).then(() => {
+                buildIndex();
+                indexReady = true;
+                // Re-render if user already typed something
+                if (searchInput && searchInput.value.trim().length >= 2) {
+                    renderSuggestions(searchInput.value.trim());
+                }
+            });
+        }
+
+        function ep(p) {
+            return p ? p.split('/').map(s => encodeURIComponent(s)).join('/') : '#';
+        }
+
+        function buildIndex() {
+            searchIndex = [];
+            const push = (title, url, category, iconClass, icon, tags) => {
+                if (title) searchIndex.push({ title, url, category, iconClass, icon, tags: tags || [] });
+            };
+
+            // Documents
+            (typeof POLICY_DOCUMENTS      !== 'undefined' ? POLICY_DOCUMENTS      : []).forEach(d => push(d.title, ep(d.fileName), 'Policy Doc',   'ic-doc',       'fa-file-alt',       d.tags));
+            (typeof PROCEDURES_GUIDELINES !== 'undefined' ? PROCEDURES_GUIDELINES : []).forEach(d => push(d.title, ep(d.fileName), 'Job Aid',       'ic-doc',       'fa-tools',          d.tags));
+            (typeof FORMS_TEMPLATES       !== 'undefined' ? FORMS_TEMPLATES       : []).forEach(d => push(d.title, ep(d.fileName), 'Form',          'ic-doc',       'fa-file-invoice',   d.tags));
+            (typeof RESOURCE_DOCS         !== 'undefined' ? RESOURCE_DOCS         : []).forEach(d => push(d.title, ep(d.fileName), 'Resource',      'ic-doc',       'fa-book',           d.tags));
+            (typeof FINANCE_OPERATIONS    !== 'undefined' ? FINANCE_OPERATIONS    : []).forEach(d => push(d.title, ep(d.fileName), 'Finance',       'ic-doc',       'fa-calculator',     d.tags));
+
+            // Bulletins
+            (typeof BULLETINS !== 'undefined' ? BULLETINS : []).forEach(b =>
+                push(b.subject, ep(b.fileName), 'Bulletin', 'ic-bulletin', 'fa-bullhorn', []));
+
+            // Memos
+            (typeof MEMOS !== 'undefined' ? MEMOS : []).forEach(m =>
+                push(m.title, m.pdfFile ? ep(m.pdfFile) : 'memos.html', 'Memo', 'ic-memo', 'fa-envelope', m.tags));
+
+            // Events
+            (typeof EVENTS !== 'undefined' ? EVENTS : []).forEach(e =>
+                push(e.title, 'events.html', 'Event', 'ic-event', 'fa-calendar-alt', []));
+
+            // Videos
+            (typeof VIDEOS !== 'undefined' ? VIDEOS : []).forEach(v =>
+                push(v.title, v.videoFile ? ep(v.videoFile) : 'videos-presentations.html', 'Video', 'ic-video', 'fa-play-circle', v.tags));
+
+            // Presentations
+            (typeof PRESENTATIONS !== 'undefined' ? PRESENTATIONS : []).forEach(p =>
+                push(p.title, p.pdfFile ? ep(p.pdfFile) : 'videos-presentations.html', 'Presentation', 'ic-present', 'fa-file-powerpoint', p.tags));
+
+            // Dashboards
+            (typeof POWERBI_DASHBOARDS !== 'undefined' ? POWERBI_DASHBOARDS : []).forEach(d =>
+                push(d.title, 'tes-reporting.html', 'Dashboard', 'ic-dashboard', 'fa-chart-bar', []));
+
+            // Org Charts
+            (typeof ORGANIZATION_CHARTS !== 'undefined' ? ORGANIZATION_CHARTS : []).forEach(o =>
+                push(o.title, o.pdfFile ? ep(o.pdfFile) : 'about-us.html', 'Org Chart', 'ic-orgchart', 'fa-sitemap', o.tags));
+        }
+
+        function getSuggestions(query) {
+            const q = query.toLowerCase().trim();
+            const titleHits = [], tagHits = [];
+            searchIndex.forEach(item => {
+                if (item.title.toLowerCase().includes(q)) titleHits.push(item);
+                else if ((item.tags || []).some(t => t.toLowerCase().includes(q))) tagHits.push(item);
+            });
+            return [...titleHits, ...tagHits].slice(0, 7);
+        }
+
+        // ---- Rendering ----
+        let highlightedIdx = -1;
+
+        function renderSuggestions(query) {
+            if (!query || query.trim().length < 2) {
+                suggestionsEl.innerHTML = '';
+                suggestionsEl.classList.remove('has-results');
+                highlightedIdx = -1;
+                return;
+            }
+            if (!indexReady) return;
+
+            const results = getSuggestions(query);
+            if (results.length === 0) {
+                suggestionsEl.innerHTML = '';
+                suggestionsEl.classList.remove('has-results');
+                highlightedIdx = -1;
+                return;
+            }
+
+            const isNewTab = (url) => !url.endsWith('.html') && !url.startsWith('events') && !url.startsWith('memos') && !url.startsWith('tes-') && !url.startsWith('about-') && !url.startsWith('videos-');
+
+            suggestionsEl.innerHTML = results.map((item, i) => `
+                <div class="nav-suggestion-item${i === highlightedIdx ? ' highlighted' : ''}"
+                     role="option" data-idx="${i}" data-url="${item.url}" data-newtab="${isNewTab(item.url)}">
+                    <div class="nav-suggestion-icon ${item.iconClass}">
+                        <i class="fas ${item.icon}"></i>
+                    </div>
+                    <div class="nav-suggestion-text">
+                        <div class="nav-suggestion-title">${escapeHtml(item.title)}</div>
+                        <div class="nav-suggestion-cat">${escapeHtml(item.category)}</div>
+                    </div>
+                    <i class="fas fa-arrow-right nav-suggestion-arrow"></i>
+                </div>
+            `).join('') + `
+                <div class="nav-search-see-all" data-query="${escapeHtml(query)}">
+                    <i class="fas fa-search"></i> See all results for "${escapeHtml(query)}"
+                </div>
+            `;
+
+            suggestionsEl.classList.add('has-results');
+
+            // Item click handlers
+            suggestionsEl.querySelectorAll('.nav-suggestion-item').forEach(el => {
+                el.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    const url = el.getAttribute('data-url');
+                    const newTab = el.getAttribute('data-newtab') === 'true';
+                    if (newTab) window.open(url, '_blank');
+                    else window.location.href = url;
+                    closeOverlay();
+                });
+            });
+
+            const seeAll = suggestionsEl.querySelector('.nav-search-see-all');
+            if (seeAll) {
+                seeAll.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    navigateToSearch();
+                });
+            }
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        function updateHighlight() {
+            suggestionsEl.querySelectorAll('.nav-suggestion-item').forEach((el, i) => {
+                el.classList.toggle('highlighted', i === highlightedIdx);
+            });
+        }
+
+        // ---- Navigation ----
         function navigateToSearch() {
             const query = searchInput ? searchInput.value.trim() : '';
             if (query) {
@@ -193,17 +430,22 @@ const FOOTER_TEMPLATE = `
             }
         }
 
+        function closeOverlay() {
+            searchOverlay.classList.remove('active');
+            suggestionsEl.innerHTML = '';
+            suggestionsEl.classList.remove('has-results');
+            highlightedIdx = -1;
+        }
+
+        // ---- Event handlers ----
         searchBtn.addEventListener('click', () => {
             searchOverlay.classList.add('active');
-            setTimeout(() => {
-                if (searchInput) searchInput.focus();
-            }, 300);
+            ensureIndex();
+            setTimeout(() => { if (searchInput) searchInput.focus(); }, 300);
         });
 
         if (closeSearch) {
-            closeSearch.addEventListener('click', () => {
-                searchOverlay.classList.remove('active');
-            });
+            closeSearch.addEventListener('click', closeOverlay);
         }
 
         if (searchSubmit) {
@@ -211,22 +453,44 @@ const FOOTER_TEMPLATE = `
         }
 
         if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                highlightedIdx = -1;
+                renderSuggestions(e.target.value.trim());
+            });
+
             searchInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') navigateToSearch();
+                const items = suggestionsEl.querySelectorAll('.nav-suggestion-item');
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    highlightedIdx = Math.min(highlightedIdx + 1, items.length - 1);
+                    updateHighlight();
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    highlightedIdx = Math.max(highlightedIdx - 1, -1);
+                    updateHighlight();
+                } else if (e.key === 'Enter') {
+                    if (highlightedIdx >= 0 && items[highlightedIdx]) {
+                        const el = items[highlightedIdx];
+                        const url = el.getAttribute('data-url');
+                        const newTab = el.getAttribute('data-newtab') === 'true';
+                        if (newTab) window.open(url, '_blank');
+                        else window.location.href = url;
+                        closeOverlay();
+                    } else {
+                        navigateToSearch();
+                    }
+                } else if (e.key === 'Escape') {
+                    closeOverlay();
+                }
             });
         }
 
         searchOverlay.addEventListener('click', (e) => {
-            if (e.target === searchOverlay) {
-                searchOverlay.classList.remove('active');
-            }
+            if (e.target === searchOverlay) closeOverlay();
         });
 
-        // Close search on Escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
-                searchOverlay.classList.remove('active');
-            }
+            if (e.key === 'Escape' && searchOverlay.classList.contains('active')) closeOverlay();
         });
     }
 
