@@ -26,7 +26,7 @@
                             <i class="fas fa-bullhorn"></i> Bulletins
                         </button>
                         <button class="home-tab-btn" data-tab="policy-changes">
-                            <i class="fas fa-file-alt"></i> Recent Policy Changes
+                            <i class="fas fa-file-alt"></i> Recent Uploaded Policy Documents
                         </button>
                     </div>
                     <div class="home-tab-panel active" id="panel-bulletins"></div>
@@ -205,6 +205,8 @@
     <!-- Load data files FIRST, before any scripts that use them -->
     <script src="events-data.js"></script>
     <script src="communications-data.js"></script>
+    <script src="documents-data.js"></script>
+    <script src="memos-data.js"></script>
 
     <script>
         // Helper: encode file paths for use in href attributes
@@ -226,15 +228,50 @@
             `).join('');
         }
 
+        // Render a list of normalised policy doc items {title, url, date}
+        function renderPolicyItems(items, panelId, emptyMsg) {
+            const panel = document.getElementById(panelId);
+            if (items.length === 0) {
+                panel.innerHTML = `<p class="no-items">${emptyMsg}</p>`;
+                return;
+            }
+            panel.innerHTML = items.map(item => `
+                <a href="${item.url}" class="bulletin-item" target="_blank">
+                    <p class="bulletin-title">${item.title}</p>
+                </a>
+            `).join('');
+        }
+
+        // Collect all documents and memos tagged "Policy", sort by date, take latest 3
+        function getRecentPolicyDocs() {
+            const hasPolicy = tags => Array.isArray(tags) && tags.some(t => t.toLowerCase() === 'policy');
+            const docArrays = [
+                typeof POLICY_DOCUMENTS      !== 'undefined' ? POLICY_DOCUMENTS      : [],
+                typeof PROCEDURES_GUIDELINES !== 'undefined' ? PROCEDURES_GUIDELINES : [],
+                typeof FORMS_TEMPLATES       !== 'undefined' ? FORMS_TEMPLATES       : [],
+                typeof RESOURCE_DOCS         !== 'undefined' ? RESOURCE_DOCS         : [],
+                typeof FINANCE_OPERATIONS    !== 'undefined' ? FINANCE_OPERATIONS    : [],
+            ];
+            const docs = docArrays.flat()
+                .filter(d => hasPolicy(d.tags))
+                .map(d => ({ title: d.title, url: encodeFilePath(d.fileName), date: d.uploadDate || '' }));
+
+            const memos = (typeof MEMOS !== 'undefined' ? MEMOS : [])
+                .filter(m => hasPolicy(m.tags))
+                .map(m => ({ title: m.title, url: m.pdfFile ? encodeFilePath(m.pdfFile) : 'memos.html', date: m.date || '' }));
+
+            return [...docs, ...memos]
+                .sort((a, b) => b.date.localeCompare(a.date))
+                .slice(0, 3);
+        }
+
         // Load tab content from data files
         function loadCommunicationsTabs() {
-            const bulletins     = typeof BULLETINS      !== 'undefined' ? BULLETINS      : [];
-            const policyChanges = typeof POLICY_CHANGES !== 'undefined' ? POLICY_CHANGES : [];
-
+            const bulletins = typeof BULLETINS !== 'undefined' ? BULLETINS : [];
             const latest = arr => [...arr].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
 
-            renderItems(latest(bulletins),     'panel-bulletins',     'No bulletins available.');
-            renderItems(latest(policyChanges), 'panel-policy-changes','No recent policy changes.');
+            renderItems(latest(bulletins), 'panel-bulletins', 'No bulletins available.');
+            renderPolicyItems(getRecentPolicyDocs(), 'panel-policy-changes', 'No recent policy documents available.');
         }
 
         // Tab switching
