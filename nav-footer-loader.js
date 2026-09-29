@@ -14,11 +14,11 @@ const NAV_TEMPLATE = `
                     <a href="about-us.html" class="nav-link">DIVISION INFO</a>
                     <div class="dropdown-menu">
                         <a href="about-us.html">About Us</a>
-                        <a href="about-us.html#tes">TES</a>
-                        <a href="about-us.html#am">AM</a>
-                        <a href="about-us.html#bits">BITS</a>
-                        <a href="about-us.html#elmp">ELMP</a>
-                        <a href="about-us.html#sib">SIB</a>
+                        <a href="about-us.html#tes">Training and Employment Services</a>
+                        <a href="about-us.html#am">Apprenticeship Manitoba</a>
+                        <a href="about-us.html#bits">Business and Industry Training Supports</a>
+                        <a href="about-us.html#elmp">Economic and Labour Market Policy</a>
+                        <a href="about-us.html#sib">Service Innovation Branch</a>
                     </div>
                 </div>
                 <div class="nav-item">
@@ -80,11 +80,11 @@ const FOOTER_TEMPLATE = `
                     <h4>DIVISION INFO</h4>
                     <ul>
                         <li><a href="about-us.html">About Us</a></li>
-                        <li><a href="about-us.html#tes">TES</a></li>
-                        <li><a href="about-us.html#am">AM</a></li>
-                        <li><a href="about-us.html#bits">BITS</a></li>
-                        <li><a href="about-us.html#elmp">ELMP</a></li>
-                        <li><a href="about-us.html#sib">SIB</a></li>
+                        <li><a href="about-us.html#tes">Training and Employment Services</a></li>
+                        <li><a href="about-us.html#am">Apprenticeship Manitoba</a></li>
+                        <li><a href="about-us.html#bits">Business and Industry Training Supports</a></li>
+                        <li><a href="about-us.html#elmp">Economic and Labour Market Policy</a></li>
+                        <li><a href="about-us.html#sib">Service Innovation Branch</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
