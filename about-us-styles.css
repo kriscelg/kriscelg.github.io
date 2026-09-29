@@ -244,6 +244,33 @@
     min-width: 0;
 }
 
+.branch-intranet-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 14px;
+    padding: 8px 18px;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(6px);
+}
+
+.branch-intranet-btn:hover {
+    background: rgba(255,255,255,0.28);
+    border-color: rgba(255,255,255,0.7);
+    transform: translateY(-1px);
+}
+
+.branch-intranet-btn i {
+    font-size: 11px;
+}
+
 .branch-acronym-badge {
     display: inline-block;
     background: rgba(255,255,255,0.2);
