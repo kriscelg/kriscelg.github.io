@@ -187,31 +187,13 @@ const JOB_AID_GUIDELINES = [
         tags: ["Office Administration", "General Service Delivery", "Operations", "HTML", "Guideline"],
         description: ""
     },
-    // Add procedure and guideline documents here
-    // Example:
-    // {
-    //     title: "Case Management Procedures",
-    //     fileName: "case-management-procedures.pdf",
-    //     uploadDate: "2026-01-15",
-    //     fileType: "PDF",
-    //     tags: ["procedures", "case management", "workflow"],
-    //     description: "Step-by-step procedures for case management activities"
-    // }
+
+    // Add job aid and guideline documents here
+
 ];
 
-// Forms, Templates 
+// Forms & Templates
 const FORMS_TEMPLATES = [
-
-    // Add forms, templates, and resource documents here
-    // Example:
-    // {
-    //     title: "Project Approval Request (PAR) Form",
-    //     fileName: "forms/PAR-form.docx",
-    //     uploadDate: "2026-01-10",
-    //     fileType: "DOCX",
-    //     tags: ["form", "project approval", "funding"],
-    //     description: "Form for requesting project approval and funding"
-    // }
 
     {
         title: "Changes to Approved Training Intervention",
@@ -335,7 +317,7 @@ const FORMS_TEMPLATES = [
         fileName: "documents/formsAndTemplates/requestForInformationFromOtherFunders.pdf",
         uploadDate: "2026-09-23",
         fileType: "PDF",
-        tags: ["Skills Development", "EAPD", "Assessments", "Agreements", "Case Management", "PDF", "Forms","English"],
+        tags: ["Skills Development", "EAPD", "Assessments", "Agreements", "Case Management", "PDF", "Forms", "English"],
         description: ""
     },
 
@@ -353,7 +335,7 @@ const FORMS_TEMPLATES = [
         fileName: "documents/formsAndTemplates/sdEligibilityAndPriorityAssessmentWorksheet.xlsx",
         uploadDate: "2026-09-23",
         fileType: "Excel",
-        tags: ["Skills Development", "Assessments", "Agreements", "Case Management", "Excel", "Templates" "English"],
+        tags: ["Skills Development", "Assessments", "Agreements", "Case Management", "Excel", "Templates", "English"],
         description: ""
     },
 
@@ -501,24 +483,15 @@ const FORMS_TEMPLATES = [
         description: ""
     },
 
+    // Add forms and templates here
 
 ];
 
 // Finance Operations
 const FINANCE_OPERATIONS = [
 
-    
+    // Add finance operations documents here
 
-    // Add forms, templates, and resource documents here
-    // Example:
-    // {
-    //     title: "Project Approval Request (PAR) Form",
-    //     fileName: "forms/PAR-form.docx",
-    //     uploadDate: "2026-01-10",
-    //     fileType: "DOCX",
-    //     tags: ["form", "project approval", "funding"],
-    //     description: "Form for requesting project approval and funding"
-    // }
 ];
 
 // Resources
@@ -529,7 +502,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/mjsdCenterSlideshowEnglishAndFrench.pptx",
         uploadDate: "2026-03-03",
         fileType: "PowerPoint",
-        tags: ["Marketing", "General Service Delivery", "English", "French", "PowerPoint", "Persentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "English", "French", "PowerPoint", "Presentation Suites"],
         description: ""
     },
 
@@ -556,23 +529,25 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/tesPresentationToGeneralPublicEnglish.pptx",
         uploadDate: "2026-03-03",
         fileType: "PowerPoint",
-        tags: ["Marketing", "General Service Delivery", "English", "PowerPoint", "Persentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "English", "PowerPoint", "Presentation Suites"],
         description: ""
     },
+
     {
         title: "TES Presentation to General Public French",
         fileName: "documents/resources/tesPresentationToGeneralPublicFrench.pptx",
         uploadDate: "2026-03-03",
         fileType: "PowerPoint",
-        tags: ["Marketing", "General Service Delivery", "French", "PowerPoint", "Persentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "French", "PowerPoint", "Presentation Suites"],
         description: ""
     },
+
     {
         title: "TES Presentation to Stakeholders English",
         fileName: "documents/resources/tesPresentationToStakeholdersEnglish.pptx",
         uploadDate: "2026-03-03",
         fileType: "PowerPoint",
-        tags: ["Marketing", "General Service Delivery", "English", "PowerPoint", "Persentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "English", "PowerPoint", "Presentation Suites"],
         description: ""
     },
 
@@ -581,15 +556,16 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/tesPresentationToStakeholdersFrench.pptx",
         uploadDate: "2026-03-03",
         fileType: "PowerPoint",
-        tags: ["Marketing", "General Service Delivery", "French", "PowerPoint", "Persentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "French", "PowerPoint", "Presentation Suites"],
         description: ""
     },
+
     {
         title: "QR Code - Employer Supports English",
         fileName: "documents/resources/qrCodeEmployerSupportsEnglish.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "English", "Image", "Persentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "English", "Image", "Presentation Suites"],
         description: ""
     },
 
@@ -598,7 +574,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeEmployerSupportsFrench.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "French", "Image", "Persentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "French", "Image", "Presentation Suites"],
         description: ""
     },
 
@@ -607,7 +583,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeEtpPageEnglish.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "English", "Image", "Persentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "English", "Image", "Presentation Suites"],
         description: ""
     },
 
@@ -616,7 +592,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeEtpPageFrench.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "French", "Image", "Persentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "French", "Image", "Presentation Suites"],
         description: ""
     },
 
@@ -625,7 +601,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeMjsdCentersEnglish.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "English", "Image", "Persentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "English", "Image", "Presentation Suites"],
         description: ""
     },
 
@@ -634,7 +610,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeMjsdCentersFrench.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "French", "Image", "Persentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "French", "Image", "Presentation Suites"],
         description: ""
     },
 
@@ -643,7 +619,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeTesIndexPageEnglish.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "English", "Image", "Persentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "English", "Image", "Presentation Suites"],
         description: ""
     },
 
@@ -652,7 +628,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeTesIndexPageFrench.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "French", "Image", "Persentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "French", "Image", "Presentation Suites"],
         description: ""
     },
 
@@ -688,22 +664,10 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/Support Needs Assessment - A Guided Conversation.docx",
         uploadDate: "2026-04-01",
         fileType: "Word",
-        tags: ["Direct Services", "Case Management", "Career Development", "Operations", "General Service Delivery", "English", "HTML", "Career Planning Tools"],
+        tags: ["Direct Services", "Case Management", "Career Development", "Operations", "General Service Delivery", "English", "Word", "Career Planning Tools"],
         description: ""
     },
 
+    // Add resource documents here
 
-    // Add forms, templates, and resource documents here
-    // Example:
-    // {
-    //     title: "Project Approval Request (PAR) Form",
-    //     fileName: "forms/PAR-form.docx",
-    //     uploadDate: "2026-01-10",
-    //     fileType: "DOCX",
-    //     tags: ["form", "project approval", "funding"],
-    //     description: "Form for requesting project approval and funding"
-    // }
 ];
-
-
-

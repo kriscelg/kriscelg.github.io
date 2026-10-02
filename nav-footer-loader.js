@@ -319,7 +319,7 @@ const FOOTER_TEMPLATE = `
 
             // Documents
             (typeof POLICY_DOCUMENTS      !== 'undefined' ? POLICY_DOCUMENTS      : []).forEach(d => push(d.title, ep(d.fileName), 'Policy Doc',   'ic-doc',       'fa-file-alt',       d.tags));
-            (typeof PROCEDURES_GUIDELINES !== 'undefined' ? PROCEDURES_GUIDELINES : []).forEach(d => push(d.title, ep(d.fileName), 'Job Aid',       'ic-doc',       'fa-tools',          d.tags));
+            (typeof JOB_AID_GUIDELINES    !== 'undefined' ? JOB_AID_GUIDELINES    : []).forEach(d => push(d.title, ep(d.fileName), 'Job Aid',       'ic-doc',       'fa-tools',          d.tags));
             (typeof FORMS_TEMPLATES       !== 'undefined' ? FORMS_TEMPLATES       : []).forEach(d => push(d.title, ep(d.fileName), 'Form',          'ic-doc',       'fa-file-invoice',   d.tags));
             (typeof RESOURCE_DOCS         !== 'undefined' ? RESOURCE_DOCS         : []).forEach(d => push(d.title, ep(d.fileName), 'Resource',      'ic-doc',       'fa-book',           d.tags));
             (typeof FINANCE_OPERATIONS    !== 'undefined' ? FINANCE_OPERATIONS    : []).forEach(d => push(d.title, ep(d.fileName), 'Finance',       'ic-doc',       'fa-calculator',     d.tags));
