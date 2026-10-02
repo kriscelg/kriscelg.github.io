@@ -67,6 +67,7 @@
         if (docs.length === 0) {
             container.innerHTML = '';
             noResults.style.display = 'flex';
+            updateSearchResults(0);
             return;
         }
 
