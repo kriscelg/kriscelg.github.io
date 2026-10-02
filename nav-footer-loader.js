@@ -383,13 +383,13 @@ const FOOTER_TEMPLATE = `
                 return;
             }
 
-            const isNewTab = (url) => !url.endsWith('.html') && !url.startsWith('events') && !url.startsWith('memos') && !url.startsWith('tes-') && !url.startsWith('about-') && !url.startsWith('videos-');
+            const isNewTab = (item) => item.iconClass === 'ic-doc' || (!item.url.endsWith('.html') && !item.url.startsWith('events') && !item.url.startsWith('memos') && !item.url.startsWith('tes-') && !item.url.startsWith('about-') && !item.url.startsWith('videos-'));
 
             suggestionsEl.innerHTML =
                 `<div class="nav-suggestion-scroll">` +
                 results.map((item, i) => `
                 <div class="nav-suggestion-item${i === highlightedIdx ? ' highlighted' : ''}"
-                     role="option" data-idx="${i}" data-url="${item.url}" data-newtab="${isNewTab(item.url)}">
+                     role="option" data-idx="${i}" data-url="${item.url}" data-newtab="${isNewTab(item)}">
                     <div class="nav-suggestion-icon ${item.iconClass}">
                         <i class="fas ${item.icon}"></i>
                     </div>
