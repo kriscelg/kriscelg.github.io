@@ -475,12 +475,10 @@
 
     function formatDate(ds) {
         if (!ds) return '';
-        // Pad single-digit months/days so "2026-3-3" → "2026-03-03" (required for reliable parsing)
-        const parts = ds.split('-');
-        if (parts.length === 3) {
-            ds = `${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
-        }
-        const d = new Date(ds + 'T00:00:00');
+        // Parse parts manually — avoids UTC-vs-local ambiguity that shifts dates by one day
+        const parts = ds.split('-').map(Number);
+        if (parts.length !== 3 || parts.some(isNaN)) return '';
+        const d = new Date(parts[0], parts[1] - 1, parts[2]);
         if (isNaN(d)) return '';
         return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     }

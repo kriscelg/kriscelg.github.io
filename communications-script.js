@@ -9,15 +9,12 @@
 // Format date for display (e.g., "Nov 22, 2025")
 function formatDate(dateStr) {
     if (!dateStr) return '';
-    // Pad single-digit months/days so "2026-3-3" → "2026-03-03"
-    const parts = dateStr.split('-');
-    if (parts.length === 3) {
-        dateStr = `${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
-    }
-    const date = new Date(dateStr + 'T00:00:00');
+    // Parse parts manually — avoids UTC-vs-local ambiguity that shifts dates by one day
+    const parts = dateStr.split('-').map(Number);
+    if (parts.length !== 3 || parts.some(isNaN)) return '';
+    const date = new Date(parts[0], parts[1] - 1, parts[2]);
     if (isNaN(date)) return '';
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
 // Get fiscal year from date (April to March)
