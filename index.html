@@ -31,7 +31,7 @@
                     </div>
                     <div class="home-tab-panel active" id="panel-bulletins"></div>
                     <div class="home-tab-panel" id="panel-policy-changes"></div>
-                    <a href="communications.html" class="see-more-btn">See More...</a>
+                    <a href="communications.html" class="see-more-btn" id="seeMoreBtn">See More...</a>
                 </div>
 
                 <!-- Events -->
@@ -282,13 +282,20 @@
             renderPolicyItems(getRecentPolicyDocs(), 'panel-policy-changes', 'No recent policy documents available.');
         }
 
-        // Tab switching
+        const SEE_MORE_URLS = {
+            'bulletins':       'communications.html',
+            'policy-changes':  'search-results.html?q=Policy&sort=date',
+        };
+
+        // Tab switching — also update the See More button destination
         document.querySelectorAll('.home-tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.home-tab-btn').forEach(b => b.classList.remove('active'));
                 document.querySelectorAll('.home-tab-panel').forEach(p => p.classList.remove('active'));
                 btn.classList.add('active');
                 document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+                const seeMore = document.getElementById('seeMoreBtn');
+                if (seeMore) seeMore.href = SEE_MORE_URLS[btn.dataset.tab] || 'communications.html';
             });
         });
 

@@ -433,6 +433,9 @@
         orgcharts:  'Org Charts',
     };
 
+    // Read sort preference from URL (?sort=date)
+    let activeSortMode = new URLSearchParams(window.location.search).get('sort') || 'relevance';
+
     function search(query, group = 'all') {
         if (!query || query.length < 1) return [];
         const q = query.toLowerCase();
@@ -449,14 +452,19 @@
             return titleMatch || tagsMatch || extraMatch || metaMatch;
         });
 
-        // Rank: title matches first, then tags, then extra
-        results.sort((a, b) => {
-            const aTitle = a.title.toLowerCase().includes(q);
-            const bTitle = b.title.toLowerCase().includes(q);
-            if (aTitle && !bTitle) return -1;
-            if (!aTitle && bTitle) return 1;
-            return 0;
-        });
+        if (activeSortMode === 'date') {
+            // Sort by date descending (most recently uploaded first)
+            results.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+        } else {
+            // Default: title matches first, then tags/extra
+            results.sort((a, b) => {
+                const aTitle = a.title.toLowerCase().includes(q);
+                const bTitle = b.title.toLowerCase().includes(q);
+                if (aTitle && !bTitle) return -1;
+                if (!aTitle && bTitle) return 1;
+                return 0;
+            });
+        }
 
         return results;
     }
@@ -561,7 +569,8 @@
         }
         buildFilterPills(query);
         renderResults(search(query, activeGroup));
-        window.history.replaceState({}, '', `${window.location.pathname}?q=${encodeURIComponent(query)}`);
+        const sortParam = activeSortMode !== 'relevance' ? `&sort=${activeSortMode}` : '';
+        window.history.replaceState({}, '', `${window.location.pathname}?q=${encodeURIComponent(query)}${sortParam}`);
     }
 
     // Pre-fill from URL
