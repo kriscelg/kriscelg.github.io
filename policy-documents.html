@@ -104,32 +104,30 @@
         </div>
     </div>
 
-    <!-- Footer loaded from footer.html -->
-    <div id="footer-container"></div>
-
     <!-- Load shared navigation and footer -->
     <script src="nav-footer-loader.js"></script>
-
-    <!-- Load documents data -->
     <script src="documents-data.js"></script>
-
-    <!-- Page-specific config: data source + tag categories -->
     <script>
+        
         const PAGE_DOCUMENTS = typeof POLICY_DOCUMENTS !== 'undefined' ? POLICY_DOCUMENTS : [];
-        const PAGE_TAG_CATEGORIES = {
-            'Programs':             ['Skills Development', 'Wage Subsidy', 'EAPD', 'ETP', 'Self Employment', 'Intitiatives'],
-            'Systems':              ['ICM', 'SPRS', 'EIBIS', 'SAP'],
-            'Financials':           ['Finance', 'Overpayments', 'Vendor Management'],
-            'Document Type':        ['HTML', 'PDF', 'Word', 'Excel', 'PowerPoint', 'Image'],
-            'Position':             ['Mananger', 'CDC', 'PO', 'VC', 'LMSA', 'PSC', 'ASO'],
-            'Information Systems':  ['User Access', 'Operations', 'Procedure', 'Office Administration', 'Tech Tips', 'Generative AI'],
-            'Services / Resource':  ['Direct Services', 'Indirect Services', 'General Service Delivery', 'Case Management', 'Career Development', 'Service Provider Resource', 'Client Resource'],
-            'Promotional':          ['Marketing', 'Business', 'Community'],
-            'HR':                   ['Respectful Workplace Policy and Toolkit'],
-            'Language':             ['English', 'French']
-        };
-    </script>
 
+        // Define tag categories
+        const PAGE_TAG_CATEGORIES = {
+            'Subcategory' : ['Policy', 'Program Parameters', 'Management Documents (HR)', 'Management Documents (all resources including forms)', 'Memos (Policy Related)', 'Memos (General Communication)', 'Templates', 'Forms', 'Checklists', 'Letters', 'Career Planning Tools', 'System Documents', 'Terminology', 'Fact Sheets', 'Persentation Suites', 'Signage', 'FAQ', 'Job Aid', 'Guideline', 'Procedure', 'Resources', 'Reports', 'Information Sheet', 'Speaker Series'],
+            'Programs' : ['Skills Development', 'Wage Subsidy', 'EAPD', 'ETP', 'Self Employment', 'Intitiatives'],
+            'Systems' : ['ICM', 'SPRS', 'EIBIS', 'SAP', 'SFAIS', 'ETA'],
+            'Financials' : ['Finance', 'Overpayments', 'Vendor Management'],
+            'Document Type': ['HTML', 'PDF', 'Word', 'Excel', 'PowerPoint', 'Image'],
+            'Position' : ['Mananger', 'CDC', 'PO', 'VC', 'LMSA', 'PSC', 'ASO'],
+            'Information Systems' : ['User Access', 'Operations', 'Procedure', 'Office Administration', 'Tech Tips', 'Generative AI'],
+            'Services / Resource' : ['Direct Services', 'Indirect Services', 'General Service Delivery', 'Case Management', 'Career Development', 'Service Provider Resource', 'Client Resource', 'Assessments', 'Education', 'Engagement', 'Agreements'],
+            'Promotional' : ['Marketing', 'Business', 'Community'],
+            'HR' : ['Respectful Workplace Policy and Toolkit'],
+            'Language' : ['English', 'French']
+            
+        };
+
+    </script>
     <!-- Shared document listing logic -->
     <script src="document-page-script.js"></script>
 </body>
