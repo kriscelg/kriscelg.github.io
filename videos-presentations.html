@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos & Presentations - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="videos-presentations-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Videos & Presentations</h1>
+                <p>Training materials, updates, and resources</p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar-container">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input
+                        type="text"
+                        id="vpSearch"
+                        class="search-input-vp"
+                        placeholder="Search videos and presentations..."
+                    >
+                    <button id="clearVPSearch" class="clear-search-btn" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="vpSearchResults" class="search-results-info"></div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="videos">
+                    <i class="fas fa-video"></i> Videos
+                </button>
+                <button class="tab-btn" data-tab="presentations">
+                    <i class="fas fa-file-powerpoint"></i> Presentations
+                </button>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <div class="filter-header">
+                    <span class="filter-label"><i class="fas fa-filter"></i> Filter by:</span>
+                    <button class="clear-filters-btn" id="clearFilters">Clear All</button>
+                </div>
+                <div class="filter-tags" id="filterTags">
+                    <!-- Tags will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- Videos Tab -->
+            <div class="tab-content active" id="videos-tab">
+                <div class="content-grid" id="videosGrid">
+                    <!-- Videos will be loaded here dynamically -->
+                </div>
+                <div class="no-results" id="noVideosMessage" style="display: none;">
+                    <i class="fas fa-video-slash"></i>
+                    <p>No videos found matching your filters</p>
+                </div>
+            </div>
+
+            <!-- Presentations Tab -->
+            <div class="tab-content" id="presentations-tab">
+                <div class="content-grid" id="presentationsGrid">
+                    <!-- Presentations will be loaded here dynamically -->
+                </div>
+                <div class="no-results" id="noPresentationsMessage" style="display: none;">
+                    <i class="fas fa-file-slash"></i>
+                    <p>No presentations found matching your filters</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Video Player Modal -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content video-modal-content">
+            <div class="modal-header">
+                <h2 id="videoModalTitle"></h2>
+                <button class="modal-close" onclick="closeVideoModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="video-player-container">
+                    <video id="videoPlayer" controls>
+                        <source id="videoSource" src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="video-controls-extra">
+                    <label for="playbackSpeed">Speed:</label>
+                    <select id="playbackSpeed">
+                        <option value="0.5">0.5x</option>
+                        <option value="0.75">0.75x</option>
+                        <option value="1" selected>Normal</option>
+                        <option value="1.25">1.25x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
+                </div>
+                <div class="video-description">
+                    <p id="videoDescription"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF Viewer Modal -->
+    <div class="modal" id="pdfModal">
+        <div class="modal-content pdf-modal-content">
+            <div class="modal-header">
+                <h2 id="pdfModalTitle"></h2>
+                <button class="modal-close" onclick="closePdfModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="pdf-viewer-container">
+                    <iframe id="pdfViewer" src="" width="100%" height="600px"></iframe>
+                </div>
+                <div class="pdf-description">
+                    <p id="pdfDescription"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+
+    <!-- Load data file -->
+    <script src="videos-presentations-data.js"></script>
+    <script src="videos-presentations-script.js"></script>
+</body>
+</html>
