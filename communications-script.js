@@ -8,7 +8,14 @@
 
 // Format date for display (e.g., "Nov 22, 2025")
 function formatDate(dateStr) {
+    if (!dateStr) return '';
+    // Pad single-digit months/days so "2026-3-3" → "2026-03-03"
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+        dateStr = `${parts[0]}-${parts[1].padStart(2, '0')}-${parts[2].padStart(2, '0')}`;
+    }
     const date = new Date(dateStr + 'T00:00:00');
+    if (isNaN(date)) return '';
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
 }
