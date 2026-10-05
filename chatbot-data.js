@@ -125,4 +125,82 @@ const CHATBOT_FAQS = [
         followUp: ["Where can I find policy documents?"]
     },
 
+    // ── ICM — Case Management ─────────────────────────────────
+    {
+        question: "How do I add a non-contracted service or service provider to ICM?",
+        keywords: ["add", "service", "provider", "icm", "course", "training", "non-contracted", "contracted"],
+        answer: "To add a non-contracted service provider or course to ICM, submit a request through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page. Include the service type, operating name, course name, start/end dates, region, and NOC (if applicable). Requests are handled by OSU.",
+        followUp: ["ICM Plan/Contract tab not working", "How do I fix a data entry error in ICM?"]
+    },
+    {
+        question: "ICM Plan/Contract tab not working or asking for login",
+        keywords: ["icm", "plan", "contract", "tab", "unavailable", "login", "credentials", "sap", "error"],
+        answer: "If the ICM Plan/Contract tab is prompting for login credentials or showing 'The requested service is unavailable':<br>1. Try closing and reopening your browser<br>2. Clear your browser cache and cookies<br>3. Ensure AppGate is connected if you are working remotely<br>4. If the issue affects multiple staff, contact the <strong>IT Service Desk</strong> — it may be related to the SAP S/4HANA transition.",
+        followUp: ["ICM won't load", "AppGate not working", "Who is IT support?"]
+    },
+    {
+        question: "How do I fix a data entry error in ICM?",
+        keywords: ["data", "entry", "error", "fix", "correct", "update", "icm", "wrong", "incorrect", "intake", "financial"],
+        answer: "Data entry errors in ICM (such as incorrect intake details, program updates, or financial records) must be corrected by OSU. Submit a request through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page. Include the case number, the error description, and what the correct information should be.",
+        followUp: ["How do I add a non-contracted service or service provider to ICM?", "How do I reopen a closed ICM file?"]
+    },
+    {
+        question: "How do I reopen a closed ICM file?",
+        keywords: ["reopen", "closed", "icm", "file", "case", "address", "cheque", "returned"],
+        answer: "If a client's ICM file is closed and needs to be reopened (e.g. for a returned cheque or address update), submit a request through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page. Include the ICM case number, the client name, and the reason for reopening.",
+        followUp: ["How do I fix a data entry error in ICM?", "How do I add a non-contracted service or service provider to ICM?"]
+    },
+    {
+        question: "How do I update a client's SIN in ICM?",
+        keywords: ["sin", "social", "insurance", "number", "update", "client", "icm", "changed"],
+        answer: "SIN updates in ICM require manager approval and must be case noted before submitting. Use the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page and select the SIN update option. You will need to confirm that identification has been verified and whether there are any financials on the case.",
+        followUp: ["How do I fix a data entry error in ICM?"]
+    },
+    {
+        question: "How do I get a file transfer history in ICM?",
+        keywords: ["file", "transfer", "history", "icm", "case", "transferred", "author"],
+        answer: "To request a file transfer history for an ICM case, submit a request through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page under General Inquiry. Include the ICM case number and what you are trying to verify.",
+        followUp: ["How do I fix a data entry error in ICM?"]
+    },
+
+    // ── AMT+ ──────────────────────────────────────────────────
+    {
+        question: "I have an AMT+ error or my employee information is wrong",
+        keywords: ["amt", "amt+", "employee", "number", "pending", "draft", "error", "position"],
+        answer: "For AMT+ issues such as an incorrect employee number (showing position number instead) or a pending draft you cannot locate, submit a request through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page under General Inquiry. Include the employee number and a description of the issue.",
+        followUp: ["Who do I contact for IT support?"]
+    },
+
+    // ── SPRS ─────────────────────────────────────────────────
+    {
+        question: "How do I update SPRS information for a service provider?",
+        keywords: ["sprs", "update", "service", "provider", "email", "address", "date", "incorrect"],
+        answer: "SPRS updates — such as correcting a participant start date or updating a service provider's email address — are handled by OSU. Submit a request through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page. Include the participant or provider name, case number, and the correction needed.",
+        followUp: ["How do I reset my SPRS password?", "How do I request access to SPRS?"]
+    },
+
+    // ── Email Distribution Lists ──────────────────────────────
+    {
+        question: "How do I add or remove someone from an email distribution list?",
+        keywords: ["email", "distribution", "list", "add", "remove", "group", "wpg", "bra"],
+        answer: "To add or remove staff from an email distribution list (e.g. *WPG139 or *BRA326 groups), submit a request through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page under General Inquiry. Include the staff member's full name and the exact distribution list name.",
+        followUp: ["Who do I contact for IT support?"]
+    },
+
+    // ── Documents & Content ───────────────────────────────────
+    {
+        question: "How do I request a new document or update an existing one?",
+        keywords: ["request", "document", "webpage", "update", "new", "content", "intranet", "page", "translation", "french"],
+        answer: "To request a new document, update an existing one, or request a French translation, submit a request through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page and select 'Documents and webpage content'. Attach any relevant files and note if the document needs accessibility or formatting review.",
+        followUp: ["Where can I find job aids?", "Where can I find policy documents?"]
+    },
+
+    // ── Finance / DFSA ────────────────────────────────────────
+    {
+        question: "How do I request a DFSA limit update?",
+        keywords: ["dfsa", "limit", "client", "provider", "finance", "accountability", "update", "osu"],
+        answer: "DFSA client and service provider limit updates are submitted through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page. Select 'Finance and Accountability system DFSA limit updates'. You will need the original limits, the new limits, and the start and end dates.",
+        followUp: ["Who do I contact for IT support?"]
+    },
+
 ];
