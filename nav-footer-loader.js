@@ -510,6 +510,21 @@ const FOOTER_TEMPLATE = `
         });
     }
 
+    // Function to load chatbot scripts sequentially
+    function loadChatbot() {
+        function loadScript(src, onload) {
+            if (document.querySelector('script[src="' + src + '"]')) { if (onload) onload(); return; }
+            const s = document.createElement('script');
+            s.src = src;
+            s.onload = onload || null;
+            s.onerror = null;
+            document.body.appendChild(s);
+        }
+        loadScript('chatbot-data.js', function() {
+            loadScript('chatbot.js');
+        });
+    }
+
     // Function to initialize scroll to top functionality
     function initializeScrollTop() {
         const scrollTopBtn = document.getElementById('scrollTop');
@@ -541,6 +556,7 @@ const FOOTER_TEMPLATE = `
         setActivePage();
         initializeSearch();
         initializeScrollTop();
+        loadChatbot();
     }
 
     // Run initialization when DOM is fully loaded
