@@ -189,24 +189,29 @@
     // ── Matching ───────────────────────────────────────────────────────
     function findAnswer(query) {
         const q = query.toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
-        const words = q.split(/\s+/).filter(w => w.length > 1);
+        const words = q.split(/\s+/).filter(w => w.length > 2);
 
         let best = null;
         let bestScore = 0;
 
         faqs.forEach(faq => {
-            let score = 0;
+            let kwScore = 0;
+            let txtScore = 0;
             words.forEach(word => {
-                if (faq.keywords.some(k => k.toLowerCase() === word || k.toLowerCase().includes(word) || word.includes(k.toLowerCase()))) {
-                    score += 3;
+                if (faq.keywords.some(k => k.length >= 3 && (k.toLowerCase() === word || k.toLowerCase().includes(word) || word.includes(k.toLowerCase())))) {
+                    kwScore += 3;
                 } else if (faq.question.toLowerCase().includes(word)) {
-                    score += 1;
+                    txtScore += 1;
                 }
             });
-            if (score > bestScore) { bestScore = score; best = faq; }
+            // Require at least one keyword match — question text alone cannot trigger a result
+            if (kwScore >= 3) {
+                const score = kwScore + txtScore;
+                if (score > bestScore) { bestScore = score; best = faq; }
+            }
         });
 
-        return bestScore >= 3 ? best : null;
+        return best;
     }
 
     // ── Render helpers ─────────────────────────────────────────────────
@@ -230,7 +235,7 @@
         });
     }
 
-    const FALLBACK = `I don't have an answer for that one. For further help, contact <a href="contact-resources.html#sib-support">SIB Support</a> or check the <a href="contact-resources.html">Contact &amp; Resources</a> page.`;
+    const FALLBACK = `Sorry, I can only help with questions about WDT systems and procedures. Try one of the topics below, or contact <a href="contact-resources.html#sib-support">SIB Support</a> for other help.`;
 
     const DEFAULT_CHIPS = [
         'Reset ICM password',
