@@ -40,6 +40,20 @@ const CHATBOT_FAQS = [
     },
 
 
+    // ── System Access Requests ────────────────────────────────
+    {
+        question: "How do I request new employee access to a WDT system?",
+        keywords: ["new", "access", "employee", "account", "onboard", "hire", "eibis", "crc", "criminal"],
+        answer: "To request new system access for an employee, submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> and select 'Systems access, updates, or issues', then 'Request new employee access'. Include the employee's full name, position, and which systems they need (ICM, EIBIS/LMDAccess, SPRS, and/or AMT+).<br><br>Important:<ul style='margin:6px 0 0 16px;padding:0'><li>A <strong>Criminal Record Check (CRC)</strong> is required for ICM and EIBIS access and must be on file before access is granted. CRCs expire 10 years after their effective date.</li><li>STEP students cannot receive EIBIS or LMDAccess.</li><li>AMT+ has two roles — <strong>Submitter</strong> and <strong>Approver</strong> — specify which is needed.</li><li>Once submitted, wait for OSU's confirmation email with login credentials before the employee attempts to log in.</li></ul>",
+        followUp: ["How do I update or revoke employee system access?", "How long does OSU take to respond?"]
+    },
+    {
+        question: "How do I update or revoke employee system access?",
+        keywords: ["revoke", "offboard", "leaving", "role", "change", "access", "employee"],
+        answer: "For changes to existing employee system access, submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> and select 'Systems access, updates, or issues'.<ul style='margin:6px 0 0 16px;padding:0'><li><strong>Update access</strong> (e.g. name change, role change): select 'Update existing employee system information'. Include the employee's name, the system, and what needs to change.</li><li><strong>Revoke access</strong> (e.g. employee leaving or changing roles): select 'Revoke employee access'. Include the employee's name, which systems to remove, and the effective date.</li></ul>",
+        followUp: ["How do I request new employee access to a WDT system?", "How long does OSU take to respond?"]
+    },
+
     // ── ICM — Case Management ─────────────────────────────────
     {
         question: "How do I add a non-contracted service or service provider to ICM?",
@@ -65,6 +79,13 @@ const CHATBOT_FAQS = [
         keywords: ["sin", "social", "insurance", "number", "update", "client", "icm", "changed"],
         answer: "<strong>Important:</strong> Do not include the SIN itself in the form — it is not secure to submit SINs through Microsoft Forms. Instead: follow the <strong>Social Insurance Number Updates</strong> job aid, add all SIN details to a case note in ICM, then submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> providing only the ICM case number. You must confirm that identification has been verified — requests without ID verification cannot be processed. If financials have been committed or issued on the case, OSU may need to contact Finance to update SAP or re-issue tax documentation.",
         followUp: ["How do I fix a data entry error in ICM?"]
+    },
+
+    {
+        question: "How do I get a file transfer history in ICM?",
+        keywords: ["file", "transfer", "history", "icm", "transferred", "author"],
+        answer: "To request a file transfer history for an ICM case, submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> as a General Inquiry. Include the ICM case number and what you are trying to verify (e.g. whether the file was ever transferred to a CDC not currently shown in the author column).",
+        followUp: ["How do I fix a data entry error in ICM?", "How do I reopen a closed ICM file?"]
     },
 
     // ── AMT+ ──────────────────────────────────────────────────
