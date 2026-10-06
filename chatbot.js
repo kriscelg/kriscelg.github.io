@@ -141,6 +141,29 @@
         }
         #wdt-chat-send:hover { background: #0a4a4a; }
 
+        .wdt-feedback {
+            display: flex; align-items: center; gap: 6px;
+            align-self: flex-start; flex-shrink: 0;
+        }
+        .wdt-feedback-label {
+            font-size: 11px; color: #94a3b8;
+            font-family: 'Inter', sans-serif; white-space: nowrap;
+        }
+        .wdt-feedback-btn {
+            padding: 3px 10px; border-radius: 20px;
+            border: 1px solid #cbd5e1; background: white;
+            font-size: 11px; font-family: 'Inter', sans-serif;
+            color: #475569; cursor: pointer; transition: all 0.15s;
+        }
+        .wdt-feedback-btn:hover { border-color: #0d5f5f; color: #0d5f5f; background: #f0fafa; }
+        .wdt-feedback-result {
+            font-size: 12px; font-family: 'Inter', sans-serif;
+            font-style: italic; color: #64748b;
+            max-width: 260px; line-height: 1.45;
+        }
+        .wdt-feedback-result.positive { color: #0d5f5f; }
+        .wdt-feedback-result a { color: #0d5f5f; font-weight: 600; }
+
         @media (max-width: 420px) {
             #wdt-chat-panel { right: 10px; left: 10px; width: auto; bottom: 148px; }
             #wdt-chat-btn { right: 16px; bottom: 86px; }
@@ -250,6 +273,27 @@
         greeted = true;
     }
 
+    function showFeedback() {
+        const div = document.createElement('div');
+        div.className = 'wdt-feedback';
+        div.innerHTML = `
+            <span class="wdt-feedback-label">Did this answer your question?</span>
+            <button class="wdt-feedback-btn" data-fb="yes">Yes</button>
+            <button class="wdt-feedback-btn" data-fb="no">No</button>
+        `;
+        messagesEl.appendChild(div);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+
+        div.querySelector('[data-fb="yes"]').addEventListener('click', () => {
+            div.innerHTML = '<span class="wdt-feedback-result positive">Glad it could help!</span>';
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+        });
+        div.querySelector('[data-fb="no"]').addEventListener('click', () => {
+            div.innerHTML = '<span class="wdt-feedback-result">No problem — you can submit your question as a <a href="https://forms.cloud.microsoft/r/CkXMcDYy6k" target="_blank">General Inquiry</a> through the Contact OSU form and someone will follow up within two business days.</span>';
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+        });
+    }
+
     function handleQuery(query) {
         if (!query.trim()) return;
         chipsEl.innerHTML = '';
@@ -260,6 +304,7 @@
             if (faq) {
                 addMessage(faq.answer, 'bot');
                 if (faq.followUp && faq.followUp.length) showChips(faq.followUp);
+                showFeedback();
             } else {
                 addMessage(FALLBACK, 'bot');
                 showChips(DEFAULT_CHIPS);
