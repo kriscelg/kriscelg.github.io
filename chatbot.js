@@ -289,7 +289,7 @@
             messagesEl.scrollTop = messagesEl.scrollHeight;
         });
         div.querySelector('[data-fb="no"]').addEventListener('click', () => {
-            div.innerHTML = '<span class="wdt-feedback-result">No problem — you can submit your question as a <a href="https://forms.cloud.microsoft/r/CkXMcDYy6k" target="_blank">General Inquiry</a> through the Contact OSU form and someone will follow up within two business days.</span>';
+            div.innerHTML = '<span class="wdt-feedback-result">No problem — you can submit your question as a <a href="https://forms.cloud.microsoft/r/CkXMcDYy6k" target="_blank">General Inquiry</a> through the Contact OSU form.</span>';
             messagesEl.scrollTop = messagesEl.scrollHeight;
         });
     }
