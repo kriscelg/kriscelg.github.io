@@ -273,6 +273,23 @@
         greeted = true;
     }
 
+    function playDing() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            osc.frequency.value = 880;
+            gain.gain.setValueAtTime(0.25, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + 0.22);
+            osc.onended = () => ctx.close();
+        } catch (e) {}
+    }
+
     function showFeedback() {
         const div = document.createElement('div');
         div.className = 'wdt-feedback';
@@ -303,10 +320,12 @@
             const faq = findAnswer(query);
             if (faq) {
                 addMessage(faq.answer, 'bot');
+                playDing();
                 if (faq.followUp && faq.followUp.length) showChips(faq.followUp);
                 showFeedback();
             } else {
                 addMessage(FALLBACK, 'bot');
+                playDing();
                 showChips(DEFAULT_CHIPS);
             }
         }, 250);
