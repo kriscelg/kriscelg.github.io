@@ -155,8 +155,8 @@ const CHATBOT_FAQS = [
     // ── DTS / Software / Hardware redirect ───────────────────────────────
     {
         question: "Who do I contact for software, hardware, or DTS issues?",
-        keywords: ["software", "hardware", "dts", "teams", "adobe", "digital", "technology", "outlook"],
-        answer: "OSU does not handle software, hardware, or general IT requests. Contact <strong>Digital and Technology Solutions (DTS)</strong> at <strong>1-888-281-1139</strong> or submit a request through <strong>Service-Now</strong>. This includes Microsoft Teams setup, Outlook address book changes, Adobe software, and general technical support not related to ICM, SPRS, EIBIS, or AMT+.",
+        keywords: ["software", "hardware", "dts", "teams", "adobe", "digital", "technology", "outlook", "internet", "connection", "address"],
+        answer: "This question is handled by the <strong>DTS Help Desk</strong>. Please contact <strong>Digital and Technology Solutions (DTS)</strong> at <strong>1-888-281-1139</strong> and/or <a href='https://gom.service-now.com/sp' target='_blank'>Service-Now</a> for further support. This includes software and hardware issues, internet connection problems, adding/removing/editing address book information, and Microsoft Teams questions.",
         followUp: ["How long does OSU take to respond?"]
     },
 
@@ -164,7 +164,7 @@ const CHATBOT_FAQS = [
     {
         question: "Who do I contact for Manitoba Student Aid or SFAIS?",
         keywords: ["sfais", "student", "aid", "loan"],
-        answer: "OSU does not handle Manitoba Student Aid or SFAIS requests. For Student Aid related questions, contact <strong>Manitoba Student Aid</strong> at <strong>manitobastudentaid@gov.mb.ca</strong>. For technical support with SFAIS, contact <strong>DTS</strong> at <strong>1-888-281-1139</strong>.",
+        answer: "This is a Manitoba Student Aid request. Please contact <strong>Digital and Technology Solutions (DTS)</strong> at <strong>1-888-281-1139</strong> and/or <a href='https://gom.service-now.com/sp' target='_blank'>Service-Now</a> for technical support. For Student Aid related questions, please contact <strong>Manitoba Student Aid</strong> at <strong>manitobastudentaid@gov.mb.ca</strong> for further support.",
         followUp: ["How long does OSU take to respond?"]
     },
 
