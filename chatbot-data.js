@@ -168,4 +168,90 @@ const CHATBOT_FAQS = [
         followUp: ["How long does OSU take to respond?"]
     },
 
+    // ── Site Navigation ───────────────────────────────────────────────────
+    {
+        question: "Where do I find all documents?",
+        keywords: ["documents", "all", "find", "where", "hub", "library"],
+        answer: "The <a href='documents.html' target='_blank'>Documents</a> page is the central hub for all WDT documents. From there you can access Policy Documents, Job Aids & Guidelines, Forms & Templates, Financial Operations, and Resources. It also includes a search bar to find documents across all categories.",
+        followUp: ["How do I search for a document?", "How do I filter documents by tag?"]
+    },
+    {
+        question: "Where do I find Forms and Templates?",
+        keywords: ["forms", "templates", "template", "form", "find", "where", "download"],
+        answer: "Forms and Templates are available on the <a href='forms-templates.html' target='_blank'>Forms &amp; Templates</a> page, accessible from the Documents section in the navigation.",
+        followUp: ["Where do I find all documents?", "How do I search for a document?"]
+    },
+    {
+        question: "Where do I find Financial Operations documents?",
+        keywords: ["financial", "operations", "finance", "document", "find", "where"],
+        answer: "Financial Operations documents are available on the <a href='financial-operations.html' target='_blank'>Financial Operations</a> page, accessible from the Documents section in the navigation.",
+        followUp: ["Where do I find all documents?", "How do I search for a document?"]
+    },
+    {
+        question: "Where do I find Resource documents?",
+        keywords: ["resource", "resources", "document", "find", "where", "supporting"],
+        answer: "Supporting resources used across the division are available on the <a href='resources.html' target='_blank'>Resources</a> page, accessible from the Documents section in the navigation.",
+        followUp: ["Where do I find all documents?", "How do I search for a document?"]
+    },
+    {
+        question: "Where do I find Bulletins and Newsletters?",
+        keywords: ["bulletins", "newsletters", "bulletin", "newsletter", "find", "where", "announcements"],
+        answer: "Bulletins and newsletters are available on the <a href='bulletins-newsletters.html' target='_blank'>Bulletins</a> page, accessible from the Communications section in the navigation.",
+        followUp: ["Where do I find Memos?", "Where do I find Events?"]
+    },
+    {
+        question: "Where do I find Memos?",
+        keywords: ["memos", "memo", "find", "where"],
+        answer: "Memos are available on the <a href='memos.html' target='_blank'>Memos</a> page, accessible from the Communications section in the navigation.",
+        followUp: ["Where do I find Bulletins and Newsletters?", "Where do I find Events?"]
+    },
+    {
+        question: "Where do I find Events?",
+        keywords: ["events", "event", "calendar", "find", "where", "upcoming"],
+        answer: "Upcoming events are listed on the <a href='events.html' target='_blank'>Events</a> page, accessible from the Communications section in the navigation. Events are also shown on the Home page.",
+        followUp: ["Where do I find Bulletins and Newsletters?", "Where do I find Memos?"]
+    },
+    {
+        question: "Where do I find Videos and Presentations?",
+        keywords: ["videos", "presentations", "video", "presentation", "training", "find", "where", "tes"],
+        answer: "TES Videos and Presentations are available on the <a href='videos-presentations.html' target='_blank'>TES Videos and Presentations</a> page, accessible from the Training &amp; Development section in the navigation.",
+        followUp: ["Where do I find TES Reports and Dashboards?", "Where do I find Division Information?"]
+    },
+    {
+        question: "Where do I find TES Reports and Dashboards?",
+        keywords: ["tes", "reports", "dashboards", "report", "dashboard", "find", "where", "data"],
+        answer: "TES Reports and Dashboards are available on the <a href='tes-reporting.html' target='_blank'>TES Reports and Dashboards</a> page, accessible from the Reporting section in the navigation.",
+        followUp: ["Where do I find Videos and Presentations?", "Where do I find Division Information?"]
+    },
+    {
+        question: "Where do I find Key Contacts or Staff Resources?",
+        keywords: ["contacts", "contact", "staff", "resources", "key", "find", "where", "phone", "email", "ess", "pay", "calendar"],
+        answer: "Key Contacts and Staff Resources are on the <a href='contact-resources.html' target='_blank'>Contact &amp; Resources</a> page. This includes contact details for WDT mailboxes, the DTS Service Desk, Employee Self-Service (ESS), pay and benefits information, and more.",
+        followUp: ["Who do I contact for software, hardware, or DTS issues?", "How long does OSU take to respond?"]
+    },
+    {
+        question: "Where do I find Division Information?",
+        keywords: ["division", "info", "information", "about", "apprenticeship", "bits", "find", "where", "org", "chart", "branch"],
+        answer: "Division information — including details on Training and Employment Services, Apprenticeship Manitoba, Business and Industry Training Supports, and other branches — is available on the <a href='about-us.html' target='_blank'>About Us</a> page under Division Info in the navigation.",
+        followUp: ["Where do I find TES Reports and Dashboards?", "Where do I find Videos and Presentations?"]
+    },
+    {
+        question: "How do I search for a document?",
+        keywords: ["search", "find", "document", "look", "how"],
+        answer: "There are two ways to search for documents:<ol style='margin:6px 0 0 16px;padding:0'><li>Use the <strong>search bar on the <a href='documents.html' target='_blank'>Documents</a> page</strong> — it searches across all document categories as you type.</li><li>Use <strong><a href='search-results.html' target='_blank'>Site Search</a></strong> (accessible from the navigation) — it searches the entire site including bulletins, memos, events, and videos.</li></ol>",
+        followUp: ["How do I filter documents by tag?", "Where do I find all documents?"]
+    },
+    {
+        question: "How do I filter documents by tag?",
+        keywords: ["filter", "tag", "tags", "category", "type", "sort", "narrow"],
+        answer: "On document pages, use the <strong>filter sidebar</strong> on the left to narrow results by tag. You can filter by document type (e.g. Job Aid, Guideline, Procedure), program, service, topic, or file format. Click a tag to apply it and click again to remove it.",
+        followUp: ["How do I search for a document?", "Where do I find all documents?"]
+    },
+    {
+        question: "Where are the Quick Links?",
+        keywords: ["quick", "links", "shortcuts", "icm", "sprs", "appgate", "sap", "noc", "naics", "home"],
+        answer: "Quick Links to commonly used tools — including ICM, SPRS, TES Project Listing, Internal Job Bank, NOC Lookup, NAICS Lookup, AppGate, SAP/CRM, and PVI List — are on the <a href='index.html' target='_blank'>Home page</a> in the Quick Links section.",
+        followUp: ["Where do I find all documents?", "Where do I find Key Contacts or Staff Resources?"]
+    },
+
 ];
