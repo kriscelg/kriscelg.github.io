@@ -44,7 +44,7 @@ const CHATBOT_FAQS = [
     {
         question: "How do I add a non-contracted service or service provider to ICM?",
         keywords: ["add", "service", "provider", "icm", "course", "training", "non-contracted", "contracted"],
-        answer: "To add a non-contracted service provider or course to ICM, submit a request through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page. Include the service type, operating name, course name, start/end dates, region, and NOC (if applicable). Requests are handled by OSU.",
+        answer: "To add a non-contracted service provider or course to ICM, submit a request through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page. Include: service type (e.g. Long-term Skills Training, Short-term Skills Training, Foundational Skills, Assessment and Planning), service provider's ICM case number and operating name, course name (include Year 1/Year 2, co-op, or challenge program if applicable), region, and start/end dates. A 5-digit NOC code is required for Long-term Skills Training only.<br><br>Note: If the service provider's address in ICM is incorrect, you must also submit a <strong>Request to Add/Change Vendor</strong> form to Finance.",
         followUp: ["ICM Plan/Contract tab not working", "How do I fix a data entry error in ICM?"]
     },
    
@@ -63,7 +63,7 @@ const CHATBOT_FAQS = [
     {
         question: "How do I update a client's SIN in ICM?",
         keywords: ["sin", "social", "insurance", "number", "update", "client", "icm", "changed"],
-        answer: "SIN updates in ICM require manager approval and must be case noted before submitting. Use the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page and select the SIN update option. You will need to confirm that identification has been verified and whether there are any financials on the case.",
+        answer: "<strong>Important:</strong> Do not include the SIN itself in the form — it is not secure to submit SINs through Microsoft Forms. Instead: follow the <strong>Social Insurance Number Updates</strong> job aid, add all SIN details to a case note in ICM, then submit a request through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page providing only the ICM case number. You must confirm that identification has been verified — requests without ID verification cannot be processed. If financials have been committed or issued on the case, OSU may need to contact Finance to update SAP or re-issue tax documentation.",
         followUp: ["How do I fix a data entry error in ICM?"]
     },
 
@@ -95,7 +95,7 @@ const CHATBOT_FAQS = [
     {
         question: "How do I request a new document or update an existing one?",
         keywords: ["request", "document", "webpage", "update", "new", "content", "intranet", "page", "translation", "french"],
-        answer: "To request a new document, update an existing one, or request a French translation, submit a request through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page and select 'Documents and webpage content'. Attach any relevant files and note if the document needs accessibility or formatting review.",
+        answer: "To request a new document, update an existing one, or request a French translation, submit a request through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page and select 'Documents and webpage content'. <strong>Manager or director approval is required</strong>, and the content must be fully finalized before submitting — OSU accepts final approved copies only. Turnaround time varies as requests may involve Translation Services, Communications, or accessibility formatting review.",
         followUp: ["Where can I find job aids?", "Where can I find policy documents?"]
     },
 
@@ -103,7 +103,7 @@ const CHATBOT_FAQS = [
     {
         question: "How do I request a DFSA limit update?",
         keywords: ["dfsa", "limit", "client", "provider", "finance", "accountability", "update", "osu"],
-        answer: "DFSA client and service provider limit updates are submitted through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page. Select 'Finance and Accountability system DFSA limit updates'. You will need the original limits, the new limits, and the start and end dates. You must be a finance staff member to request this change.",
+        answer: "<strong>Note:</strong> DFSA limit update requests can only be submitted by <strong>Finance and Accountability staff</strong>. Submit through the <strong>Contact OSU form</strong> on the <a href='contact-resources.html'>Contact &amp; Resources</a> page and select 'Finance and Accountability system DFSA limit updates'. You will need: the original client limit, new client limit, original service provider limit, new service provider limit, start date, and end date.",
         followUp: ["Who do I contact for IT support?"]
     },
 
