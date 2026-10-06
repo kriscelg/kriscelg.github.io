@@ -14,14 +14,14 @@ const CHATBOT_FAQS = [
         question: "How do I reset my ICM password?",
         keywords: ["reset", "password", "icm", "forgot", "locked", "unlock", "login"],
         answer: "To reset your ICM password:<ol style='margin:6px 0 0 16px;padding:0'><li>Call the IBM Help Desk at 1-800-946-6007.</li><li>Answer your ICM challenge question when asked.</li><li>IBM will give you a temporary password.</li><li>Log in to ICM using the temporary password.</li><li>Follow the prompt to set a new password.</li></ol>",
-        followUp: ["How do I request ICM access?", "ICM won't load", "Who is IT support?"]
+        followUp: ["ICM won't load", "How do I fix a data entry error in ICM?"]
     },
     
     {
         question: "ICM won't load or is running slowly",
         keywords: ["icm", "load", "slow", "error", "not", "working", "freeze", "crash", "broken"],
         answer: "Try these steps:<br>1. Clear your browser cache and cookies<br>2. Try a different browser (Google Chrome or Edge are recommended for ICM)<br>3. Check that you are properly connected to the Manitoba Government network<br>4. If the issue persists, use the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'>Contact OSU</a> form to report the issue.",
-        followUp: ["AppGate not working", "Who is IT support?"]
+        followUp: ["How do I reset my ICM password?", "How do I fix a data entry error in ICM?"]
     },
 
 
@@ -45,7 +45,7 @@ const CHATBOT_FAQS = [
         question: "How do I add a non-contracted service or service provider to ICM?",
         keywords: ["add", "service", "provider", "icm", "course", "training", "non-contracted", "contracted"],
         answer: "To add a non-contracted service provider or course to ICM, submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a>. Include: service type (e.g. Long-term Skills Training, Short-term Skills Training, Foundational Skills, Assessment and Planning), service provider's ICM case number and operating name, course name (include Year 1/Year 2, co-op, or challenge program if applicable), region, and start/end dates. A 5-digit NOC code is required for Long-term Skills Training only.<br><br>Note: If the service provider's address in ICM is incorrect, you must also submit a <strong>Request to Add/Change Vendor</strong> form to Finance.",
-        followUp: ["ICM Plan/Contract tab not working", "How do I fix a data entry error in ICM?"]
+        followUp: ["How do I fix a data entry error in ICM?", "How long does OSU take to respond?"]
     },
    
     {
@@ -72,7 +72,7 @@ const CHATBOT_FAQS = [
         question: "I have an AMT+ error or my employee information is wrong",
         keywords: ["amt", "amt+", "employee", "number", "pending", "draft", "error", "position"],
         answer: "For AMT+ issues such as an incorrect employee number (showing position number instead) or a pending draft you cannot locate, submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> under General Inquiry. Include the employee number and a description of the issue.",
-        followUp: ["Who do I contact for IT support?"]
+        followUp: ["How do I fix a data entry error in ICM?"]
     },
 
     // ── SPRS ─────────────────────────────────────────────────
@@ -80,7 +80,7 @@ const CHATBOT_FAQS = [
         question: "How do I update SPRS information for a service provider?",
         keywords: ["sprs", "update", "service", "provider", "email", "address", "date", "incorrect"],
         answer: "SPRS updates — such as correcting a participant start date or updating a service provider's email address — are handled by OSU. Submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a>. Include the participant or provider name, case number, and the correction needed.",
-        followUp: ["How do I reset my SPRS password?", "How do I request access to SPRS?"]
+        followUp: ["How do I fix a data entry error in ICM?", "How long does OSU take to respond?"]
     },
 
     // ── Email Distribution Lists ──────────────────────────────
@@ -88,7 +88,7 @@ const CHATBOT_FAQS = [
         question: "How do I add or remove someone from an email distribution list?",
         keywords: ["email", "distribution", "list", "add", "remove", "group", "wpg", "bra"],
         answer: "To add or remove staff from an email distribution list (e.g. *WPG139), submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> under General Inquiry. Include the staff member's full name and the exact distribution list name.",
-        followUp: ["Who do I contact for IT support?"]
+        followUp: ["How long does OSU take to respond?"]
     },
 
     // ── Documents & Content ───────────────────────────────────
@@ -104,7 +104,7 @@ const CHATBOT_FAQS = [
         question: "How do I request a DFSA limit update?",
         keywords: ["dfsa", "limit", "client", "provider", "finance", "accountability", "update", "osu"],
         answer: "<strong>Note:</strong> DFSA limit update requests can only be submitted by <strong>Finance and Accountability staff</strong>. Submit through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> and select 'Finance and Accountability system DFSA limit updates'. You will need: the original client limit, new client limit, original service provider limit, new service provider limit, start date, and end date.",
-        followUp: ["Who do I contact for IT support?"]
+        followUp: ["How long does OSU take to respond?"]
     },
 
     // ── Delete a case note ────────────────────────────────────────────────
@@ -136,7 +136,7 @@ const CHATBOT_FAQS = [
         question: "Who do I contact for software, hardware, or DTS issues?",
         keywords: ["software", "hardware", "dts", "teams", "adobe", "digital", "technology", "outlook"],
         answer: "OSU does not handle software, hardware, or general IT requests. Contact <strong>Digital and Technology Solutions (DTS)</strong> at <strong>1-888-281-1139</strong> or submit a request through <strong>Service-Now</strong>. This includes Microsoft Teams setup, Outlook address book changes, Adobe software, and general technical support not related to ICM, SPRS, EIBIS, or AMT+.",
-        followUp: ["Who do I contact for IT support?"]
+        followUp: ["How long does OSU take to respond?"]
     },
 
     // ── Manitoba Student Aid / SFAIS redirect ─────────────────────────────
@@ -144,7 +144,7 @@ const CHATBOT_FAQS = [
         question: "Who do I contact for Manitoba Student Aid or SFAIS?",
         keywords: ["sfais", "student", "aid", "loan"],
         answer: "OSU does not handle Manitoba Student Aid or SFAIS requests. For Student Aid related questions, contact <strong>Manitoba Student Aid</strong> at <strong>manitobastudentaid@gov.mb.ca</strong>. For technical support with SFAIS, contact <strong>DTS</strong> at <strong>1-888-281-1139</strong>.",
-        followUp: ["Who do I contact for IT support?"]
+        followUp: ["How long does OSU take to respond?"]
     },
 
 ];

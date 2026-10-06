@@ -262,9 +262,9 @@
 
     const DEFAULT_CHIPS = [
         'Reset ICM password',
-        'AppGate not working',
-        'Request system access',
-        'Who is IT support?',
+        'Add a service to ICM',
+        'Delete a case note',
+        'Request a document update',
     ];
 
     function greet() {
