@@ -235,7 +235,7 @@
         });
     }
 
-    const FALLBACK = `Sorry, I can only help with questions about WDT systems and procedures. Try one of the topics below, or contact <a href="contact-resources.html#sib-support">SIB Support</a> for other help.`;
+    const FALLBACK = `Sorry, I can only help with questions about WDT systems and procedures. Try one of the topics below, or contact <a href="contact-resources.html#sib-support" target="_blank">SIB Support</a> for other help.`;
 
     const DEFAULT_CHIPS = [
         'Reset ICM password',
