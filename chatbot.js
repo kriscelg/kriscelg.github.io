@@ -164,6 +164,16 @@
         .wdt-feedback-result.positive { color: #0d5f5f; }
         .wdt-feedback-result a { color: #0d5f5f; font-weight: 600; }
 
+        .wdt-topic-btn {
+            display: block; width: 100%; text-align: left;
+            padding: 5px 0; background: none; border: none;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 12px; font-family: 'Inter', sans-serif;
+            color: #0d5f5f; cursor: pointer; line-height: 1.4;
+        }
+        .wdt-topic-btn:last-child { border-bottom: none; }
+        .wdt-topic-btn:hover { color: #0a4a4a; text-decoration: underline; }
+
         @media (max-width: 420px) {
             #wdt-chat-panel { right: 10px; left: 10px; width: auto; bottom: 148px; }
             #wdt-chat-btn { right: 16px; bottom: 86px; }
@@ -211,6 +221,9 @@
 
     // ── Matching ───────────────────────────────────────────────────────
     function findAnswer(query) {
+        const exact = faqs.find(f => f.question === query);
+        if (exact) return exact;
+
         const q = query.toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
         const words = q.split(/\s+/).filter(w => w.length > 2);
 
@@ -265,6 +278,7 @@
         'Add a service to ICM',
         'Delete a case note',
         'Request a document update',
+        'Browse all topics',
     ];
 
     function greet() {
@@ -313,9 +327,33 @@
         });
     }
 
+    function showAllTopics() {
+        chipsEl.innerHTML = '';
+        addMessage('Browse all topics', 'user');
+        setTimeout(() => {
+            const div = document.createElement('div');
+            div.className = 'wdt-msg wdt-msg-bot';
+            const header = document.createElement('div');
+            header.style.cssText = 'font-size:12px;margin-bottom:8px;color:#64748b;';
+            header.textContent = 'I can help with these topics — click any to get started:';
+            div.appendChild(header);
+            faqs.forEach(faq => {
+                const btn = document.createElement('button');
+                btn.className = 'wdt-topic-btn';
+                btn.textContent = faq.question;
+                btn.addEventListener('click', () => handleQuery(faq.question));
+                div.appendChild(btn);
+            });
+            messagesEl.appendChild(div);
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+            playDing();
+        }, 250);
+    }
+
     function handleQuery(query) {
         if (!query.trim()) return;
         chipsEl.innerHTML = '';
+        if (query === 'Browse all topics') { showAllTopics(); return; }
         addMessage(query, 'user');
 
         setTimeout(() => {
