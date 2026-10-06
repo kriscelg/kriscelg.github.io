@@ -276,17 +276,19 @@
     function playDing() {
         try {
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = ctx.createOscillator();
             const gain = ctx.createGain();
-            osc.connect(gain);
             gain.connect(ctx.destination);
-            osc.type = 'sine';
-            osc.frequency.value = 880;
-            gain.gain.setValueAtTime(0.25, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
-            osc.start(ctx.currentTime);
-            osc.stop(ctx.currentTime + 0.22);
-            osc.onended = () => ctx.close();
+            gain.gain.setValueAtTime(0.18, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
+            [523, 659].forEach(hz => {
+                const osc = ctx.createOscillator();
+                osc.type = 'sine';
+                osc.frequency.value = hz;
+                osc.connect(gain);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.55);
+            });
+            setTimeout(() => ctx.close(), 650);
         } catch (e) {}
     }
 
