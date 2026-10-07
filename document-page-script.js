@@ -15,6 +15,8 @@
     let filteredDocuments = [...documents];
     let activeSearchTerm = '';
     let activeTags = new Set();
+    let currentPage = 1;
+    const PAGE_SIZE = 25;
 
     // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -67,13 +69,20 @@
         if (docs.length === 0) {
             container.innerHTML = '';
             noResults.style.display = 'flex';
+            renderPagination(0, 0);
             updateSearchResults(0);
             return;
         }
 
         noResults.style.display = 'none';
         const sortedDocs = [...docs].sort((a, b) => parseDate(b.uploadDate) - parseDate(a.uploadDate));
-        container.innerHTML = sortedDocs.map(doc => `
+        const total = sortedDocs.length;
+        const totalPages = Math.ceil(total / PAGE_SIZE);
+        currentPage = Math.max(1, Math.min(currentPage, totalPages));
+        const start = (currentPage - 1) * PAGE_SIZE;
+        const pageDocs = sortedDocs.slice(start, start + PAGE_SIZE);
+
+        container.innerHTML = pageDocs.map(doc => `
             <a href="${encodeFilePath(doc.fileName)}" class="document-card" target="_blank">
                 <div class="doc-icon">
                     <i class="fas ${getFileIcon(doc.fileType)}"></i>
@@ -95,7 +104,45 @@
             </a>
         `).join('');
 
+        renderPagination(total, totalPages);
         updateSearchResults(docs.length);
+    }
+
+    function renderPagination(total, totalPages) {
+        let pager = document.getElementById('doc-pagination');
+        if (!pager) {
+            pager = document.createElement('div');
+            pager.id = 'doc-pagination';
+            document.getElementById('documents-list').insertAdjacentElement('afterend', pager);
+        }
+
+        if (totalPages <= 1) {
+            pager.innerHTML = '';
+            return;
+        }
+
+        const start = (currentPage - 1) * PAGE_SIZE + 1;
+        const end = Math.min(currentPage * PAGE_SIZE, total);
+        pager.innerHTML = `
+            <div class="pagination-info">Showing ${start}–${end} of ${total} documents</div>
+            <div class="pagination-controls">
+                <button class="pagination-btn" id="prevPage" ${currentPage === 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <span class="pagination-pages">Page ${currentPage} of ${totalPages}</span>
+                <button class="pagination-btn" id="nextPage" ${currentPage === totalPages ? 'disabled' : ''}>
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        `;
+        pager.querySelector('#prevPage').addEventListener('click', () => goToPage(currentPage - 1));
+        pager.querySelector('#nextPage').addEventListener('click', () => goToPage(currentPage + 1));
+    }
+
+    function goToPage(n) {
+        currentPage = n;
+        renderDocuments(filteredDocuments);
+        document.getElementById('documents-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     // ── Tag filters ────────────────────────────────────────────────────────────
@@ -193,6 +240,7 @@
     // ── Search / filter ────────────────────────────────────────────────────────
 
     function filterDocuments() {
+        currentPage = 1;
         filteredDocuments = documents.filter(doc => {
             const matchesSearch = !activeSearchTerm ||
                 doc.title.toLowerCase().includes(activeSearchTerm.toLowerCase());

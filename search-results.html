@@ -421,6 +421,9 @@
 
     const ALL_ITEMS = buildIndex();
     let activeGroup = 'all';
+    let srPage = 1;
+    const SR_PAGE_SIZE = 25;
+    let lastSrResults = [];
 
     const GROUP_LABELS = {
         all:        'All',
@@ -502,6 +505,7 @@
         container.querySelectorAll('.filter-pill').forEach(pill => {
             pill.addEventListener('click', () => {
                 activeGroup = pill.dataset.group;
+                srPage = 1;
                 const q = document.getElementById('searchQueryInput').value.trim();
                 buildFilterPills(q);
                 renderResults(search(q, activeGroup));
@@ -514,17 +518,26 @@
         const noRes    = document.getElementById('noResults');
         const summary  = document.getElementById('resultsSummary');
 
+        lastSrResults = results;
+
         if (results.length === 0) {
             list.innerHTML = '';
             noRes.style.display = 'flex';
             summary.innerHTML = '';
+            renderSrPagination(0, 0);
             return;
         }
 
         noRes.style.display = 'none';
-        summary.innerHTML = `Found <strong>${results.length}</strong> result${results.length !== 1 ? 's' : ''}`;
+        const total = results.length;
+        const totalPages = Math.ceil(total / SR_PAGE_SIZE);
+        srPage = Math.max(1, Math.min(srPage, totalPages));
+        const start = (srPage - 1) * SR_PAGE_SIZE;
+        const pageItems = results.slice(start, start + SR_PAGE_SIZE);
 
-        list.innerHTML = results.map(item => {
+        summary.innerHTML = `Found <strong>${total}</strong> result${total !== 1 ? 's' : ''}`;
+
+        list.innerHTML = pageItems.map(item => {
             const date = formatDate(item.date);
             const tagsHtml = item.tags.length > 0
                 ? `<div class="result-tags">${item.tags.slice(0, 4).map(t => `<span class="result-tag">${t}</span>`).join('')}</div>`
@@ -549,6 +562,47 @@
                 </a>
             `;
         }).join('');
+
+        renderSrPagination(total, totalPages);
+    }
+
+    function renderSrPagination(total, totalPages) {
+        let pager = document.getElementById('sr-pagination');
+        if (!pager) {
+            pager = document.createElement('div');
+            pager.id = 'sr-pagination';
+            document.getElementById('searchResultsList').insertAdjacentElement('afterend', pager);
+        }
+
+        if (totalPages <= 1) {
+            pager.innerHTML = '';
+            return;
+        }
+
+        const start = (srPage - 1) * SR_PAGE_SIZE + 1;
+        const end = Math.min(srPage * SR_PAGE_SIZE, total);
+        pager.innerHTML = `
+            <div class="pagination-info">Showing ${start}–${end} of ${total} results</div>
+            <div class="pagination-controls">
+                <button class="pagination-btn" id="srPrevPage" ${srPage === 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <span class="pagination-pages">Page ${srPage} of ${totalPages}</span>
+                <button class="pagination-btn" id="srNextPage" ${srPage === totalPages ? 'disabled' : ''}>
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        `;
+        pager.querySelector('#srPrevPage').addEventListener('click', () => {
+            srPage--;
+            renderResults(lastSrResults);
+            document.getElementById('searchResultsList').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        pager.querySelector('#srNextPage').addEventListener('click', () => {
+            srPage++;
+            renderResults(lastSrResults);
+            document.getElementById('searchResultsList').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
     }
 
     // ================================================================
@@ -568,8 +622,11 @@
             document.getElementById('noResults').style.display = 'none';
             document.getElementById('resultsSummary').innerHTML = '';
             document.getElementById('filterPillsRow').innerHTML = '';
+            const pager = document.getElementById('sr-pagination');
+            if (pager) pager.innerHTML = '';
             return;
         }
+        srPage = 1;
         buildFilterPills(query);
         renderResults(search(query, activeGroup));
         const sortParam = activeSortMode !== 'relevance' ? `&sort=${activeSortMode}` : '';
