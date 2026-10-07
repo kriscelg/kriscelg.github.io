@@ -127,6 +127,7 @@ function renderCalendar() {
 function createDayElement(day, isOtherMonth, date = null, allEvents = []) {
     const dayElement = document.createElement('div');
     dayElement.className = 'calendar-day';
+    if (date) dayElement.dataset.date = formatDate(date);
 
     if (isOtherMonth) {
         dayElement.classList.add('other-month');
@@ -263,27 +264,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check for a ?date=YYYY-MM-DD param (e.g. arriving from the home page carousel)
     const params = new URLSearchParams(window.location.search);
     const dateParam = params.get('date');
+
     if (dateParam) {
         const target = new Date(dateParam + 'T00:00:00');
         if (!isNaN(target)) {
+            // Navigate calendar to the correct month before rendering
             currentDate = new Date(target.getFullYear(), target.getMonth(), 1);
         }
     }
 
     renderCalendar();
 
-    // After rendering, auto-open the panel for the requested date
+    // After rendering, select the exact day cell using its data-date attribute
     if (dateParam) {
         const target = new Date(dateParam + 'T00:00:00');
         if (!isNaN(target)) {
-            const dayEls = document.querySelectorAll('.calendar-day:not(.other-month)');
-            dayEls.forEach(el => {
-                const num = parseInt(el.querySelector('.day-number').textContent);
-                if (num === target.getDate()) {
-                    el.classList.add('selected');
-                    showEventsForDate(target, dateParam);
-                }
-            });
+            const dayEl = document.querySelector(`.calendar-day[data-date="${dateParam}"]`);
+            if (dayEl) {
+                dayEl.classList.add('selected');
+                showEventsForDate(target, dateParam);
+                dayEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
     }
 });
