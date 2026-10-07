@@ -155,7 +155,8 @@ const EVENTS = [
  *    - title: The name of your event
  *    - date: YYYY-MM-DD format (e.g., 2025-12-25 for December 25, 2025)
  *    - time: HH:MM format in 24-hour time (e.g., 14:00 for 2:00 PM)
- *    - location: Where the event takes place
+ *            Leave as '' or omit entirely for all-day events
+ *    - location: Where the event takes place (optional — leave as '' to hide)
  *    - description: Details about the event
  *
  * 4. Make sure there's a comma after the closing }
@@ -209,6 +210,17 @@ const EVENTS = [
  *     time: '13:30',
  *     location: 'Outdoor Area',
  *     description: 'Fun team building activities and lunch'
+ * },
+ *
+ * For an ALL-DAY event (no specific time), leave time as an empty string:
+ *
+ * {
+ *     id: 5,
+ *     title: 'Awareness Week',
+ *     date: '2026-02-03',
+ *     time: '',
+ *     location: '',
+ *     description: 'Division-wide awareness week'
  * },
  *
  * Just add this to the EVENTS array above!
