@@ -163,10 +163,10 @@ const EVENTS = [
     for (let year = thisYear - 1; year <= thisYear + 2; year++) {
         const observances = [
             (function () {
-                // National Public Service Week — full week ending on the 3rd Sunday of June
+                // National Public Service Week — full week ending on the 3rd Saturday of June
                 const d = new Date(year, 5, 1);
-                let sundays = 0;
-                while (sundays < 3) { if (d.getDay() === 0) sundays++; if (sundays < 3) d.setDate(d.getDate() + 1); }
+                let saturdays = 0;
+                while (saturdays < 3) { if (d.getDay() === 6) saturdays++; if (saturdays < 3) d.setDate(d.getDate() + 1); }
                 const end = new Date(d);
                 const start = new Date(year, d.getMonth(), d.getDate() - 6);
                 return {
