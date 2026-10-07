@@ -134,7 +134,7 @@ const EVENTS = [
                 date: toDateStr(h.date),
                 time: '',
                 location: '',
-                description: 'Manitoba statutory holiday — government offices are closed.',
+                description: 'Manitoba statutory holiday.',
                 isHoliday: true,
             });
         });
