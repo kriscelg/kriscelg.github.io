@@ -16,43 +16,7 @@
 
 const EVENTS = [
     // Example Event 1
-    {
-        id: 1,
-        title: 'Staff Meeting',
-        date: '2026-12-15',          // Format: YYYY-MM-DD
-        time: '10:00',               // Format: HH:MM (24-hour time)
-        location: 'Conference Room A',
-        description: 'Monthly staff meeting to discuss departmental updates and initiatives'
-    },
 
-    // Example Event 2
-    {
-        id: 2,
-        title: 'Training Session',
-        date: '2026-12-20',
-        time: '14:00',
-        location: 'Training Center',
-        description: 'New employee orientation and training'
-    },
-
-    // Example Event 3
-    {
-        id: 3,
-        title: 'Holiday Party',
-        date: '2026-12-23',
-        time: '17:00',
-        location: 'Main Hall',
-        description: 'Annual holiday celebration for all staff'
-    },
-	
-	{
-        id: 4,
-        title: 'Staff Event',
-        date: '2026-03-01',
-        time: '17:00',
-        location: 'Boardroom 260',
-        description: 'Join us for our quarterly staff event'
-    },
 
     // ADD YOUR EVENTS BELOW THIS LINE
     // Copy and paste the format above, changing the details as needed
@@ -206,11 +170,76 @@ const EVENTS = [
 
 const AWARENESS_MONTHS = [
     {
+        month: 2,
+        title: 'Black History Month',
+        description: '...',
+        color: 'linear-gradient(to bottom, #1a1a1a, #b91c1c, #15803d)',
+    },
+
+    {
+        month: 5,
+        title: 'Asian and Pacific Islander Heritage Month',
+        description: 'Celerating the history, culture, and contributions of Asian and Pacific Islander communities across Canada',
+        color: 'linear-gradient(to bottom, #dc2626, #f97316, #fbbf24)',
+    },
+
+    {
         month: 6,
         title: 'Pride Month',
-        description: 'Celebrating the 2SLGBTQ+ community and honouring the history and contributions of 2SLGBTQ+ people across Canada.',
+        description: 'Celebrating the 2SLGBTQIA+ community and honouring the history and contributions of 2SLGBTQIA+ people across Canada.',
         color: 'rainbow',
     },
+
+    {
+        month: 9,
+        title: 'Hispanic and Latino Heritage Month',
+        description: 'Celebrated annually in Manitoba to promote the inclusion and employment of persons with disabilities. ',
+        color: 'linear-gradient(to bottom, #dc2626, #ea580c, #facc15)'
+    },
+
+    {
+        month: 10,
+        title: 'Hispanic and Latino Heritage Month',
+        description: 'Celebrated annually in Manitoba to promote the inclusion and employment of persons with disabilities. ',
+        color: 'linear-gradient(to bottom, #dc2626, #ea580c, #facc15)'
+    },
+
+    {
+        month: 10,
+        title: '2SLGBTQIA+ History Month',
+        description: 'Celebrates the achievements of 2SLGBTQIA+ people and the advancement of human rights for gender and sexual diverse people throughout history.',
+        color: 'rainbow',
+    },
+
+    {
+        month: 10,
+        title: 'Disability Employment Awareness Month',
+        description: 'Celebrated annually in Manitoba to promote the inclusion and employment of persons with disabilities. ',
+        color: 'red',
+    },
+
+    {
+        month: 10,
+        title: 'Islamic Heritage Month',
+        description: 'A time to recognize, celebrate and reflect on the rich history, culture, and contributions of Muslims in Canada.',
+        color: 'linear-gradient(to bottom, #15803d, #ca8a04, #0d5f5f)',    
+    },
+
+    {
+        month: 10,
+        title: 'Women\'s History Month',
+        description: 'Celebrates the past and current experiences and contributions of women and raises awareness of the struggle for gender equality.',
+        color: 'linear-gradient(to bottom, #7c3aed, #a855f7, #facc15)',
+    },
+
+    {
+        month: 10,
+        title: 'Cyber Security Awareness Month',
+        description: 'Cyber Security Awareness Month (Cyber Month) is an internationally recognized campaign held each October to help the public learn more about the importance of cyber security.',
+        color: 'linear-gradient(to bottom, #0f172a, #0284c7, #22c55e)',
+    },
+
+    
 ];
 
 
