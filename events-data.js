@@ -85,10 +85,12 @@ const EVENTS = [
             { title: "Good Friday",                                                       date: goodFriday },
             { title: "Victory Day",                                                       date: victoryDay(year) },
             { title: "Canada Day",                                                        date: new Date(year, 6, 1) },
+            { title: "Terry Fox Day",                                                     date: nthMonday(year, 7, 1) },
             { title: "Labour Day",                                                        date: nthMonday(year, 8, 1) },
-            { title: "Orange Shirt Day – National Day for Truth and Reconciliation", date: new Date(year, 8, 30) },
+            { title: "Orange Shirt Day – National Day for Truth and Reconciliation",      date: new Date(year, 8, 30) },
             { title: "Thanksgiving Day",                                                  date: nthMonday(year, 9, 2) },
             { title: "Christmas Day",                                                     date: new Date(year, 11, 25) },
+            { title: "Boxing Day",                                                        date: new Date(year, 11, 26) },
         ];
 
         holidays.forEach(function (h) {
@@ -152,6 +154,134 @@ const EVENTS = [
                 location: '',
                 description: o.description,
             });
+        });
+    }
+})();
+
+// ============================================
+// ANNUAL OBSERVANCES (AUTO-GENERATED)
+// ============================================
+// Single-day and multi-day observances that recur every year.
+// Dates are calculated automatically — no manual updates needed.
+(function () {
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function toDateStr(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+
+    // First Monday of a given month (month is 0-indexed)
+    function firstMonday(year, month) {
+        const d = new Date(year, month, 1);
+        while (d.getDay() !== 1) d.setDate(d.getDate() + 1);
+        return d;
+    }
+
+    // Last Wednesday of February (Pink Shirt Day)
+    function lastWednesdayOfFeb(year) {
+        const lastDay = new Date(year, 2, 0);
+        const back = (lastDay.getDay() + 4) % 7;
+        return new Date(year, 1, lastDay.getDate() - back);
+    }
+
+    // Last Sunday of a given month (month is 0-indexed)
+    function lastSundayOf(year, month) {
+        const lastDay = new Date(year, month + 1, 0);
+        return new Date(year, month, lastDay.getDate() - lastDay.getDay());
+    }
+
+    const thisYear = new Date().getFullYear();
+    let nextId = 9101;
+
+    for (let year = thisYear - 1; year <= thisYear + 2; year++) {
+        // National Mental Health Week: first Monday of May → following Sunday
+        const mentalHealthStart = firstMonday(year, 4);
+        const mentalHealthEnd   = new Date(year, 4, mentalHealthStart.getDate() + 6);
+
+        // Manitoba Access Awareness Week: last Sunday of May → following Saturday
+        const accessStart = lastSundayOf(year, 4);
+        const accessEnd   = new Date(accessStart.getFullYear(), accessStart.getMonth(), accessStart.getDate() + 6);
+
+        const observances = [
+            // February
+            { title: 'International Mother Language Day',
+              description: 'Promotes awareness of linguistic and cultural diversity and multilingualism.',
+              date: new Date(year, 1, 21) },
+            { title: 'Pink Shirt Day',
+              description: 'Anti-Bullying Day — wear pink to stand against bullying and promote diversity and acceptance.',
+              date: lastWednesdayOfFeb(year) },
+
+            // March
+            { title: "International Women's Day",
+              description: 'A global day celebrating the social, economic, cultural, and political achievements of women.',
+              date: new Date(year, 2, 8) },
+            { title: 'International Day for the Elimination of Racial Discrimination',
+              description: 'Marked annually to remind us of the need to continue working toward a world free of racial discrimination.',
+              date: new Date(year, 2, 21) },
+            { title: 'National Indigenous Languages Day',
+              description: 'Celebrating and raising awareness of the rich diversity of Indigenous languages across Canada.',
+              date: new Date(year, 2, 31) },
+            { title: 'Mandatory Course Deadline: Building Respectful Workplaces',
+              description: 'Annual completion deadline for the mandatory Building Respectful Workplaces course.',
+              date: new Date(year, 2, 31) },
+
+            // April
+            { title: 'Earth Day',
+              description: 'An annual event to demonstrate support for environmental protection.',
+              date: new Date(year, 3, 22) },
+
+            // May
+            { title: 'National Mental Health Week',
+              description: 'A national campaign to educate and raise awareness about mental health.',
+              date: mentalHealthStart,
+              endDate: mentalHealthEnd },
+            { title: 'Manitoba Access Awareness Week',
+              description: 'Promotes awareness and inclusion of persons with disabilities across Manitoba.',
+              date: accessStart,
+              endDate: accessEnd },
+
+            // June
+            { title: 'National Indigenous Peoples Day',
+              description: 'A day for all Canadians to recognize and celebrate the unique heritage, diverse cultures, and outstanding contributions of First Nations, Inuit, and Métis peoples.',
+              date: new Date(year, 5, 21) },
+            { title: 'Canadian Multiculturalism Day',
+              description: 'Celebrating Canada\'s multicultural heritage and the contributions of all Canadians regardless of their origins.',
+              date: new Date(year, 5, 27) },
+
+            // October
+            { title: 'National Day of Action for Missing and Murdered Indigenous Women, Girls & Gender Diverse People (Sisters in Spirit Day)',
+              description: 'A day of remembrance and action to honour the lives of missing and murdered Indigenous women, girls, and gender diverse people.',
+              date: new Date(year, 9, 4) },
+
+            // November
+            { title: 'Remembrance Day',
+              description: 'Honouring the memory of those who have served and sacrificed for Canada.',
+              date: new Date(year, 10, 11) },
+            { title: '16 Days of Activism Against Gender-Based Violence',
+              description: 'An international campaign to challenge violence against women and girls, running from November 25 to December 10.',
+              date: new Date(year, 10, 25),
+              endDate: new Date(year, 11, 10) },
+
+            // December
+            { title: 'National Day of Remembrance and Action on Violence Against Women',
+              description: 'Commemorating the 14 women killed in the Montreal Massacre and all women who have experienced gender-based violence.',
+              date: new Date(year, 11, 6) },
+            { title: 'Human Rights Day',
+              description: 'Observed annually to commemorate the adoption of the Universal Declaration of Human Rights.',
+              date: new Date(year, 11, 10) },
+            { title: 'Mandatory Course Deadline: Anti-Racism – Understanding Ourselves and Our Systems',
+              description: 'Annual completion deadline for the mandatory Anti-Racism course.',
+              date: new Date(year, 11, 31) },
+        ];
+
+        observances.forEach(function (o) {
+            const entry = {
+                id: nextId++,
+                title: o.title,
+                date: toDateStr(o.date),
+                time: '',
+                location: '',
+                description: o.description || '',
+            };
+            if (o.endDate) entry.endDate = toDateStr(o.endDate);
+            EVENTS.push(entry);
         });
     }
 })();
