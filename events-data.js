@@ -192,6 +192,28 @@ const EVENTS = [
     }
 })();
 
+// ============================================
+// MONTHLY AWARENESS EVENTS
+// ============================================
+// These appear as a banner section on the calendar page for the relevant month.
+// They do NOT show up as events on individual calendar days.
+//
+// To add an awareness month:
+//   { month: 1–12, title: 'Name', description: 'Details', color: '#hexcolor' }
+//
+// Special color value: 'rainbow' for a rainbow gradient accent (e.g. Pride Month).
+// Leave color out to use the default purple accent.
+
+const AWARENESS_MONTHS = [
+    {
+        month: 6,
+        title: 'Pride Month',
+        description: 'Celebrating the 2SLGBTQ+ community and honouring the history and contributions of 2SLGBTQ+ people across Canada.',
+        color: 'rainbow',
+    },
+];
+
+
 /**
  * ============================================
  * HOW TO ADD A NEW EVENT

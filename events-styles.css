@@ -957,6 +957,106 @@ body {
     font-size: 20px;
 }
 
+/* ========================================
+   Monthly Awareness Section
+   ======================================== */
+.awareness-section {
+    margin-top: 30px;
+    background: white;
+    border-radius: 20px;
+    padding: 25px 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+.awareness-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.awareness-header i {
+    color: #0d5f5f;
+    font-size: 18px;
+}
+
+.awareness-header h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.awareness-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.awareness-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: #f8f9fa;
+    border-radius: 14px;
+    padding: 18px 22px;
+    border: 1px solid #e8e8e8;
+    overflow: hidden;
+    position: relative;
+}
+
+.awareness-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: var(--awareness-color, #7c3aed);
+}
+
+.awareness-rainbow::before {
+    background: linear-gradient(to bottom,
+        #e11d48, #f97316, #facc15,
+        #22c55e, #3b82f6, #8b5cf6);
+}
+
+.awareness-content {
+    flex: 1;
+    padding-left: 8px;
+}
+
+.awareness-content h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 5px;
+}
+
+.awareness-content p {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.awareness-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #94a3b8;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.awareness-badge i {
+    font-size: 11px;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .events-layout {

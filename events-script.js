@@ -118,6 +118,8 @@ function renderCalendar() {
         const dayElement = createDayElement(day, true, null, allEvents);
         calendarGrid.appendChild(dayElement);
     }
+
+    updateAwarenessSection(month);
 }
 
 // Create a day element
@@ -196,6 +198,42 @@ function showEventsForDate(date, dateStr) {
             </div>
         `).join('');
     }
+}
+
+// ========================================
+// MONTHLY AWARENESS SECTION
+// ========================================
+
+function updateAwarenessSection(month) {
+    const section = document.getElementById('awareness-section');
+    if (!section) return;
+    const items = (typeof AWARENESS_MONTHS !== 'undefined' ? AWARENESS_MONTHS : [])
+        .filter(a => a.month - 1 === month);
+
+    if (items.length === 0) {
+        section.style.display = 'none';
+        return;
+    }
+
+    section.style.display = '';
+    section.innerHTML = `
+        <div class="awareness-header">
+            <i class="fas fa-ribbon"></i>
+            <h3>Monthly Observances</h3>
+        </div>
+        <div class="awareness-list">
+            ${items.map(item => `
+                <div class="awareness-item${item.color === 'rainbow' ? ' awareness-rainbow' : ''}"
+                     ${item.color && item.color !== 'rainbow' ? `style="--awareness-color: ${item.color}"` : ''}>
+                    <div class="awareness-content">
+                        <h4>${item.title}</h4>
+                        ${item.description ? `<p>${item.description}</p>` : ''}
+                    </div>
+                    <div class="awareness-badge"><i class="fas fa-calendar-alt"></i> All Month</div>
+                </div>
+            `).join('')}
+        </div>
+    `;
 }
 
 // ========================================
