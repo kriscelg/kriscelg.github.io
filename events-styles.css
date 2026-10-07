@@ -146,6 +146,13 @@ body {
 
 /* Page Header styles moved to styles.css for consistency across all pages */
 
+.request-event-btn--page {
+    width: auto;
+    margin-top: 14px;
+    font-size: 14px;
+    padding: 10px 22px;
+}
+
 .admin-btn {
     background-color: #0d5f5f;
     color: white;
