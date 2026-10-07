@@ -30,8 +30,9 @@ function formatDisplayDate(dateStr) {
     return date.toLocaleDateString('en-US', options);
 }
 
-// Format time for display (e.g., "2:30 PM")
+// Format time for display (e.g., "2:30 PM"), or "All Day" for empty time
 function formatTime(timeStr) {
+    if (!timeStr) return 'All Day';
     const [hours, minutes] = timeStr.split(':');
     const hour = parseInt(hours);
     const ampm = hour >= 12 ? 'PM' : 'AM';
@@ -191,7 +192,9 @@ function showEventsForDate(date, dateStr) {
                     ? `<div class="event-time"><i class="fas fa-calendar-week"></i> ${formatDisplayDate(event.date)} – ${formatDisplayDate(event.endDate)}</div>`
                     : event.isHoliday
                         ? `<span class="holiday-badge"><i class="fas fa-landmark"></i> Public Holiday</span>`
-                        : `<div class="event-time"><i class="far fa-clock"></i> ${formatTime(event.time)}</div>`
+                        : event.time
+                            ? `<div class="event-time"><i class="far fa-clock"></i> ${formatTime(event.time)}</div>`
+                            : `<div class="event-time"><i class="fas fa-calendar-day"></i> All Day</div>`
                 }
                 ${!event.isHoliday && event.location ? `<div class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.location}</div>` : ''}
                 ${event.description ? `<div class="event-description">${event.description}</div>` : ''}
