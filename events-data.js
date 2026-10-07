@@ -302,7 +302,7 @@ const AWARENESS_MONTHS = [
     {
         month: 2,
         title: 'Black History Month',
-        description: '...',
+        description: 'A time to recognize and celebrate the outstanding achievements and contributions of Black Canadians, and to reflect on the history of Black communities in Canada.',
         color: 'linear-gradient(to bottom, #1a1a1a, #b91c1c, #15803d)',
     },
 
