@@ -283,7 +283,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (dayEl) {
                 dayEl.classList.add('selected');
                 showEventsForDate(target, dateParam);
-                dayEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
     }
