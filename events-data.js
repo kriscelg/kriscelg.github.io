@@ -187,6 +187,12 @@ const EVENTS = [
         return new Date(year, month, lastDay.getDate() - lastDay.getDay());
     }
 
+    // Administrative Professionals Day — Wednesday of the last full Mon–Sun week in April
+    function adminProfessionalsDay(year) {
+        const lastSunday = lastSundayOf(year, 3); // last Sunday of April
+        return new Date(year, 3, lastSunday.getDate() - 4);
+    }
+
     const thisYear = new Date().getFullYear();
     let nextId = 9101;
 
@@ -223,6 +229,9 @@ const EVENTS = [
               date: new Date(year, 2, 31) },
 
             // April
+            { title: 'Administrative Professionals Day',
+              description: 'Celebrated annually to honor administrative assistants, executive assistants, receptionists, office managers, and other support staff.',
+              date: adminProfessionalsDay(year) },
             { title: 'Earth Day',
               description: 'An annual event to demonstrate support for environmental protection.',
               date: new Date(year, 3, 22) },
