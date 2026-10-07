@@ -362,7 +362,7 @@
                     }
 
                     return `
-                        <div class="event-item">
+                        <a class="event-item event-item-link" href="events.html?date=${event.date}">
                             <div class="event-date">
                                 <span class="month">${month}</span>
                                 <span class="day">${day}</span>
@@ -372,7 +372,7 @@
                                 ${timeLine}
                                 ${event.location ? `<p><i class="fas fa-map-marker-alt"></i> ${event.location}</p>` : ''}
                             </div>
-                        </div>
+                        </a>
                     `;
                 }).join('');
             }

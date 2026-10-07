@@ -260,5 +260,30 @@ document.getElementById('nextMonth').addEventListener('click', () => {
 // Note: Search and scroll functionality is handled by nav-footer-loader.js
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Check for a ?date=YYYY-MM-DD param (e.g. arriving from the home page carousel)
+    const params = new URLSearchParams(window.location.search);
+    const dateParam = params.get('date');
+    if (dateParam) {
+        const target = new Date(dateParam + 'T00:00:00');
+        if (!isNaN(target)) {
+            currentDate = new Date(target.getFullYear(), target.getMonth(), 1);
+        }
+    }
+
     renderCalendar();
+
+    // After rendering, auto-open the panel for the requested date
+    if (dateParam) {
+        const target = new Date(dateParam + 'T00:00:00');
+        if (!isNaN(target)) {
+            const dayEls = document.querySelectorAll('.calendar-day:not(.other-month)');
+            dayEls.forEach(el => {
+                const num = parseInt(el.querySelector('.day-number').textContent);
+                if (num === target.getDate()) {
+                    el.classList.add('selected');
+                    showEventsForDate(target, dateParam);
+                }
+            });
+        }
+    }
 });
