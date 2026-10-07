@@ -24,27 +24,11 @@ const CHATBOT_FAQS = [
         followUp: ["How do I reset my ICM password?", "How do I fix a data entry error in ICM?"]
     },
 
-
-    // ── Documents / Resources ─────────────────────────────────
-    {
-        question: "Where can I find job aids and guidelines?",
-        keywords: ["job", "aid", "guideline", "procedure", "document", "find", "where", "manual", "resource"],
-        answer: "All job aids, guidelines, and documents are available on the <a href='documents.html' target='_blank'>Documents</a> page. You can search by title or filter by tags.",
-        followUp: ["Where can I find policy documents?"]
-    },
-    {
-        question: "Where can I find policy documents?",
-        keywords: ["policy", "document", "find", "where", "parameters", "directive"],
-        answer: "Policy documents are available on the <a href='policy-documents.html' target='_blank'>Policy Documents</a> page, accessible from the Documents section in the navigation.",
-        followUp: ["Where can I find job aids?"]
-    },
-
-
     // ── System Access Requests ────────────────────────────────
     {
         question: "How do I request new employee access to a WDT system?",
         keywords: ["new", "access", "employee", "account", "onboard", "hire", "eibis", "crc", "criminal"],
-        answer: "To request new system access for an employee, submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> and select 'Systems access, updates, or issues', then 'Request new employee access'. Include the employee's full name, position, and which systems they need (ICM, EIBIS/LMDAccess, SPRS, and/or AMT+).<br><br>Important:<ul style='margin:6px 0 0 16px;padding:0'><li>A <strong>Criminal Record Check (CRC)</strong> is required for ICM and EIBIS access and must be on file before access is granted. CRCs expire 10 years after their effective date.</li><li>STEP students cannot receive EIBIS or LMDAccess.</li><li>AMT+ has two roles — <strong>Submitter</strong> and <strong>Approver</strong> — specify which is needed.</li><li>Once submitted, wait for OSU's confirmation email with login credentials before the employee attempts to log in.</li></ul>",
+        answer: "To request new system access for an employee, submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> and select 'Systems access, updates, or issues', then 'Request new employee access'. Include the employee's full name, position, and which systems they need (ICM, EIBIS/LMDAccess, SPRS, and/or AMT+).<br><br>Important:<ul style='margin:6px 0 0 16px;padding:0'><li>A <strong>Criminal Record Check (CRC)</strong> is required for ICM and EIBIS access and must be on file before access is granted. CRCs expire 10 years after their effective date.</li><li>STEP students cannot receive EIBIS or LMDAccess.</li><li>AMT+ has two roles — <strong>Submitter</strong> and <strong>Approver</strong> — specify which is needed.</li><li>Once submitted, wait for OSU's confirmation email with login credentials before user attempts to log in.</li></ul>",
         followUp: ["How do I update or revoke employee system access?", "How long does OSU take to respond?"]
     },
     {
@@ -55,6 +39,8 @@ const CHATBOT_FAQS = [
     },
 
     // ── ICM — Case Management ─────────────────────────────────
+    
+    //Enter link here - for Request to Add/Change Vendor (Finance document)
     {
         question: "How do I add a non-contracted service or service provider to ICM?",
         keywords: ["add", "service", "provider", "icm", "course", "training", "non-contracted", "contracted"],
@@ -74,6 +60,8 @@ const CHATBOT_FAQS = [
         answer: "If a client's ICM file is closed and needs to be reopened (e.g. for a returned cheque or address update), submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a>. Include the ICM case number, the client name, and the reason for reopening.",
         followUp: ["How do I fix a data entry error in ICM?", "How do I add a non-contracted service or service provider to ICM?"]
     },
+    
+    //Enter link here - for Social Insurance Number Updates Job Aid (Job Aid and Guidelines document)
     {
         question: "How do I update a client's SIN in ICM?",
         keywords: ["sin", "social", "insurance", "number", "update", "client", "icm", "changed"],
@@ -81,12 +69,6 @@ const CHATBOT_FAQS = [
         followUp: ["How do I fix a data entry error in ICM?"]
     },
 
-    {
-        question: "How do I get a file transfer history in ICM?",
-        keywords: ["file", "transfer", "history", "icm", "transferred", "author"],
-        answer: "To request a file transfer history for an ICM case, submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> as a General Inquiry. Include the ICM case number and what you are trying to verify (e.g. whether the file was ever transferred to a CDC not currently shown in the author column).",
-        followUp: ["How do I fix a data entry error in ICM?", "How do I reopen a closed ICM file?"]
-    },
 
     // ── AMT+ ──────────────────────────────────────────────────
     {
@@ -124,7 +106,7 @@ const CHATBOT_FAQS = [
     {
         question: "How do I request a DFSA limit update?",
         keywords: ["dfsa", "limit", "client", "provider", "finance", "accountability", "update", "osu"],
-        answer: "<strong>Note:</strong> DFSA limit update requests can only be submitted by <strong>Finance and Accountability staff</strong>. Submit through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> and select 'Finance and Accountability system DFSA limit updates'. You will need: the original client limit, new client limit, original service provider limit, new service provider limit, start date, and end date.",
+        answer: "<strong>Note:</strong> DFSA limit update requests can only be submitted by <strong>Finance and Accountability staff</strong>. Submit through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> and select 'Finance and Accountability system DFSA limit updates'. You will need: the original client limit, new client limit, original service provider limit, new service provider limit. If this change is due to an acting status please also provide an acting start date, and acting end date.",
         followUp: ["How long does OSU take to respond?"]
     },
 
@@ -174,6 +156,18 @@ const CHATBOT_FAQS = [
         keywords: ["documents", "all", "find", "where", "hub", "library"],
         answer: "The <a href='documents.html' target='_blank'>Documents</a> page is the central hub for all WDT documents. From there you can access Policy Documents, Job Aids & Guidelines, Forms & Templates, Financial Operations, and Resources. It also includes a search bar to find documents across all categories.",
         followUp: ["How do I search for a document?", "How do I filter documents by tag?"]
+    },
+    {
+        question: "Where can I find job aids and guidelines?",
+        keywords: ["job", "aid", "guideline", "procedure", "document", "find", "where", "manual", "resource"],
+        answer: "All job aids, guidelines, and documents are available on the <a href='documents.html' target='_blank'>Documents</a> page. You can search by title or filter by tags.",
+        followUp: ["Where can I find policy documents?"]
+    },
+    {
+        question: "Where can I find policy documents?",
+        keywords: ["policy", "document", "find", "where", "parameters", "directive"],
+        answer: "Policy documents are available on the <a href='policy-documents.html' target='_blank'>Policy Documents</a> page, accessible from the Documents section in the navigation.",
+        followUp: ["Where can I find job aids?"]
     },
     {
         question: "Where do I find Forms and Templates?",
