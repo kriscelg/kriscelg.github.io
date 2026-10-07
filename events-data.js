@@ -363,6 +363,13 @@ const AWARENESS_MONTHS = [
     },
 
     {
+        month: 11,
+        title: 'Career and Workforce Development Month',
+        description: 'Career and Workforce Development Month is a wonderful opportunity for youth, educators, parents and job seekers to find out about the rich variety of sectors and industries in Manitoba.',
+        color: 'linear-gradient(to bottom, #5b8db8, #7b3fa0, #2db34a)',
+    },
+
+    {
         month: 10,
         title: 'Cyber Security Awareness Month',
         description: 'Cyber Security Awareness Month (Cyber Month) is an internationally recognized campaign held each October to help the public learn more about the importance of cyber security.',
