@@ -280,6 +280,16 @@ body {
     border-top: 3px solid #fbbf24;
 }
 
+.calendar-day.has-holiday {
+    border-top: 3px solid #dc2626;
+    background-color: #fff8f8;
+}
+
+.calendar-day.today.has-holiday {
+    border-top: 3px solid #fca5a5;
+    background-color: #0d5f5f;
+}
+
 .calendar-day.selected {
     border-color: #0d5f5f;
     background-color: #e8f6f6;
@@ -353,6 +363,34 @@ body {
 .event-item:hover {
     transform: translateX(5px);
     box-shadow: 0 4px 12px rgba(13, 95, 95, 0.15);
+}
+
+.event-item.holiday-item {
+    border-left-color: #dc2626;
+    background-color: #fff8f8;
+}
+
+.event-item.holiday-item:hover {
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+}
+
+.holiday-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.holiday-badge i {
+    font-size: 10px;
 }
 
 .event-item h4 {

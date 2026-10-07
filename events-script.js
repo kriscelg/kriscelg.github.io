@@ -60,7 +60,7 @@ function getEvents() {
 function getEventsForDate(dateStr) {
     const events = getEvents();
     return events.filter(event => event.date === dateStr)
-                 .sort((a, b) => a.time.localeCompare(b.time));
+                 .sort((a, b) => (a.time || '').localeCompare(b.time || ''));
 }
 
 // ========================================
@@ -140,10 +140,14 @@ function createDayElement(day, isOtherMonth, date = null, allEvents = []) {
         const events = allEvents.filter(event => event.date === dateStr);
 
         if (events.length > 0) {
+            const regularEvents = events.filter(e => !e.isHoliday);
+            if (events.some(e => e.isHoliday)) dayElement.classList.add('has-holiday');
             dayElement.classList.add('has-events');
             const eventCount = document.createElement('div');
             eventCount.className = 'event-count';
-            eventCount.textContent = `${events.length} event${events.length > 1 ? 's' : ''}`;
+            eventCount.textContent = regularEvents.length === 0
+                ? 'Holiday'
+                : `${regularEvents.length} event${regularEvents.length > 1 ? 's' : ''}`;
             dayElement.appendChild(eventCount);
         }
 
@@ -174,13 +178,13 @@ function showEventsForDate(date, dateStr) {
         eventList.innerHTML = '<p class="no-events">No events scheduled for this day.</p>';
     } else {
         eventList.innerHTML = events.map(event => `
-            <div class="event-item">
+            <div class="event-item${event.isHoliday ? ' holiday-item' : ''}">
                 <h4>${event.title}</h4>
-                <div class="event-time">
-                    <i class="far fa-clock"></i>
-                    ${formatTime(event.time)}
-                </div>
-                ${event.location ? `<div class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.location}</div>` : ''}
+                ${event.isHoliday
+                    ? `<span class="holiday-badge"><i class="fas fa-landmark"></i> Public Holiday</span>`
+                    : `<div class="event-time"><i class="far fa-clock"></i> ${formatTime(event.time)}</div>`
+                }
+                ${!event.isHoliday && event.location ? `<div class="event-location"><i class="fas fa-map-marker-alt"></i> ${event.location}</div>` : ''}
                 ${event.description ? `<div class="event-description">${event.description}</div>` : ''}
             </div>
         `).join('');

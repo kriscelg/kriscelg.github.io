@@ -69,6 +69,78 @@ const EVENTS = [
 
 ];
 
+// ============================================
+// MANITOBA STATUTORY HOLIDAYS (AUTO-GENERATED)
+// ============================================
+// Holidays are automatically calculated for the current year and the
+// surrounding years — no manual updates needed.
+(function () {
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function toDateStr(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+
+    // Returns the Nth Monday of a given month (month is 0-indexed)
+    function nthMonday(year, month, n) {
+        const d = new Date(year, month, 1);
+        while (d.getDay() !== 1) d.setDate(d.getDate() + 1);
+        d.setDate(d.getDate() + (n - 1) * 7);
+        return d;
+    }
+
+    // Last Monday strictly before May 25 (Manitoba Victory Day rule)
+    function victoryDay(year) {
+        const may25 = new Date(year, 4, 25);
+        const dow = may25.getDay();
+        const back = dow === 0 ? 6 : dow === 1 ? 7 : dow - 1;
+        return new Date(year, 4, 25 - back);
+    }
+
+    // Easter Sunday — Anonymous Gregorian algorithm
+    function easterSunday(year) {
+        const a = year % 19, b = Math.floor(year / 100), c = year % 100;
+        const d = Math.floor(b / 4), e = b % 4;
+        const f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3);
+        const h = (19 * a + b - d - g + 15) % 30;
+        const i = Math.floor(c / 4), k = c % 4;
+        const l = (32 + 2 * e + 2 * i - h - k) % 7;
+        const m = Math.floor((a + 11 * h + 22 * l) / 451);
+        const month = Math.floor((h + l - 7 * m + 114) / 31) - 1;
+        const day = ((h + l - 7 * m + 114) % 31) + 1;
+        return new Date(year, month, day);
+    }
+
+    const thisYear = new Date().getFullYear();
+    let nextId = 9001;
+
+    for (let year = thisYear - 1; year <= thisYear + 2; year++) {
+        const easter = easterSunday(year);
+        const goodFriday = new Date(year, easter.getMonth(), easter.getDate() - 2);
+
+        const holidays = [
+            { title: "New Year's Day",                                                    date: new Date(year, 0, 1) },
+            { title: "Louis Riel Day",                                                    date: nthMonday(year, 1, 3) },
+            { title: "Good Friday",                                                       date: goodFriday },
+            { title: "Victory Day",                                                       date: victoryDay(year) },
+            { title: "Canada Day",                                                        date: new Date(year, 6, 1) },
+            { title: "Labour Day",                                                        date: nthMonday(year, 8, 1) },
+            { title: "Orange Shirt Day – National Day for Truth and Reconciliation", date: new Date(year, 8, 30) },
+            { title: "Thanksgiving Day",                                                  date: nthMonday(year, 9, 2) },
+            { title: "Christmas Day",                                                     date: new Date(year, 11, 25) },
+        ];
+
+        holidays.forEach(function (h) {
+            EVENTS.push({
+                id: nextId++,
+                title: h.title,
+                date: toDateStr(h.date),
+                time: '',
+                location: '',
+                description: 'Manitoba statutory holiday — government offices are closed.',
+                isHoliday: true,
+            });
+        });
+    }
+})();
+
 /**
  * ============================================
  * HOW TO ADD A NEW EVENT
