@@ -141,6 +141,54 @@ const EVENTS = [
     }
 })();
 
+// ============================================
+// GOVERNMENT SPECIAL OBSERVANCES (AUTO-GENERATED)
+// ============================================
+// Special multi-day observances for government employees.
+// Add new recurring observances to the list inside this block.
+(function () {
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function toDateStr(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+
+    function nthMonday(year, month, n) {
+        const d = new Date(year, month, 1);
+        while (d.getDay() !== 1) d.setDate(d.getDate() + 1);
+        d.setDate(d.getDate() + (n - 1) * 7);
+        return d;
+    }
+
+    const thisYear = new Date().getFullYear();
+    let nextId = 9501;
+
+    for (let year = thisYear - 1; year <= thisYear + 2; year++) {
+        const observances = [
+            (function () {
+                // National Public Service Week — third week of June (Mon–Fri)
+                const start = nthMonday(year, 5, 3);
+                const end = new Date(year, start.getMonth(), start.getDate() + 4);
+                return {
+                    title: 'National Public Service Week',
+                    date: toDateStr(start),
+                    endDate: toDateStr(end),
+                    description: 'Recognizing the contributions of public servants across Canada.',
+                };
+            })(),
+        ];
+
+        observances.forEach(function (o) {
+            EVENTS.push({
+                id: nextId++,
+                title: o.title,
+                date: o.date,
+                endDate: o.endDate,
+                time: '',
+                location: '',
+                description: o.description,
+            });
+        });
+    }
+})();
+
 /**
  * ============================================
  * HOW TO ADD A NEW EVENT
@@ -156,6 +204,7 @@ const EVENTS = [
  *    - date: YYYY-MM-DD format (e.g., 2025-12-25 for December 25, 2025)
  *    - time: HH:MM format in 24-hour time (e.g., 14:00 for 2:00 PM)
  *            Leave as '' or omit entirely for all-day events
+ *    - endDate: YYYY-MM-DD end date for multi-day events (optional — omit for single-day events)
  *    - location: Where the event takes place (optional — leave as '' to hide)
  *    - description: Details about the event
  *

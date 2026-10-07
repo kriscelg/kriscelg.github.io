@@ -314,10 +314,11 @@
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
-            // Filter for upcoming events (today or future)
+            // Filter for upcoming events (today or future, including ongoing multi-day events)
             const upcomingEvents = events.filter(event => {
-                const eventDate = new Date(event.date + 'T00:00:00');
-                return eventDate >= today;
+                const endStr = event.endDate || event.date;
+                const endDate = new Date(endStr + 'T00:00:00');
+                return endDate >= today;
             });
 
             // Sort by date and time (time may be empty for all-day events)
@@ -341,10 +342,15 @@
                     const month = monthNames[eventDate.getMonth()];
                     const day = eventDate.getDate();
 
-                    // Format time — handles timed, all-day, and holiday events
+                    // Format time — handles timed, all-day, multi-day, and holiday events
                     let timeLine;
                     if (event.isHoliday) {
                         timeLine = `<p><i class="fas fa-landmark"></i> Public Holiday</p>`;
+                    } else if (event.endDate) {
+                        const endDateObj = new Date(event.endDate + 'T00:00:00');
+                        const endMonth = monthNames[endDateObj.getMonth()];
+                        const endDay = endDateObj.getDate();
+                        timeLine = `<p><i class="fas fa-calendar-week"></i> ${month} ${day} – ${endMonth} ${endDay}</p>`;
                     } else if (!event.time) {
                         timeLine = `<p><i class="far fa-clock"></i> All day</p>`;
                     } else {
