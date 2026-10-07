@@ -318,7 +318,7 @@
         messagesEl.scrollTop = messagesEl.scrollHeight;
 
         div.querySelector('[data-fb="yes"]').addEventListener('click', () => {
-            div.innerHTML = '<span class="wdt-feedback-result positive">Glad it could help!</span>';
+            div.innerHTML = '<span class="wdt-feedback-result positive">Thank you for your feedback!</span>';
             messagesEl.scrollTop = messagesEl.scrollHeight;
         });
         div.querySelector('[data-fb="no"]').addEventListener('click', () => {
