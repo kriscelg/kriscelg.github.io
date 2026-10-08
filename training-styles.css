@@ -1,67 +1,12 @@
-/* Training & Development Page Styles */
-
-/* ── Mandatory Training Section ─────────────────────────────────── */
-.mandatory-training-section {
-    margin-top: 60px;
-    padding-top: 20px;
-    border-top: 2px solid #e2e8f0;
-}
-
-.training-section-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 20px;
-}
-
-.training-section-header i {
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, #0d5f5f 0%, #0a4a4a 100%);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 20px;
-    flex-shrink: 0;
-}
-
-.training-section-header h2 {
-    font-size: 26px;
-    font-weight: 800;
-    color: #1e293b;
-    margin: 0;
-    letter-spacing: -0.3px;
-}
-
-.mandatory-intro {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 14px;
-    padding: 24px 28px;
-    margin-bottom: 28px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.mandatory-intro p {
-    margin: 0 0 12px 0;
-    font-size: 15px;
-    line-height: 1.7;
-    color: #475569;
-}
-
-.mandatory-intro p:last-child {
-    margin-bottom: 0;
-}
+/* Training & Development Page — table and supplementary styles */
 
 /* ── Mandatory Courses Table ─────────────────────────────────────── */
 .mandatory-table-wrapper {
     overflow-x: auto;
-    border-radius: 14px;
+    border-radius: 10px;
     border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 4px;
 }
 
 .mandatory-table {
@@ -69,7 +14,7 @@
     border-collapse: collapse;
     font-size: 14px;
     background: white;
-    min-width: 580px;
+    min-width: 560px;
 }
 
 .mandatory-table thead tr {
@@ -77,12 +22,12 @@
 }
 
 .mandatory-table th {
-    padding: 14px 20px;
+    padding: 12px 16px;
     text-align: left;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 600;
     color: white;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.3px;
     white-space: nowrap;
 }
 
@@ -91,7 +36,7 @@
 }
 
 .mandatory-table tbody tr {
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #f1f5f9;
     transition: background 0.15s;
     vertical-align: top;
 }
@@ -105,29 +50,25 @@
 }
 
 .mandatory-table td {
-    padding: 16px 20px;
-    color: #334155;
+    padding: 14px 16px;
+    color: #475569;
     line-height: 1.6;
 }
 
 .course-name {
     color: #0d5f5f;
     font-weight: 600;
-    font-size: 14px;
 }
 
 .course-link {
     color: #0d5f5f;
     font-weight: 600;
-    font-size: 14px;
     text-decoration: underline;
     text-underline-offset: 2px;
     transition: color 0.15s;
 }
 
-.course-link:hover {
-    color: #0a4a4a;
-}
+.course-link:hover { color: #0a4a4a; }
 
 .course-sub-list {
     margin: 6px 0 0 0;
@@ -136,24 +77,15 @@
 }
 
 .course-sub-list li {
-    margin-bottom: 4px;
+    margin-bottom: 3px;
     color: #475569;
-}
-
-.course-sub-list a {
-    color: #0d5f5f;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-}
-
-.course-sub-list a:hover {
-    color: #0a4a4a;
 }
 
 .req-detail {
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid #f1f5f9;
+    font-size: 13px;
 }
 
 .req-detail ul {
@@ -162,10 +94,7 @@
     list-style: disc;
 }
 
-.req-detail ul li {
-    margin-bottom: 6px;
-    color: #334155;
-}
+.req-detail ul li { margin-bottom: 5px; }
 
 .req-detail ul ul {
     margin-top: 4px;
@@ -179,39 +108,18 @@
     text-underline-offset: 2px;
 }
 
-.req-detail a:hover {
-    color: #0a4a4a;
-}
+.req-detail a:hover { color: #0a4a4a; }
 
-.req-badge {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 2px 10px;
-    border-radius: 20px;
-    margin-bottom: 4px;
-}
-
-.req-badge-annual {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-.req-badge-onetime {
-    background: #dcfce7;
-    color: #166534;
-}
-
-/* ── PSC Link Footer ─────────────────────────────────────────────── */
+/* ── PSC footer note ─────────────────────────────────────────────── */
 .mandatory-footer-note {
+    margin-top: 16px;
+    padding: 14px 18px;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 16px 20px;
+    border-radius: 10px;
     font-size: 14px;
     color: #475569;
     line-height: 1.6;
-    margin-top: 8px;
 }
 
 .mandatory-footer-note a {
@@ -221,22 +129,12 @@
     text-underline-offset: 2px;
 }
 
-.mandatory-footer-note a:hover {
-    color: #0a4a4a;
-}
+.mandatory-footer-note a:hover { color: #0a4a4a; }
 
 /* ── Responsive ──────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-    .mandatory-intro {
-        padding: 18px 20px;
-    }
-
     .mandatory-table th,
     .mandatory-table td {
-        padding: 12px 14px;
-    }
-
-    .training-section-header h2 {
-        font-size: 22px;
+        padding: 10px 12px;
     }
 }
