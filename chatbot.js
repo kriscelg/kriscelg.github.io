@@ -17,19 +17,19 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: #0d5f5f;
-            color: white;
-            border: none;
+            background: white;
+            color: #0d5f5f;
+            border: 2px solid #0d5f5f;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 20px;
-            box-shadow: 0 4px 16px rgba(13,95,95,0.45);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
             z-index: 2000;
-            transition: background 0.2s, transform 0.2s;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
         }
-        #wdt-chat-btn:hover { background: #0a4a4a; transform: scale(1.07); }
+        #wdt-chat-btn:hover { background: #0d5f5f; color: white; transform: scale(1.07); }
 
         #wdt-chat-panel {
             position: fixed;

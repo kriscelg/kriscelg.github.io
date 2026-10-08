@@ -801,16 +801,25 @@ a.event-item-link {
     transform: translateY(-3px);
 }
 
+.bmtjc-link {
+    width: auto;
+    padding: 0 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
 /* Scroll to Top Button */
 .scroll-top {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    background-color: #0d5f5f;
-    color: white;
+    background-color: white;
+    color: #0d5f5f;
     width: 55px;
     height: 55px;
-    border: none;
+    border: 2px solid #0d5f5f;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -819,7 +828,7 @@ a.event-item-link {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    box-shadow: 0 6px 25px rgba(13, 95, 95, 0.4);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
     z-index: 1000;
 }
 
@@ -830,8 +839,9 @@ a.event-item-link {
 
 .scroll-top:hover {
     transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 8px 30px rgba(13, 95, 95, 0.6);
-    background-color: #0a4a4a;
+    background-color: #0d5f5f;
+    color: white;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 .scroll-top i {

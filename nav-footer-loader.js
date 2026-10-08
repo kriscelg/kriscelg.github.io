@@ -35,16 +35,16 @@ const NAV_TEMPLATE = `
                     <a href="reporting.html" class="nav-link" data-page="reporting">REPORTING</a>
                     <div class="dropdown-menu">
                         <a href="tes-reporting.html">TES Reports and Dashboards</a>
-                        <a href="#">SIB Reports and Dashboards</a>
                         <a href="#">AM Reports and Dashboards</a>
                         <a href="#">BITS Reports and Dashboards</a>
+                        <a href="#">Finance Reports and Dashboards</a>
+                        <a href="#">SIB Reports and Dashboards</a>
                     </div>
                 </div>
                 <div class="nav-item">
                     <a href="#" class="nav-link">TRAINING & DEVELOPMENT</a>
                     <div class="dropdown-menu">
                         <a href="videos-presentations.html">TES Videos and Presentations</a>
-                        <a href="#">AM Videos and Presentations</a>
                         <a href="#">BITS Videos and Presentations</a>
                     </div>
                 </div>
@@ -102,16 +102,16 @@ const FOOTER_TEMPLATE = `
                     <h4>REPORTING</h4>
                     <ul>
                         <li><a href="tes-reporting.html">TES Reports and Dashboards</a></li>
-                        <li><a href="#">SIB Reports and Dashboards</a></li>
                         <li><a href="#">AM Reports and Dashboards</a></li>
                         <li><a href="#">BITS Reports and Dashboards</a></li>
+                        <li><a href="#">Finance Reports and Dashboards</a></li>
+                        <li><a href="#">SIB Reports and Dashboards</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h4>TRAINING</h4>
                     <ul>
                         <li><a href="videos-presentations.html">TES Videos and Presentations</a></li>
-                        <li><a href="#">AM Videos and Presentations</a></li>
                         <li><a href="#">BITS Videos and Presentations</a></li>
                     </ul>
                 </div>
@@ -140,10 +140,7 @@ const FOOTER_TEMPLATE = `
                 <div class="footer-logo">WDT Intranet</div>
                 <div class="footer-info">&copy; 2025 WDT. All rights reserved.</div>
                 <div class="footer-social">
-
-                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-x"></i></a>
-                    <a href="https://www.intranet.mbgov.ca/editnr/index.html" class="social-link" aria-label="BMTJC"><i class="fa-regular fa-building"></i></a>
-
+                    <a href="https://www.intranet.mbgov.ca/editnr/index.html" class="social-link bmtjc-link" aria-label="BMTJC">BMTJC</a>
                 </div>
             </div>
         </div>
