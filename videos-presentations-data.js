@@ -3,7 +3,7 @@
  * WDT INTRANET - VIDEOS & PRESENTATIONS DATA
  * ============================================
  *
- * This file contains all videos and presentations for your intranet.
+ * This file contains all videos and presentations for the intranet.
  * To add new content, simply add it to the appropriate array below.
  *
  * NO TECHNICAL KNOWLEDGE REQUIRED!
@@ -18,16 +18,26 @@ const VIDEOS = [
     // Example Video 1
     {
         id: 1,
-        title: 'Apprenticeship Verification Tool',
-        description: 'Apprenticeship Verification Tool - Custom Visual Walkthrough and Sharing Supporting Documents-20251201_150708-Meeting Recording.mp4',
-        videoFile: 'videos/Apprenticeship Verification Tool - Custom Visual Walkthrough and Sharing Supporting Documents-20251201_150708-Meeting Recording.mp4',
-        thumbnail: 'videos/video thumbnails/apprenticeship.png',  // Optional: leave empty to use video frame
-        duration: '14:28',  // Format: MM:SS or HH:MM:SS
-        date: '2025-12-09',  // Format: YYYY-MM-DD
-        tags: ['Training', 'ICM', 'Getting Started']
+        title: 'API Training Presentation',
+        description: 'API Training Presentation',
+        videoFile: 'videos/API_TrainingPresentation_Video.mp4',
+        thumbnail: 'videos/video thumbnails/apiTraining.png',  // Optional: leave empty to use video frame
+        duration: '31:47',  // Format: MM:SS or HH:MM:SS
+        date: '2025-05-26',  // Format: YYYY-MM-DD
+        tags: ['ICM', 'API']
     },
 
-    
+    {
+        id: 2,
+        title: 'Project Submission Updates 2024',
+        description: 'Project Submission Updates 2024',
+        videoFile: 'videos/ProjectSubmissions_2024.mp4',
+        thumbnail: 'videos/video thumbnails/projectSubmission.png',  // Optional: leave empty to use video frame
+        duration: '21:17',  // Format: MM:SS or HH:MM:SS
+        date: '2024-12-24',  // Format: YYYY-MM-DD
+        tags: ['Projects']
+    },
+
 
     // ADD YOUR VIDEOS BELOW THIS LINE
     // Copy and paste the format above, changing the details as needed
@@ -58,9 +68,9 @@ const PRESENTATIONS = [
         description: 'A User\'s Guide to Comptrollership in ICM',
         pdfFile: 'presentations/a_users_guide_to_comptrollership_icm.pdf',
         thumbnail: 'presentations/presentation thumbnails/guide.png',  // Optional
-        slides: 24,  // Number of slides
-        date: '2025-11-25',  // Format: YYYY-MM-DD
-        tags: ['Finance', 'Quarterly Review', 'Reports']
+        slides: 2,  // Number of slides
+        date: '2024-07-31',  // Format: YYYY-MM-DD
+        tags: ['Finance', 'ICM']
     },
 
      {
@@ -69,9 +79,9 @@ const PRESENTATIONS = [
         description: 'ICM Comptrollership',
         pdfFile: 'presentations/icm_comptrollership.pdf',
         thumbnail: 'presentations/presentation thumbnails/comptrollership.png',
-        slides: 32,
-        date: '2025-11-18',
-        tags: ['Training', 'Security', 'IT']
+        slides: 26,
+        date: '2024-07-31',
+        tags: ['Finance', 'ICM']
     },
 
  
@@ -81,9 +91,9 @@ const PRESENTATIONS = [
         description: 'ICM API Training PowerPoint Presentation',
         pdfFile: 'presentations/ICM_API_Training_PowerPointPresentation.pdf',
         thumbnail: 'presentations/presentation thumbnails/api.png',
-        slides: 18,
-        date: '2025-11-10',
-        tags: ['Policy', 'Guidelines', 'Updates']
+        slides: 8,
+        date: '2025-05-23',
+        tags: ['ICM']
     },
 
 
@@ -172,12 +182,12 @@ const PRESENTATIONS = [
  *
  * - Use consistent tag names (e.g., always use "Training", not "training" or "TRAINING")
  * - Common tag categories:
- *   * Department: 'Finance', 'HR', 'IT', 'Operations'
+ *   * Areas: 'Finance', 'HR', 'IT', 'Operations'
  *   * Type: 'Training', 'Updates', 'Reports', 'Guidelines'
  *   * Topic: 'Policy', 'Security', 'ICM', 'SPRS'
  *   * Audience: 'Leadership', 'All Staff', 'New Employees'
  *
  * - Tags are case-sensitive
  * - Use 2-5 tags per item for best filtering
- * - The page automatically creates filter buttons from your tags
+ * - The page automatically creates filter buttons from tags
  */
