@@ -41,8 +41,8 @@ const POWERBI_DASHBOARDS = [
         lastRefreshed: "", // Format: YYYY-MM-DD
         supportingDocuments: [
             // Add supporting documents here
-            // { title: "User Guide", url: "link-to-document", icon: "fa-file-pdf" },
-            // { title: "Data Dictionary", url: "link-to-document", icon: "fa-file-word" }
+            { title: "Performance Measures and Balanced Scorecard Dashboard Guide", url: "documents/dashboards/tes/performanceMeasures/Performance Measures and Balanced Scorecard Dashboard Guide.docx", icon: "fa-file-word" },
+            
         ]
     },
 
@@ -78,7 +78,11 @@ const POWERBI_DASHBOARDS = [
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=f2621809-854b-4c47-8009-61a04adcd539&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
         powerBiUrl: "https://app.powerbi.com/links/_SJmd-cGjV?ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a&pbi_source=linkShare",
         lastRefreshed: "", // Format: YYYY-MM-DD
-        supportingDocuments: []
+        supportingDocuments: [
+            { title: "SDP Data Queries and Data Updates", url: "documents/dashboards/tes/skillsDevelopment/SDPDataQueriesAndDataUpdates.docx", icon: "fa-file-word" },
+            { title: "SDP Features and Definitions", url: "documents/dashboards/tes/skillsDevelopment/SDPFeaturesAndDefinitions.docx", icon: "fa-file-word" },
+            { title: "SDP Technical Overview", url: "documents/dashboards/tes/skillsDevelopment/SDPTechnicalOverview.docx", icon: "fa-file-word" }
+        ]
     },
 ];
 
@@ -318,28 +322,14 @@ function generatePowerBIDashboards() {
 // fileType options: "PDF", "Word", "Excel", "PowerPoint"
 const REPORTING_DOCUMENTS = [
     {
-        category: "Annual Reports",
+        category: "TES Reports",
         icon: "fa-file-contract",
         documents: [
-            // { title: "2024-25 Annual Report", url: "", fileType: "PDF", year: "2024-25", description: "" },
-            // { title: "2023-24 Annual Report", url: "", fileType: "PDF", year: "2023-24", description: "" },
+             { title: "TES Staff Engagement Report - Final - April 2026", url: "documents/reports/TES Staff Engagement Report - Final - April 2026.pdf", fileType: "PDF", year: "2026-27", description: "" },
+             { title: "Staff Development and Training Committee Report - FY 2026-27 - Shareable", url: "documents/reports/Staff Development and Training Committee Report - FY 2026-27 - Shareable.docx", fileType: "Word", year: "2026-27", description: "" },
         ]
     },
-    {
-        category: "Quarterly Reports",
-        icon: "fa-calendar-check",
-        documents: [
-            // { title: "Q4 2024-25 Quarterly Report", url: "", fileType: "PDF", year: "2024-25 Q4", description: "" },
-            // { title: "Q3 2024-25 Quarterly Report", url: "", fileType: "PDF", year: "2024-25 Q3", description: "" },
-        ]
-    },
-    {
-        category: "Other Reports",
-        icon: "fa-folder-open",
-        documents: [
-            // { title: "Report Title", url: "", fileType: "PDF", year: "2024-25", description: "" },
-        ]
-    }
+    
 ];
 
 // Function to get file icon class based on file type
