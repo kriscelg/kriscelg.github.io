@@ -44,6 +44,7 @@ const NAV_TEMPLATE = `
                 <div class="nav-item">
                     <a href="training.html" class="nav-link" data-page="training">TRAINING & DEVELOPMENT</a>
                     <div class="dropdown-menu">
+                        <a href="training.html#mandatory-training">Mandatory Training</a>
                         <a href="videos-presentations.html">TES Videos and Presentations</a>
                         <a href="bits-videos-presentations.html">BITS Videos and Presentations</a>
                     </div>
@@ -111,6 +112,7 @@ const FOOTER_TEMPLATE = `
                 <div class="footer-column">
                     <h4>TRAINING</h4>
                     <ul>
+                        <li><a href="training.html#mandatory-training">Mandatory Training</a></li>
                         <li><a href="videos-presentations.html">TES Videos and Presentations</a></li>
                         <li><a href="bits-videos-presentations.html">BITS Videos and Presentations</a></li>
                     </ul>
