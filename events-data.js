@@ -332,14 +332,14 @@ const AWARENESS_MONTHS = [
     {
         month: 9,
         title: 'Hispanic and Latino Heritage Month',
-        description: 'Celebrated annually in Manitoba to promote the inclusion and employment of persons with disabilities. ',
+        description: 'A time to recognize, celebrate and reflect on the rich history, culture, and contributions of Hispanic\'s and Latino\'s in Canada. Hispanic and Latino Heritage Month is celebrated anually from September 15 - October 15. The celebration starts on September 15 because it coincides with the independence anniversaries of Costa Rica, El Salvador, Guatemala, Honduras, and Nicaragua, followed by Mexico (September 16) and Chile (September 18).',
         color: 'linear-gradient(to bottom, #dc2626, #ea580c, #facc15)'
     },
 
     {
         month: 10,
         title: 'Hispanic and Latino Heritage Month',
-        description: 'Celebrated annually in Manitoba to promote the inclusion and employment of persons with disabilities. ',
+        description: 'A time to recognize, celebrate and reflect on the rich history, culture, and contributions of Hispanic\'s and Latino\'s in Canada. Hispanic and Latino Heritage Month is celebrated anually from September 15 - October 15. The celebration starts on September 15 because it coincides with the independence anniversaries of Costa Rica, El Salvador, Guatemala, Honduras, and Nicaragua, followed by Mexico (September 16) and Chile (September 18).',
         color: 'linear-gradient(to bottom, #dc2626, #ea580c, #facc15)'
     },
 
