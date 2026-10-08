@@ -24,7 +24,8 @@ const VIDEOS = [
         thumbnail: 'videos/video thumbnails/apiTraining.png',  // Optional: leave empty to use video frame
         duration: '31:47',  // Format: MM:SS or HH:MM:SS
         date: '2025-05-26',  // Format: YYYY-MM-DD
-        tags: ['ICM', 'API']
+        tags: ['ICM', 'API'],
+        programArea: 'TES'   // 'TES' or 'BITS'
     },
 
     {
@@ -35,13 +36,15 @@ const VIDEOS = [
         thumbnail: 'videos/video thumbnails/projectSubmission.png',  // Optional: leave empty to use video frame
         duration: '21:17',  // Format: MM:SS or HH:MM:SS
         date: '2024-12-24',  // Format: YYYY-MM-DD
-        tags: ['Projects']
+        tags: ['Projects'],
+        programArea: 'TES'   // 'TES' or 'BITS'
     },
 
 
     // ADD YOUR VIDEOS BELOW THIS LINE
     // Copy and paste the format above, changing the details as needed
     // Don't forget the comma after each entry!
+    // Set programArea to 'TES' or 'BITS' to control which page the video appears on
 
     // {
     //     id: 4,
@@ -70,10 +73,11 @@ const PRESENTATIONS = [
         thumbnail: 'presentations/presentation thumbnails/guide.png',  // Optional
         slides: 2,  // Number of slides
         date: '2024-07-31',  // Format: YYYY-MM-DD
-        tags: ['Finance', 'ICM']
+        tags: ['Finance', 'ICM'],
+        programArea: 'TES'   // 'TES' or 'BITS'
     },
 
-     {
+    {
         id: 2,
         title: 'ICM Comptrollership',
         description: 'ICM Comptrollership',
@@ -81,10 +85,10 @@ const PRESENTATIONS = [
         thumbnail: 'presentations/presentation thumbnails/comptrollership.png',
         slides: 26,
         date: '2024-07-31',
-        tags: ['Finance', 'ICM']
+        tags: ['Finance', 'ICM'],
+        programArea: 'TES'   // 'TES' or 'BITS'
     },
 
- 
     {
         id: 3,
         title: 'ICM API Training PowerPoint Presentation',
@@ -93,15 +97,15 @@ const PRESENTATIONS = [
         thumbnail: 'presentations/presentation thumbnails/api.png',
         slides: 8,
         date: '2025-05-23',
-        tags: ['ICM']
+        tags: ['ICM'],
+        programArea: 'TES'   // 'TES' or 'BITS'
     },
 
-
-   
 
     // ADD YOUR PRESENTATIONS BELOW THIS LINE
     // Copy and paste the format above, changing the details as needed
     // Don't forget the comma after each entry!
+    // Set programArea to 'TES' or 'BITS' to control which page the presentation appears on
 
     // {
     //     id: 4,

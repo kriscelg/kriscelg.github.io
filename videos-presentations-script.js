@@ -2,6 +2,9 @@
  * WDT Intranet - Videos & Presentations Script
  */
 
+// Detect which program area this page is for (set via data-program-area on <body>)
+const PAGE_PROGRAM_AREA = document.body.dataset.programArea || 'TES';
+
 // State
 let activeFilters = [];
 let currentTab = 'videos';
@@ -46,18 +49,16 @@ function formatDate(dateStr) {
     return date.toLocaleDateString('en-US', options);
 }
 
-// Get all unique tags from videos and presentations
+// Get all unique tags from videos and presentations for this program area
 function getAllTags() {
     let allTags = new Set();
 
     if (currentTab === 'videos') {
-        VIDEOS.forEach(video => {
-            video.tags.forEach(tag => allTags.add(tag));
-        });
+        VIDEOS.filter(v => (v.programArea || 'TES') === PAGE_PROGRAM_AREA)
+              .forEach(video => video.tags.forEach(tag => allTags.add(tag)));
     } else {
-        PRESENTATIONS.forEach(pres => {
-            pres.tags.forEach(tag => allTags.add(tag));
-        });
+        PRESENTATIONS.filter(p => (p.programArea || 'TES') === PAGE_PROGRAM_AREA)
+                     .forEach(pres => pres.tags.forEach(tag => allTags.add(tag)));
     }
 
     return Array.from(allTags).sort();
@@ -279,9 +280,13 @@ function loadVideos() {
     const videosGrid = document.getElementById('videosGrid');
     const noVideosMessage = document.getElementById('noVideosMessage');
 
-    let videos = typeof VIDEOS !== 'undefined' ? VIDEOS : [];
+    // Filter to this page's program area first
+    let videos = (typeof VIDEOS !== 'undefined' ? VIDEOS : [])
+        .filter(v => (v.programArea || 'TES') === PAGE_PROGRAM_AREA);
 
-    // Apply search filter first
+    const hasAnyContent = videos.length > 0;
+
+    // Apply search filter
     const isSearching = searchQuery && searchQuery.trim() !== '';
     if (isSearching) {
         videos = filterBySearch(videos, searchQuery);
@@ -302,8 +307,12 @@ function loadVideos() {
         videosGrid.style.display = 'none';
         noVideosMessage.style.display = 'block';
 
-        // Update message if searching
-        if (isSearching) {
+        if (!hasAnyContent) {
+            noVideosMessage.innerHTML = `
+                <i class="fas fa-video-slash"></i>
+                <p>No content has been posted yet</p>
+            `;
+        } else if (isSearching) {
             noVideosMessage.innerHTML = `
                 <i class="fas fa-search"></i>
                 <p>No videos found matching your search</p>
@@ -329,9 +338,13 @@ function loadPresentations() {
     const presentationsGrid = document.getElementById('presentationsGrid');
     const noPresentationsMessage = document.getElementById('noPresentationsMessage');
 
-    let presentations = typeof PRESENTATIONS !== 'undefined' ? PRESENTATIONS : [];
+    // Filter to this page's program area first
+    let presentations = (typeof PRESENTATIONS !== 'undefined' ? PRESENTATIONS : [])
+        .filter(p => (p.programArea || 'TES') === PAGE_PROGRAM_AREA);
 
-    // Apply search filter first
+    const hasAnyContent = presentations.length > 0;
+
+    // Apply search filter
     const isSearching = searchQuery && searchQuery.trim() !== '';
     if (isSearching) {
         presentations = filterBySearch(presentations, searchQuery);
@@ -352,8 +365,12 @@ function loadPresentations() {
         presentationsGrid.style.display = 'none';
         noPresentationsMessage.style.display = 'block';
 
-        // Update message if searching
-        if (isSearching) {
+        if (!hasAnyContent) {
+            noPresentationsMessage.innerHTML = `
+                <i class="fas fa-file-slash"></i>
+                <p>No content has been posted yet</p>
+            `;
+        } else if (isSearching) {
             noPresentationsMessage.innerHTML = `
                 <i class="fas fa-search"></i>
                 <p>No presentations found matching your search</p>
@@ -361,7 +378,7 @@ function loadPresentations() {
             `;
         } else {
             noPresentationsMessage.innerHTML = `
-                <i class="fas fa-presentation"></i>
+                <i class="fas fa-file-slash"></i>
                 <p>No presentations found matching your filters</p>
             `;
         }
@@ -379,7 +396,7 @@ function loadPresentations() {
 // ========================================
 
 function openVideoModal(videoId) {
-    const video = VIDEOS.find(v => v.id === videoId);
+    const video = VIDEOS.find(v => v.id === videoId && (v.programArea || 'TES') === PAGE_PROGRAM_AREA);
     if (!video) return;
 
     const modal = document.getElementById('videoModal');
@@ -428,7 +445,7 @@ document.getElementById('videoModal').addEventListener('click', function(e) {
 // ========================================
 
 function openPdfModal(presentationId) {
-    const presentation = PRESENTATIONS.find(p => p.id === presentationId);
+    const presentation = PRESENTATIONS.find(p => p.id === presentationId && (p.programArea || 'TES') === PAGE_PROGRAM_AREA);
     if (!presentation) return;
 
     const modal = document.getElementById('pdfModal');
