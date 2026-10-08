@@ -42,7 +42,7 @@ const NAV_TEMPLATE = `
                     </div>
                 </div>
                 <div class="nav-item">
-                    <a href="#" class="nav-link">TRAINING & DEVELOPMENT</a>
+                    <a href="training.html" class="nav-link" data-page="training">TRAINING & DEVELOPMENT</a>
                     <div class="dropdown-menu">
                         <a href="videos-presentations.html">TES Videos and Presentations</a>
                         <a href="#">BITS Videos and Presentations</a>
