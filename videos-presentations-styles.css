@@ -447,7 +447,37 @@
     align-items: center;
     padding: 20px 30px;
     border-bottom: 1px solid #e2e8f0;
+    position: relative;
 }
+
+/* Tooltip shown on X button hover while PiP is active */
+.pip-close-hint {
+    position: absolute;
+    right: 68px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1e293b;
+    color: white;
+    padding: 7px 13px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 10;
+}
+.pip-close-hint::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-left-color: #1e293b;
+}
+.pip-close-hint.visible { opacity: 1; }
 
 .modal-header h2 {
     font-size: 22px;

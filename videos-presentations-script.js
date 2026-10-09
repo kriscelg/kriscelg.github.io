@@ -633,25 +633,47 @@ document.addEventListener('DOMContentLoaded', () => {
     loadPresentations();
 
     // PiP — disable the modal close button while video is in Picture-in-Picture
-    const videoPlayer = document.getElementById('videoPlayer');
+    const videoPlayerEl = document.getElementById('videoPlayer');
     const modalCloseBtn = document.querySelector('#videoModal .modal-close');
+    const modalHeader   = document.querySelector('#videoModal .modal-header');
 
-    videoPlayer.addEventListener('enterpictureinpicture', function () {
+    function showPipHint() {
+        const hint = document.getElementById('pipCloseHint');
+        if (hint) hint.classList.add('visible');
+    }
+    function hidePipHint() {
+        const hint = document.getElementById('pipCloseHint');
+        if (hint) hint.classList.remove('visible');
+    }
+
+    videoPlayerEl.addEventListener('enterpictureinpicture', function () {
         if (modalCloseBtn) {
             modalCloseBtn.disabled = true;
-            modalCloseBtn.title = 'Exit Picture-in-Picture first to close';
             modalCloseBtn.style.opacity = '0.35';
             modalCloseBtn.style.cursor = 'not-allowed';
+            modalCloseBtn.removeAttribute('title');
+            modalCloseBtn.addEventListener('mouseenter', showPipHint);
+            modalCloseBtn.addEventListener('mouseleave', hidePipHint);
+        }
+        if (modalHeader && !document.getElementById('pipCloseHint')) {
+            const hint = document.createElement('div');
+            hint.className = 'pip-close-hint';
+            hint.id = 'pipCloseHint';
+            hint.textContent = 'Exit Picture-in-Picture first to close';
+            modalHeader.appendChild(hint);
         }
     });
 
-    videoPlayer.addEventListener('leavepictureinpicture', function () {
+    videoPlayerEl.addEventListener('leavepictureinpicture', function () {
         if (modalCloseBtn) {
             modalCloseBtn.disabled = false;
-            modalCloseBtn.title = '';
             modalCloseBtn.style.opacity = '';
             modalCloseBtn.style.cursor = '';
+            modalCloseBtn.removeEventListener('mouseenter', showPipHint);
+            modalCloseBtn.removeEventListener('mouseleave', hidePipHint);
         }
+        const hint = document.getElementById('pipCloseHint');
+        if (hint) hint.remove();
     });
 
     // CC toggle button
