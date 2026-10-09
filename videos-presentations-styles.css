@@ -520,6 +520,39 @@
     color: #1e293b;
 }
 
+.vc-divider {
+    width: 1px;
+    height: 22px;
+    background: #e2e8f0;
+    flex-shrink: 0;
+}
+
+.cc-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: white;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+    flex-shrink: 0;
+}
+.cc-btn:hover {
+    border-color: #0d5f5f;
+    color: #0d5f5f;
+}
+.cc-btn.cc-active {
+    background: #0d5f5f;
+    border-color: #0d5f5f;
+    color: white;
+}
+
 .video-description,
 .pdf-description {
     font-size: 14px;

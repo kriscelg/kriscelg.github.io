@@ -404,12 +404,39 @@ function openVideoModal(videoId) {
     const videoSource = document.getElementById('videoSource');
     const modalTitle = document.getElementById('videoModalTitle');
     const videoDescription = document.getElementById('videoDescription');
+    const ccBtn = document.getElementById('ccToggle');
+    const ccDivider = document.getElementById('ccDivider');
 
     // Set video details
     modalTitle.textContent = video.title;
     videoDescription.textContent = video.description;
 
-    // Encode video file path
+    // Remove any previously injected track elements
+    Array.from(videoPlayer.querySelectorAll('track')).forEach(t => t.remove());
+
+    // Reset CC button state
+    ccBtn.classList.remove('cc-active');
+
+    // Add caption track if the video has one
+    if (video.captionFile) {
+        const track = document.createElement('track');
+        track.kind = 'captions';
+        track.label = 'English';
+        track.srclang = 'en';
+        track.src = encodeFilePath(video.captionFile);
+        videoPlayer.appendChild(track);
+        // Captions start OFF — user must click CC to enable
+        track.addEventListener('load', function () {
+            videoPlayer.textTracks[0].mode = 'disabled';
+        });
+        ccBtn.style.display = 'flex';
+        ccDivider.style.display = 'block';
+    } else {
+        ccBtn.style.display = 'none';
+        ccDivider.style.display = 'none';
+    }
+
+    // Encode video file path and load
     const encodedPath = encodeFilePath(video.videoFile);
     videoSource.src = encodedPath;
     videoPlayer.load();
@@ -428,8 +455,27 @@ function openVideoModal(videoId) {
 function closeVideoModal() {
     const modal = document.getElementById('videoModal');
     const videoPlayer = document.getElementById('videoPlayer');
+    const ccBtn = document.getElementById('ccToggle');
+    const ccDivider = document.getElementById('ccDivider');
+
+    // Disable all text tracks so captions stop immediately
+    for (let i = 0; i < videoPlayer.textTracks.length; i++) {
+        videoPlayer.textTracks[i].mode = 'disabled';
+    }
 
     videoPlayer.pause();
+
+    // Clear the source — this stops any browser Live Caption overlay too
+    document.getElementById('videoSource').src = '';
+    videoPlayer.load();
+
+    // Reset CC button
+    if (ccBtn) {
+        ccBtn.classList.remove('cc-active');
+        ccBtn.style.display = 'none';
+    }
+    if (ccDivider) ccDivider.style.display = 'none';
+
     modal.classList.remove('active');
 }
 
@@ -526,6 +572,23 @@ document.addEventListener('DOMContentLoaded', () => {
     generateFilterTags();
     loadVideos();
     loadPresentations();
+
+    // CC toggle button
+    const ccBtn = document.getElementById('ccToggle');
+    if (ccBtn) {
+        ccBtn.addEventListener('click', function () {
+            const videoPlayer = document.getElementById('videoPlayer');
+            if (!videoPlayer.textTracks.length) return;
+            const track = videoPlayer.textTracks[0];
+            if (track.mode === 'showing') {
+                track.mode = 'disabled';
+                this.classList.remove('cc-active');
+            } else {
+                track.mode = 'showing';
+                this.classList.add('cc-active');
+            }
+        });
+    }
 
     // Setup search functionality
     const searchInput = document.getElementById('vpSearch');

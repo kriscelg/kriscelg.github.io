@@ -45,6 +45,10 @@ const VIDEOS = [
     // Copy and paste the format above, changing the details as needed
     // Don't forget the comma after each entry!
     // Set programArea to 'TES' or 'BITS' to control which page the video appears on
+    //
+    // CLOSED CAPTIONS: To add captions, upload a .vtt file and add:
+    //   captionFile: 'videos/captions/your-video.vtt',
+    // If omitted, the CC button will not appear for that video.
 
     // {
     //     id: 4,
