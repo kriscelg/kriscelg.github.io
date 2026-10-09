@@ -13,7 +13,7 @@ document.body.insertAdjacentHTML('beforeend', `
             </div>
             <div class="modal-body">
                 <div class="video-player-container">
-                    <video id="videoPlayer" controls disablePictureInPicture>
+                    <video id="videoPlayer" controls>
                         <source id="videoSource" src="" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
