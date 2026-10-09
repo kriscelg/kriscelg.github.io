@@ -514,6 +514,9 @@ function closeVideoModal() {
     const ccBtn = document.getElementById('ccToggle');
     const ccDivider = document.getElementById('ccDivider');
 
+    // Block closing while video is in Picture-in-Picture — user must exit PiP first
+    if (document.pictureInPictureElement === videoPlayer) return;
+
     // Disable all text tracks so captions stop immediately
     for (let i = 0; i < videoPlayer.textTracks.length; i++) {
         videoPlayer.textTracks[i].mode = 'disabled';
@@ -628,6 +631,28 @@ document.addEventListener('DOMContentLoaded', () => {
     generateFilterTags();
     loadVideos();
     loadPresentations();
+
+    // PiP — disable the modal close button while video is in Picture-in-Picture
+    const videoPlayer = document.getElementById('videoPlayer');
+    const modalCloseBtn = document.querySelector('#videoModal .modal-close');
+
+    videoPlayer.addEventListener('enterpictureinpicture', function () {
+        if (modalCloseBtn) {
+            modalCloseBtn.disabled = true;
+            modalCloseBtn.title = 'Exit Picture-in-Picture first to close';
+            modalCloseBtn.style.opacity = '0.35';
+            modalCloseBtn.style.cursor = 'not-allowed';
+        }
+    });
+
+    videoPlayer.addEventListener('leavepictureinpicture', function () {
+        if (modalCloseBtn) {
+            modalCloseBtn.disabled = false;
+            modalCloseBtn.title = '';
+            modalCloseBtn.style.opacity = '';
+            modalCloseBtn.style.cursor = '';
+        }
+    });
 
     // CC toggle button
     const ccBtn = document.getElementById('ccToggle');
