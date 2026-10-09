@@ -201,10 +201,26 @@
             }
         }
 
-        // Auto-expand when navigated to via #mandatory-training
-        if (window.location.hash === '#mandatory-training') {
-            toggleMandatory();
+        function openMandatorySection() {
+            const btn = document.getElementById('mandatoryToggle');
+            if (btn && btn.getAttribute('aria-expanded') !== 'true') {
+                toggleMandatory();
+            }
         }
+
+        // Full page load with #mandatory-training — wait for layout before expanding
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.location.hash === '#mandatory-training') {
+                requestAnimationFrame(openMandatorySection);
+            }
+        });
+
+        // Same-page hash navigation (clicking nav/footer link while already on training.html)
+        window.addEventListener('hashchange', function () {
+            if (window.location.hash === '#mandatory-training') {
+                openMandatorySection();
+            }
+        });
     </script>
 </body>
 </html>
