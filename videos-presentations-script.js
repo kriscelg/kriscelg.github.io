@@ -2,6 +2,62 @@
  * WDT Intranet - Videos & Presentations Script
  */
 
+// ── Inject shared modal HTML ───────────────────────────────────────
+// Both TES and BITS pages pull this one script, so modals live here.
+document.body.insertAdjacentHTML('beforeend', `
+    <div class="modal" id="videoModal">
+        <div class="modal-content video-modal-content">
+            <div class="modal-header">
+                <h2 id="videoModalTitle"></h2>
+                <button class="modal-close" onclick="closeVideoModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="video-player-container">
+                    <video id="videoPlayer" controls disablePictureInPicture>
+                        <source id="videoSource" src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="video-controls-extra">
+                    <label for="playbackSpeed">Speed:</label>
+                    <select id="playbackSpeed">
+                        <option value="0.5">0.5x</option>
+                        <option value="0.75">0.75x</option>
+                        <option value="1" selected>Normal</option>
+                        <option value="1.25">1.25x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
+                    <div class="vc-divider" id="ccDivider" style="display:none;"></div>
+                    <button id="ccToggle" class="cc-btn" title="Toggle closed captions" style="display:none;">
+                        <i class="fas fa-closed-captioning"></i> CC
+                    </button>
+                </div>
+                <div class="video-description">
+                    <p id="videoDescription"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="pdfModal">
+        <div class="modal-content pdf-modal-content">
+            <div class="modal-header">
+                <h2 id="pdfModalTitle"></h2>
+                <button class="modal-close" onclick="closePdfModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="pdf-viewer-container">
+                    <iframe id="pdfViewer" src="" width="100%" height="600px"></iframe>
+                </div>
+                <div class="pdf-description">
+                    <p id="pdfDescription"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+`);
+
 // Detect which program area this page is for (set via data-program-area on <body>)
 const PAGE_PROGRAM_AREA = document.body.dataset.programArea || 'TES';
 
