@@ -1,14 +1,17 @@
 /**
  * WDT Intranet - Archived Documents Page Styles
+ *
+ * Palette: muted slate-teal  (#3d5c5c header · #4a7070 accents · #e8f0f0 tints)
+ * Distinct from active-docs teal (#0d5f5f) but harmonious with the site.
  */
 
 /* ── Page Header ──────────────────────────────────────────── */
 .archive-page-header {
-    background: linear-gradient(135deg, #92400e 0%, #78350f 100%);
+    background: linear-gradient(135deg, #3d5c5c 0%, #2d4545 100%);
     border-radius: 20px;
     padding: 40px 50px;
     margin-bottom: 24px;
-    box-shadow: 0 10px 30px rgba(120, 53, 15, 0.3);
+    box-shadow: 0 10px 30px rgba(45, 69, 69, 0.25);
     display: flex;
     align-items: center;
     gap: 25px;
@@ -41,7 +44,7 @@
 .archive-header-text p {
     font-size: 15px;
     margin: 0;
-    color: rgba(255, 255, 255, 0.88);
+    color: rgba(255, 255, 255, 0.85);
     max-width: 600px;
     line-height: 1.5;
 }
@@ -51,8 +54,8 @@
     display: flex;
     align-items: flex-start;
     gap: 16px;
-    background: #fffbeb;
-    border: 2px solid #fcd34d;
+    background: #f0f4f4;
+    border: 2px solid #b0c8c8;
     border-radius: 14px;
     padding: 20px 24px;
     margin-bottom: 30px;
@@ -61,26 +64,26 @@
 .archive-warning-icon {
     width: 44px;
     height: 44px;
-    background: #fef3c7;
+    background: #e0ecec;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     font-size: 20px;
-    color: #b45309;
+    color: #3d5c5c;
 }
 
 .archive-warning-body h3 {
     font-size: 15px;
     font-weight: 700;
-    color: #92400e;
+    color: #2d4545;
     margin: 0 0 6px 0;
 }
 
 .archive-warning-body p {
     font-size: 13px;
-    color: #78350f;
+    color: #3d5c5c;
     margin: 0;
     line-height: 1.6;
 }
@@ -142,8 +145,8 @@
 }
 
 .archive-search-input:focus {
-    border-color: #b45309;
-    box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.1);
+    border-color: #4a7070;
+    box-shadow: 0 0 0 3px rgba(74, 112, 112, 0.12);
 }
 
 .archive-search-input::placeholder {
@@ -207,7 +210,7 @@
 }
 
 .archive-filter-select:focus {
-    border-color: #b45309;
+    border-color: #4a7070;
 }
 
 .archive-results-info {
@@ -218,7 +221,7 @@
 }
 
 .archive-results-info.active {
-    color: #92400e;
+    color: #3d5c5c;
     font-weight: 600;
 }
 
@@ -236,21 +239,21 @@
 }
 
 .archive-doc-card:hover {
-    border-color: #fcd34d;
-    box-shadow: 0 4px 16px rgba(180, 83, 9, 0.1);
+    border-color: #b0c8c8;
+    box-shadow: 0 4px 16px rgba(61, 92, 92, 0.1);
 }
 
 .archive-doc-icon {
     width: 48px;
     height: 48px;
-    background: #fef3c7;
+    background: #e8f0f0;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     font-size: 20px;
-    color: #b45309;
+    color: #4a7070;
 }
 
 .archive-doc-body {
@@ -285,8 +288,8 @@
     letter-spacing: 0.4px;
     padding: 3px 10px;
     border-radius: 20px;
-    background: #fef3c7;
-    color: #92400e;
+    background: #e8f0f0;
+    color: #3d5c5c;
     white-space: nowrap;
     flex-shrink: 0;
 }
@@ -301,8 +304,8 @@
     letter-spacing: 0.5px;
     padding: 3px 10px;
     border-radius: 20px;
-    background: #fee2e2;
-    color: #b91c1c;
+    background: #f1f5f9;
+    color: #64748b;
     white-space: nowrap;
     flex-shrink: 0;
 }
@@ -329,9 +332,9 @@
 
 .archive-reason {
     font-size: 13px;
-    color: #78350f;
-    background: #fffbeb;
-    border-left: 3px solid #fcd34d;
+    color: #475569;
+    background: #f8fafc;
+    border-left: 3px solid #cbd5e1;
     padding: 8px 12px;
     border-radius: 0 6px 6px 0;
     margin-bottom: 10px;
@@ -384,7 +387,7 @@
     align-items: center;
     gap: 7px;
     padding: 9px 18px;
-    background: #92400e;
+    background: #4a7070;
     color: white;
     border: none;
     border-radius: 10px;
@@ -398,7 +401,7 @@
 }
 
 .archive-download-btn:hover {
-    background: #78350f;
+    background: #3d5c5c;
     transform: translateY(-1px);
 }
 
@@ -462,14 +465,14 @@
 .archive-modal-icon {
     width: 64px;
     height: 64px;
-    background: #fef3c7;
+    background: #e8f0f0;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 20px;
     font-size: 28px;
-    color: #b45309;
+    color: #4a7070;
 }
 
 .archive-modal-box h2 {
@@ -487,7 +490,7 @@
 }
 
 .archive-modal-box p strong {
-    color: #92400e;
+    color: #2d4545;
 }
 
 .archive-modal-actions {
@@ -517,7 +520,7 @@
 .archive-modal-confirm {
     padding: 11px 24px;
     border: none;
-    background: #92400e;
+    background: #4a7070;
     border-radius: 10px;
     font-size: 14px;
     font-weight: 600;
@@ -532,7 +535,7 @@
 }
 
 .archive-modal-confirm:hover {
-    background: #78350f;
+    background: #3d5c5c;
 }
 
 /* ── Responsive ───────────────────────────────────────────── */

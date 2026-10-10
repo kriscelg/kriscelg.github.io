@@ -506,27 +506,27 @@
     transform: translateX(5px);
 }
 
-/* Archive card variant — amber accent instead of teal */
+/* Archive card variant — muted slate-teal accent */
 .doc-card--archive::before {
-    background: #b45309;
+    background: #4a7070;
 }
 
 .doc-card--archive .card-icon {
-    background: #fef3c7;
-    color: #b45309;
+    background: #e8f0f0;
+    color: #4a7070;
 }
 
 .doc-card--archive:hover {
-    box-shadow: 0 12px 24px rgba(180, 83, 9, 0.12);
-    border-color: rgba(180, 83, 9, 0.2);
+    box-shadow: 0 12px 24px rgba(61, 92, 92, 0.12);
+    border-color: rgba(74, 112, 112, 0.25);
 }
 
 .doc-card--archive:hover .card-content h2 {
-    color: #92400e;
+    color: #3d5c5c;
 }
 
 .doc-card--archive:hover .card-arrow {
-    background: #92400e;
+    background: #4a7070;
 }
 
 /* Responsive Design */
