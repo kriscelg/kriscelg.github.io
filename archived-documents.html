@@ -81,6 +81,13 @@
                             <!-- Populated dynamically -->
                         </select>
                     </div>
+
+                    <div class="archive-filter-group archive-filter-group--clear">
+                        <label>&nbsp;</label>
+                        <button id="clearAllFilters" class="archive-clear-all-btn" style="display:none;">
+                            <i class="fas fa-times"></i> Clear Filters
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -341,6 +348,16 @@
         if (e.key === 'Escape') document.getElementById('archiveAckModal').classList.remove('active');
     });
 
+    // ---- Helpers ----
+    function isFiltered() {
+        return activeSearch || activeCategory !== 'all' || activeFY !== 'all';
+    }
+
+    function updateClearAllBtn() {
+        const btn = document.getElementById('clearAllFilters');
+        if (btn) btn.style.display = isFiltered() ? 'flex' : 'none';
+    }
+
     // ---- Event listeners ----
     const searchEl = document.getElementById('archiveSearch');
     const clearEl  = document.getElementById('clearArchiveSearch');
@@ -348,6 +365,7 @@
     searchEl.addEventListener('input', e => {
         activeSearch = e.target.value.trim();
         clearEl.style.display = activeSearch ? 'flex' : 'none';
+        updateClearAllBtn();
         renderCards();
     });
 
@@ -355,17 +373,32 @@
         searchEl.value = '';
         activeSearch = '';
         clearEl.style.display = 'none';
+        updateClearAllBtn();
         searchEl.focus();
         renderCards();
     });
 
     document.getElementById('categoryFilter').addEventListener('change', e => {
         activeCategory = e.target.value;
+        updateClearAllBtn();
         renderCards();
     });
 
     document.getElementById('fiscalYearFilter').addEventListener('change', e => {
         activeFY = e.target.value;
+        updateClearAllBtn();
+        renderCards();
+    });
+
+    document.getElementById('clearAllFilters').addEventListener('click', () => {
+        searchEl.value = '';
+        activeSearch = '';
+        activeCategory = 'all';
+        activeFY = 'all';
+        clearEl.style.display = 'none';
+        document.getElementById('categoryFilter').value = 'all';
+        document.getElementById('fiscalYearFilter').value = 'all';
+        document.getElementById('clearAllFilters').style.display = 'none';
         renderCards();
     });
 

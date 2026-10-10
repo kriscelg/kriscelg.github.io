@@ -213,6 +213,32 @@
     border-color: #4a7070;
 }
 
+.archive-clear-all-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #4a7070;
+    background: white;
+    border: 2px solid #b0c8c8;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.archive-clear-all-btn:hover {
+    background: #e8f0f0;
+    border-color: #4a7070;
+}
+
+.archive-filter-group--clear {
+    justify-content: flex-end;
+}
+
 .archive-results-info {
     font-size: 13px;
     color: #64748b;
