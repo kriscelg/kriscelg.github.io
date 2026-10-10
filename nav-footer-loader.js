@@ -331,9 +331,22 @@ const FOOTER_TEMPLATE = `
             (typeof MEMOS !== 'undefined' ? MEMOS : []).forEach(m =>
                 push(m.title, m.pdfFile ? ep(m.pdfFile) : 'memos.html', 'Memo', 'ic-memo', 'fa-envelope', m.tags));
 
-            // Events
-            (typeof EVENTS !== 'undefined' ? EVENTS : []).forEach(e =>
-                push(e.title, 'events.html' + (e.date ? '?date=' + e.date : ''), 'Event', 'ic-event', 'fa-calendar-alt', e.tags || []));
+            // Events — deduplicate recurring events (e.g. holidays) by title,
+            // showing the current year's occurrence or next year's if already past.
+            if (typeof EVENTS !== 'undefined') {
+                const todayStr = new Date().toISOString().slice(0, 10);
+                const byTitle = {};
+                EVENTS.forEach(e => {
+                    if (!e.title) return;
+                    if (!byTitle[e.title]) byTitle[e.title] = [];
+                    byTitle[e.title].push(e);
+                });
+                Object.values(byTitle).forEach(group => {
+                    group.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+                    const best = group.find(e => e.date && e.date >= todayStr) || group[group.length - 1];
+                    if (best) push(best.title, 'events.html' + (best.date ? '?date=' + best.date : ''), 'Event', 'ic-event', 'fa-calendar-alt', best.tags || []);
+                });
+            }
 
             // Videos
             (typeof VIDEOS !== 'undefined' ? VIDEOS : []).forEach(v =>
