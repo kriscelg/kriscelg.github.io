@@ -12,7 +12,7 @@
  *   title          Document title (required)
  *   fileName       Path to the file, e.g. 'archived/policy-name.pdf' (required)
  *   fileType       'PDF', 'Word', 'Excel', 'PowerPoint', 'HTML', 'Image'
- *   category       'Policy', 'Form', 'Job Aid', 'Guideline', 'Resource', 'Template', 'Other'
+ *   category       'Policy', 'Job Aids & Guidelines', 'Forms & Templates', 'Financial Operations', 'Resources', 'Other'
  *   activeFrom     When this document became active — YYYY-MM-DD or 'FY2020/21'
  *   activeUntil    When this document was superseded — YYYY-MM-DD or 'FY2024/25'
  *   archivedOn     Date it was moved to archive — YYYY-MM-DD (required)

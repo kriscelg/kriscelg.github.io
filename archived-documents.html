@@ -66,11 +66,10 @@
                         <select id="categoryFilter" class="archive-filter-select">
                             <option value="all">All Categories</option>
                             <option value="Policy">Policy</option>
-                            <option value="Form">Form</option>
-                            <option value="Job Aid">Job Aid</option>
-                            <option value="Guideline">Guideline</option>
-                            <option value="Resource">Resource</option>
-                            <option value="Template">Template</option>
+                            <option value="Job Aids & Guidelines">Job Aids &amp; Guidelines</option>
+                            <option value="Forms & Templates">Forms &amp; Templates</option>
+                            <option value="Financial Operations">Financial Operations</option>
+                            <option value="Resources">Resources</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
@@ -88,17 +87,18 @@
             <div id="archiveResultsInfo" class="archive-results-info"></div>
 
             <!-- Document List -->
-            <div id="archiveList">
-                <div class="archive-empty" id="archiveEmpty" style="display:none;">
-                    <i class="fas fa-box-open"></i>
-                    <h3>No archived documents found</h3>
-                    <p>Try adjusting your search or filters.</p>
-                </div>
-                <div class="archive-empty" id="archiveNoContent" style="display:none;">
-                    <i class="fas fa-archive"></i>
-                    <h3>No documents have been archived yet</h3>
-                    <p>Documents moved out of active use will appear here.</p>
-                </div>
+            <div id="archiveList"></div>
+
+            <!-- Empty states live OUTSIDE archiveList so list.innerHTML='' never loses them -->
+            <div class="archive-empty" id="archiveEmpty" style="display:none;">
+                <i class="fas fa-box-open"></i>
+                <h3>No archived documents found</h3>
+                <p>Try adjusting your search or filters.</p>
+            </div>
+            <div class="archive-empty" id="archiveNoContent" style="display:none;">
+                <i class="fas fa-archive"></i>
+                <h3>No documents have been archived yet</h3>
+                <p>Documents moved out of active use will appear here.</p>
             </div>
 
         </div>
@@ -161,13 +161,12 @@
     };
 
     const CATEGORY_ICONS = {
-        'Policy':    'fa-clipboard-list',
-        'Form':      'fa-file-invoice',
-        'Job Aid':   'fa-tools',
-        'Guideline': 'fa-book-open',
-        'Resource':  'fa-book',
-        'Template':  'fa-copy',
-        'Other':     'fa-file-alt',
+        'Policy':                  'fa-clipboard-list',
+        'Job Aids & Guidelines':   'fa-tools',
+        'Forms & Templates':       'fa-file-invoice',
+        'Financial Operations':    'fa-coins',
+        'Resources':               'fa-book',
+        'Other':                   'fa-file-alt',
     };
 
     function formatDate(ds) {
@@ -218,17 +217,16 @@
     }
 
     function renderCards() {
-        const list = document.getElementById('archiveList');
-        const info = document.getElementById('archiveResultsInfo');
-        const emptyEl = document.getElementById('archiveEmpty');
+        const list       = document.getElementById('archiveList');
+        const info       = document.getElementById('archiveResultsInfo');
+        const emptyEl    = document.getElementById('archiveEmpty');
         const noContentEl = document.getElementById('archiveNoContent');
 
         if (docs.length === 0) {
+            list.innerHTML = '';
             noContentEl.style.display = 'block';
             emptyEl.style.display = 'none';
             info.textContent = '';
-            list.innerHTML = '';
-            list.appendChild(noContentEl);
             return;
         }
 
@@ -236,10 +234,9 @@
         const isFiltering = activeSearch || activeCategory !== 'all' || activeFY !== 'all';
 
         if (filtered.length === 0) {
+            list.innerHTML = '';
             emptyEl.style.display = 'block';
             noContentEl.style.display = 'none';
-            list.innerHTML = '';
-            list.appendChild(emptyEl);
             info.textContent = 'No results found.';
             info.className = 'archive-results-info';
             return;
