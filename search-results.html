@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="document-pages-styles.css">
+    <style>
+        /* ---- Category filter pills ---- */
+        .filter-pills-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0 24px;
+        }
+        .filter-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border-radius: 20px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .filter-pill:hover { border-color: #0d5f5f; color: #0d5f5f; }
+        .filter-pill.active { background: #0d5f5f; border-color: #0d5f5f; color: white; }
+        .filter-pill .pill-count {
+            background: rgba(0,0,0,0.12);
+            border-radius: 10px;
+            padding: 1px 7px;
+            font-size: 11px;
+        }
+        .filter-pill.active .pill-count { background: rgba(255,255,255,0.25); }
+
+        /* ---- Universal result card ---- */
+        .result-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 18px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            margin-bottom: 10px;
+        }
+        .result-card:hover {
+            border-color: #0d5f5f;
+            box-shadow: 0 4px 16px rgba(13, 95, 95, 0.1);
+            transform: translateX(3px);
+        }
+        .result-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 20px;
+        }
+        /* Icon color variants */
+        .icon-documents    { background: #e8f4f4; color: #0d5f5f; }
+        .icon-bulletin     { background: #fef3c7; color: #d97706; }
+        .icon-memo         { background: #ede9fe; color: #7c3aed; }
+        .icon-event        { background: #dbeafe; color: #2563eb; }
+        .icon-video        { background: #fee2e2; color: #dc2626; }
+        .icon-presentation { background: #ffedd5; color: #ea580c; }
+        .icon-dashboard    { background: #e0e7ff; color: #4338ca; }
+        .icon-orgchart     { background: #dcfce7; color: #16a34a; }
+
+        .result-body { flex: 1; min-width: 0; }
+        .result-category-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+        /* Badge color variants */
+        .badge-documents    { background: #e8f4f4; color: #0d5f5f; }
+        .badge-bulletin     { background: #fef3c7; color: #b45309; }
+        .badge-memo         { background: #ede9fe; color: #6d28d9; }
+        .badge-event        { background: #dbeafe; color: #1d4ed8; }
+        .badge-video        { background: #fee2e2; color: #b91c1c; }
+        .badge-presentation { background: #ffedd5; color: #c2410c; }
+        .badge-dashboard    { background: #e0e7ff; color: #3730a3; }
+        .badge-orgchart     { background: #dcfce7; color: #15803d; }
+
+        .result-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e293b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 0 0 4px 0;
+        }
+        .result-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 12px;
+            color: #94a3b8;
+            align-items: center;
+        }
+        .result-meta i { font-size: 11px; margin-right: 3px; }
+        .result-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 6px;
+        }
+        .result-tag {
+            font-size: 11px;
+            background: #f1f5f9;
+            color: #475569;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .result-arrow {
+            color: #cbd5e1;
+            font-size: 14px;
+            flex-shrink: 0;
+            transition: color 0.2s ease;
+        }
+        .result-card:hover .result-arrow { color: #0d5f5f; }
+
+        /* Results summary bar */
+        .results-summary {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+        .results-summary strong { color: #1e293b; }
+
+        /* Empty / prompt states */
+        .search-prompt {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94a3b8;
+        }
+        .search-prompt i { font-size: 48px; margin-bottom: 16px; display: block; }
+        .search-prompt p { font-size: 16px; }
+    </style>
+</head>
+<body data-page="documents">
+    <div id="nav-container"></div>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Search Header -->
+            <div class="search-results-header">
+                <div class="search-results-title">
+                    <i class="fas fa-search"></i>
+                    <h1>Search</h1>
+                </div>
+                <div class="search-results-input-wrapper">
+                    <i class="fas fa-search search-input-icon"></i>
+                    <input
+                        type="text"
+                        id="searchQueryInput"
+                        class="search-results-input"
+                        placeholder="Search documents, bulletins, events, dashboards..."
+                        autocomplete="off"
+                    >
+                    <button id="clearSearchQuery" class="clear-search-query-btn" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Category filter pills -->
+            <div class="filter-pills-row" id="filterPillsRow"></div>
+
+            <!-- Results count -->
+            <div class="results-summary" id="resultsSummary"></div>
+
+            <!-- Results list -->
+            <div id="searchResultsList">
+                <div class="search-prompt">
+                    <i class="fas fa-search"></i>
+                    <p>Start typing to search across all content</p>
+                </div>
+            </div>
+
+            <!-- No results -->
+            <div class="no-results-container" id="noResults" style="display: none;">
+                <i class="fas fa-search" style="font-size: 35px; margin-right: 12px"></i>
+                <h3>No results found — try different keywords or browse by category</h3>
+            </div>
+        </div>
+    </main>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script src="nav-footer-loader.js"></script>
+
+    <!-- Load ALL data sources -->
+    <script src="documents-data.js"></script>
+    <script src="communications-data.js"></script>
+    <script src="memos-data.js"></script>
+    <script src="events-data.js"></script>
+    <script src="videos-presentations-data.js"></script>
+    <script src="reporting-data.js"></script>
+    <script src="about-us-data.js"></script>
+
+    <script>
+    // ================================================================
+    // CONTENT INDEX — pools all data sources into one flat array
+    // ================================================================
+
+    const TYPE_CONFIG = {
+        'Policy Documents':      { group: 'documents',    iconClass: 'icon-documents',    badgeClass: 'badge-documents',    icon: null },
+        'Job Aids & Guidelines': { group: 'documents',    iconClass: 'icon-documents',    badgeClass: 'badge-documents',    icon: null },
+        'Forms & Templates':     { group: 'documents',    iconClass: 'icon-documents',    badgeClass: 'badge-documents',    icon: null },
+        'Resources':             { group: 'documents',    iconClass: 'icon-documents',    badgeClass: 'badge-documents',    icon: null },
+        'Finance Operations':    { group: 'documents',    iconClass: 'icon-documents',    badgeClass: 'badge-documents',    icon: null },
+        'Bulletin':              { group: 'bulletins',   iconClass: 'icon-bulletin',     badgeClass: 'badge-bulletin',     icon: 'fa-bullhorn' },
+        'Memo':                  { group: 'memos',       iconClass: 'icon-memo',         badgeClass: 'badge-memo',         icon: 'fa-envelope' },
+        'Event':                 { group: 'events',      iconClass: 'icon-event',        badgeClass: 'badge-event',        icon: 'fa-calendar-alt' },
+        'Video':                 { group: 'media',       iconClass: 'icon-video',        badgeClass: 'badge-video',        icon: 'fa-play-circle' },
+        'Presentation':          { group: 'media',       iconClass: 'icon-presentation', badgeClass: 'badge-presentation', icon: 'fa-file-powerpoint' },
+        'Dashboard':             { group: 'dashboards',  iconClass: 'icon-dashboard',    badgeClass: 'badge-dashboard',    icon: 'fa-chart-bar' },
+        'Org Chart':             { group: 'orgcharts',   iconClass: 'icon-orgchart',     badgeClass: 'badge-orgchart',     icon: 'fa-sitemap' },
+    };
+
+    const FILE_ICONS = {
+        'HTML': 'fa-file-code', 'PDF': 'fa-file-pdf', 'Word': 'fa-file-word',
+        'Excel': 'fa-file-excel', 'PowerPoint': 'fa-file-powerpoint',
+        'Text': 'fa-file-alt', 'Image': 'fa-file-image'
+    };
+
+    function encodePath(p) {
+        return p.split('/').map(s => encodeURIComponent(s)).join('/');
+    }
+
+    function buildIndex() {
+        const items = [];
+
+        // ---- Documents ----
+        const docSources = [
+            { data: typeof POLICY_DOCUMENTS      !== 'undefined' ? POLICY_DOCUMENTS      : [], category: 'Policy Documents' },
+            { data: typeof JOB_AID_GUIDELINES    !== 'undefined' ? JOB_AID_GUIDELINES    : [], category: 'Job Aids & Guidelines' },
+            { data: typeof FORMS_TEMPLATES       !== 'undefined' ? FORMS_TEMPLATES       : [], category: 'Forms & Templates' },
+            { data: typeof RESOURCE_DOCS         !== 'undefined' ? RESOURCE_DOCS         : [], category: 'Resources' },
+            { data: typeof FINANCE_OPERATIONS    !== 'undefined' ? FINANCE_OPERATIONS    : [], category: 'Finance Operations' },
+        ];
+        docSources.forEach(({ data, category }) => {
+            data.forEach(doc => items.push({
+                title: doc.title,
+                url: encodePath(doc.fileName),
+                category,
+                group: 'documents',
+                iconClass: 'icon-documents',
+                badgeClass: 'badge-documents',
+                icon: FILE_ICONS[doc.fileType] || 'fa-file',
+                date: doc.uploadDate || '',
+                tags: doc.tags || [],
+                meta: doc.fileType || '',
+                searchExtra: doc.description || '',
+                openNewTab: true,
+            }));
+        });
+
+        // ---- Bulletins ----
+        const bulletins = typeof BULLETINS !== 'undefined' ? BULLETINS : [];
+        bulletins.forEach(b => items.push({
+            title: b.subject,
+            url: encodePath(b.fileName),
+            category: 'Bulletin',
+            group: 'bulletins',
+            iconClass: 'icon-bulletin',
+            badgeClass: 'badge-bulletin',
+            icon: 'fa-bullhorn',
+            date: b.date || '',
+            tags: [],
+            meta: '',
+            openNewTab: true,
+        }));
+
+        // ---- Memos ----
+        const memos = typeof MEMOS !== 'undefined' ? MEMOS : [];
+        memos.forEach(m => items.push({
+            title: m.title,
+            url: m.pdfFile ? encodePath(m.pdfFile) : 'memos.html',
+            category: 'Memo',
+            group: 'memos',
+            iconClass: 'icon-memo',
+            badgeClass: 'badge-memo',
+            icon: 'fa-envelope',
+            date: m.date || '',
+            tags: m.tags || [],
+            meta: m.subject || '',
+            openNewTab: !!m.pdfFile,
+        }));
+
+        // ---- Events — deduplicate by title, showing current/upcoming occurrence ----
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const rawEvents = typeof EVENTS !== 'undefined' ? EVENTS : [];
+        const eventsByTitle = {};
+        rawEvents.forEach(e => {
+            if (!e.title) return;
+            if (!eventsByTitle[e.title]) eventsByTitle[e.title] = [];
+            eventsByTitle[e.title].push(e);
+        });
+        Object.values(eventsByTitle).forEach(group => {
+            group.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+            const best = group.find(e => e.date && e.date >= todayStr) || group[group.length - 1];
+            if (!best) return;
+            items.push({
+                title: best.title,
+                url: 'events.html' + (best.date ? '?date=' + best.date : ''),
+                category: 'Event',
+                group: 'events',
+                iconClass: 'icon-event',
+                badgeClass: 'badge-event',
+                icon: 'fa-calendar-alt',
+                date: best.date || '',
+                tags: [],
+                meta: best.location || '',
+                searchExtra: (best.description || '') + ' ' + (best.location || ''),
+                openNewTab: false,
+            });
+        });
+
+        // ---- Videos ----
+        const videos = typeof VIDEOS !== 'undefined' ? VIDEOS : [];
+        videos.forEach(v => items.push({
+            title: v.title,
+            url: v.videoFile ? encodePath(v.videoFile) : 'videos-presentations.html',
+            category: 'Video',
+            group: 'media',
+            iconClass: 'icon-video',
+            badgeClass: 'badge-video',
+            icon: 'fa-play-circle',
+            date: v.date || '',
+            tags: v.tags || [],
+            meta: v.duration ? `${v.duration}` : '',
+            searchExtra: v.description || '',
+            openNewTab: true,
+        }));
+
+        // ---- Presentations ----
+        const presentations = typeof PRESENTATIONS !== 'undefined' ? PRESENTATIONS : [];
+        presentations.forEach(p => items.push({
+            title: p.title,
+            url: p.pdfFile ? encodePath(p.pdfFile) : 'videos-presentations.html',
+            category: 'Presentation',
+            group: 'media',
+            iconClass: 'icon-presentation',
+            badgeClass: 'badge-presentation',
+            icon: 'fa-file-powerpoint',
+            date: p.date || '',
+            tags: p.tags || [],
+            meta: p.slides ? `${p.slides} slides` : '',
+            searchExtra: p.description || '',
+            openNewTab: true,
+        }));
+
+        // ---- Dashboards ----
+        const dashboards = typeof POWERBI_DASHBOARDS !== 'undefined' ? POWERBI_DASHBOARDS : [];
+        dashboards.forEach(d => items.push({
+            title: d.title,
+            url: 'tes-reporting.html',
+            category: 'Dashboard',
+            group: 'dashboards',
+            iconClass: 'icon-dashboard',
+            badgeClass: 'badge-dashboard',
+            icon: 'fa-chart-bar',
+            date: d.lastRefreshed || '',
+            tags: [],
+            meta: d.description || '',
+            searchExtra: d.description || '',
+            openNewTab: false,
+        }));
+
+        // ---- Org Charts ----
+        const orgCharts = typeof ORGANIZATION_CHARTS !== 'undefined' ? ORGANIZATION_CHARTS : [];
+        orgCharts.forEach(o => items.push({
+            title: o.title,
+            url: o.pdfFile ? encodePath(o.pdfFile) : 'about-us.html',
+            category: 'Org Chart',
+            group: 'orgcharts',
+            iconClass: 'icon-orgchart',
+            badgeClass: 'badge-orgchart',
+            icon: 'fa-sitemap',
+            date: o.date || '',
+            tags: [],
+            meta: o.department || '',
+            searchExtra: o.description || '',
+            openNewTab: !!o.pdfFile,
+        }));
+
+        return items;
+    }
+
+    // ================================================================
+    // SEARCH
+    // ================================================================
+
+    const ALL_ITEMS = buildIndex();
+    let activeGroup = 'all';
+    let srPage = 1;
+    const SR_PAGE_SIZE = 25;
+    let lastSrResults = [];
+
+    const GROUP_LABELS = {
+        all:        'All',
+        documents:  'Documents',
+        bulletins:  'Bulletins',
+        memos:      'Memos',
+        events:     'Events',
+        media:      'Videos & Presentations',
+        dashboards: 'Dashboards',
+        orgcharts:  'Org Charts',
+    };
+
+    // Read sort preference from URL (?sort=date)
+    let activeSortMode = new URLSearchParams(window.location.search).get('sort') || 'relevance';
+
+    function search(query, group = 'all') {
+        if (!query || query.length < 1) return [];
+        const q = query.toLowerCase();
+
+        let results = ALL_ITEMS.filter(item => {
+            const groupMatch = group === 'all' || item.group === group;
+            if (!groupMatch) return false;
+
+            const titleMatch  = item.title.toLowerCase().includes(q);
+            const tagsMatch   = item.tags.some(t => t.toLowerCase().includes(q));
+            const extraMatch  = item.searchExtra ? item.searchExtra.toLowerCase().includes(q) : false;
+            const metaMatch   = item.meta ? item.meta.toLowerCase().includes(q) : false;
+
+            return titleMatch || tagsMatch || extraMatch || metaMatch;
+        });
+
+        if (activeSortMode === 'date') {
+            // Sort by date descending (most recently uploaded first)
+            results.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+        } else {
+            // Default: title matches first, then tags/extra
+            results.sort((a, b) => {
+                const aTitle = a.title.toLowerCase().includes(q);
+                const bTitle = b.title.toLowerCase().includes(q);
+                if (aTitle && !bTitle) return -1;
+                if (!aTitle && bTitle) return 1;
+                return 0;
+            });
+        }
+
+        return results;
+    }
+
+    // ================================================================
+    // RENDER
+    // ================================================================
+
+    function formatDate(ds) {
+        if (!ds) return '';
+        // Parse parts manually — avoids UTC-vs-local ambiguity that shifts dates by one day
+        const parts = ds.split('-').map(Number);
+        if (parts.length !== 3 || parts.some(isNaN)) return '';
+        const d = new Date(parts[0], parts[1] - 1, parts[2]);
+        if (isNaN(d)) return '';
+        return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    function buildFilterPills(query) {
+        const groups = ['all', 'documents', 'bulletins', 'memos', 'events', 'media', 'dashboards', 'orgcharts'];
+        const container = document.getElementById('filterPillsRow');
+
+        container.innerHTML = groups.map(g => {
+            const count = g === 'all' ? search(query).length : search(query, g).length;
+            if (g !== 'all' && count === 0) return '';
+            const isActive = g === activeGroup ? 'active' : '';
+            return `
+                <button class="filter-pill ${isActive}" data-group="${g}">
+                    ${GROUP_LABELS[g]}
+                    <span class="pill-count">${count}</span>
+                </button>
+            `;
+        }).join('');
+
+        container.querySelectorAll('.filter-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                activeGroup = pill.dataset.group;
+                srPage = 1;
+                const q = document.getElementById('searchQueryInput').value.trim();
+                buildFilterPills(q);
+                renderResults(search(q, activeGroup));
+            });
+        });
+    }
+
+    function renderResults(results) {
+        const list     = document.getElementById('searchResultsList');
+        const noRes    = document.getElementById('noResults');
+        const summary  = document.getElementById('resultsSummary');
+
+        lastSrResults = results;
+
+        if (results.length === 0) {
+            list.innerHTML = '';
+            noRes.style.display = 'flex';
+            summary.innerHTML = '';
+            renderSrPagination(0, 0);
+            return;
+        }
+
+        noRes.style.display = 'none';
+        const total = results.length;
+        const totalPages = Math.ceil(total / SR_PAGE_SIZE);
+        srPage = Math.max(1, Math.min(srPage, totalPages));
+        const start = (srPage - 1) * SR_PAGE_SIZE;
+        const pageItems = results.slice(start, start + SR_PAGE_SIZE);
+
+        summary.innerHTML = `Found <strong>${total}</strong> result${total !== 1 ? 's' : ''}`;
+
+        list.innerHTML = pageItems.map(item => {
+            const date = formatDate(item.date);
+            const tagsHtml = item.tags.length > 0
+                ? `<div class="result-tags">${item.tags.slice(0, 4).map(t => `<span class="result-tag">${t}</span>`).join('')}</div>`
+                : '';
+            const metaHtml = [
+                date    ? `<span><i class="fas fa-calendar"></i>${date}</span>` : '',
+                item.meta ? `<span><i class="fas fa-info-circle"></i>${item.meta}</span>` : '',
+            ].filter(Boolean).join('');
+
+            return `
+                <a href="${item.url}" class="result-card" ${item.openNewTab ? 'target="_blank" rel="noopener noreferrer"' : ''}>
+                    <div class="result-icon ${item.iconClass}">
+                        <i class="fas ${item.icon}"></i>
+                    </div>
+                    <div class="result-body">
+                        <span class="result-category-badge ${item.badgeClass}">${item.category}</span>
+                        <p class="result-title">${item.title}</p>
+                        ${metaHtml ? `<div class="result-meta">${metaHtml}</div>` : ''}
+                        ${tagsHtml}
+                    </div>
+                    <i class="fas fa-chevron-right result-arrow"></i>
+                </a>
+            `;
+        }).join('');
+
+        renderSrPagination(total, totalPages);
+    }
+
+    function renderSrPagination(total, totalPages) {
+        let pager = document.getElementById('sr-pagination');
+        if (!pager) {
+            pager = document.createElement('div');
+            pager.id = 'sr-pagination';
+            document.getElementById('searchResultsList').insertAdjacentElement('afterend', pager);
+        }
+
+        if (totalPages <= 1) {
+            pager.innerHTML = '';
+            return;
+        }
+
+        const start = (srPage - 1) * SR_PAGE_SIZE + 1;
+        const end = Math.min(srPage * SR_PAGE_SIZE, total);
+        pager.innerHTML = `
+            <div class="pagination-info">Showing ${start}–${end} of ${total} results</div>
+            <div class="pagination-controls">
+                <button class="pagination-btn" id="srPrevPage" ${srPage === 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <span class="pagination-pages">Page ${srPage} of ${totalPages}</span>
+                <button class="pagination-btn" id="srNextPage" ${srPage === totalPages ? 'disabled' : ''}>
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        `;
+        pager.querySelector('#srPrevPage').addEventListener('click', () => {
+            srPage--;
+            renderResults(lastSrResults);
+            document.getElementById('searchResultsList').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        pager.querySelector('#srNextPage').addEventListener('click', () => {
+            srPage++;
+            renderResults(lastSrResults);
+            document.getElementById('searchResultsList').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
+
+    // ================================================================
+    // INIT
+    // ================================================================
+
+    const queryInput = document.getElementById('searchQueryInput');
+    const clearBtn   = document.getElementById('clearSearchQuery');
+
+    function runSearch(query) {
+        if (!query) {
+            document.getElementById('searchResultsList').innerHTML = `
+                <div class="search-prompt">
+                    <i class="fas fa-search"></i>
+                    <p>Start typing to search across all content</p>
+                </div>`;
+            document.getElementById('noResults').style.display = 'none';
+            document.getElementById('resultsSummary').innerHTML = '';
+            document.getElementById('filterPillsRow').innerHTML = '';
+            const pager = document.getElementById('sr-pagination');
+            if (pager) pager.innerHTML = '';
+            return;
+        }
+        srPage = 1;
+        buildFilterPills(query);
+        renderResults(search(query, activeGroup));
+        const sortParam = activeSortMode !== 'relevance' ? `&sort=${activeSortMode}` : '';
+        window.history.replaceState({}, '', `${window.location.pathname}?q=${encodeURIComponent(query)}${sortParam}`);
+    }
+
+    // Pre-fill from URL
+    const urlQuery = new URLSearchParams(window.location.search).get('q') || '';
+    if (urlQuery) {
+        queryInput.value = urlQuery;
+        clearBtn.style.display = 'flex';
+        runSearch(urlQuery);
+    }
+
+    queryInput.addEventListener('input', e => {
+        const q = e.target.value.trim();
+        clearBtn.style.display = q ? 'flex' : 'none';
+        if (!q) window.history.replaceState({}, '', window.location.pathname);
+        runSearch(q);
+    });
+
+    queryInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') runSearch(queryInput.value.trim());
+    });
+
+    clearBtn.addEventListener('click', () => {
+        queryInput.value = '';
+        clearBtn.style.display = 'none';
+        activeGroup = 'all';
+        window.history.replaceState({}, '', window.location.pathname);
+        runSearch('');
+    });
+    </script>
+</body>
+</html>

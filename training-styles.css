@@ -1,0 +1,140 @@
+/* Training & Development Page — table and supplementary styles */
+
+/* ── Mandatory Courses Table ─────────────────────────────────────── */
+.mandatory-table-wrapper {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    margin-top: 20px;
+    margin-bottom: 4px;
+}
+
+.mandatory-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: white;
+    min-width: 560px;
+}
+
+.mandatory-table thead tr {
+    background: linear-gradient(135deg, #0d5f5f 0%, #0a4a4a 100%);
+}
+
+.mandatory-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.mandatory-table th:first-child {
+    width: 45%;
+}
+
+.mandatory-table tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.15s;
+    vertical-align: top;
+}
+
+.mandatory-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.mandatory-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.mandatory-table td {
+    padding: 14px 16px;
+    color: #475569;
+    line-height: 1.6;
+}
+
+.course-name {
+    color: #0d5f5f;
+    font-weight: 600;
+}
+
+.course-link {
+    color: #0d5f5f;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+}
+
+.course-link:hover { color: #0a4a4a; }
+
+.course-sub-list {
+    margin: 6px 0 0 0;
+    padding-left: 18px;
+    list-style: disc;
+}
+
+.course-sub-list li {
+    margin-bottom: 3px;
+    color: #475569;
+}
+
+.req-detail {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #f1f5f9;
+    font-size: 13px;
+}
+
+.req-detail ul {
+    margin: 6px 0 0 0;
+    padding-left: 18px;
+    list-style: disc;
+}
+
+.req-detail ul li { margin-bottom: 5px; }
+
+.req-detail ul ul {
+    margin-top: 4px;
+    padding-left: 18px;
+    list-style: circle;
+}
+
+.req-detail a {
+    color: #0d5f5f;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.req-detail a:hover { color: #0a4a4a; }
+
+/* ── PSC footer note ─────────────────────────────────────────────── */
+.mandatory-footer-note {
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.6;
+}
+
+.mandatory-footer-note a {
+    color: #0d5f5f;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.mandatory-footer-note a:hover { color: #0a4a4a; }
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .mandatory-table th,
+    .mandatory-table td {
+        padding: 10px 12px;
+    }
+}

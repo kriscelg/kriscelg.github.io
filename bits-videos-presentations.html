@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BITS Videos & Presentations - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="videos-presentations-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body data-program-area="BITS">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>BITS Videos &amp; Presentations</h1>
+                <p>Training materials, updates, and resources for Business and Industry Training Supports staff</p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar-container">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input
+                        type="text"
+                        id="vpSearch"
+                        class="search-input-vp"
+                        placeholder="Search videos and presentations..."
+                    >
+                    <button id="clearVPSearch" class="clear-search-btn" style="display: none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="vpSearchResults" class="search-results-info"></div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="videos">
+                    <i class="fas fa-video"></i> Videos
+                </button>
+                <button class="tab-btn" data-tab="presentations">
+                    <i class="fas fa-file-powerpoint"></i> Presentations
+                </button>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <div class="filter-header">
+                    <span class="filter-label"><i class="fas fa-filter"></i> Filter by:</span>
+                    <button class="clear-filters-btn" id="clearFilters">Clear All</button>
+                </div>
+                <div class="filter-tags" id="filterTags">
+                    <!-- Tags will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- Videos Tab -->
+            <div class="tab-content active" id="videos-tab">
+                <div class="content-grid" id="videosGrid">
+                    <!-- Videos will be loaded here dynamically -->
+                </div>
+                <div class="no-results" id="noVideosMessage" style="display: none;">
+                    <i class="fas fa-video-slash"></i>
+                    <p>No content has been posted yet</p>
+                </div>
+            </div>
+
+            <!-- Presentations Tab -->
+            <div class="tab-content" id="presentations-tab">
+                <div class="content-grid" id="presentationsGrid">
+                    <!-- Presentations will be loaded here dynamically -->
+                </div>
+                <div class="no-results" id="noPresentationsMessage" style="display: none;">
+                    <i class="fas fa-file-slash"></i>
+                    <p>No content has been posted yet</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+
+    <!-- Load data file -->
+    <script src="videos-presentations-data.js"></script>
+    <script src="videos-presentations-script.js"></script>
+</body>
+</html>
