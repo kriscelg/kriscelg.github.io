@@ -29,6 +29,7 @@ const NAV_TEMPLATE = `
                         <a href="forms-templates.html">Forms & Templates</a>
                         <a href="financial-operations.html">Financial Operations</a>
                         <a href="resources.html">Resources</a>
+                        <a href="archived-documents.html">Archived Documents</a>
                     </div>
                 </div>
                 <div class="nav-item">
@@ -95,8 +96,8 @@ const FOOTER_TEMPLATE = `
                         <li><a href="jobaids-guidelines.html">Job Aids & Guidelines</a></li>
                         <li><a href="forms-templates.html">Forms & Templates</a></li>
                         <li><a href="financial-operations.html">Financial Operations</a></li>
-
                         <li><a href="resources.html">Resources</a></li>
+                        <li><a href="archived-documents.html">Archived Documents</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">

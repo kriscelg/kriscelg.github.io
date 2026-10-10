@@ -506,6 +506,29 @@
     transform: translateX(5px);
 }
 
+/* Archive card variant — amber accent instead of teal */
+.doc-card--archive::before {
+    background: #b45309;
+}
+
+.doc-card--archive .card-icon {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.doc-card--archive:hover {
+    box-shadow: 0 12px 24px rgba(180, 83, 9, 0.12);
+    border-color: rgba(180, 83, 9, 0.2);
+}
+
+.doc-card--archive:hover .card-content h2 {
+    color: #92400e;
+}
+
+.doc-card--archive:hover .card-arrow {
+    background: #92400e;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .terms-toggle-btn {
