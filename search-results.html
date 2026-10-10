@@ -327,22 +327,34 @@
             openNewTab: !!m.pdfFile,
         }));
 
-        // ---- Events ----
-        const events = typeof EVENTS !== 'undefined' ? EVENTS : [];
-        events.forEach(e => items.push({
-            title: e.title,
-            url: 'events.html',
-            category: 'Event',
-            group: 'events',
-            iconClass: 'icon-event',
-            badgeClass: 'badge-event',
-            icon: 'fa-calendar-alt',
-            date: e.date || '',
-            tags: [],
-            meta: e.location || '',
-            searchExtra: (e.description || '') + ' ' + (e.location || ''),
-            openNewTab: false,
-        }));
+        // ---- Events — deduplicate by title, showing current/upcoming occurrence ----
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const rawEvents = typeof EVENTS !== 'undefined' ? EVENTS : [];
+        const eventsByTitle = {};
+        rawEvents.forEach(e => {
+            if (!e.title) return;
+            if (!eventsByTitle[e.title]) eventsByTitle[e.title] = [];
+            eventsByTitle[e.title].push(e);
+        });
+        Object.values(eventsByTitle).forEach(group => {
+            group.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+            const best = group.find(e => e.date && e.date >= todayStr) || group[group.length - 1];
+            if (!best) return;
+            items.push({
+                title: best.title,
+                url: 'events.html' + (best.date ? '?date=' + best.date : ''),
+                category: 'Event',
+                group: 'events',
+                iconClass: 'icon-event',
+                badgeClass: 'badge-event',
+                icon: 'fa-calendar-alt',
+                date: best.date || '',
+                tags: [],
+                meta: best.location || '',
+                searchExtra: (best.description || '') + ' ' + (best.location || ''),
+                openNewTab: false,
+            });
+        });
 
         // ---- Videos ----
         const videos = typeof VIDEOS !== 'undefined' ? VIDEOS : [];
