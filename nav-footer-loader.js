@@ -333,7 +333,7 @@ const FOOTER_TEMPLATE = `
 
             // Events
             (typeof EVENTS !== 'undefined' ? EVENTS : []).forEach(e =>
-                push(e.title, 'events.html', 'Event', 'ic-event', 'fa-calendar-alt', []));
+                push(e.title, 'events.html' + (e.date ? '?date=' + e.date : ''), 'Event', 'ic-event', 'fa-calendar-alt', e.tags || []));
 
             // Videos
             (typeof VIDEOS !== 'undefined' ? VIDEOS : []).forEach(v =>

@@ -32,6 +32,8 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     border: 2px solid transparent;
     transition: all 0.3s ease;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .search-bar:focus-within {
