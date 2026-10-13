@@ -305,7 +305,7 @@
     ];
 
     function greet() {
-        addMessage("Hi! I can help with common questions about passwords, system access, and procedures. What would you like to know?", 'bot');
+        addMessage("Hi! I can help with common questions about passwords, system access, and procedures. I can also look up WDT acronyms — just ask <em>\"What does LMSA stand for?\"</em> or type an acronym like <em>TES</em>.", 'bot');
         showChips(DEFAULT_CHIPS);
         greeted = true;
     }
@@ -373,6 +373,40 @@
         }, 250);
     }
 
+    const acronyms = typeof WDT_ACRONYMS !== 'undefined' ? WDT_ACRONYMS : {};
+
+    function findAcronym(query) {
+        if (!Object.keys(acronyms).length) return null;
+
+        const q = query.trim();
+
+        // Patterns: "what does X stand for", "what does X mean", "what is X", "define X", or just "X" / "X?"
+        const patterns = [
+            /what\s+(?:does\s+)?([a-z0-9+\-/]+)\s+(?:stand\s+for|mean)/i,
+            /what\s+is\s+(?:an?\s+)?([a-z0-9+\-/]+)/i,
+            /define\s+([a-z0-9+\-/]+)/i,
+            /([a-z0-9+\-/]+)\s+(?:acronym|abbreviation|stands\s+for)/i,
+        ];
+
+        let candidate = null;
+        for (const re of patterns) {
+            const m = q.match(re);
+            if (m) { candidate = m[1]; break; }
+        }
+
+        // If no pattern matched, treat the whole query as a potential acronym
+        // (only if it looks like one: 2-8 chars, mostly uppercase or known symbols)
+        if (!candidate) {
+            const stripped = q.replace(/[?!.]$/, '').trim();
+            if (/^[A-Z0-9+\-/]{2,8}$/.test(stripped)) candidate = stripped;
+        }
+
+        if (!candidate) return null;
+
+        const key = candidate.toUpperCase().replace(/[^A-Z0-9+\-/]/g, '');
+        return acronyms[key] || null;
+    }
+
     function handleQuery(query) {
         if (!query.trim()) return;
         chipsEl.innerHTML = '';
@@ -380,6 +414,25 @@
         addMessage(query, 'user');
 
         setTimeout(() => {
+            const acronymDef = findAcronym(query);
+            if (acronymDef) {
+                const key = (() => {
+                    const q = query.trim();
+                    const patterns = [
+                        /what\s+(?:does\s+)?([a-z0-9+\-/]+)\s+(?:stand\s+for|mean)/i,
+                        /what\s+is\s+(?:an?\s+)?([a-z0-9+\-/]+)/i,
+                        /define\s+([a-z0-9+\-/]+)/i,
+                        /([a-z0-9+\-/]+)\s+(?:acronym|abbreviation|stands\s+for)/i,
+                    ];
+                    for (const re of patterns) { const m = q.match(re); if (m) return m[1].toUpperCase(); }
+                    return q.replace(/[?!.]$/, '').trim().toUpperCase();
+                })();
+                addMessage(`<strong>${key}</strong> stands for: ${acronymDef}`, 'bot');
+                playDing();
+                showFeedback();
+                return;
+            }
+
             const faq = findAnswer(query);
             if (faq) {
                 addMessage(faq.answer, 'bot');

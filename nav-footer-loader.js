@@ -576,8 +576,10 @@ const FOOTER_TEMPLATE = `
             s.onerror = null;
             document.body.appendChild(s);
         }
-        loadScript('chatbot-data.js', function() {
-            loadScript('chatbot.js');
+        loadScript('chatbot-acronyms.js', function() {
+            loadScript('chatbot-data.js', function() {
+                loadScript('chatbot.js');
+            });
         });
     }
 
