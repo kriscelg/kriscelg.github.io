@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporting &amp; Analytics - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="documents-styles.css">
+</head>
+<body data-page="reporting">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- Page Header -->
+            <div class="docs-page-header">
+                <div class="header-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="header-text">
+                    <h1>Reporting &amp; Analytics</h1>
+                    <p>Access Power BI dashboards and reporting documents for each branch and program area</p>
+                </div>
+            </div>
+
+            <!-- Reporting Hub Cards -->
+            <div class="docs-hub">
+
+                <a href="tes-reporting.html" class="doc-card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-content">
+                        <h2>TES Reports &amp; Dashboards</h2>
+                        <p>Reports, analytics, and Power BI dashboards for Training and Employment Services.</p>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="apprenticeship-reporting.html" class="doc-card">
+                    <div class="card-icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <div class="card-content">
+                        <h2>AM Reports &amp; Dashboards</h2>
+                        <p>Reports, analytics, and Power BI dashboards for Apprenticeship Manitoba programs.</p>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="bits-reporting.html" class="doc-card">
+                    <div class="card-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <div class="card-content">
+                        <h2>BITS Reports &amp; Dashboards</h2>
+                        <p>Reports, analytics, and Power BI dashboards for Business and Industry Training Supports.</p>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="finance-reporting.html" class="doc-card">
+                    <div class="card-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="card-content">
+                        <h2>Finance Reports &amp; Dashboards</h2>
+                        <p>Reports, analytics, and Power BI dashboards for Finance operations.</p>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="sib-reporting.html" class="doc-card">
+                    <div class="card-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="card-content">
+                        <h2>SIB Reports &amp; Dashboards</h2>
+                        <p>Reports, analytics, and Power BI dashboards for Service Innovation Branch.</p>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+</body>
+</html>
