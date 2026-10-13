@@ -74,7 +74,7 @@ const WDT_ACRONYMS = {
     "ERFA":    "Employment Related Financial Assistance",
     "ESAR":    "Electronic Staffing Authorization Request",
     "ESDC":    "Employment and Social Development Canada",
-    "ESOR":    "Electronic Service Order Request",
+    "E-SOR":    "Electronic Service Order Request",
     "ESS":     "Employee Self Service",
     "ETA":     "Employment Training Assessment",
     "FIPPA":   "Freedom of Information & Protection of Privacy Act",
@@ -145,6 +145,7 @@ const WDT_ACRONYMS = {
     "PVI":     "Private Vocational Institute",
     "PWL":     "Personal Wellness Leave",
     "PWY":     "Partners With Youth",
+    //"R&I":     "Research and Innovations"
     "RFP":     "Request for Proposal",
     "RMIEC":   "Rural Manitoba Immigrant Employment Council",
     "ROE":     "Record of Employment",
