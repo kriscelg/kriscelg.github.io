@@ -332,29 +332,11 @@ const REPORTING_DOCUMENTS = [
     
 ];
 
-// Function to get file icon class based on file type
 function getReportFileIcon(fileType) {
-    const icons = {
-        'PDF': 'fa-file-pdf',
-        'Word': 'fa-file-word',
-        'Excel': 'fa-file-excel',
-        'PowerPoint': 'fa-file-powerpoint'
-    };
+    const icons = { 'PDF': 'fa-file-pdf', 'Word': 'fa-file-word', 'Excel': 'fa-file-excel', 'PowerPoint': 'fa-file-powerpoint' };
     return icons[fileType] || 'fa-file';
 }
 
-// Function to get file type color class
-function getReportFileColor(fileType) {
-    const colors = {
-        'PDF': 'report-doc-pdf',
-        'Word': 'report-doc-word',
-        'Excel': 'report-doc-excel',
-        'PowerPoint': 'report-doc-ppt'
-    };
-    return colors[fileType] || 'report-doc-default';
-}
-
-// Function to generate Reporting Documents section
 function generateReportingDocuments() {
     const container = document.getElementById('reporting-docs-container');
     if (!container) return;
@@ -366,46 +348,34 @@ function generateReportingDocuments() {
             <div class="report-docs-empty">
                 <i class="fas fa-folder-open"></i>
                 <p>No documents yet — add them in <strong>reporting-data.js</strong> under <code>REPORTING_DOCUMENTS</code></p>
-            </div>
-        `;
+            </div>`;
         return;
     }
 
-    let html = '';
-
-    REPORTING_DOCUMENTS.forEach(category => {
-        if (category.documents.length === 0) return;
-
-        html += `
-            <div class="report-doc-category">
-                <div class="report-doc-category-header">
-                    <i class="fas ${category.icon}"></i>
-                    <h3>${category.category}</h3>
-                    <span class="report-doc-count">${category.documents.length}</span>
-                </div>
-                <div class="report-doc-grid">
-                    ${category.documents.map(doc => `
-                        <a href="${doc.url}" class="report-doc-card" target="_blank" rel="noopener noreferrer">
-                            <div class="report-doc-icon ${getReportFileColor(doc.fileType)}">
-                                <i class="fas ${getReportFileIcon(doc.fileType)}"></i>
-                            </div>
-                            <div class="report-doc-info">
-                                <span class="report-doc-title">${doc.title}</span>
-                                ${doc.description ? `<span class="report-doc-desc">${doc.description}</span>` : ''}
-                                <div class="report-doc-meta">
-                                    ${doc.year ? `<span class="report-doc-year">${doc.year}</span>` : ''}
-                                    <span class="report-doc-type">${doc.fileType}</span>
-                                </div>
-                            </div>
-                            <i class="fas fa-arrow-down report-doc-download"></i>
-                        </a>
-                    `).join('')}
-                </div>
+    container.innerHTML = REPORTING_DOCUMENTS.filter(cat => cat.documents.length > 0).map(cat => `
+        <div class="report-doc-category">
+            <div class="report-doc-category-header">
+                <i class="fas ${cat.icon}"></i>
+                <h3>${cat.category}</h3>
+                <span class="report-doc-count">${cat.documents.length}</span>
             </div>
-        `;
-    });
-
-    container.innerHTML = html;
+            <div class="report-doc-list">
+                ${cat.documents.map(doc => `
+                    <a href="${doc.url}" class="report-doc-row" target="_blank" rel="noopener noreferrer">
+                        <div class="report-doc-row-icon">
+                            <i class="fas ${getReportFileIcon(doc.fileType)}"></i>
+                        </div>
+                        <div class="report-doc-row-content">
+                            <p class="report-doc-row-title">${doc.title}</p>
+                            <div class="report-doc-row-meta">
+                                ${doc.year ? `<span class="report-doc-row-year"><i class="fas fa-calendar"></i> ${doc.year}</span>` : ''}
+                                <span class="report-doc-row-type">${doc.fileType}</span>
+                            </div>
+                        </div>
+                        <div class="report-doc-row-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </a>`).join('')}
+            </div>
+        </div>`).join('');
 }
 
 // Initialize graphs when page loads

@@ -98,10 +98,6 @@
             return { PDF: 'fa-file-pdf', Word: 'fa-file-word', Excel: 'fa-file-excel', PowerPoint: 'fa-file-powerpoint' }[type] || 'fa-file';
         }
 
-        function fileColor(type) {
-            return { PDF: 'report-doc-pdf', Word: 'report-doc-word', Excel: 'report-doc-excel', PowerPoint: 'report-doc-ppt' }[type] || 'report-doc-default';
-        }
-
         // ── Dashboards ──
         const dashContainer = document.getElementById('am-dashboards-container');
         const dashboards = typeof AM_POWERBI_DASHBOARDS !== 'undefined' ? AM_POWERBI_DASHBOARDS : [];
@@ -162,19 +158,18 @@
                         <h3>${cat.category}</h3>
                         <span class="report-doc-count">${cat.documents.length}</span>
                     </div>
-                    <div class="report-doc-grid">
+                    <div class="report-doc-list">
                         ${cat.documents.map(doc => `
-                            <a href="${doc.url}" class="report-doc-card" target="_blank" rel="noopener noreferrer">
-                                <div class="report-doc-icon ${fileColor(doc.fileType)}"><i class="fas ${fileIcon(doc.fileType)}"></i></div>
-                                <div class="report-doc-info">
-                                    <span class="report-doc-title">${doc.title}</span>
-                                    ${doc.description ? `<span class="report-doc-desc">${doc.description}</span>` : ''}
-                                    <div class="report-doc-meta">
-                                        ${doc.year ? `<span class="report-doc-year">${doc.year}</span>` : ''}
-                                        <span class="report-doc-type">${doc.fileType}</span>
+                            <a href="${doc.url}" class="report-doc-row" target="_blank" rel="noopener noreferrer">
+                                <div class="report-doc-row-icon"><i class="fas ${fileIcon(doc.fileType)}"></i></div>
+                                <div class="report-doc-row-content">
+                                    <p class="report-doc-row-title">${doc.title}</p>
+                                    <div class="report-doc-row-meta">
+                                        ${doc.year ? `<span class="report-doc-row-year"><i class="fas fa-calendar"></i> ${doc.year}</span>` : ''}
+                                        <span class="report-doc-row-type">${doc.fileType}</span>
                                     </div>
                                 </div>
-                                <i class="fas fa-arrow-down report-doc-download"></i>
+                                <div class="report-doc-row-arrow"><i class="fas fa-chevron-right"></i></div>
                             </a>`).join('')}
                     </div>
                 </div>`).join('');
