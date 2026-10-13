@@ -34,31 +34,23 @@
             </div>
 
             <!-- Reports Section -->
-            <section class="am-section">
-                <div class="am-section-header">
-                    <div class="am-section-header-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <div>
-                        <h2>Reports</h2>
-                        <p>Annual reports, quarterly summaries, and other official reporting documents</p>
-                    </div>
+            <section class="reporting-docs-section">
+                <div class="section-header">
+                    <i class="fas fa-file-alt"></i>
+                    <h2>Reports</h2>
                     <span class="section-doc-count" id="am-reports-count" style="display:none;"></span>
                 </div>
+                <p class="section-description">Access annual reports, quarterly summaries, and other official reporting documents</p>
                 <div id="am-reports-container"></div>
             </section>
 
             <!-- Dashboards Section -->
-            <section class="am-section">
-                <div class="am-section-header">
-                    <div class="am-section-header-icon">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>
-                    <div>
-                        <h2>Dashboards</h2>
-                        <p>Interactive Power BI dashboards providing real-time insights and analytics</p>
-                    </div>
+            <section class="dashboards-section">
+                <div class="section-header">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h2>AM Dashboards</h2>
                 </div>
+                <p class="section-description">Interactive Power BI dashboards providing real-time insights and analytics</p>
                 <div id="am-dashboards-container"></div>
             </section>
 
@@ -105,10 +97,9 @@
 
         if (dashboards.length === 0) {
             dashContainer.innerHTML = `
-                <div class="am-empty-state">
+                <div class="report-docs-empty">
                     <i class="fas fa-tachometer-alt"></i>
-                    <h3>No dashboards have been posted yet</h3>
-                    <p>Dashboards will appear here once they are published. Check back later or contact your supervisor for access details.</p>
+                    <p>No dashboards have been posted yet. Check back later or contact your supervisor for access details.</p>
                 </div>`;
         } else {
             dashContainer.innerHTML = dashboards.map((d, i) => `
@@ -146,10 +137,9 @@
 
         if (!hasReports) {
             repContainer.innerHTML = `
-                <div class="am-empty-state">
-                    <i class="fas fa-file-alt"></i>
-                    <h3>No reports have been posted yet</h3>
-                    <p>Reports will appear here once they are published. Check back later or contact your supervisor for more information.</p>
+                <div class="report-docs-empty">
+                    <i class="fas fa-folder-open"></i>
+                    <p>No reports have been posted yet. Check back later or contact your supervisor for more information.</p>
                 </div>`;
         } else {
             const activeCats = categories.filter(c => c.documents && c.documents.length > 0);
