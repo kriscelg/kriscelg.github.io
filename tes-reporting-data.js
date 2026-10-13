@@ -31,6 +31,18 @@
 const POWERBI_DASHBOARDS = [
 
     {
+        title: "MJSD Dashboard",
+        description: "Updated Quarterly",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=d4703c36-523c-4c27-97b9-7343ca010a40&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
+        powerBiUrl: "https://app.powerbi.com/groups/7734e897-36f3-4cf6-9298-48ef371f15e1/reports/d4703c36-523c-4c27-97b9-7343ca010a40/4997272e5bc9504d2236?experience=power-bi",
+        lastRefreshed: "",
+        supportingDocuments: [
+            //{ title: "Performance Measures and Balanced Scorecard Dashboard Guide", url: "documents/dashboards/tes/performanceMeasures/Performance Measures and Balanced Scorecard Dashboard Guide.docx", icon: "fa-file-word" },
+        ]
+    },
+
+
+    {
         title: "Performance Measures and Balanced Scorecard",
         description: "Updated Weekly",
         embedUrl: "https://app.powerbi.com/reportEmbed?reportId=1839fccb-8863-4824-a80d-020ea9347c17&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
