@@ -113,8 +113,6 @@
             display: flex; flex-wrap: wrap; gap: 5px;
             background: #f8fafc;
             flex-shrink: 1;
-            max-height: 72px;
-            overflow-y: auto;
         }
         .wdt-chip {
             padding: 5px 10px; border-radius: 20px;
@@ -302,8 +300,6 @@
 
     const DEFAULT_CHIPS = [
         'Reset ICM password',
-        'Add a service to ICM',
-        'Delete a case note',
         'Request a document update',
         'Browse all topics',
     ];
