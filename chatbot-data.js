@@ -237,7 +237,7 @@ const CHATBOT_FAQS = [
     },
     {
         question: "How do I filter documents by tag?",
-        keywords: ["filter", "tag", "tags", "category", "type", "sort", "narrow"],
+        keywords: ["filter", "tag", "tags", "category", "type", "narrow"],
         answer: "On document pages, use the <strong>filter sidebar</strong> on the left to narrow results by tag. You can filter by document type (e.g. Job Aid, Guideline, Procedure), program, service, topic, or file format. Click a tag to apply it and click again to remove it.",
         followUp: ["How do I search for a document?", "Where do I find all documents?"]
     },
