@@ -1070,6 +1070,11 @@
     gap: 25px;
 }
 
+.am-report-header-text {
+    flex: 1;
+    min-width: 0;
+}
+
 .am-report-header-icon {
     width: 75px;
     height: 75px;
