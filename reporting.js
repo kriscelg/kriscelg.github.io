@@ -21,7 +21,7 @@
     }
 
     function fileIcon(type) {
-        return { PDF: 'fa-file-pdf', Word: 'fa-file-word', Excel: 'fa-file-excel', PowerPoint: 'fa-file-powerpoint' }[type] || 'fa-file';
+        return { PDF: 'fa-file-pdf', Word: 'fa-file-word', Excel: 'fa-file-excel', PowerPoint: 'fa-file-powerpoint', SSRS: 'fa-chart-column' }[type] || 'fa-file';
     }
 
     // ── Dashboard renderer ─────────────────────────────────────
