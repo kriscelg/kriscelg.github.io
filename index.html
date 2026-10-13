@@ -271,8 +271,9 @@
         function getRecentPolicyDocs() {
             const hasPolicy = tags => Array.isArray(tags) && tags.some(t => t.toLowerCase() === 'policy');
 
-            // All items from POLICY_DOCUMENTS regardless of tags
+            // All items from POLICY_DOCUMENTS regardless of tags (exclude archived entries)
             const policyDocs = (typeof POLICY_DOCUMENTS !== 'undefined' ? POLICY_DOCUMENTS : [])
+                .filter(d => !d.archived)
                 .map(d => ({ title: d.title, url: encodeFilePath(d.fileName), date: d.uploadDate || '' }));
 
             // Other doc arrays — only if tagged "Policy"

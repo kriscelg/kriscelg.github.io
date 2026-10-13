@@ -319,12 +319,12 @@ const FOOTER_TEMPLATE = `
                 if (title) searchIndex.push({ title, url, category, iconClass, icon, tags: tags || [] });
             };
 
-            // Documents
-            (typeof POLICY_DOCUMENTS      !== 'undefined' ? POLICY_DOCUMENTS      : []).forEach(d => push(d.title, ep(d.fileName), 'Policy Doc',   'ic-doc',       'fa-file-alt',       d.tags));
-            (typeof JOB_AID_GUIDELINES    !== 'undefined' ? JOB_AID_GUIDELINES    : []).forEach(d => push(d.title, ep(d.fileName), 'Job Aid',       'ic-doc',       'fa-tools',          d.tags));
-            (typeof FORMS_TEMPLATES       !== 'undefined' ? FORMS_TEMPLATES       : []).forEach(d => push(d.title, ep(d.fileName), 'Form',          'ic-doc',       'fa-file-invoice',   d.tags));
-            (typeof RESOURCE_DOCS         !== 'undefined' ? RESOURCE_DOCS         : []).forEach(d => push(d.title, ep(d.fileName), 'Resource',      'ic-doc',       'fa-book',           d.tags));
-            (typeof FINANCE_OPERATIONS    !== 'undefined' ? FINANCE_OPERATIONS    : []).forEach(d => push(d.title, ep(d.fileName), 'Finance',       'ic-doc',       'fa-calculator',     d.tags));
+            // Documents (archived:true entries are excluded from all active views)
+            (typeof POLICY_DOCUMENTS      !== 'undefined' ? POLICY_DOCUMENTS      : []).filter(d => !d.archived).forEach(d => push(d.title, ep(d.fileName), 'Policy Doc',   'ic-doc',       'fa-file-alt',       d.tags));
+            (typeof JOB_AID_GUIDELINES    !== 'undefined' ? JOB_AID_GUIDELINES    : []).filter(d => !d.archived).forEach(d => push(d.title, ep(d.fileName), 'Job Aid',       'ic-doc',       'fa-tools',          d.tags));
+            (typeof FORMS_TEMPLATES       !== 'undefined' ? FORMS_TEMPLATES       : []).filter(d => !d.archived).forEach(d => push(d.title, ep(d.fileName), 'Form',          'ic-doc',       'fa-file-invoice',   d.tags));
+            (typeof RESOURCE_DOCS         !== 'undefined' ? RESOURCE_DOCS         : []).filter(d => !d.archived).forEach(d => push(d.title, ep(d.fileName), 'Resource',      'ic-doc',       'fa-book',           d.tags));
+            (typeof FINANCE_OPERATIONS    !== 'undefined' ? FINANCE_OPERATIONS    : []).filter(d => !d.archived).forEach(d => push(d.title, ep(d.fileName), 'Finance',       'ic-doc',       'fa-calculator',     d.tags));
 
             // Bulletins
             (typeof BULLETINS !== 'undefined' ? BULLETINS : []).forEach(b =>

@@ -284,7 +284,7 @@
             { data: typeof FINANCE_OPERATIONS    !== 'undefined' ? FINANCE_OPERATIONS    : [], category: 'Finance Operations' },
         ];
         docSources.forEach(({ data, category }) => {
-            data.forEach(doc => items.push({
+            data.filter(doc => !doc.archived).forEach(doc => items.push({
                 title: doc.title,
                 url: encodePath(doc.fileName),
                 category,

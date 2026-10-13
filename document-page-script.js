@@ -9,7 +9,7 @@
  */
 
 (function () {
-    const documents = typeof PAGE_DOCUMENTS !== 'undefined' ? PAGE_DOCUMENTS : [];
+    const documents = (typeof PAGE_DOCUMENTS !== 'undefined' ? PAGE_DOCUMENTS : []).filter(d => !d.archived);
     const TAG_CATEGORIES = typeof PAGE_TAG_CATEGORIES !== 'undefined' ? PAGE_TAG_CATEGORIES : {};
 
     let filteredDocuments = [...documents];
