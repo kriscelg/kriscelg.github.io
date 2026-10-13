@@ -111,7 +111,10 @@
         #wdt-chat-chips {
             padding: 2px 14px 10px;
             display: flex; flex-wrap: wrap; gap: 5px;
-            background: #f8fafc; flex-shrink: 0;
+            background: #f8fafc;
+            flex-shrink: 1;
+            max-height: 72px;
+            overflow-y: auto;
         }
         .wdt-chip {
             padding: 5px 10px; border-radius: 20px;
@@ -189,13 +192,18 @@
             #wdt-chat-btn { right: 16px; bottom: 86px; }
         }
         /* Short viewports (landscape phones, small browser windows) —
-           drop bottom offset so the panel stays on screen */
+           drop bottom offset so the panel stays on screen, hide chips */
         @media (max-height: 500px) {
             #wdt-chat-panel {
                 bottom: 70px;
                 height: calc(100vh - 90px);
             }
             #wdt-chat-btn { bottom: 14px; }
+            #wdt-chat-chips { display: none; }
+        }
+        /* Also hide chips when the panel is constrained by a tall chip area */
+        @media (max-height: 650px) {
+            #wdt-chat-chips { display: none; }
         }
     `;
     document.head.appendChild(style);
