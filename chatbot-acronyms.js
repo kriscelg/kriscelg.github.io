@@ -36,6 +36,7 @@ const WDT_ACRONYMS = {
     "CJF":     "Canada-Manitoba Job Fund Agreement",
     "CLB":     "Canadian Language Benchmark",
     "CMHW":    "Community Mental Health Worker",
+    "CMWTRP":  "Canada-Manitoba Workforce Tariff Response Program",
     "CNT":     "Client",
     "COI":     "Conflict of Interest",
     "COPSE":   "Council on Post Secondary Education",
