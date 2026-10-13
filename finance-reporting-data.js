@@ -55,12 +55,15 @@ const FINANCE_REPORTING_DOCUMENTS = [
 
     // ── ADD REPORT CATEGORIES BELOW ───────────────────────────
 
-    // {
-    //     category: "Finance Annual Reports",
-    //     icon: "fa-file-contract",
-    //     documents: [
-    //         { title: "Finance Annual Report 2024-25", url: "documents/reports/finance/finance-annual-report-2024-25.pdf", fileType: "PDF", year: "2024-25", description: "" },
-    //     ]
-    // },
+    {
+        category: "Finance Annual Reports",
+        icon: "fa-file-contract",
+        documents: [
+            { title: "Blocked and Unblocked Payments Report", url: "http://mbpweb1063p.shared.mbgov.ca/Reports/report/Education%20and%20Training/ICM/Finance/Blocked%20and%20Unblocked%20Payments", fileType: "SSRS", year: "", description: "" },
+            { title: "Blocked Payments Report", url: "http://mbpweb1063p.shared.mbgov.ca/Reports/report/Education%20and%20Training/ICM/Finance/Blocked%20Payments", fileType: "SSRS", year: "", description: "" },
+            { title: "Payments Processed to SAP Pending Cheque History Report", url: "http://mbpweb1063p.shared.mbgov.ca/Reports/report/Education%20and%20Training/ICM/Finance/Payments%20processed%20to%20SAP%20pending%20cheque%20history", fileType: "SSRS", year: "", description: "" },
+            { title: "Variance Report", url: "http://mbpweb1063p.shared.mbgov.ca/Reports/report/Education%20and%20Training/ICM/Finance/Variance%20Report", fileType: "SSRS", year: "", description: "" },
+        ]
+    },
 
 ];
