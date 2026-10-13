@@ -234,7 +234,8 @@
     <script src="memos-data.js"></script>
     <script src="events-data.js"></script>
     <script src="videos-presentations-data.js"></script>
-    <script src="reporting-data.js"></script>
+    <script src="tes-reporting-data.js"></script>
+    <script src="apprenticeship-reporting-data.js"></script>
     <script src="about-us-data.js"></script>
 
     <script>
@@ -254,6 +255,7 @@
         'Video':                 { group: 'media',       iconClass: 'icon-video',        badgeClass: 'badge-video',        icon: 'fa-play-circle' },
         'Presentation':          { group: 'media',       iconClass: 'icon-presentation', badgeClass: 'badge-presentation', icon: 'fa-file-powerpoint' },
         'Dashboard':             { group: 'dashboards',  iconClass: 'icon-dashboard',    badgeClass: 'badge-dashboard',    icon: 'fa-chart-bar' },
+        'Report':                { group: 'dashboards',  iconClass: 'icon-dashboard',    badgeClass: 'badge-dashboard',    icon: 'fa-file-contract' },
         'Org Chart':             { group: 'orgcharts',   iconClass: 'icon-orgchart',     badgeClass: 'badge-orgchart',     icon: 'fa-sitemap' },
     };
 
@@ -390,7 +392,7 @@
             openNewTab: true,
         }));
 
-        // ---- Dashboards ----
+        // ---- TES Dashboards ----
         const dashboards = typeof POWERBI_DASHBOARDS !== 'undefined' ? POWERBI_DASHBOARDS : [];
         dashboards.forEach(d => items.push({
             title: d.title,
@@ -406,6 +408,58 @@
             searchExtra: d.description || '',
             openNewTab: false,
         }));
+
+        // ---- TES Reporting Documents ----
+        (typeof REPORTING_DOCUMENTS !== 'undefined' ? REPORTING_DOCUMENTS : []).forEach(cat => {
+            (cat.documents || []).forEach(doc => items.push({
+                title: doc.title,
+                url: doc.url || 'tes-reporting.html',
+                category: 'Report',
+                group: 'dashboards',
+                iconClass: 'icon-dashboard',
+                badgeClass: 'badge-dashboard',
+                icon: 'fa-file-contract',
+                date: '',
+                tags: [],
+                meta: doc.year || '',
+                searchExtra: doc.description || '',
+                openNewTab: !!doc.url,
+            }));
+        });
+
+        // ---- AM Dashboards ----
+        (typeof AM_POWERBI_DASHBOARDS !== 'undefined' ? AM_POWERBI_DASHBOARDS : []).forEach(d => items.push({
+            title: d.title,
+            url: 'apprenticeship-reporting.html',
+            category: 'Dashboard',
+            group: 'dashboards',
+            iconClass: 'icon-dashboard',
+            badgeClass: 'badge-dashboard',
+            icon: 'fa-chart-bar',
+            date: d.lastRefreshed || '',
+            tags: [],
+            meta: d.description || '',
+            searchExtra: d.description || '',
+            openNewTab: false,
+        }));
+
+        // ---- AM Reporting Documents ----
+        (typeof AM_REPORTING_DOCUMENTS !== 'undefined' ? AM_REPORTING_DOCUMENTS : []).forEach(cat => {
+            (cat.documents || []).forEach(doc => items.push({
+                title: doc.title,
+                url: doc.url || 'apprenticeship-reporting.html',
+                category: 'Report',
+                group: 'dashboards',
+                iconClass: 'icon-dashboard',
+                badgeClass: 'badge-dashboard',
+                icon: 'fa-file-contract',
+                date: '',
+                tags: [],
+                meta: doc.year || '',
+                searchExtra: doc.description || '',
+                openNewTab: !!doc.url,
+            }));
+        });
 
         // ---- Org Charts ----
         const orgCharts = typeof ORGANIZATION_CHARTS !== 'undefined' ? ORGANIZATION_CHARTS : [];

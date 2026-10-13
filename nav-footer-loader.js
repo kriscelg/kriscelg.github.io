@@ -296,7 +296,7 @@ const FOOTER_TEMPLATE = `
             Promise.all([
                 'documents-data.js', 'communications-data.js', 'memos-data.js',
                 'events-data.js', 'videos-presentations-data.js',
-                'reporting-data.js', 'about-us-data.js'
+                'tes-reporting-data.js', 'apprenticeship-reporting-data.js', 'about-us-data.js'
             ].map(loadScript)).then(() => {
                 buildIndex();
                 indexReady = true;
@@ -357,9 +357,23 @@ const FOOTER_TEMPLATE = `
             (typeof PRESENTATIONS !== 'undefined' ? PRESENTATIONS : []).forEach(p =>
                 push(p.title, p.pdfFile ? ep(p.pdfFile) : 'videos-presentations.html', 'Presentation', 'ic-present', 'fa-file-powerpoint', p.tags));
 
-            // Dashboards
+            // TES Dashboards
             (typeof POWERBI_DASHBOARDS !== 'undefined' ? POWERBI_DASHBOARDS : []).forEach(d =>
                 push(d.title, 'tes-reporting.html', 'Dashboard', 'ic-dashboard', 'fa-chart-bar', []));
+
+            // TES Reporting Documents
+            (typeof REPORTING_DOCUMENTS !== 'undefined' ? REPORTING_DOCUMENTS : []).forEach(cat =>
+                (cat.documents || []).forEach(doc =>
+                    push(doc.title, doc.url || 'tes-reporting.html', 'Report', 'ic-dashboard', 'fa-file-contract', [])));
+
+            // AM Dashboards
+            (typeof AM_POWERBI_DASHBOARDS !== 'undefined' ? AM_POWERBI_DASHBOARDS : []).forEach(d =>
+                push(d.title, 'apprenticeship-reporting.html', 'Dashboard', 'ic-dashboard', 'fa-chart-bar', []));
+
+            // AM Reporting Documents
+            (typeof AM_REPORTING_DOCUMENTS !== 'undefined' ? AM_REPORTING_DOCUMENTS : []).forEach(cat =>
+                (cat.documents || []).forEach(doc =>
+                    push(doc.title, doc.url || 'apprenticeship-reporting.html', 'Report', 'ic-dashboard', 'fa-file-contract', [])));
 
             // Org Charts
             (typeof ORGANIZATION_CHARTS !== 'undefined' ? ORGANIZATION_CHARTS : []).forEach(o =>
