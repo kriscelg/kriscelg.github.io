@@ -38,16 +38,16 @@ const AM_POWERBI_DASHBOARDS = [
 
     // ── ADD DASHBOARDS BELOW ───────────────────────────────────
 
-    // {
-    //     title: "Apprenticeship Overview Dashboard",
-    //     description: "Updated Monthly",
-    //     embedUrl: "",
-    //     powerBiUrl: "",
-    //     lastRefreshed: "",
-    //     supportingDocuments: [
-    //         // { title: "Dashboard Guide", url: "documents/dashboards/am/guide.docx", icon: "fa-file-word" },
-    //     ]
-    // },
+    {
+        title: "Journeyperson Certification Verification Tool",
+        description: "",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=71886b5a-fab4-4fa3-814a-ea63f2b1171e&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
+        powerBiUrl: "https://app.powerbi.com/groups/8c3db528-5912-4f96-8680-0decaf3666dc/reports/71886b5a-fab4-4fa3-814a-ea63f2b1171e/a3ae80352378907cbe62?experience=power-bi",
+        lastRefreshed: "",
+        supportingDocuments: [
+            //{ title: "Dashboard Guide", url: "documents/dashboards/sib/guide.docx", icon: "fa-file-word" },
+        ]
+    },
 
 ];
 
