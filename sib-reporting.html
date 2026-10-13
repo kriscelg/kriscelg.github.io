@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIB Reports &amp; Dashboards - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="reporting-styles.css">
+</head>
+<body data-page="reporting">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- Page Header -->
+            <div class="am-report-header">
+                <div class="am-report-header-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="am-report-header-text">
+                    <h1>SIB Reports &amp; Dashboards</h1>
+                    <p>Reports, analytics, and Power BI dashboards for Service Innovation Branch programs and outcomes.</p>
+                </div>
+                <a href="https://forms.cloud.microsoft/r/CkXMcDYy6k" target="_blank" rel="noopener noreferrer" class="am-report-header-btn">
+                    <i class="fas fa-key"></i> Request Access to Dashboards or SSRS Reports
+                </a>
+            </div>
+
+            <!-- Reports Section -->
+            <section class="reporting-docs-section">
+                <div class="section-header">
+                    <i class="fas fa-file-alt"></i>
+                    <h2>Reports</h2>
+                    <span class="section-doc-count" id="sib-reports-count" style="display:none;"></span>
+                </div>
+                <p class="section-description">Access annual reports, quarterly summaries, and other official reporting documents</p>
+                <div id="sib-reports-container"></div>
+            </section>
+
+            <!-- Dashboards Section -->
+            <section class="dashboards-section">
+                <div class="section-header">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h2>SIB Dashboards</h2>
+                </div>
+                <p class="section-description">Interactive Power BI dashboards providing real-time insights and analytics</p>
+                <div id="sib-dashboards-container"></div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+
+    <!-- SIB reporting data then shared rendering functions -->
+    <script src="sib-reporting-data.js"></script>
+    <script src="reporting.js"></script>
+</body>
+</html>

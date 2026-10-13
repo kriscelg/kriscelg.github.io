@@ -128,6 +128,30 @@
             renderReports(AM_REPORTING_DOCUMENTS, 'am-reports-container', 'am-reports-count');
         }
 
+        // BITS page
+        if (typeof BITS_POWERBI_DASHBOARDS !== 'undefined') {
+            renderDashboards(BITS_POWERBI_DASHBOARDS, 'bits-dashboards-container');
+        }
+        if (typeof BITS_REPORTING_DOCUMENTS !== 'undefined') {
+            renderReports(BITS_REPORTING_DOCUMENTS, 'bits-reports-container', 'bits-reports-count');
+        }
+
+        // Finance page
+        if (typeof FINANCE_POWERBI_DASHBOARDS !== 'undefined') {
+            renderDashboards(FINANCE_POWERBI_DASHBOARDS, 'finance-dashboards-container');
+        }
+        if (typeof FINANCE_REPORTING_DOCUMENTS !== 'undefined') {
+            renderReports(FINANCE_REPORTING_DOCUMENTS, 'finance-reports-container', 'finance-reports-count');
+        }
+
+        // SIB page
+        if (typeof SIB_POWERBI_DASHBOARDS !== 'undefined') {
+            renderDashboards(SIB_POWERBI_DASHBOARDS, 'sib-dashboards-container');
+        }
+        if (typeof SIB_REPORTING_DOCUMENTS !== 'undefined') {
+            renderReports(SIB_REPORTING_DOCUMENTS, 'sib-reports-container', 'sib-reports-count');
+        }
+
     });
 
 })();

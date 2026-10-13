@@ -236,6 +236,9 @@
     <script src="videos-presentations-data.js"></script>
     <script src="tes-reporting-data.js"></script>
     <script src="apprenticeship-reporting-data.js"></script>
+    <script src="bits-reporting-data.js"></script>
+    <script src="finance-reporting-data.js"></script>
+    <script src="sib-reporting-data.js"></script>
     <script src="about-us-data.js"></script>
 
     <script>
@@ -448,6 +451,108 @@
             (cat.documents || []).forEach(doc => items.push({
                 title: doc.title,
                 url: doc.url || 'apprenticeship-reporting.html',
+                category: 'Report',
+                group: 'dashboards',
+                iconClass: 'icon-dashboard',
+                badgeClass: 'badge-dashboard',
+                icon: 'fa-file-contract',
+                date: '',
+                tags: [],
+                meta: doc.year || '',
+                searchExtra: doc.description || '',
+                openNewTab: !!doc.url,
+            }));
+        });
+
+        // ---- BITS Dashboards ----
+        (typeof BITS_POWERBI_DASHBOARDS !== 'undefined' ? BITS_POWERBI_DASHBOARDS : []).forEach(d => items.push({
+            title: d.title,
+            url: 'bits-reporting.html',
+            category: 'Dashboard',
+            group: 'dashboards',
+            iconClass: 'icon-dashboard',
+            badgeClass: 'badge-dashboard',
+            icon: 'fa-chart-bar',
+            date: d.lastRefreshed || '',
+            tags: [],
+            meta: d.description || '',
+            searchExtra: d.description || '',
+            openNewTab: false,
+        }));
+
+        // ---- BITS Reporting Documents ----
+        (typeof BITS_REPORTING_DOCUMENTS !== 'undefined' ? BITS_REPORTING_DOCUMENTS : []).forEach(cat => {
+            (cat.documents || []).forEach(doc => items.push({
+                title: doc.title,
+                url: doc.url || 'bits-reporting.html',
+                category: 'Report',
+                group: 'dashboards',
+                iconClass: 'icon-dashboard',
+                badgeClass: 'badge-dashboard',
+                icon: 'fa-file-contract',
+                date: '',
+                tags: [],
+                meta: doc.year || '',
+                searchExtra: doc.description || '',
+                openNewTab: !!doc.url,
+            }));
+        });
+
+        // ---- Finance Dashboards ----
+        (typeof FINANCE_POWERBI_DASHBOARDS !== 'undefined' ? FINANCE_POWERBI_DASHBOARDS : []).forEach(d => items.push({
+            title: d.title,
+            url: 'finance-reporting.html',
+            category: 'Dashboard',
+            group: 'dashboards',
+            iconClass: 'icon-dashboard',
+            badgeClass: 'badge-dashboard',
+            icon: 'fa-chart-bar',
+            date: d.lastRefreshed || '',
+            tags: [],
+            meta: d.description || '',
+            searchExtra: d.description || '',
+            openNewTab: false,
+        }));
+
+        // ---- Finance Reporting Documents ----
+        (typeof FINANCE_REPORTING_DOCUMENTS !== 'undefined' ? FINANCE_REPORTING_DOCUMENTS : []).forEach(cat => {
+            (cat.documents || []).forEach(doc => items.push({
+                title: doc.title,
+                url: doc.url || 'finance-reporting.html',
+                category: 'Report',
+                group: 'dashboards',
+                iconClass: 'icon-dashboard',
+                badgeClass: 'badge-dashboard',
+                icon: 'fa-file-contract',
+                date: '',
+                tags: [],
+                meta: doc.year || '',
+                searchExtra: doc.description || '',
+                openNewTab: !!doc.url,
+            }));
+        });
+
+        // ---- SIB Dashboards ----
+        (typeof SIB_POWERBI_DASHBOARDS !== 'undefined' ? SIB_POWERBI_DASHBOARDS : []).forEach(d => items.push({
+            title: d.title,
+            url: 'sib-reporting.html',
+            category: 'Dashboard',
+            group: 'dashboards',
+            iconClass: 'icon-dashboard',
+            badgeClass: 'badge-dashboard',
+            icon: 'fa-chart-bar',
+            date: d.lastRefreshed || '',
+            tags: [],
+            meta: d.description || '',
+            searchExtra: d.description || '',
+            openNewTab: false,
+        }));
+
+        // ---- SIB Reporting Documents ----
+        (typeof SIB_REPORTING_DOCUMENTS !== 'undefined' ? SIB_REPORTING_DOCUMENTS : []).forEach(cat => {
+            (cat.documents || []).forEach(doc => items.push({
+                title: doc.title,
+                url: doc.url || 'sib-reporting.html',
                 category: 'Report',
                 group: 'dashboards',
                 iconClass: 'icon-dashboard',

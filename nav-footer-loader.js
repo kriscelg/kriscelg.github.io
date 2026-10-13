@@ -37,9 +37,9 @@ const NAV_TEMPLATE = `
                     <div class="dropdown-menu">
                         <a href="tes-reporting.html">TES Reports and Dashboards</a>
                         <a href="apprenticeship-reporting.html">AM Reports and Dashboards</a>
-                        <a href="#">BITS Reports and Dashboards</a>
-                        <a href="#">Finance Reports and Dashboards</a>
-                        <a href="#">SIB Reports and Dashboards</a>
+                        <a href="bits-reporting.html">BITS Reports and Dashboards</a>
+                        <a href="finance-reporting.html">Finance Reports and Dashboards</a>
+                        <a href="sib-reporting.html">SIB Reports and Dashboards</a>
                     </div>
                 </div>
                 <div class="nav-item">
@@ -105,9 +105,9 @@ const FOOTER_TEMPLATE = `
                     <ul>
                         <li><a href="tes-reporting.html">TES Reports and Dashboards</a></li>
                         <li><a href="apprenticeship-reporting.html">AM Reports and Dashboards</a></li>
-                        <li><a href="#">BITS Reports and Dashboards</a></li>
-                        <li><a href="#">Finance Reports and Dashboards</a></li>
-                        <li><a href="#">SIB Reports and Dashboards</a></li>
+                        <li><a href="bits-reporting.html">BITS Reports and Dashboards</a></li>
+                        <li><a href="finance-reporting.html">Finance Reports and Dashboards</a></li>
+                        <li><a href="sib-reporting.html">SIB Reports and Dashboards</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -296,7 +296,9 @@ const FOOTER_TEMPLATE = `
             Promise.all([
                 'documents-data.js', 'communications-data.js', 'memos-data.js',
                 'events-data.js', 'videos-presentations-data.js',
-                'tes-reporting-data.js', 'apprenticeship-reporting-data.js', 'about-us-data.js'
+                'tes-reporting-data.js', 'apprenticeship-reporting-data.js',
+                'bits-reporting-data.js', 'finance-reporting-data.js', 'sib-reporting-data.js',
+                'about-us-data.js'
             ].map(loadScript)).then(() => {
                 buildIndex();
                 indexReady = true;
@@ -374,6 +376,33 @@ const FOOTER_TEMPLATE = `
             (typeof AM_REPORTING_DOCUMENTS !== 'undefined' ? AM_REPORTING_DOCUMENTS : []).forEach(cat =>
                 (cat.documents || []).forEach(doc =>
                     push(doc.title, doc.url || 'apprenticeship-reporting.html', 'Report', 'ic-dashboard', 'fa-file-contract', [])));
+
+            // BITS Dashboards
+            (typeof BITS_POWERBI_DASHBOARDS !== 'undefined' ? BITS_POWERBI_DASHBOARDS : []).forEach(d =>
+                push(d.title, 'bits-reporting.html', 'Dashboard', 'ic-dashboard', 'fa-chart-bar', []));
+
+            // BITS Reporting Documents
+            (typeof BITS_REPORTING_DOCUMENTS !== 'undefined' ? BITS_REPORTING_DOCUMENTS : []).forEach(cat =>
+                (cat.documents || []).forEach(doc =>
+                    push(doc.title, doc.url || 'bits-reporting.html', 'Report', 'ic-dashboard', 'fa-file-contract', [])));
+
+            // Finance Dashboards
+            (typeof FINANCE_POWERBI_DASHBOARDS !== 'undefined' ? FINANCE_POWERBI_DASHBOARDS : []).forEach(d =>
+                push(d.title, 'finance-reporting.html', 'Dashboard', 'ic-dashboard', 'fa-chart-bar', []));
+
+            // Finance Reporting Documents
+            (typeof FINANCE_REPORTING_DOCUMENTS !== 'undefined' ? FINANCE_REPORTING_DOCUMENTS : []).forEach(cat =>
+                (cat.documents || []).forEach(doc =>
+                    push(doc.title, doc.url || 'finance-reporting.html', 'Report', 'ic-dashboard', 'fa-file-contract', [])));
+
+            // SIB Dashboards
+            (typeof SIB_POWERBI_DASHBOARDS !== 'undefined' ? SIB_POWERBI_DASHBOARDS : []).forEach(d =>
+                push(d.title, 'sib-reporting.html', 'Dashboard', 'ic-dashboard', 'fa-chart-bar', []));
+
+            // SIB Reporting Documents
+            (typeof SIB_REPORTING_DOCUMENTS !== 'undefined' ? SIB_REPORTING_DOCUMENTS : []).forEach(cat =>
+                (cat.documents || []).forEach(doc =>
+                    push(doc.title, doc.url || 'sib-reporting.html', 'Report', 'ic-dashboard', 'fa-file-contract', [])));
 
             // Org Charts
             (typeof ORGANIZATION_CHARTS !== 'undefined' ? ORGANIZATION_CHARTS : []).forEach(o =>
