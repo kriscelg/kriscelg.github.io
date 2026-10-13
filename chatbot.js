@@ -36,7 +36,9 @@
             bottom: 154px;
             right: 30px;
             width: 320px;
-            height: 430px;
+            /* Shrinks on short viewports — never taller than the available space */
+            height: min(430px, calc(100vh - 180px));
+            max-width: calc(100vw - 20px);
             background: white;
             border-radius: 16px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.18);
@@ -174,9 +176,26 @@
         .wdt-topic-btn:last-child { border-bottom: none; }
         .wdt-topic-btn:hover { color: #0a4a4a; text-decoration: underline; }
 
+        /* Narrow screens — span most of the width */
         @media (max-width: 420px) {
-            #wdt-chat-panel { right: 10px; left: 10px; width: auto; bottom: 148px; }
+            #wdt-chat-panel {
+                right: 10px;
+                left: 10px;
+                width: auto;
+                max-width: none;
+                bottom: 148px;
+                height: min(430px, calc(100vh - 170px));
+            }
             #wdt-chat-btn { right: 16px; bottom: 86px; }
+        }
+        /* Short viewports (landscape phones, small browser windows) —
+           drop bottom offset so the panel stays on screen */
+        @media (max-height: 500px) {
+            #wdt-chat-panel {
+                bottom: 70px;
+                height: calc(100vh - 90px);
+            }
+            #wdt-chat-btn { bottom: 14px; }
         }
     `;
     document.head.appendChild(style);
