@@ -575,6 +575,17 @@
     margin: 0;
 }
 
+.section-doc-count {
+    background: #0d5f5f;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    line-height: 1.6;
+    margin-left: auto;
+}
+
 .section-description {
     color: #64748b;
     font-size: 15px;
@@ -1126,6 +1137,11 @@
     flex-shrink: 0;
     font-size: 18px;
     color: white;
+}
+
+.am-section-header > div:not(.am-section-header-icon) {
+    flex: 1;
+    min-width: 0;
 }
 
 .am-section-header h2 {

@@ -352,29 +352,31 @@ function generateReportingDocuments() {
         return;
     }
 
-    container.innerHTML = REPORTING_DOCUMENTS.filter(cat => cat.documents.length > 0).map(cat => `
-        <div class="report-doc-category">
-            <div class="report-doc-category-header">
-                <i class="fas ${cat.icon}"></i>
-                <h3>${cat.category}</h3>
-                <span class="report-doc-count">${cat.documents.length}</span>
-            </div>
-            <div class="report-doc-list">
-                ${cat.documents.map(doc => `
-                    <a href="${doc.url}" class="report-doc-row" target="_blank" rel="noopener noreferrer">
-                        <div class="report-doc-row-icon">
-                            <i class="fas ${getReportFileIcon(doc.fileType)}"></i>
+    const activeCats = REPORTING_DOCUMENTS.filter(cat => cat.documents.length > 0);
+    const totalDocs = activeCats.reduce((sum, cat) => sum + cat.documents.length, 0);
+
+    const countEl = document.getElementById('reporting-docs-count');
+    if (countEl) {
+        countEl.textContent = totalDocs;
+        countEl.style.display = '';
+    }
+
+    container.innerHTML = activeCats.map(cat => `
+        <div class="report-doc-list">
+            ${cat.documents.map(doc => `
+                <a href="${doc.url}" class="report-doc-row" target="_blank" rel="noopener noreferrer">
+                    <div class="report-doc-row-icon">
+                        <i class="fas ${getReportFileIcon(doc.fileType)}"></i>
+                    </div>
+                    <div class="report-doc-row-content">
+                        <p class="report-doc-row-title">${doc.title}</p>
+                        <div class="report-doc-row-meta">
+                            ${doc.year ? `<span class="report-doc-row-year"><i class="fas fa-calendar"></i> ${doc.year}</span>` : ''}
+                            <span class="report-doc-row-type">${doc.fileType}</span>
                         </div>
-                        <div class="report-doc-row-content">
-                            <p class="report-doc-row-title">${doc.title}</p>
-                            <div class="report-doc-row-meta">
-                                ${doc.year ? `<span class="report-doc-row-year"><i class="fas fa-calendar"></i> ${doc.year}</span>` : ''}
-                                <span class="report-doc-row-type">${doc.fileType}</span>
-                            </div>
-                        </div>
-                        <div class="report-doc-row-arrow"><i class="fas fa-chevron-right"></i></div>
-                    </a>`).join('')}
-            </div>
+                    </div>
+                    <div class="report-doc-row-arrow"><i class="fas fa-chevron-right"></i></div>
+                </a>`).join('')}
         </div>`).join('');
 }
 

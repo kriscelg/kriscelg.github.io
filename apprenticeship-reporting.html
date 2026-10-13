@@ -43,6 +43,7 @@
                         <h2>Reports</h2>
                         <p>Annual reports, quarterly summaries, and other official reporting documents</p>
                     </div>
+                    <span class="section-doc-count" id="am-reports-count" style="display:none;"></span>
                 </div>
                 <div id="am-reports-container"></div>
             </section>
@@ -151,27 +152,25 @@
                     <p>Reports will appear here once they are published. Check back later or contact your supervisor for more information.</p>
                 </div>`;
         } else {
-            repContainer.innerHTML = categories.filter(c => c.documents && c.documents.length > 0).map(cat => `
-                <div class="report-doc-category">
-                    <div class="report-doc-category-header">
-                        <i class="fas ${cat.icon}"></i>
-                        <h3>${cat.category}</h3>
-                        <span class="report-doc-count">${cat.documents.length}</span>
-                    </div>
-                    <div class="report-doc-list">
-                        ${cat.documents.map(doc => `
-                            <a href="${doc.url}" class="report-doc-row" target="_blank" rel="noopener noreferrer">
-                                <div class="report-doc-row-icon"><i class="fas ${fileIcon(doc.fileType)}"></i></div>
-                                <div class="report-doc-row-content">
-                                    <p class="report-doc-row-title">${doc.title}</p>
-                                    <div class="report-doc-row-meta">
-                                        ${doc.year ? `<span class="report-doc-row-year"><i class="fas fa-calendar"></i> ${doc.year}</span>` : ''}
-                                        <span class="report-doc-row-type">${doc.fileType}</span>
-                                    </div>
+            const activeCats = categories.filter(c => c.documents && c.documents.length > 0);
+            const totalDocs = activeCats.reduce((sum, c) => sum + c.documents.length, 0);
+            const countEl = document.getElementById('am-reports-count');
+            if (countEl) { countEl.textContent = totalDocs; countEl.style.display = ''; }
+
+            repContainer.innerHTML = activeCats.map(cat => `
+                <div class="report-doc-list">
+                    ${cat.documents.map(doc => `
+                        <a href="${doc.url}" class="report-doc-row" target="_blank" rel="noopener noreferrer">
+                            <div class="report-doc-row-icon"><i class="fas ${fileIcon(doc.fileType)}"></i></div>
+                            <div class="report-doc-row-content">
+                                <p class="report-doc-row-title">${doc.title}</p>
+                                <div class="report-doc-row-meta">
+                                    ${doc.year ? `<span class="report-doc-row-year"><i class="fas fa-calendar"></i> ${doc.year}</span>` : ''}
+                                    <span class="report-doc-row-type">${doc.fileType}</span>
                                 </div>
-                                <div class="report-doc-row-arrow"><i class="fas fa-chevron-right"></i></div>
-                            </a>`).join('')}
-                    </div>
+                            </div>
+                            <div class="report-doc-row-arrow"><i class="fas fa-chevron-right"></i></div>
+                        </a>`).join('')}
                 </div>`).join('');
         }
     })();
