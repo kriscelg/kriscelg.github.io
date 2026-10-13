@@ -1,0 +1,149 @@
+/* Apprenticeship Reports & Dashboards Page Styles */
+
+/* ── Page Header ──────────────────────────────────────────── */
+.am-report-header {
+    background: linear-gradient(135deg, #0d5f5f 0%, #0a4a4a 100%);
+    border-radius: 20px;
+    padding: 40px 50px;
+    margin-bottom: 32px;
+    box-shadow: 0 10px 30px rgba(13, 95, 95, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.am-report-header-icon {
+    width: 75px;
+    height: 75px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.am-report-header-icon i {
+    font-size: 34px;
+    color: white;
+}
+
+.am-report-header-text h1 {
+    font-size: 30px;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    color: white;
+}
+
+.am-report-header-text p {
+    font-size: 15px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 620px;
+    line-height: 1.5;
+}
+
+/* ── Section ──────────────────────────────────────────────── */
+.am-section {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 28px;
+    overflow: hidden;
+}
+
+.am-section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 28px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.am-section-header-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #0d5f5f 0%, #0a4a4a 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+    color: white;
+}
+
+.am-section-header h2 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 3px 0;
+}
+
+.am-section-header p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+}
+
+/* ── Empty State ──────────────────────────────────────────── */
+.am-empty-state {
+    text-align: center;
+    padding: 64px 24px;
+    color: #94a3b8;
+}
+
+.am-empty-state i {
+    font-size: 48px;
+    color: #cbd5e1;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.am-empty-state h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #64748b;
+    margin: 0 0 8px 0;
+}
+
+.am-empty-state p {
+    font-size: 14px;
+    color: #94a3b8;
+    max-width: 440px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .am-report-header {
+        flex-direction: column;
+        padding: 28px 24px;
+        gap: 16px;
+    }
+
+    .am-report-header-text h1 {
+        font-size: 24px;
+    }
+
+    .am-section-header {
+        padding: 18px 20px;
+    }
+
+    .am-empty-state {
+        padding: 48px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .am-report-header {
+        padding: 22px 18px;
+    }
+
+    .am-report-header-text h1 {
+        font-size: 21px;
+    }
+}

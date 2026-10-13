@@ -36,7 +36,7 @@ const NAV_TEMPLATE = `
                     <a href="reporting.html" class="nav-link" data-page="reporting">REPORTING</a>
                     <div class="dropdown-menu">
                         <a href="tes-reporting.html">TES Reports and Dashboards</a>
-                        <a href="#">AM Reports and Dashboards</a>
+                        <a href="apprenticeship-reporting.html">AM Reports and Dashboards</a>
                         <a href="#">BITS Reports and Dashboards</a>
                         <a href="#">Finance Reports and Dashboards</a>
                         <a href="#">SIB Reports and Dashboards</a>
@@ -104,7 +104,7 @@ const FOOTER_TEMPLATE = `
                     <h4>REPORTING</h4>
                     <ul>
                         <li><a href="tes-reporting.html">TES Reports and Dashboards</a></li>
-                        <li><a href="#">AM Reports and Dashboards</a></li>
+                        <li><a href="apprenticeship-reporting.html">AM Reports and Dashboards</a></li>
                         <li><a href="#">BITS Reports and Dashboards</a></li>
                         <li><a href="#">Finance Reports and Dashboards</a></li>
                         <li><a href="#">SIB Reports and Dashboards</a></li>
