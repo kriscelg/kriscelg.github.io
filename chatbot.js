@@ -190,16 +190,16 @@
             #wdt-chat-btn { right: 16px; bottom: 86px; }
         }
         /* Short viewports (landscape phones, small browser windows) —
-           drop bottom offset so the panel stays on screen, hide chips */
+           keep both buttons at their normal bottom offsets so they never
+           overlap; only shrink/reposition the panel */
         @media (max-height: 500px) {
             #wdt-chat-panel {
-                bottom: 70px;
-                height: calc(100vh - 90px);
+                bottom: 154px;
+                height: calc(100vh - 174px);
             }
-            #wdt-chat-btn { bottom: 14px; }
             #wdt-chat-chips { display: none; }
         }
-        /* Also hide chips when the panel is constrained by a tall chip area */
+        /* Hide chips on moderately short viewports too */
         @media (max-height: 650px) {
             #wdt-chat-chips { display: none; }
         }
