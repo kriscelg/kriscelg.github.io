@@ -121,6 +121,7 @@
     transition: all 0.2s ease;
     flex-shrink: 0;
     white-space: nowrap;
+    margin-left: auto;
 }
 
 .am-report-header-btn:hover {
