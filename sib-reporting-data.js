@@ -38,16 +38,27 @@ const SIB_POWERBI_DASHBOARDS = [
 
     // ── ADD DASHBOARDS BELOW ───────────────────────────────────
 
-    // {
-    //     title: "SIB Overview Dashboard",
-    //     description: "Updated Monthly",
-    //     embedUrl: "",
-    //     powerBiUrl: "",
-    //     lastRefreshed: "",
-    //     supportingDocuments: [
-    //         // { title: "Dashboard Guide", url: "documents/dashboards/sib/guide.docx", icon: "fa-file-word" },
-    //     ]
-    // },
+    {
+        title: "TES Staff Pre and Post Engagement Survey Dashboard",
+        description: "",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=d8b2e4b7-6237-4d08-9082-cc045b1d8dcb&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
+        powerBiUrl: "https://app.powerbi.com/groups/8c3db528-5912-4f96-8680-0decaf3666dc/reports/d8b2e4b7-6237-4d08-9082-cc045b1d8dcb/5770b9d0ab76f1e46592?experience=power-bi",
+        lastRefreshed: "",
+        supportingDocuments: [
+            //{ title: "Dashboard Guide", url: "documents/dashboards/sib/guide.docx", icon: "fa-file-word" },
+        ]
+    },
+
+    {
+        title: "Client Survey Results Dashboard",
+        description: "",
+        embedUrl: "https://app.powerbi.com/reportEmbed?reportId=07d7ba25-7eec-4bed-a649-9dcfee13cd39&autoAuth=true&ctid=abf64de9-2a5c-4d77-baa2-a76265367d3a",
+        powerBiUrl: "https://app.powerbi.com/groups/8c3db528-5912-4f96-8680-0decaf3666dc/reports/07d7ba25-7eec-4bed-a649-9dcfee13cd39/bbfcb989026cc3011171?experience=power-bi",
+        lastRefreshed: "",
+        supportingDocuments: [
+            //{ title: "Dashboard Guide", url: "documents/dashboards/sib/guide.docx", icon: "fa-file-word" },
+        ]
+    },
 
 ];
 
