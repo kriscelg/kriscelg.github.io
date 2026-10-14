@@ -471,6 +471,10 @@ function buildStats() {
         for (const c of activeCats) { if (c.docs.includes(doc)) return c.label; }
         return '—';
     }
+    function catOfAll(doc) {
+        for (const c of docCategories) { if (c.docs.includes(doc)) return c.label; }
+        return '—';
+    }
 
     const DETAIL_CAP = 15; // rows shown before "Show more"
 
@@ -541,7 +545,18 @@ function buildStats() {
             ]),
         });
     }
-    if (transitionalArchived.length > 0) alerts.push({ level: 'red', icon: 'fa-exclamation-triangle', msg: `${transitionalArchived.length} document${transitionalArchived.length > 1 ? 's are' : ' is'} marked archived:true in an active data file — move to archived-documents-data.js to clean up.` });
+    if (transitionalArchived.length > 0) {
+        const sorted = [...transitionalArchived].sort((a, b) => a.title.localeCompare(b.title));
+        alerts.push({
+            level: 'red', icon: 'fa-exclamation-triangle',
+            msg: `${transitionalArchived.length} document${transitionalArchived.length > 1 ? 's are' : ' is'} marked archived:true in an active data file — move to archived-documents-data.js to clean up.`,
+            detail: makeDetailTable(sorted, [
+                { head: 'Title', val: d => d.title },
+                { head: 'Category', val: d => catOfAll(d) },
+                { head: 'File Type', val: d => `<span style="font-size:11px;">${d.fileType || '?'}</span>` },
+            ]),
+        });
+    }
     depts.forEach(d => {
         if (d.dashboards.length === 0 && d.docs.length === 0)
             alerts.push({ level: 'blue', icon: 'fa-info-circle', msg: `${d.label} reporting page is still empty — no dashboards or documents posted.` });
