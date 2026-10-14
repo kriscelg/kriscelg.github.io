@@ -420,6 +420,7 @@ const DATA_FILES = [
     'sib-reporting-data.js',
     'chatbot-data.js',
     'chatbot-acronyms.js',
+    'contact-resources-data.js',
 ];
 
 function loadAllData() {
@@ -755,6 +756,7 @@ function buildStats() {
         { file: 'sib-reporting-data.js',            desc: 'SIB Reporting — Dashboards & Documents' },
         { file: 'chatbot-data.js',                  desc: 'Chatbot FAQ Entries' },
         { file: 'chatbot-acronyms.js',              desc: 'Chatbot Acronym Dictionary' },
+        { file: 'contact-resources-data.js',        desc: 'OSU Support Forms, Key Contacts, Staff Resources' },
     ];
     document.getElementById('quickLinksGrid').innerHTML = QL_FILES.map(f => `
         <div class="ql-card">
