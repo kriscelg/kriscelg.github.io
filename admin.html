@@ -355,7 +355,7 @@ function checkPassword() {
 
 document.getElementById('signOutBtn').addEventListener('click', () => {
     sessionStorage.removeItem(SESSION_KEY);
-    location.reload();
+    location.href = 'index.html';
 });
 
 // If already authenticated on page load, start loading data immediately
