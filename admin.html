@@ -196,6 +196,30 @@
         .type-row:last-child { border-bottom: none; }
         .type-count { font-weight: 700; }
 
+        /* ── Broken Link Checker ──────────────────────── */
+        .link-check-btn {
+            padding: 9px 20px; background: #0d5f5f; color: #fff;
+            border: none; border-radius: 8px; font-size: 13px; font-weight: 600;
+            font-family: inherit; cursor: pointer; transition: background .2s;
+            display: inline-flex; align-items: center; gap: 7px;
+        }
+        .link-check-btn:hover:not(:disabled) { background: #0a4a4a; }
+        .link-check-btn:disabled { opacity: .55; cursor: default; }
+        .link-check-progress { font-size: 13px; color: #64748b; margin-top: 10px; display: none; }
+        .link-check-result { margin-top: 14px; }
+        .lc-bad { color: #dc2626; font-weight: 600; }
+
+        /* ── Quick Links ──────────────────────────────── */
+        .quick-links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+        .ql-card {
+            background: #fff; border-radius: 10px;
+            padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,.06);
+            display: flex; flex-direction: column; gap: 3px;
+        }
+        .ql-file { font-size: 12px; font-weight: 700; color: #0d5f5f; font-family: monospace; }
+        .ql-desc { font-size: 12px; color: #475569; }
+        .ql-note { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+
         /* ── Responsive ───────────────────────────────── */
         @media (max-width: 600px) {
             .kpi-grid { grid-template-columns: repeat(2, 1fr); }
@@ -313,6 +337,24 @@
             <div class="card" id="recentFeed"></div>
         </div>
 
+        <!-- ── Broken Link Checker ───────────────────── -->
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-link"></i>&ensp;Broken Link Checker</div>
+            <div class="card" style="padding:18px 20px;">
+                <div style="font-size:13px;color:#475569;margin-bottom:14px;">Scans all active document file paths for broken links (non-200 responses). Run this from the live deployed site for accurate results.</div>
+                <button class="link-check-btn" id="linkCheckBtn"><i class="fas fa-play"></i> Run Check</button>
+                <div class="link-check-progress" id="linkCheckProgress"></div>
+                <div class="link-check-result" id="linkCheckResult"></div>
+            </div>
+        </div>
+
+        <!-- ── Quick Links — Data Files ──────────────── -->
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-database"></i>&ensp;Data Files Reference</div>
+            <div style="font-size:12px;color:#94a3b8;margin-bottom:14px;">These are the data files that power the intranet. Update links below once the site is hosted.</div>
+            <div class="quick-links-grid" id="quickLinksGrid"></div>
+        </div>
+
     </div><!-- /admin-body -->
 </div><!-- /admin-content -->
 
@@ -421,6 +463,18 @@ function buildStats() {
     const staleDocs   = allActive.filter(d => d.uploadDate && d.uploadDate < oneYearAgo);
     const noTagsDocs  = allActive.filter(d => !d.tags || d.tags.length === 0);
     const archivedCount = g(ARCHIVED_DOCUMENTS).length;
+
+    // Duplicate title detection (case-insensitive exact match)
+    const _titleMap = {};
+    allActive.forEach(d => {
+        const key = d.title.toLowerCase().trim().replace(/\s+/g, ' ');
+        if (!_titleMap[key]) _titleMap[key] = [];
+        _titleMap[key].push(d);
+    });
+    const dupDocs = Object.values(_titleMap).filter(grp => grp.length > 1).flat();
+
+    // Empty document categories
+    const emptyCatList = activeCats.filter(c => c.docs.length === 0);
 
     // File type breakdown
     const fileTypes = {};
@@ -556,6 +610,24 @@ function buildStats() {
             ]),
         });
     }
+    if (dupDocs.length > 0) {
+        const sorted = [...dupDocs].sort((a, b) => a.title.localeCompare(b.title));
+        alerts.push({
+            level: 'amber', icon: 'fa-copy',
+            msg: `${dupDocs.length} document${dupDocs.length > 1 ? 's share' : ' shares'} a title with another document — possible duplicates.`,
+            detail: makeDetailTable(sorted, [
+                { head: 'Title', val: d => d.title },
+                { head: 'Category', val: d => catOf(d) },
+                { head: 'Uploaded', val: d => fmtDate(d.uploadDate) },
+            ]),
+        });
+    }
+    if (emptyCatList.length > 0) {
+        alerts.push({
+            level: 'blue', icon: 'fa-folder-open',
+            msg: `${emptyCatList.length} document categor${emptyCatList.length > 1 ? 'ies have' : 'y has'} no active documents: ${emptyCatList.map(c => c.label).join(', ')}.`,
+        });
+    }
     depts.forEach(d => {
         if (d.dashboards.length === 0 && d.docs.length === 0)
             alerts.push({ level: 'blue', icon: 'fa-info-circle', msg: `${d.label} reporting page is still empty — no dashboards or documents posted.` });
@@ -668,7 +740,97 @@ function buildStats() {
                 <span class="feed-date">${fmtDate(item.date)}</span>
             </div>`).join('')
         : '<div style="padding:16px;color:#94a3b8;font-size:13px;">No dated items found.</div>';
+
+    // Quick links / data files reference
+    const QL_FILES = [
+        { file: 'documents-data.js',               desc: 'Policy Docs, Job Aids, Forms & Templates, Financial Operations, Resources' },
+        { file: 'archived-documents-data.js',       desc: 'Archived Documents' },
+        { file: 'communications-data.js',           desc: 'Bulletins' },
+        { file: 'memos-data.js',                    desc: 'Memos' },
+        { file: 'events-data.js',                   desc: 'Events & Workshops' },
+        { file: 'videos-presentations-data.js',     desc: 'Videos & Presentations' },
+        { file: 'tes-reporting-data.js',            desc: 'TES Reporting — Dashboards & Documents' },
+        { file: 'apprenticeship-reporting-data.js', desc: 'AM Reporting — Dashboards & Documents' },
+        { file: 'bits-reporting-data.js',           desc: 'BITS Reporting — Dashboards & Documents' },
+        { file: 'finance-reporting-data.js',        desc: 'Finance Reporting — Dashboards & Documents' },
+        { file: 'sib-reporting-data.js',            desc: 'SIB Reporting — Dashboards & Documents' },
+        { file: 'chatbot-data.js',                  desc: 'Chatbot FAQ Entries' },
+        { file: 'chatbot-acronyms.js',              desc: 'Chatbot Acronym Dictionary' },
+        { file: 'about-us-data.js',                 desc: 'About Us — Team Bios & Events' },
+    ];
+    document.getElementById('quickLinksGrid').innerHTML = QL_FILES.map(f => `
+        <div class="ql-card">
+            <div class="ql-file">${f.file}</div>
+            <div class="ql-desc">${f.desc}</div>
+            <div class="ql-note">Link not yet configured</div>
+        </div>`).join('');
 }
+
+// ── Broken link checker ──────────────────────────────────
+document.getElementById('linkCheckBtn').addEventListener('click', async function () {
+    this.disabled = true;
+    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking…';
+    const progress = document.getElementById('linkCheckProgress');
+    const result   = document.getElementById('linkCheckResult');
+    progress.style.display = 'block';
+    result.innerHTML = '';
+
+    function ga(v) { return typeof v !== 'undefined' ? v : []; }
+    const cats = [
+        { label: 'Policy Documents',      docs: ga(POLICY_DOCUMENTS) },
+        { label: 'Job Aids & Guidelines', docs: ga(JOB_AID_GUIDELINES) },
+        { label: 'Forms & Templates',     docs: ga(FORMS_TEMPLATES) },
+        { label: 'Financial Operations',  docs: ga(FINANCE_OPERATIONS) },
+        { label: 'Resources',             docs: ga(RESOURCE_DOCS) },
+    ];
+    const allLinks = cats.flatMap(({ label, docs }) =>
+        docs.filter(d => !d.archived && d.fileName)
+            .map(d => ({ title: d.title, url: d.fileName, cat: label }))
+    );
+
+    if (allLinks.length === 0) {
+        progress.style.display = 'none';
+        this.disabled = false;
+        this.innerHTML = '<i class="fas fa-play"></i> Run Check';
+        result.innerHTML = '<div style="color:#94a3b8;font-size:13px;padding:8px 0;">No document file paths found to check.</div>';
+        return;
+    }
+
+    const broken = [];
+    const BATCH = 5;
+    for (let i = 0; i < allLinks.length; i += BATCH) {
+        const batch = allLinks.slice(i, i + BATCH);
+        progress.textContent = `Checking ${Math.min(i + BATCH, allLinks.length)} / ${allLinks.length}…`;
+        await Promise.all(batch.map(async item => {
+            try {
+                const r = await fetch(item.url, { method: 'HEAD', cache: 'no-store' });
+                if (!r.ok) broken.push({ ...item, status: r.status });
+            } catch {
+                broken.push({ ...item, status: 'Network error' });
+            }
+        }));
+    }
+
+    progress.style.display = 'none';
+    this.disabled = false;
+    this.innerHTML = '<i class="fas fa-redo"></i> Run Again';
+
+    if (broken.length === 0) {
+        result.innerHTML = `<div style="color:#16a34a;font-size:13px;font-weight:600;padding:8px 0;"><i class="fas fa-check-circle"></i>&ensp;All ${allLinks.length} file paths returned OK.</div>`;
+    } else {
+        result.innerHTML = `
+            <div style="color:#dc2626;font-size:13px;font-weight:600;margin-bottom:10px;"><i class="fas fa-exclamation-triangle"></i>&ensp;${broken.length} broken link${broken.length > 1 ? 's' : ''} found:</div>
+            <table class="card-table" style="border:1px solid #f1f5f9;border-radius:8px;overflow:hidden;">
+                <thead><tr><th>Title</th><th>Category</th><th>File Path</th><th>Status</th></tr></thead>
+                <tbody>${broken.map(b => `<tr>
+                    <td>${b.title}</td>
+                    <td class="td-sub">${b.cat}</td>
+                    <td style="font-family:monospace;font-size:11px;color:#64748b;word-break:break-all;">${b.url}</td>
+                    <td class="lc-bad">${b.status}</td>
+                </tr>`).join('')}</tbody>
+            </table>`;
+    }
+});
 </script>
 
 </body>
