@@ -297,8 +297,7 @@ const FOOTER_TEMPLATE = `
                 'documents-data.js', 'communications-data.js', 'memos-data.js',
                 'events-data.js', 'videos-presentations-data.js',
                 'tes-reporting-data.js', 'apprenticeship-reporting-data.js',
-                'bits-reporting-data.js', 'finance-reporting-data.js', 'sib-reporting-data.js',
-                'about-us-data.js'
+                'bits-reporting-data.js', 'finance-reporting-data.js', 'sib-reporting-data.js'
             ].map(loadScript)).then(() => {
                 buildIndex();
                 indexReady = true;
