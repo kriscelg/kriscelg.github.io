@@ -196,6 +196,28 @@
         .type-row:last-child { border-bottom: none; }
         .type-count { font-weight: 700; }
 
+        /* ── Name Registry ────────────────────────────── */
+        .registry-group { margin-bottom: 22px; }
+        .registry-group-title {
+            font-size: 11px; font-weight: 700; letter-spacing: .6px;
+            text-transform: uppercase; color: #0d5f5f;
+            padding: 8px 16px; background: #f0fdf4;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .registry-table { width: 100%; border-collapse: collapse; }
+        .registry-table th {
+            padding: 8px 14px; text-align: left; font-size: 11px; font-weight: 700;
+            letter-spacing: .4px; text-transform: uppercase; color: #64748b;
+            background: #f8fafc; border-bottom: 1px solid #e2e8f0;
+        }
+        .registry-table td { padding: 9px 14px; border-bottom: 1px solid #f1f5f9; font-size: 12px; vertical-align: middle; }
+        .registry-table tr:last-child td { border-bottom: none; }
+        .registry-key { font-family: monospace; font-size: 11px; color: #0d5f5f; background: #f0fdf4; padding: 2px 6px; border-radius: 4px; }
+        .registry-empty { color: #cbd5e1; font-style: italic; }
+        .registry-val-en { color: #1e293b; font-weight: 500; }
+        .registry-val-fr { color: #475569; }
+        .registry-val-ac { font-weight: 700; color: #0d5f5f; }
+
         /* ── Broken Link Checker ──────────────────────── */
         .link-check-btn {
             padding: 9px 20px; background: #0d5f5f; color: #fff;
@@ -337,6 +359,13 @@
             <div class="card" id="recentFeed"></div>
         </div>
 
+        <!-- ── Name Registry ─────────────────────────── -->
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-id-badge"></i>&ensp;Name Registry</div>
+            <div style="font-size:13px;color:#475569;margin-bottom:14px;">Official organizational names. Update values in <code style="font-size:12px;background:#f1f5f9;padding:2px 6px;border-radius:4px;">name-registry-data.js</code> — HTML documents using <code style="font-size:12px;background:#f1f5f9;padding:2px 6px;border-radius:4px;">data-wdt-name</code> spans will update automatically on next page load.</div>
+            <div class="card" id="nameRegistryContainer"><div style="padding:16px;color:#94a3b8;font-size:13px;">Loading…</div></div>
+        </div>
+
         <!-- ── Broken Link Checker ───────────────────── -->
         <div class="admin-section">
             <div class="admin-section-title"><i class="fas fa-link"></i>&ensp;Broken Link Checker</div>
@@ -421,6 +450,7 @@ const DATA_FILES = [
     'chatbot-data.js',
     'chatbot-acronyms.js',
     'contact-resources-data.js',
+    'name-registry-data.js',
 ];
 
 function loadAllData() {
@@ -741,6 +771,69 @@ function buildStats() {
             </div>`).join('')
         : '<div style="padding:16px;color:#94a3b8;font-size:13px;">No dated items found.</div>';
 
+    // Name Registry
+    const NR = typeof NAME_REGISTRY !== 'undefined' ? NAME_REGISTRY : {};
+    function nrVal(key) {
+        const v = NR[key];
+        if (v === undefined) return `<span class="registry-empty">—</span>`;
+        if (v === '')        return `<span class="registry-empty">not set</span>`;
+        return v;
+    }
+    function nrRow(keyBase, label) {
+        return `<tr>
+            <td>${label}</td>
+            <td><code class="registry-key">${keyBase}_en</code></td>
+            <td class="registry-val-en">${nrVal(keyBase + '_en')}</td>
+            <td class="registry-val-fr">${nrVal(keyBase + '_fr')}</td>
+            <td class="registry-val-ac">${nrVal(keyBase + '_acronym')}</td>
+        </tr>`;
+    }
+    const nrGroups = [
+        { title: 'Department',
+          rows: [ nrRow('dept_bmtjc', 'Department') ] },
+        { title: 'Division',
+          rows: [ nrRow('div_wdt', 'Division') ] },
+        { title: 'Branch — Training and Employment Services (TES)',
+          rows: [
+              nrRow('branch_tes',   'Branch'),
+              nrRow('area_wemsa',   'Service Area — WEMSA'),
+              nrRow('area_wnmsa',   'Service Area — WNMSA'),
+              nrRow('area_ps',      'Service Area — PS'),
+          ] },
+        { title: 'Branch — Apprenticeship Manitoba (AM)',
+          rows: [
+              nrRow('branch_am',  'Branch'),
+              nrRow('unit_bt',    'Unit — Business Transformation'),
+              nrRow('unit_oel',   'Unit — Operations and Education Liaison'),
+              nrRow('unit_plbo',  'Unit — Policy, Legislation and Board Operations'),
+              nrRow('unit_ts',    'Unit — Training Standards'),
+          ] },
+        { title: 'Branch — Business and Industry Training Supports (BITS)',
+          rows: [
+              nrRow('branch_bits', 'Branch'),
+              nrRow('unit_bsu',    'Unit — Business Supports Unit'),
+              nrRow('unit_iss',    'Unit — Industry and Sector Supports'),
+          ] },
+        { title: 'Branch — Economic and Labour Market Policy (ELMP)',
+          rows: [
+              nrRow('branch_elmp', 'Branch'),
+              nrRow('unit_src',    'Unit — Stakeholder Relations and Communications'),
+              nrRow('unit_ewps',   'Unit — Economic and Workforce Policy and Strategy'),
+          ] },
+        { title: 'Branch — Service Innovation Branch (SIB)',
+          rows: [
+              nrRow('branch_sib', 'Branch'),
+              nrRow('unit_osu',   'Unit — Operational Supports Unit'),
+              nrRow('unit_smu',   'Unit — Service Modernization Unit'),
+          ] },
+    ];
+    const tableHead = `<thead><tr><th>Label</th><th>Key</th><th>English</th><th>French</th><th>Acronym</th></tr></thead>`;
+    document.getElementById('nameRegistryContainer').innerHTML = nrGroups.map(g => `
+        <div class="registry-group">
+            <div class="registry-group-title">${g.title}</div>
+            <table class="registry-table">${tableHead}<tbody>${g.rows.join('')}</tbody></table>
+        </div>`).join('');
+
     // Quick links / data files reference
     const QL_FILES = [
         { file: 'documents-data.js',               desc: 'Policy Docs, Job Aids, Forms & Templates, Financial Operations, Resources' },
@@ -756,7 +849,8 @@ function buildStats() {
         { file: 'sib-reporting-data.js',            desc: 'SIB Reporting — Dashboards & Documents' },
         { file: 'chatbot-data.js',                  desc: 'Chatbot FAQ Entries' },
         { file: 'chatbot-acronyms.js',              desc: 'Chatbot Acronym Dictionary' },
-        { file: 'contact-resources-data.js',        desc: 'SIB Support Forms, Key Contacts, Staff Resources' },
+        { file: 'contact-resources-data.js',        desc: 'OSU Support Forms, Key Contacts, Staff Resources' },
+        { file: 'name-registry-data.js',            desc: 'Official Organizational Names Registry' },
     ];
     document.getElementById('quickLinksGrid').innerHTML = QL_FILES.map(f => `
         <div class="ql-card">

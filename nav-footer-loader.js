@@ -297,8 +297,10 @@ const FOOTER_TEMPLATE = `
                 'documents-data.js', 'communications-data.js', 'memos-data.js',
                 'events-data.js', 'videos-presentations-data.js',
                 'tes-reporting-data.js', 'apprenticeship-reporting-data.js',
-                'bits-reporting-data.js', 'finance-reporting-data.js', 'sib-reporting-data.js'
+                'bits-reporting-data.js', 'finance-reporting-data.js', 'sib-reporting-data.js',
+                'name-registry-data.js', 'name-resolver.js'
             ].map(loadScript)).then(() => {
+                resolveWdtNames();
                 buildIndex();
                 indexReady = true;
                 // Re-render if user already typed something
