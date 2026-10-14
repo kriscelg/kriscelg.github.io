@@ -115,3 +115,23 @@ const NAME_REGISTRY = {
     unit_smu_acronym:    'SMU',
 
 };
+
+// ── Resolver ─────────────────────────────────────────────────
+// Runs automatically when this file is loaded. Finds every
+// [data-wdt-name] span and replaces its text with the current
+// registry value. Empty values are ignored so fallback text
+// inside the span is preserved.
+(function () {
+    function resolve() {
+        document.querySelectorAll('[data-wdt-name]').forEach(function (el) {
+            var key = el.getAttribute('data-wdt-name');
+            var val = NAME_REGISTRY[key];
+            if (val) el.textContent = val;
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', resolve);
+    } else {
+        resolve();
+    }
+})();
