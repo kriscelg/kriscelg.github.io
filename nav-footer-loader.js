@@ -144,7 +144,7 @@ const FOOTER_TEMPLATE = `
                 <div class="footer-info">&copy; 2025 WDT. All rights reserved.</div>
                 <div class="footer-social">
                     <a href="https://www.intranet.mbgov.ca/editnr/index.html" class="social-link bmtjc-link" aria-label="BMTJC">BMTJC</a>
-                    <a href="admin.html" aria-label="Admin Centre" style="opacity:.6;font-size:11px;font-weight:600;color:#fff;padding:4px 12px;border:1px solid rgba(255,255,255,.35);border-radius:999px;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.6'">Admin Centre</a>
+                    <a href="admin.html" aria-label="Admin Centre" style="opacity:.6;font-size:11px;font-weight:600;color:#fff;padding:4px 12px;border:1px solid rgba(255,255,255,.35);border-radius:999px;text-decoration:none;transition:opacity .2s;display:inline-flex;align-items:center;line-height:1;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.6'">Admin Centre</a>
                 </div>
             </div>
         </div>
