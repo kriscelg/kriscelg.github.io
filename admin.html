@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Centre — WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ── Base ─────────────────────────────────────── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #f0f4f8; color: #1e293b; font-size: 14px; }
+        a { color: #0d5f5f; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* ── Password Gate ────────────────────────────── */
+        #admin-gate {
+            position: fixed; inset: 0; background: #0d5f5f;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+        }
+        .gate-card {
+            background: #fff; border-radius: 12px;
+            padding: 48px 40px; width: 100%; max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center;
+        }
+        .gate-logo { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #94a3b8; text-transform: uppercase; margin-bottom: 8px; }
+        .gate-title { font-size: 22px; font-weight: 800; color: #0d5f5f; margin-bottom: 6px; }
+        .gate-sub { font-size: 13px; color: #64748b; margin-bottom: 32px; }
+        .gate-input {
+            width: 100%; padding: 12px 16px; border: 1.5px solid #e2e8f0;
+            border-radius: 8px; font-size: 15px; font-family: inherit;
+            outline: none; transition: border-color .2s;
+        }
+        .gate-input:focus { border-color: #0d5f5f; }
+        .gate-btn {
+            width: 100%; margin-top: 14px; padding: 13px;
+            background: #0d5f5f; color: #fff; border: none; border-radius: 8px;
+            font-size: 15px; font-weight: 600; font-family: inherit;
+            cursor: pointer; transition: background .2s;
+        }
+        .gate-btn:hover { background: #0a4a4a; }
+        .gate-error { margin-top: 10px; font-size: 13px; color: #dc2626; display: none; }
+        .gate-note { margin-top: 20px; font-size: 11px; color: #94a3b8; line-height: 1.5; }
+
+        /* ── Admin Header ─────────────────────────────── */
+        .admin-header {
+            background: #0d5f5f; color: #fff;
+            padding: 0 24px; height: 56px;
+            display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: 0; z-index: 100;
+        }
+        .admin-header-left { display: flex; align-items: center; gap: 12px; }
+        .admin-header-logo { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: rgba(255,255,255,.55); text-transform: uppercase; }
+        .admin-header-sep { color: rgba(255,255,255,.3); }
+        .admin-header-title { font-size: 15px; font-weight: 700; }
+        .admin-signout-btn {
+            padding: 6px 14px; background: rgba(255,255,255,.15); color: #fff;
+            border: 1px solid rgba(255,255,255,.25); border-radius: 6px;
+            font-size: 12px; font-weight: 600; font-family: inherit;
+            cursor: pointer; transition: background .2s;
+        }
+        .admin-signout-btn:hover { background: rgba(255,255,255,.25); }
+
+        /* ── Layout ───────────────────────────────────── */
+        #admin-content { display: none; }
+        .admin-body { max-width: 1280px; margin: 0 auto; padding: 28px 24px 60px; }
+
+        /* ── Section ──────────────────────────────────── */
+        .admin-section { margin-bottom: 32px; }
+        .admin-section-title {
+            font-size: 12px; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; color: #64748b;
+            margin-bottom: 14px; padding-bottom: 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* ── KPI Tiles ────────────────────────────────── */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+        .kpi-tile {
+            background: #fff; border-radius: 10px;
+            padding: 18px 16px; box-shadow: 0 1px 4px rgba(0,0,0,.06);
+            border-left: 4px solid #0d5f5f;
+        }
+        .kpi-tile.amber { border-left-color: #f59e0b; }
+        .kpi-tile.red   { border-left-color: #ef4444; }
+        .kpi-tile.blue  { border-left-color: #3b82f6; }
+        .kpi-tile.purple { border-left-color: #8b5cf6; }
+        .kpi-tile.green { border-left-color: #22c55e; }
+        .kpi-num { font-size: 28px; font-weight: 800; color: #0f172a; line-height: 1; }
+        .kpi-label { font-size: 12px; color: #64748b; margin-top: 5px; font-weight: 500; }
+
+        /* ── Cards ────────────────────────────────────── */
+        .card {
+            background: #fff; border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,.06); overflow: hidden;
+        }
+        .card-table { width: 100%; border-collapse: collapse; }
+        .card-table th {
+            background: #f8fafc; padding: 10px 16px;
+            text-align: left; font-size: 11px; font-weight: 700;
+            letter-spacing: .5px; text-transform: uppercase; color: #64748b;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .card-table td { padding: 10px 16px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+        .card-table tr:last-child td { border-bottom: none; }
+        .card-table tr:hover td { background: #f8fafc; }
+        .td-num { font-weight: 700; font-size: 15px; }
+        .td-label { color: #475569; }
+        .td-sub { font-size: 12px; color: #94a3b8; }
+
+        /* ── Alerts ───────────────────────────────────── */
+        .alerts-list { display: flex; flex-direction: column; gap: 8px; }
+        .alert-item {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 12px 16px; border-radius: 8px; font-size: 13px;
+        }
+        .alert-item.red    { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+        .alert-item.amber  { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+        .alert-item.blue   { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
+        .alert-item.green  { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+        .alert-icon { flex-shrink: 0; margin-top: 1px; }
+        .no-alerts { padding: 14px 16px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; font-size: 13px; color: #166534; }
+
+        /* ── Reporting Grid ───────────────────────────── */
+        .reporting-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+        .reporting-card {
+            background: #fff; border-radius: 10px; padding: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,.06);
+        }
+        .reporting-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .reporting-dept { font-size: 14px; font-weight: 700; }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .status-dot.green { background: #22c55e; }
+        .status-dot.amber { background: #f59e0b; }
+        .status-dot.red   { background: #ef4444; }
+        .reporting-stat { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; }
+        .reporting-stat-label { color: #64748b; }
+        .reporting-stat-val { font-weight: 600; }
+
+        /* ── Recent Feed ──────────────────────────────── */
+        .feed-item {
+            display: flex; align-items: baseline; gap: 12px;
+            padding: 10px 16px; border-bottom: 1px solid #f1f5f9;
+        }
+        .feed-item:last-child { border-bottom: none; }
+        .feed-badge {
+            flex-shrink: 0; font-size: 10px; font-weight: 700; letter-spacing: .3px;
+            padding: 2px 7px; border-radius: 4px; text-transform: uppercase;
+        }
+        .badge-policy    { background: #e0f2fe; color: #0369a1; }
+        .badge-jobaid    { background: #f0fdf4; color: #166534; }
+        .badge-form      { background: #fef9c3; color: #854d0e; }
+        .badge-resource  { background: #fdf4ff; color: #7e22ce; }
+        .badge-finance   { background: #fff7ed; color: #9a3412; }
+        .badge-bulletin  { background: #fef2f2; color: #991b1b; }
+        .badge-memo      { background: #f5f3ff; color: #5b21b6; }
+        .badge-archived  { background: #f1f5f9; color: #475569; }
+        .feed-title { flex: 1; font-size: 13px; color: #1e293b; }
+        .feed-date { flex-shrink: 0; font-size: 12px; color: #94a3b8; }
+
+        /* ── Two-column layout ────────────────────────── */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+        /* ── File type badges ─────────────────────────── */
+        .type-row { display: flex; justify-content: space-between; padding: 8px 16px; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
+        .type-row:last-child { border-bottom: none; }
+        .type-count { font-weight: 700; }
+
+        /* ── Responsive ───────────────────────────────── */
+        @media (max-width: 600px) {
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .admin-body { padding: 16px 14px 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     PASSWORD GATE
+═══════════════════════════════════════════════════════════ -->
+<div id="admin-gate">
+    <div class="gate-card">
+        <div class="gate-logo">WDT Intranet</div>
+        <div class="gate-title">Admin Centre</div>
+        <div class="gate-sub">This area is restricted to site administrators.</div>
+        <input type="password" id="gateInput" class="gate-input" placeholder="Enter password" autocomplete="current-password">
+        <button class="gate-btn" id="gateBtn">Sign In</button>
+        <div class="gate-error" id="gateError"><i class="fas fa-exclamation-circle"></i> Incorrect password. Please try again.</div>
+        <div class="gate-note">Session ends when you close this tab.<br>Password is stored in session only — never transmitted.</div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     ADMIN CONTENT
+═══════════════════════════════════════════════════════════ -->
+<div id="admin-content">
+
+    <header class="admin-header">
+        <div class="admin-header-left">
+            <span class="admin-header-logo">WDT Intranet</span>
+            <span class="admin-header-sep">/</span>
+            <span class="admin-header-title">Admin Centre</span>
+        </div>
+        <button class="admin-signout-btn" id="signOutBtn"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+    </header>
+
+    <div class="admin-body">
+
+        <!-- ── Site Health Alerts ─────────────────────── -->
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-shield-alt"></i>&ensp;Site Health</div>
+            <div id="alertsContainer"><div class="no-alerts"><i class="fas fa-check-circle"></i>&ensp;Loading…</div></div>
+        </div>
+
+        <!-- ── Overview KPIs ──────────────────────────── -->
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-chart-bar"></i>&ensp;Overview</div>
+            <div class="kpi-grid" id="kpiGrid">
+                <div class="kpi-tile"><div class="kpi-num" id="kpi-docs">—</div><div class="kpi-label">Active Documents</div></div>
+                <div class="kpi-tile amber"><div class="kpi-num" id="kpi-stale">—</div><div class="kpi-label">Stale (12+ months)</div></div>
+                <div class="kpi-tile red"><div class="kpi-num" id="kpi-notags">—</div><div class="kpi-label">No Tags</div></div>
+                <div class="kpi-tile blue"><div class="kpi-num" id="kpi-archived">—</div><div class="kpi-label">Archived Docs</div></div>
+                <div class="kpi-tile"><div class="kpi-num" id="kpi-dashboards">—</div><div class="kpi-label">Dashboards</div></div>
+                <div class="kpi-tile purple"><div class="kpi-num" id="kpi-bulletins">—</div><div class="kpi-label">Bulletins</div></div>
+                <div class="kpi-tile purple"><div class="kpi-num" id="kpi-memos">—</div><div class="kpi-label">Memos</div></div>
+                <div class="kpi-tile green"><div class="kpi-num" id="kpi-searchindex">—</div><div class="kpi-label">Search Index Items</div></div>
+            </div>
+        </div>
+
+        <!-- ── Document Health ────────────────────────── -->
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-folder-open"></i>&ensp;Document Health</div>
+            <div class="two-col">
+
+                <div class="card">
+                    <table class="card-table">
+                        <thead><tr><th>Category</th><th>Count</th><th>No Tags</th><th>Stale</th></tr></thead>
+                        <tbody id="docCategoryTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <table class="card-table">
+                        <thead><tr><th>File Type</th><th>Count</th></tr></thead>
+                        <tbody id="fileTypeTable"></tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ── Reporting Coverage ─────────────────────── -->
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-chart-line"></i>&ensp;Reporting Coverage</div>
+            <div class="reporting-grid" id="reportingGrid"></div>
+        </div>
+
+        <!-- ── Comms, Content & Chatbot ───────────────── -->
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-layer-group"></i>&ensp;Content &amp; Chatbot</div>
+            <div class="two-col">
+
+                <div class="card">
+                    <table class="card-table">
+                        <thead><tr><th>Content Type</th><th>Count</th><th>Most Recent</th></tr></thead>
+                        <tbody id="contentTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <table class="card-table">
+                        <thead><tr><th>Chatbot</th><th>Count</th></tr></thead>
+                        <tbody id="chatbotTable"></tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ── Recently Updated Feed ──────────────────── -->
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-history"></i>&ensp;Recently Updated <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#94a3b8;">(last 20 items across all data files)</span></div>
+            <div class="card" id="recentFeed"></div>
+        </div>
+
+    </div><!-- /admin-body -->
+</div><!-- /admin-content -->
+
+<!-- ════════════════════════════════════════════════════════
+     DATA FILES — loaded after DOM ready
+═══════════════════════════════════════════════════════════ -->
+<script>
+// ── Password gate ────────────────────────────────────────
+// Change this value to set the admin password.
+// It is stored only in sessionStorage — never sent to a server.
+const ADMIN_PASSWORD = 'WDTAdmin2026!';
+
+const SESSION_KEY = 'wdt_admin_auth';
+
+function showAdmin() {
+    document.getElementById('admin-gate').style.display = 'none';
+    document.getElementById('admin-content').style.display = 'block';
+}
+
+if (sessionStorage.getItem(SESSION_KEY) === '1') {
+    showAdmin();
+}
+
+document.getElementById('gateBtn').addEventListener('click', checkPassword);
+document.getElementById('gateInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
+
+function checkPassword() {
+    const val = document.getElementById('gateInput').value;
+    if (val === ADMIN_PASSWORD) {
+        sessionStorage.setItem(SESSION_KEY, '1');
+        showAdmin();
+        loadAllData();
+    } else {
+        const err = document.getElementById('gateError');
+        err.style.display = 'block';
+        document.getElementById('gateInput').value = '';
+        document.getElementById('gateInput').focus();
+    }
+}
+
+document.getElementById('signOutBtn').addEventListener('click', () => {
+    sessionStorage.removeItem(SESSION_KEY);
+    location.reload();
+});
+
+// If already authenticated on page load, start loading data immediately
+if (sessionStorage.getItem(SESSION_KEY) === '1') {
+    document.addEventListener('DOMContentLoaded', loadAllData);
+}
+
+// ── Sequential data loader ───────────────────────────────
+const DATA_FILES = [
+    'documents-data.js',
+    'archived-documents-data.js',
+    'communications-data.js',
+    'memos-data.js',
+    'events-data.js',
+    'videos-presentations-data.js',
+    'tes-reporting-data.js',
+    'apprenticeship-reporting-data.js',
+    'bits-reporting-data.js',
+    'finance-reporting-data.js',
+    'sib-reporting-data.js',
+    'chatbot-data.js',
+    'chatbot-acronyms.js',
+    'about-us-data.js',
+];
+
+function loadAllData() {
+    let i = 0;
+    function next() {
+        if (i >= DATA_FILES.length) { buildStats(); return; }
+        const s = document.createElement('script');
+        s.src = DATA_FILES[i++];
+        s.onload = next;
+        s.onerror = next; // skip missing files gracefully
+        document.body.appendChild(s);
+    }
+    next();
+}
+
+// ── Stats builder ────────────────────────────────────────
+function buildStats() {
+    const today = new Date().toISOString().slice(0, 10);
+    const oneYearAgo = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+
+    function g(v) { return typeof v !== 'undefined' ? v : []; }
+    function flatDocs(arr) { return arr.flatMap(c => c.documents || []); }
+
+    // ── Active documents ─────────────────────────────────
+    const docCategories = [
+        { label: 'Policy Documents',     docs: g(POLICY_DOCUMENTS) },
+        { label: 'Job Aids & Guidelines', docs: g(JOB_AID_GUIDELINES) },
+        { label: 'Forms & Templates',    docs: g(FORMS_TEMPLATES) },
+        { label: 'Financial Operations', docs: g(FINANCE_OPERATIONS) },
+        { label: 'Resources',            docs: g(RESOURCE_DOCS) },
+    ];
+    // Flag transitional archived (archived:true in active files)
+    const transitionalArchived = docCategories.flatMap(c => c.docs.filter(d => d.archived));
+
+    // Filter to truly active for counting
+    const activeCats = docCategories.map(c => ({ ...c, docs: c.docs.filter(d => !d.archived) }));
+    const allActive  = activeCats.flatMap(c => c.docs);
+
+    const totalDocs   = allActive.length;
+    const staleDocs   = allActive.filter(d => d.uploadDate && d.uploadDate < oneYearAgo);
+    const noTagsDocs  = allActive.filter(d => !d.tags || d.tags.length === 0);
+    const archivedCount = g(ARCHIVED_DOCUMENTS).length;
+
+    // File type breakdown
+    const fileTypes = {};
+    allActive.forEach(d => { const t = d.fileType || 'Unknown'; fileTypes[t] = (fileTypes[t] || 0) + 1; });
+
+    // ── Reporting ────────────────────────────────────────
+    const depts = [
+        { label: 'TES',     dashboards: g(POWERBI_DASHBOARDS),         docs: flatDocs(g(REPORTING_DOCUMENTS)),          page: 'tes-reporting.html' },
+        { label: 'AM',      dashboards: g(AM_POWERBI_DASHBOARDS),      docs: flatDocs(g(AM_REPORTING_DOCUMENTS)),       page: 'apprenticeship-reporting.html' },
+        { label: 'BITS',    dashboards: g(BITS_POWERBI_DASHBOARDS),    docs: flatDocs(g(BITS_REPORTING_DOCUMENTS)),     page: 'bits-reporting.html' },
+        { label: 'Finance', dashboards: g(FINANCE_POWERBI_DASHBOARDS), docs: flatDocs(g(FINANCE_REPORTING_DOCUMENTS)), page: 'finance-reporting.html' },
+        { label: 'SIB',     dashboards: g(SIB_POWERBI_DASHBOARDS),     docs: flatDocs(g(SIB_REPORTING_DOCUMENTS)),     page: 'sib-reporting.html' },
+    ];
+    const totalDashboards = depts.reduce((s, d) => s + d.dashboards.length, 0);
+
+    // ── Comms ────────────────────────────────────────────
+    const bulletins = g(BULLETINS);
+    const memos     = g(MEMOS);
+    const events    = g(EVENTS);
+    const videos    = g(VIDEOS);
+    const presentations = g(PRESENTATIONS);
+    const orgCharts = g(ORGANIZATION_CHARTS);
+    const upcomingEvents = events.filter(e => e.date && e.date >= today).length;
+
+    function latestDate(arr, field) {
+        const dates = arr.map(x => x[field] || '').filter(Boolean).sort();
+        return dates.length ? dates[dates.length - 1] : null;
+    }
+    function fmtDate(d) {
+        if (!d) return '—';
+        const [y, m, day] = d.split('-').map(Number);
+        return new Date(y, m - 1, day).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    // ── Chatbot ──────────────────────────────────────────
+    const faqs     = g(CHATBOT_FAQS).length;
+    const acronyms = Object.keys(typeof WDT_ACRONYMS !== 'undefined' ? WDT_ACRONYMS : {}).length;
+
+    // ── Search index size (estimate) ─────────────────────
+    const reportingDocs = depts.reduce((s, d) => s + d.docs.length, 0);
+    const searchIndex = allActive.length + bulletins.length + memos.length
+        + events.length + videos.length + presentations.length
+        + totalDashboards + reportingDocs + orgCharts.length;
+
+    // ── Alerts ───────────────────────────────────────────
+    const alerts = [];
+    if (noTagsDocs.length > 0) alerts.push({ level: 'amber', icon: 'fa-tag', msg: `${noTagsDocs.length} active document${noTagsDocs.length > 1 ? 's have' : ' has'} no tags — these won't appear in tag filter searches.` });
+    if (staleDocs.length > 0) alerts.push({ level: 'amber', icon: 'fa-clock', msg: `${staleDocs.length} document${staleDocs.length > 1 ? 's are' : ' is'} over 12 months old — review for accuracy.` });
+    if (transitionalArchived.length > 0) alerts.push({ level: 'red', icon: 'fa-exclamation-triangle', msg: `${transitionalArchived.length} document${transitionalArchived.length > 1 ? 's are' : ' is'} marked archived:true in an active data file — move to archived-documents-data.js to clean up.` });
+    depts.forEach(d => {
+        if (d.dashboards.length === 0 && d.docs.length === 0)
+            alerts.push({ level: 'blue', icon: 'fa-info-circle', msg: `${d.label} reporting page is still empty — no dashboards or documents posted.` });
+    });
+    if (alerts.length === 0) alerts.push({ level: 'green', icon: 'fa-check-circle', msg: 'No issues detected. Everything looks good.' });
+
+    // ── Recently updated feed ─────────────────────────────
+    const feedItems = [];
+    activeCats.forEach(({ label, docs }) => {
+        const badge = { 'Policy Documents': 'policy', 'Job Aids & Guidelines': 'jobaid', 'Forms & Templates': 'form', 'Financial Operations': 'finance', 'Resources': 'resource' }[label] || 'resource';
+        docs.forEach(d => { if (d.uploadDate) feedItems.push({ date: d.uploadDate, title: d.title, badge, badgeLabel: label }); });
+    });
+    bulletins.forEach(b => { if (b.date) feedItems.push({ date: b.date, title: b.subject || b.title || 'Bulletin', badge: 'bulletin', badgeLabel: 'Bulletin' }); });
+    memos.forEach(m => { if (m.date) feedItems.push({ date: m.date, title: m.title, badge: 'memo', badgeLabel: 'Memo' }); });
+    g(ARCHIVED_DOCUMENTS).forEach(d => { if (d.archivedOn) feedItems.push({ date: d.archivedOn, title: d.title, badge: 'archived', badgeLabel: 'Archived' }); });
+    feedItems.sort((a, b) => b.date.localeCompare(a.date));
+    const recentItems = feedItems.slice(0, 20);
+
+    // ── Render ────────────────────────────────────────────
+    // KPIs
+    document.getElementById('kpi-docs').textContent       = totalDocs;
+    document.getElementById('kpi-stale').textContent      = staleDocs.length;
+    document.getElementById('kpi-notags').textContent     = noTagsDocs.length;
+    document.getElementById('kpi-archived').textContent   = archivedCount;
+    document.getElementById('kpi-dashboards').textContent = totalDashboards;
+    document.getElementById('kpi-bulletins').textContent  = bulletins.length;
+    document.getElementById('kpi-memos').textContent      = memos.length;
+    document.getElementById('kpi-searchindex').textContent = searchIndex;
+
+    // Alerts
+    const alertsEl = document.getElementById('alertsContainer');
+    alertsEl.innerHTML = `<div class="alerts-list">${alerts.map(a => `
+        <div class="alert-item ${a.level}">
+            <i class="fas ${a.icon} alert-icon"></i>
+            <span>${a.msg}</span>
+        </div>`).join('')}</div>`;
+
+    // Document categories table
+    document.getElementById('docCategoryTable').innerHTML = activeCats.map(({ label, docs }) => {
+        const noTags = docs.filter(d => !d.tags || d.tags.length === 0).length;
+        const stale  = docs.filter(d => d.uploadDate && d.uploadDate < oneYearAgo).length;
+        return `<tr>
+            <td class="td-label">${label}</td>
+            <td class="td-num">${docs.length}</td>
+            <td>${noTags > 0 ? `<span style="color:#d97706;font-weight:600">${noTags}</span>` : '<span style="color:#16a34a">0</span>'}</td>
+            <td>${stale > 0 ? `<span style="color:#d97706;font-weight:600">${stale}</span>` : '<span style="color:#16a34a">0</span>'}</td>
+        </tr>`;
+    }).join('');
+
+    // File type table
+    document.getElementById('fileTypeTable').innerHTML = Object.entries(fileTypes)
+        .sort((a, b) => b[1] - a[1])
+        .map(([type, count]) => `<tr><td class="td-label">${type}</td><td class="td-num">${count}</td></tr>`).join('');
+
+    // Reporting grid
+    document.getElementById('reportingGrid').innerHTML = depts.map(d => {
+        const total = d.dashboards.length + d.docs.length;
+        const status = total === 0 ? 'red' : (d.dashboards.length > 0 && d.docs.length > 0 ? 'green' : 'amber');
+        const statusLabel = total === 0 ? 'Empty' : (status === 'green' ? 'Populated' : 'Partial');
+        return `<a href="${d.page}" target="_blank" class="reporting-card" style="text-decoration:none;color:inherit;">
+            <div class="reporting-card-header">
+                <span class="reporting-dept">${d.label}</span>
+                <span class="status-dot ${status}" title="${statusLabel}"></span>
+            </div>
+            <div class="reporting-stat"><span class="reporting-stat-label">Dashboards</span><span class="reporting-stat-val">${d.dashboards.length}</span></div>
+            <div class="reporting-stat"><span class="reporting-stat-label">Report Docs</span><span class="reporting-stat-val">${d.docs.length}</span></div>
+            <div class="reporting-stat" style="margin-top:6px;padding-top:6px;border-top:1px solid #f1f5f9"><span class="reporting-stat-label" style="font-size:11px;color:#94a3b8">${statusLabel}</span></div>
+        </a>`;
+    }).join('');
+
+    // Content table
+    document.getElementById('contentTable').innerHTML = [
+        { label: 'Bulletins', count: bulletins.length, latest: fmtDate(latestDate(bulletins, 'date')) },
+        { label: 'Memos', count: memos.length, latest: fmtDate(latestDate(memos, 'date')) },
+        { label: 'Upcoming Events', count: upcomingEvents, latest: '—' },
+        { label: 'Videos', count: videos.length, latest: '—' },
+        { label: 'Presentations', count: presentations.length, latest: '—' },
+        { label: 'Org Charts', count: orgCharts.length, latest: '—' },
+    ].map(r => `<tr>
+        <td class="td-label">${r.label}</td>
+        <td class="td-num">${r.count}</td>
+        <td class="td-sub">${r.latest}</td>
+    </tr>`).join('');
+
+    // Chatbot table
+    document.getElementById('chatbotTable').innerHTML = [
+        { label: 'FAQ Entries', count: faqs },
+        { label: 'Acronyms', count: acronyms },
+    ].map(r => `<tr><td class="td-label">${r.label}</td><td class="td-num">${r.count}</td></tr>`).join('');
+
+    // Recent feed
+    document.getElementById('recentFeed').innerHTML = recentItems.length
+        ? recentItems.map(item => `
+            <div class="feed-item">
+                <span class="feed-badge badge-${item.badge}">${item.badgeLabel}</span>
+                <span class="feed-title">${item.title}</span>
+                <span class="feed-date">${fmtDate(item.date)}</span>
+            </div>`).join('')
+        : '<div style="padding:16px;color:#94a3b8;font-size:13px;">No dated items found.</div>';
+}
+</script>
+
+</body>
+</html>

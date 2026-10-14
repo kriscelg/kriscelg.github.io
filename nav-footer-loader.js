@@ -144,6 +144,7 @@ const FOOTER_TEMPLATE = `
                 <div class="footer-info">&copy; 2025 WDT. All rights reserved.</div>
                 <div class="footer-social">
                     <a href="https://www.intranet.mbgov.ca/editnr/index.html" class="social-link bmtjc-link" aria-label="BMTJC">BMTJC</a>
+                    <a href="admin.html" class="social-link" aria-label="Admin Centre" style="opacity:.6;font-size:11px;">Admin</a>
                 </div>
             </div>
         </div>
