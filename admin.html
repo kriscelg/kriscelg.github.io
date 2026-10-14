@@ -123,6 +123,32 @@
         .alert-item.green  { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
         .alert-icon { flex-shrink: 0; margin-top: 1px; }
         .no-alerts { padding: 14px 16px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; font-size: 13px; color: #166534; }
+        .alert-toggle-btn {
+            margin-left: auto; flex-shrink: 0; background: none; border: none;
+            cursor: pointer; font-size: 12px; font-weight: 600; font-family: inherit;
+            display: flex; align-items: center; gap: 4px; padding: 2px 6px;
+            border-radius: 4px; opacity: .75; transition: opacity .15s;
+        }
+        .alert-toggle-btn:hover { opacity: 1; }
+        .alert-detail {
+            display: none; margin-top: 10px; background: rgba(255,255,255,.55);
+            border-radius: 6px; overflow: hidden; border: 1px solid rgba(0,0,0,.06);
+        }
+        .alert-detail.open { display: block; }
+        .alert-detail-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .alert-detail-table th {
+            padding: 7px 12px; text-align: left; font-size: 11px; font-weight: 700;
+            letter-spacing: .4px; text-transform: uppercase; color: inherit;
+            opacity: .65; border-bottom: 1px solid rgba(0,0,0,.08);
+        }
+        .alert-detail-table td { padding: 7px 12px; border-bottom: 1px solid rgba(0,0,0,.05); vertical-align: middle; }
+        .alert-detail-table tr:last-child td { border-bottom: none; }
+        .alert-show-more {
+            display: block; padding: 7px 12px; font-size: 12px; font-weight: 600;
+            cursor: pointer; opacity: .7; text-align: center;
+            border-top: 1px solid rgba(0,0,0,.07);
+        }
+        .alert-show-more:hover { opacity: 1; }
 
         /* ── Reporting Grid ───────────────────────────── */
         .reporting-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
@@ -440,9 +466,74 @@ function buildStats() {
         + totalDashboards + reportingDocs + orgCharts.length;
 
     // ── Alerts ───────────────────────────────────────────
+    // Category lookup for stale/no-tags detail lists
+    function catOf(doc) {
+        for (const c of activeCats) { if (c.docs.includes(doc)) return c.label; }
+        return '—';
+    }
+
+    const DETAIL_CAP = 15; // rows shown before "Show more"
+
+    // Store hidden rows keyed by a uid so the "Show more" button can append them
+    const _hiddenRows = {};
+
+    function makeDetailTable(docs, cols) {
+        const shown = docs.slice(0, DETAIL_CAP);
+        const extra = docs.slice(DETAIL_CAP);
+        const uid = 'dr_' + Math.random().toString(36).slice(2);
+        if (extra.length > 0) {
+            _hiddenRows[uid] = extra.map(d => cols.map(c => c.val(d)));
+        }
+        return `
+            <table class="alert-detail-table" data-uid="${uid}">
+                <thead><tr>${cols.map(c => `<th>${c.head}</th>`).join('')}</tr></thead>
+                <tbody>${shown.map(d => `<tr>${cols.map(c => `<td>${c.val(d)}</td>`).join('')}</tr>`).join('')}</tbody>
+            </table>
+            ${extra.length > 0 ? `<button class="alert-show-more" data-uid="${uid}">Show ${extra.length} more ▾</button>` : ''}`;
+    }
+
+    // Event delegation for "Show more" buttons (attached after rendering)
+    function wireShowMore() {
+        document.querySelectorAll('.alert-show-more').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const uid = this.dataset.uid;
+                const rows = _hiddenRows[uid] || [];
+                const tbody = document.querySelector(`table[data-uid="${uid}"] tbody`);
+                rows.forEach(cells => {
+                    const tr = document.createElement('tr');
+                    cells.forEach(val => { const td = document.createElement('td'); td.innerHTML = val; tr.appendChild(td); });
+                    tbody.appendChild(tr);
+                });
+                this.remove();
+            });
+        });
+    }
+
     const alerts = [];
-    if (noTagsDocs.length > 0) alerts.push({ level: 'amber', icon: 'fa-tag', msg: `${noTagsDocs.length} active document${noTagsDocs.length > 1 ? 's have' : ' has'} no tags — these won't appear in tag filter searches.` });
-    if (staleDocs.length > 0) alerts.push({ level: 'amber', icon: 'fa-clock', msg: `${staleDocs.length} document${staleDocs.length > 1 ? 's are' : ' is'} over 12 months old — review for accuracy.` });
+    if (noTagsDocs.length > 0) {
+        const sorted = [...noTagsDocs].sort((a, b) => a.title.localeCompare(b.title));
+        alerts.push({
+            level: 'amber', icon: 'fa-tag',
+            msg: `${noTagsDocs.length} active document${noTagsDocs.length > 1 ? 's have' : ' has'} no tags — these won't appear in tag filter searches.`,
+            detail: makeDetailTable(sorted, [
+                { head: 'Title', val: d => d.title },
+                { head: 'Category', val: d => catOf(d) },
+                { head: 'Uploaded', val: d => fmtDate(d.uploadDate) },
+            ]),
+        });
+    }
+    if (staleDocs.length > 0) {
+        const sorted = [...staleDocs].sort((a, b) => (a.uploadDate || '').localeCompare(b.uploadDate || ''));
+        alerts.push({
+            level: 'amber', icon: 'fa-clock',
+            msg: `${staleDocs.length} document${staleDocs.length > 1 ? 's are' : ' is'} over 12 months old — review for accuracy.`,
+            detail: makeDetailTable(sorted, [
+                { head: 'Title', val: d => d.title },
+                { head: 'Category', val: d => catOf(d) },
+                { head: 'Last Updated', val: d => fmtDate(d.uploadDate) },
+            ]),
+        });
+    }
     if (transitionalArchived.length > 0) alerts.push({ level: 'red', icon: 'fa-exclamation-triangle', msg: `${transitionalArchived.length} document${transitionalArchived.length > 1 ? 's are' : ' is'} marked archived:true in an active data file — move to archived-documents-data.js to clean up.` });
     depts.forEach(d => {
         if (d.dashboards.length === 0 && d.docs.length === 0)
@@ -475,11 +566,25 @@ function buildStats() {
 
     // Alerts
     const alertsEl = document.getElementById('alertsContainer');
-    alertsEl.innerHTML = `<div class="alerts-list">${alerts.map(a => `
-        <div class="alert-item ${a.level}">
-            <i class="fas ${a.icon} alert-icon"></i>
-            <span>${a.msg}</span>
-        </div>`).join('')}</div>`;
+    let alertIdx = 0;
+    alertsEl.innerHTML = `<div class="alerts-list">${alerts.map(a => {
+        const id = 'al_' + (alertIdx++);
+        const hasDetail = !!a.detail;
+        return `<div class="alert-item ${a.level}" style="${hasDetail ? 'flex-direction:column;align-items:stretch;' : ''}">
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+                <i class="fas ${a.icon} alert-icon" style="margin-top:1px;flex-shrink:0;"></i>
+                <span style="flex:1;">${a.msg}</span>
+                ${hasDetail ? `<button class="alert-toggle-btn" onclick="
+                    const d=document.getElementById('${id}');
+                    const open=d.classList.toggle('open');
+                    this.querySelector('.toggle-chevron').style.transform=open?'rotate(180deg)':'';
+                    this.querySelector('.toggle-label').textContent=open?'Hide list':'View list';
+                "><span class="toggle-label">View list</span><i class="fas fa-chevron-down toggle-chevron" style="transition:transform .2s;"></i></button>` : ''}
+            </div>
+            ${hasDetail ? `<div class="alert-detail" id="${id}">${a.detail}</div>` : ''}
+        </div>`;
+    }).join('')}</div>`;
+    wireShowMore();
 
     // Document categories table
     document.getElementById('docCategoryTable').innerHTML = activeCats.map(({ label, docs }) => {
