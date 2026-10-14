@@ -442,7 +442,6 @@ function buildStats() {
     const events    = g(EVENTS);
     const videos    = g(VIDEOS);
     const presentations = g(PRESENTATIONS);
-    const orgCharts = g(ORGANIZATION_CHARTS);
     const upcomingEvents = events.filter(e => e.date && e.date >= today).length;
 
     function latestDate(arr, field) {
@@ -463,7 +462,7 @@ function buildStats() {
     const reportingDocs = depts.reduce((s, d) => s + d.docs.length, 0);
     const searchIndex = allActive.length + bulletins.length + memos.length
         + events.length + videos.length + presentations.length
-        + totalDashboards + reportingDocs + orgCharts.length;
+        + totalDashboards + reportingDocs;
 
     // ── Alerts ───────────────────────────────────────────
     // Category lookup for stale/no-tags detail lists
@@ -648,7 +647,6 @@ function buildStats() {
         { label: 'Upcoming Events', count: upcomingEvents, latest: '—' },
         { label: 'Videos', count: videos.length, latest: '—' },
         { label: 'Presentations', count: presentations.length, latest: '—' },
-        { label: 'Org Charts', count: orgCharts.length, latest: '—' },
     ].map(r => `<tr>
         <td class="td-label">${r.label}</td>
         <td class="td-num">${r.count}</td>

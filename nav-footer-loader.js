@@ -236,7 +236,6 @@ const FOOTER_TEMPLATE = `
             .nav-suggestion-icon.ic-video      { background:#fee2e2; color:#b91c1c; }
             .nav-suggestion-icon.ic-present    { background:#ffedd5; color:#c2410c; }
             .nav-suggestion-icon.ic-dashboard  { background:#e0e7ff; color:#3730a3; }
-            .nav-suggestion-icon.ic-orgchart   { background:#dcfce7; color:#15803d; }
             .nav-suggestion-text { flex: 1; min-width: 0; }
             .nav-suggestion-title {
                 font-size: 13px; font-weight: 600; color: #1e293b;
@@ -405,9 +404,6 @@ const FOOTER_TEMPLATE = `
                 (cat.documents || []).forEach(doc =>
                     push(doc.title, doc.url || 'sib-reporting.html', 'Report', 'ic-dashboard', 'fa-file-contract', [])));
 
-            // Org Charts
-            (typeof ORGANIZATION_CHARTS !== 'undefined' ? ORGANIZATION_CHARTS : []).forEach(o =>
-                push(o.title, o.pdfFile ? ep(o.pdfFile) : 'about-us.html', 'Org Chart', 'ic-orgchart', 'fa-sitemap', o.tags));
         }
 
         function getSuggestions(query) {

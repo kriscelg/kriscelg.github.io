@@ -81,7 +81,6 @@
         .icon-video        { background: #fee2e2; color: #dc2626; }
         .icon-presentation { background: #ffedd5; color: #ea580c; }
         .icon-dashboard    { background: #e0e7ff; color: #4338ca; }
-        .icon-orgchart     { background: #dcfce7; color: #16a34a; }
 
         .result-body { flex: 1; min-width: 0; }
         .result-category-badge {
@@ -102,7 +101,6 @@
         .badge-video        { background: #fee2e2; color: #b91c1c; }
         .badge-presentation { background: #ffedd5; color: #c2410c; }
         .badge-dashboard    { background: #e0e7ff; color: #3730a3; }
-        .badge-orgchart     { background: #dcfce7; color: #15803d; }
 
         .result-title {
             font-size: 15px;
@@ -259,7 +257,6 @@
         'Presentation':          { group: 'media',       iconClass: 'icon-presentation', badgeClass: 'badge-presentation', icon: 'fa-file-powerpoint' },
         'Dashboard':             { group: 'dashboards',  iconClass: 'icon-dashboard',    badgeClass: 'badge-dashboard',    icon: 'fa-chart-bar' },
         'Report':                { group: 'dashboards',  iconClass: 'icon-dashboard',    badgeClass: 'badge-dashboard',    icon: 'fa-file-contract' },
-        'Org Chart':             { group: 'orgcharts',   iconClass: 'icon-orgchart',     badgeClass: 'badge-orgchart',     icon: 'fa-sitemap' },
     };
 
     const FILE_ICONS = {
@@ -566,23 +563,6 @@
             }));
         });
 
-        // ---- Org Charts ----
-        const orgCharts = typeof ORGANIZATION_CHARTS !== 'undefined' ? ORGANIZATION_CHARTS : [];
-        orgCharts.forEach(o => items.push({
-            title: o.title,
-            url: o.pdfFile ? encodePath(o.pdfFile) : 'about-us.html',
-            category: 'Org Chart',
-            group: 'orgcharts',
-            iconClass: 'icon-orgchart',
-            badgeClass: 'badge-orgchart',
-            icon: 'fa-sitemap',
-            date: o.date || '',
-            tags: [],
-            meta: o.department || '',
-            searchExtra: o.description || '',
-            openNewTab: !!o.pdfFile,
-        }));
-
         return items;
     }
 
@@ -604,7 +584,6 @@
         events:     'Events',
         media:      'Videos & Presentations',
         dashboards: 'Dashboards / Reports',
-        orgcharts:  'Org Charts',
     };
 
     // Read sort preference from URL (?sort=date)
@@ -658,7 +637,7 @@
     }
 
     function buildFilterPills(query) {
-        const groups = ['all', 'documents', 'bulletins', 'memos', 'events', 'media', 'dashboards', 'orgcharts'];
+        const groups = ['all', 'documents', 'bulletins', 'memos', 'events', 'media', 'dashboards'];
         const container = document.getElementById('filterPillsRow');
 
         container.innerHTML = groups.map(g => {
