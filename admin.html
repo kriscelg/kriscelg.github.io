@@ -530,7 +530,14 @@ function buildStats() {
             detail: makeDetailTable(sorted, [
                 { head: 'Title', val: d => d.title },
                 { head: 'Category', val: d => catOf(d) },
-                { head: 'Last Updated', val: d => fmtDate(d.uploadDate) },
+                { head: 'Type', val: d => {
+                    const t = d.fileType || '?';
+                    const isHtml = t.toUpperCase() === 'HTML';
+                    return isHtml
+                        ? `<span style="font-size:11px;">${t}</span>`
+                        : `<span style="font-size:11px;">${t}</span> <span title="Flagged on upload date only — no last-modified date available for this file type" style="font-size:10px;font-weight:600;background:#fde68a;color:#92400e;padding:1px 5px;border-radius:3px;cursor:default;">upload date</span>`;
+                }},
+                { head: 'Uploaded', val: d => fmtDate(d.uploadDate) },
             ]),
         });
     }
