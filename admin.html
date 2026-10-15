@@ -902,11 +902,122 @@ function buildStats() {
           ] },
     ];
     const tableHead = `<thead><tr><th>Label</th><th>Key</th><th>English</th><th>French</th><th>Acronym</th><th>Tagged Docs</th></tr></thead>`;
-    document.getElementById('nameRegistryContainer').innerHTML = nrGroups.map(g => `
+    const nrHtml = nrGroups.map(g => `
         <div class="registry-group">
             <div class="registry-group-title">${g.title}</div>
             <table class="registry-table">${tableHead}<tbody>${g.rows.join('')}</tbody></table>
         </div>`).join('');
+
+    const nrContainer = document.getElementById('nameRegistryContainer');
+
+    if (changedNames.length > 0) {
+        const totalAffected = changedNames.reduce((s, n) => s + n.docs.length, 0);
+        const bar = document.createElement('div');
+        bar.style.cssText = 'padding:12px 16px;border-bottom:1px solid #fecaca;background:#fef2f2;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;';
+        bar.innerHTML = `
+            <span style="font-size:13px;color:#991b1b;font-weight:600;">
+                <i class="fas fa-exclamation-triangle"></i>&ensp;${changedNames.length} name${changedNames.length > 1 ? 's' : ''} pending — ${totalAffected} document${totalAffected !== 1 ? 's' : ''} need updating
+            </span>
+            <button id="downloadChecklistBtn" class="link-check-btn" style="background:#dc2626;">
+                <i class="fas fa-download"></i> Download Checklist
+            </button>`;
+        nrContainer.innerHTML = nrHtml;
+        nrContainer.prepend(bar);
+
+        document.getElementById('downloadChecklistBtn').addEventListener('click', function () {
+            const now     = new Date();
+            const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            const sections = changedNames.map(({ baseKey, newName, changedOn, docs }) => {
+                const ordered = [
+                    ...docs.filter(d => (d.fileType || '').toUpperCase() === 'HTML'),
+                    ...docs.filter(d => (d.fileType || '').toUpperCase() !== 'HTML'),
+                ];
+                const rows = ordered.map(d => {
+                    const isHtml   = (d.fileType || '').toUpperCase() === 'HTML';
+                    const action   = isHtml
+                        ? '<span style="background:#dcfce7;color:#166534;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">Update span</span>'
+                        : '<span style="background:#fef2f2;color:#dc2626;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">Replace file</span>';
+                    return `<tr>
+                        <td style="text-align:center;"><input type="checkbox"></td>
+                        <td>${d.title}</td>
+                        <td>${catOf(d)}</td>
+                        <td>${d.fileType || '?'}</td>
+                        <td>${action}</td>
+                        <td style="color:#94a3b8;font-size:12px;min-width:120px;">&nbsp;</td>
+                    </tr>`;
+                }).join('');
+
+                return `<div style="margin-bottom:36px;">
+                    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px 16px;margin-bottom:12px;">
+                        <div style="font-size:11px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Registry Key</div>
+                        <code style="font-size:13px;color:#0d5f5f;">${baseKey}</code>
+                        <div style="font-size:11px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:8px 0 2px;">Updated Name</div>
+                        <div style="font-size:15px;font-weight:700;color:#1e293b;">${newName}</div>
+                        ${changedOn ? `<div style="font-size:12px;color:#94a3b8;margin-top:4px;">Changed on ${changedOn}</div>` : ''}
+                    </div>
+                    ${docs.length === 0
+                        ? '<p style="color:#94a3b8;font-size:13px;font-style:italic;">No documents are tagged with this key yet.</p>'
+                        : `<table style="width:100%;border-collapse:collapse;font-size:13px;">
+                            <thead><tr style="background:#f8fafc;">
+                                <th style="padding:8px 10px;border:1px solid #e2e8f0;width:36px;">✓</th>
+                                <th style="padding:8px 10px;border:1px solid #e2e8f0;text-align:left;">Document</th>
+                                <th style="padding:8px 10px;border:1px solid #e2e8f0;text-align:left;">Category</th>
+                                <th style="padding:8px 10px;border:1px solid #e2e8f0;text-align:left;">Type</th>
+                                <th style="padding:8px 10px;border:1px solid #e2e8f0;text-align:left;">Action</th>
+                                <th style="padding:8px 10px;border:1px solid #e2e8f0;text-align:left;">Notes</th>
+                            </tr></thead>
+                            <tbody>${rows}</tbody>
+                        </table>`}
+                </div>`;
+            }).join('');
+
+            const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document Update Checklist — ${dateStr}</title>
+<style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 36px 28px 60px; color: #1e293b; font-size: 14px; }
+    table td, table th { padding: 8px 10px; border: 1px solid #e2e8f0; vertical-align: middle; }
+    table tbody tr:nth-child(even) { background: #f8fafc; }
+    input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
+    @media print {
+        body { padding: 0; }
+        .no-print { display: none; }
+    }
+</style>
+</head>
+<body>
+    <div style="border-bottom:3px solid #0d5f5f;padding-bottom:16px;margin-bottom:28px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:#64748b;text-transform:uppercase;margin-bottom:4px;">WDT Intranet</div>
+        <h1 style="font-size:22px;font-weight:800;color:#0d5f5f;margin:0 0 6px;">Document Update Checklist</h1>
+        <div style="font-size:13px;color:#64748b;">
+            Generated ${dateStr}&nbsp;&nbsp;·&nbsp;&nbsp;
+            ${changedNames.length} name${changedNames.length > 1 ? 's' : ''} changed&nbsp;&nbsp;·&nbsp;&nbsp;
+            ${totalAffected} document${totalAffected !== 1 ? 's' : ''} affected
+        </div>
+    </div>
+    ${sections}
+    <div style="margin-top:48px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:11px;color:#94a3b8;text-align:center;">
+        WDT Intranet Admin Centre &nbsp;·&nbsp; Generated ${dateStr}
+    </div>
+</body>
+</html>`;
+
+            const blob = new Blob([html], { type: 'text/html' });
+            const url  = URL.createObjectURL(blob);
+            const a    = document.createElement('a');
+            a.href     = url;
+            a.download = 'wdt-update-checklist-' + now.toISOString().slice(0, 10) + '.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    } else {
+        nrContainer.innerHTML = nrHtml;
+    }
 
     // Quick links / data files reference
     const QL_FILES = [
