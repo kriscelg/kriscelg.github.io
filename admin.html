@@ -805,7 +805,7 @@ function buildStats() {
             : `<td><span class="registry-empty">none</span></td>`;
         const detailRow = docs.length > 0
             ? `<tr id="${uid}" style="display:none;" class="nr-detail-row"><td colspan="6"><ul class="nr-detail-list">${
-                docs.map(d => `<li class="nr-detail-item">${d.title} <span style="color:#94a3b8;font-size:11px;">(${catOf(d)})</span></li>`).join('')
+                docs.map(d => `<li class="nr-detail-item"><a href="${d.fileName || '#'}" target="_blank" style="color:#0d5f5f;">${d.title}</a> <span style="color:#94a3b8;font-size:11px;">(${catOf(d)})</span></li>`).join('')
               }</ul></td></tr>`
             : '';
         return `<tr>
