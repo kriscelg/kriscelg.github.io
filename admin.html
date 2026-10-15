@@ -217,6 +217,15 @@
         .registry-val-en { color: #1e293b; font-weight: 500; }
         .registry-val-fr { color: #475569; }
         .registry-val-ac { font-weight: 700; color: #0d5f5f; }
+        .nr-count-btn {
+            background: #0d5f5f; color: #fff; border: none; border-radius: 4px;
+            font-size: 11px; font-weight: 700; padding: 3px 9px; cursor: pointer;
+            font-family: inherit; transition: background .15s;
+        }
+        .nr-count-btn:hover { background: #0a4a4a; }
+        .nr-detail-row { background: #f8fafc; }
+        .nr-detail-list { margin: 0; padding: 10px 14px 10px 28px; display: flex; flex-direction: column; gap: 5px; }
+        .nr-detail-item { font-size: 12px; color: #1e293b; }
 
         /* ── Broken Link Checker ──────────────────────── */
         .link-check-btn {
@@ -488,6 +497,15 @@ function buildStats() {
     // Filter to truly active for counting
     const activeCats = docCategories.map(c => ({ ...c, docs: c.docs.filter(d => !d.archived) }));
     const allActive  = activeCats.flatMap(c => c.docs);
+
+    // nameRefs map: base-key → [docs]
+    const nameRefMap = {};
+    allActive.forEach(d => {
+        (d.nameRefs || []).forEach(k => {
+            if (!nameRefMap[k]) nameRefMap[k] = [];
+            nameRefMap[k].push(d);
+        });
+    });
 
     const totalDocs   = allActive.length;
     const staleDocs   = allActive.filter(d => d.uploadDate && d.uploadDate < oneYearAgo);
@@ -780,13 +798,24 @@ function buildStats() {
         return v;
     }
     function nrRow(keyBase, label) {
+        const docs = nameRefMap[keyBase] || [];
+        const uid  = 'nrd_' + keyBase.replace(/[^a-z0-9]/gi, '_');
+        const countCell = docs.length > 0
+            ? `<td><button class="nr-count-btn" onclick="var r=document.getElementById('${uid}');r.style.display=r.style.display==='none'?'table-row':'none';">${docs.length} doc${docs.length > 1 ? 's' : ''} ▾</button></td>`
+            : `<td><span class="registry-empty">none</span></td>`;
+        const detailRow = docs.length > 0
+            ? `<tr id="${uid}" style="display:none;" class="nr-detail-row"><td colspan="6"><ul class="nr-detail-list">${
+                docs.map(d => `<li class="nr-detail-item">${d.title} <span style="color:#94a3b8;font-size:11px;">(${catOf(d)})</span></li>`).join('')
+              }</ul></td></tr>`
+            : '';
         return `<tr>
             <td>${label}</td>
-            <td><code class="registry-key">${keyBase}_en</code></td>
+            <td><code class="registry-key">${keyBase}</code></td>
             <td class="registry-val-en">${nrVal(keyBase + '_en')}</td>
             <td class="registry-val-fr">${nrVal(keyBase + '_fr')}</td>
             <td class="registry-val-ac">${nrVal(keyBase + '_acronym')}</td>
-        </tr>`;
+            ${countCell}
+        </tr>${detailRow}`;
     }
     const nrGroups = [
         { title: 'Department',
@@ -827,7 +856,7 @@ function buildStats() {
               nrRow('unit_smu',   'Unit — Service Modernization Unit'),
           ] },
     ];
-    const tableHead = `<thead><tr><th>Label</th><th>Key</th><th>English</th><th>French</th><th>Acronym</th></tr></thead>`;
+    const tableHead = `<thead><tr><th>Label</th><th>Key</th><th>English</th><th>French</th><th>Acronym</th><th>Tagged Docs</th></tr></thead>`;
     document.getElementById('nameRegistryContainer').innerHTML = nrGroups.map(g => `
         <div class="registry-group">
             <div class="registry-group-title">${g.title}</div>
