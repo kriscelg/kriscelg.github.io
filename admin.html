@@ -933,18 +933,19 @@ function buildStats() {
                     ...docs.filter(d => (d.fileType || '').toUpperCase() === 'HTML'),
                     ...docs.filter(d => (d.fileType || '').toUpperCase() !== 'HTML'),
                 ];
-                const rows = ordered.map(d => {
-                    const isHtml   = (d.fileType || '').toUpperCase() === 'HTML';
-                    const action   = isHtml
+                const rows = ordered.map((d, i) => {
+                    const isHtml = (d.fileType || '').toUpperCase() === 'HTML';
+                    const action = isHtml
                         ? '<span style="background:#dcfce7;color:#166534;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">Update span</span>'
                         : '<span style="background:#fef2f2;color:#dc2626;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;">Replace file</span>';
-                    return `<tr>
-                        <td style="text-align:center;"><input type="checkbox"></td>
-                        <td>${d.title}</td>
+                    const cbId = 'cb_' + baseKey.replace(/[^a-z0-9]/gi, '_') + '_' + i;
+                    return `<tr id="row_${cbId}">
+                        <td style="text-align:center;"><input type="checkbox" id="${cbId}"></td>
+                        <td id="title_${cbId}">${d.title}</td>
                         <td>${catOf(d)}</td>
                         <td>${d.fileType || '?'}</td>
                         <td>${action}</td>
-                        <td style="color:#94a3b8;font-size:12px;min-width:120px;">&nbsp;</td>
+                        <td style="font-size:12px;min-width:120px;">&nbsp;</td>
                     </tr>`;
                 }).join('');
 
@@ -982,11 +983,19 @@ function buildStats() {
     *, *::before, *::after { box-sizing: border-box; }
     body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 36px 28px 60px; color: #1e293b; font-size: 14px; }
     table td, table th { padding: 8px 10px; border: 1px solid #e2e8f0; vertical-align: middle; }
-    table tbody tr:nth-child(even) { background: #f8fafc; }
     input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
+    .row-done td { color: #94a3b8 !important; }
+    .row-done td:nth-child(2) { text-decoration: line-through; }
+    .row-done { background: #f0fdf4 !important; }
+    .progress-bar-bg { height: 8px; background: #e2e8f0; border-radius: 4px; margin-top: 10px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: #0d5f5f; border-radius: 4px; transition: width .3s; }
+    .clear-btn { padding: 6px 14px; background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
+    .clear-btn:hover { background: #e2e8f0; }
     @media print {
         body { padding: 0; }
         .no-print { display: none; }
+        .row-done td { color: #94a3b8 !important; }
+        .row-done td:nth-child(2) { text-decoration: line-through; }
     }
 </style>
 </head>
@@ -999,11 +1008,69 @@ function buildStats() {
             ${changedNames.length} name${changedNames.length > 1 ? 's' : ''} changed&nbsp;&nbsp;·&nbsp;&nbsp;
             ${totalAffected} document${totalAffected !== 1 ? 's' : ''} affected
         </div>
+        <div class="no-print" style="margin-top:14px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div>
+                <div style="font-size:13px;font-weight:600;color:#0d5f5f;" id="progressLabel">0 of ${totalAffected} completed</div>
+                <div class="progress-bar-bg" style="width:260px;"><div class="progress-bar-fill" id="progressBar" style="width:0%;"></div></div>
+            </div>
+            <button class="clear-btn" id="clearBtn">Clear Progress</button>
+        </div>
     </div>
     ${sections}
     <div style="margin-top:48px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:11px;color:#94a3b8;text-align:center;">
         WDT Intranet Admin Centre &nbsp;·&nbsp; Generated ${dateStr}
     </div>
+<script>
+(function () {
+    var STORE = 'wdt_checklist_' + '${now.toISOString().slice(0, 10)}';
+    var total = ${totalAffected};
+
+    function updateProgress() {
+        var done = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        document.getElementById('progressLabel').textContent = done + ' of ' + total + ' completed';
+        document.getElementById('progressBar').style.width = (total > 0 ? Math.round(done / total * 100) : 0) + '%';
+    }
+
+    function styleRow(cb) {
+        var row = document.getElementById('row_' + cb.id);
+        if (row) row.classList.toggle('row-done', cb.checked);
+    }
+
+    function saveState() {
+        var state = {};
+        document.querySelectorAll('input[type="checkbox"]').forEach(function (cb) { state[cb.id] = cb.checked; });
+        try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {}
+        updateProgress();
+    }
+
+    function loadState() {
+        try {
+            var state = JSON.parse(localStorage.getItem(STORE) || '{}');
+            document.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+                if (cb.id in state) cb.checked = state[cb.id];
+                styleRow(cb);
+            });
+        } catch (e) {}
+        updateProgress();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        loadState();
+        document.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+            cb.addEventListener('change', function () { styleRow(this); saveState(); });
+        });
+        document.getElementById('clearBtn').addEventListener('click', function () {
+            if (confirm('Clear all progress?')) {
+                document.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+                    cb.checked = false; styleRow(cb);
+                });
+                try { localStorage.removeItem(STORE); } catch (e) {}
+                updateProgress();
+            }
+        });
+    });
+})();
+</script>
 </body>
 </html>`;
 
