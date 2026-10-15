@@ -614,7 +614,47 @@ function buildStats() {
         });
     }
 
+    // Changed names detection
+    const _NR = typeof NAME_REGISTRY !== 'undefined' ? NAME_REGISTRY : {};
+    const changedNames = Object.keys(_NR)
+        .filter(k => k.endsWith('_changed') && _NR[k] === true)
+        .map(k => {
+            const baseKey   = k.replace('_changed', '');
+            const newName   = _NR[baseKey + '_en'] || baseKey;
+            const changedOn = _NR[baseKey + '_changedOn'] || null;
+            const docs      = nameRefMap[baseKey] || [];
+            return { baseKey, newName, changedOn, docs };
+        });
+
     const alerts = [];
+
+    // Changed name alerts (highest priority)
+    changedNames.forEach(({ baseKey, newName, changedOn, docs }) => {
+        let ageStr = '';
+        if (changedOn) {
+            const days = Math.floor((Date.now() - new Date(changedOn)) / 864e5);
+            ageStr = ' — changed ' + (days === 0 ? 'today' : days + ' day' + (days !== 1 ? 's' : '') + ' ago');
+        }
+        const htmlDocs    = docs.filter(d => (d.fileType || '').toUpperCase() === 'HTML');
+        const nonHtmlDocs = docs.filter(d => (d.fileType || '').toUpperCase() !== 'HTML');
+        const msg = docs.length === 0
+            ? `Name changed: "${newName}"${ageStr} — no documents are tagged with <code style="font-size:11px;">${baseKey}</code> yet.`
+            : `Name changed: "${newName}"${ageStr} — ${docs.length} document${docs.length > 1 ? 's' : ''} need updating (${htmlDocs.length} HTML, ${nonHtmlDocs.length} non-HTML file${nonHtmlDocs.length !== 1 ? 's' : ''}).`;
+        alerts.push({
+            level: 'red', icon: 'fa-pen',
+            msg,
+            detail: docs.length > 0 ? makeDetailTable([...htmlDocs, ...nonHtmlDocs], [
+                { head: 'Title', val: d => d.fileName
+                    ? `<a href="${d.fileName}" target="_blank" style="color:#991b1b;">${d.title}</a>`
+                    : d.title },
+                { head: 'Category', val: d => catOf(d) },
+                { head: 'Action', val: d => (d.fileType || '').toUpperCase() === 'HTML'
+                    ? `<span style="font-size:11px;background:#dcfce7;color:#166534;padding:2px 6px;border-radius:3px;font-weight:600;">Update span</span>`
+                    : `<span style="font-size:11px;background:#fef2f2;color:#991b1b;padding:2px 6px;border-radius:3px;font-weight:600;">Replace file</span>` },
+            ]) : null,
+        });
+    });
+
     if (noTagsDocs.length > 0) {
         const sorted = [...noTagsDocs].sort((a, b) => a.title.localeCompare(b.title));
         alerts.push({
@@ -798,8 +838,13 @@ function buildStats() {
         return v;
     }
     function nrRow(keyBase, label) {
-        const docs = nameRefMap[keyBase] || [];
-        const uid  = 'nrd_' + keyBase.replace(/[^a-z0-9]/gi, '_');
+        const docs      = nameRefMap[keyBase] || [];
+        const isChanged = _NR[keyBase + '_changed'] === true;
+        const uid       = 'nrd_' + keyBase.replace(/[^a-z0-9]/gi, '_');
+        const rowStyle  = isChanged ? ' style="background:#fef2f2;"' : '';
+        const changedBadge = isChanged
+            ? ` <span style="font-size:10px;font-weight:700;background:#ef4444;color:#fff;padding:1px 6px;border-radius:3px;vertical-align:middle;">CHANGED</span>`
+            : '';
         const countCell = docs.length > 0
             ? `<td><button class="nr-count-btn" onclick="var r=document.getElementById('${uid}');r.style.display=r.style.display==='none'?'table-row':'none';">${docs.length} doc${docs.length > 1 ? 's' : ''} ▾</button></td>`
             : `<td><span class="registry-empty">none</span></td>`;
@@ -808,8 +853,8 @@ function buildStats() {
                 docs.map(d => `<li class="nr-detail-item"><a href="${d.fileName || '#'}" target="_blank" style="color:#0d5f5f;">${d.title}</a> <span style="color:#94a3b8;font-size:11px;">(${catOf(d)})</span></li>`).join('')
               }</ul></td></tr>`
             : '';
-        return `<tr>
-            <td>${label}</td>
+        return `<tr${rowStyle}>
+            <td>${label}${changedBadge}</td>
             <td><code class="registry-key">${keyBase}</code></td>
             <td class="registry-val-en">${nrVal(keyBase + '_en')}</td>
             <td class="registry-val-fr">${nrVal(keyBase + '_fr')}</td>
