@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Centre — WDT Intranet</title>
+    <title>Admin Centre — <span data-wdt-name="div_wdt_acronym">WDT</span> Intranet</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -265,7 +265,7 @@
 ═══════════════════════════════════════════════════════════ -->
 <div id="admin-gate">
     <div class="gate-card">
-        <div class="gate-logo">WDT Intranet</div>
+        <div class="gate-logo"><span data-wdt-name="div_wdt_acronym">WDT</span> Intranet</div>
         <div class="gate-title">Admin Centre</div>
         <div class="gate-sub">This area is restricted to site administrators.</div>
         <input type="password" id="gateInput" class="gate-input" placeholder="Enter password" autocomplete="current-password">
@@ -282,7 +282,7 @@
 
     <header class="admin-header">
         <div class="admin-header-left">
-            <span class="admin-header-logo">WDT Intranet</span>
+            <span class="admin-header-logo"><span data-wdt-name="div_wdt_acronym">WDT</span> Intranet</span>
             <span class="admin-header-sep">/</span>
             <span class="admin-header-title">Admin Centre</span>
         </div>
@@ -1178,6 +1178,7 @@ document.getElementById('linkCheckBtn').addEventListener('click', async function
     }
 });
 </script>
+<script src="name-registry-data.js"></script>
 
 </body>
 </html>
