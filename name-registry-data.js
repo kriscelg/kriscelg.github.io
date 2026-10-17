@@ -42,17 +42,17 @@ const NAME_REGISTRY = {
 
     // Service Areas (under TES)
     area_wemsa_en:       'Winnipeg and Eastern Manitoba Service Area',
-    area_wemsa_fr:       '',
+    area_wemsa_fr:       'Zone de service de Winnipeg et de l’est du Manitoba',
     area_wemsa_acronym:  'WEMSAx',
     //area_wemsa_changed:  true,
 
     area_wnmsa_en:       'Western and Northern Manitoba Service Area',
-    area_wnmsa_fr:       '',
+    area_wnmsa_fr:       'Zone de service de l’ouest et du nord du Manitoba',
     area_wnmsa_acronym:  'WNMSA',
     //area_wnmsa_changed:  true,
 
     area_ps_en:          'Provincial Services',
-    area_ps_fr:          '',
+    area_ps_fr:          'Services provinciaux',
     area_ps_acronym:     'PS',
     //area_ps_changed:     true,
 
