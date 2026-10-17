@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procedures & Guidelines - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="document-pages-styles.css">
+</head>
+<body data-page="documents">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="docs-page-header-banner">
+                <div class="docs-header-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <div class="docs-header-text">
+                    <h1>Procedures & Guidelines</h1>
+                    <p>Step-by-step procedures, operational guidelines, and reference manuals</p>
+                </div>
+            </div>
+
+            <!-- Main Layout with Sidebar -->
+            <div class="docs-layout">
+                <!-- Left Sidebar -->
+                <aside class="docs-sidebar">
+                    <!-- Search Section -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-section-title">
+                            <i class="fas fa-search"></i>
+                            Search
+                        </h3>
+                        <div class="sidebar-search">
+                            <i class="fas fa-search sidebar-search-icon"></i>
+                            <input
+                                type="text"
+                                id="documentSearch"
+                                class="sidebar-search-input"
+                                placeholder="Search documents..."
+                            >
+                            <button id="clearSearch" class="sidebar-clear-search" style="display: none;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div id="searchResults" class="search-results-info"></div>
+                    </div>
+
+                    <!-- Tag Filters Section -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-section-title">
+                            <i class="fas fa-filter"></i>
+                            Filter by Tags
+                        </h3>
+                        <div class="tag-categories" id="tagCategories">
+                            <!-- Tag categories will be dynamically generated -->
+                        </div>
+                        <button class="clear-all-filters" id="clearFilters">Clear All Filters</button>
+                    </div>
+                </aside>
+
+                <!-- Main Content -->
+                <div class="docs-main-content">
+                    <!-- Active Filters Display -->
+                    <div class="active-filters" id="activeFilters" style="display: none;">
+                        <span class="active-filters-label">Active filters:</span>
+                        <div class="active-filters-list" id="activeFiltersList"></div>
+                    </div>
+
+                    <!-- Documents Grid -->
+                    <div class="documents-grid" id="documents-list">
+                        <p class="loading-message">Loading documents...</p>
+                    </div>
+
+                    <!-- No Results Message -->
+                    <div class="no-results-container" id="noResults" style="display: none;">
+                        <i class="fas fa-search"></i>
+                        <h3>No documents found</h3>
+                        <p>Try adjusting your search or clearing filters</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+    <!-- Load documents data -->
+    <script src="documents-data.js"></script>
+
+    <!-- Page-specific config: data source + tag categories -->
+    <script>
+        const PAGE_DOCUMENTS = typeof JOB_AID_GUIDELINES !== 'undefined' ? JOB_AID_GUIDELINES : [];
+        const PAGE_TAG_CATEGORIES = {
+            'Document Type':  ['Guideline', 'Job Aid', 'Procedure'],
+            'Programs':       ['Skills Development', 'EAPD', 'ETP', 'Initiatives'],
+            'Services':       ['Direct Services', 'Indirect Services', 'General Service Delivery', 'Service Provider Resource', 'Case Management'],
+            'Topics':         ['Operations', 'Office Administration', 'ICM', 'Overpayments'],
+            'File Format':    ['HTML', 'PDF', 'Word', 'Excel']
+        };
+    </script>
+
+    <!-- Shared document listing logic -->
+    <script src="document-page-script.js"></script>
+</body>
+</html>
