@@ -99,7 +99,7 @@ const POLICY_DOCUMENTS = [
         title: "Skills Development Program Eligible and Ineligible Occupations for Training English",
         fileName: "documents/policy/skillsDevelopmentProgramEligibleAndIneligibleOccupationsForTraining.docx",
         uploadDate: "2026-10-06",
-        fileType: "HTML",
+        fileType: "Word",
         tags: ["Skills Development", "Direct Services", "Policy", "Program Parameters", "Word"],
         description: ""
     },
@@ -108,7 +108,7 @@ const POLICY_DOCUMENTS = [
         title: "Skills Development Program Eligible and Ineligible Occupations for Training French",
         fileName: "documents/policy/skillsDevelopmentProgramEligibleAndIneligibleOccupationsForTrainingFr.docx",
         uploadDate: "2026-10-06",
-        fileType: "HTML",
+        fileType: "Word",
         tags: ["Skills Development", "Direct Services", "Policy", "Program Parameters", "Word", "French"],
         description: ""
     },
