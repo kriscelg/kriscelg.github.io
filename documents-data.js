@@ -3,14 +3,6 @@
 // Policy Documents
 const POLICY_DOCUMENTS = [
     {
-        title: "Authorizing Quits to Enable Clients to Access EI Part Two Employment Benefits",
-        fileName: "documents/policy/authorizedQuits.html",
-        uploadDate: "2025-12-24",
-        fileType: "HTML",
-        tags: ['Skills Development', "Policy", "HTML"],
-        description: ""
-    },
-    {
         title: "Employment Assistance Services Program Parameters",
         fileName: "documents/policy/easParameters.html",
         uploadDate: "2025-12-22",
@@ -39,7 +31,7 @@ const POLICY_DOCUMENTS = [
 
     {
         title: "Negotiated Financial Assistance Policy",
-        fileName: "documents/policy/lmpParameters.html",
+        fileName: "documents/policy/negotiatedFinancialAssistance.html",
         uploadDate: "2025-12-22",
         fileType: "HTML",
         tags: ["Skills Development", "Case Management", "Policy", "HTML"],
@@ -52,7 +44,8 @@ const POLICY_DOCUMENTS = [
         uploadDate: "2025-12-23",
         fileType: "HTML",
         tags: ["Case Management", "Policy", "HTML"],
-        description: ""
+        description: "",
+        nameRefs: ['dept_bmtjc'],
     },
 
     {
@@ -70,16 +63,8 @@ const POLICY_DOCUMENTS = [
         uploadDate: "2025-12-22",
         fileType: "HTML",
         tags: ["ETP", "Case Management", "Policy", "HTML", "Program Parameters"],
-        description: ""
-    },
-
-    {
-        title: "Skills Development (SD) Program Parameters",
-        fileName: "documents/policy/skillsDevelopmentParameters.html",
-        uploadDate: "2025-12-22",
-        fileType: "HTML",
-        tags: ["Skills Development", "Case Management", "Policy", "HTML", "Program Parameters"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -100,6 +85,35 @@ const POLICY_DOCUMENTS = [
         description: ""
     },
 
+    {
+        title: "Policy for Participant Financial Support during Formal Job Action Periods (strikes)",
+        fileName: "documents/policy/participantFinancialSupportDuringStrikes.html",
+        uploadDate: "2026-10-05",
+        fileType: "HTML",
+        tags: ["Skills Development", "Case Management", "Policy", "HTML"],
+        description: "",
+        nameRefs: ['branch_tes'],
+    },
+
+    {
+        title: "Skills Development Program Eligible and Ineligible Occupations for Training English",
+        fileName: "documents/policy/skillsDevelopmentProgramEligibleAndIneligibleOccupationsForTraining.docx",
+        uploadDate: "2026-10-06",
+        fileType: "HTML",
+        tags: ["Skills Development", "Direct Services", "Policy", "Program Parameters", "Word"],
+        description: ""
+    },
+
+    {
+        title: "Skills Development Program Eligible and Ineligible Occupations for Training French",
+        fileName: "documents/policy/skillsDevelopmentProgramEligibleAndIneligibleOccupationsForTrainingFr.docx",
+        uploadDate: "2026-10-06",
+        fileType: "HTML",
+        tags: ["Skills Development", "Direct Services", "Policy", "Program Parameters", "Word", "French"],
+        description: ""
+    },
+
+
     // Add more policy documents here as they are created
 
 ];
@@ -113,7 +127,8 @@ const JOB_AID_GUIDELINES = [
         uploadDate: "2025-12-03",
         fileType: "HTML",
         tags: ["ETP", "Indirect Services", "Service Provider Resource", "Case Management", "Overpayments", "HTML", "Guideline"],
-        description: ""
+        description: "",
+        nameRefs: ['div_wdt'],
     },
 
     {
@@ -131,7 +146,8 @@ const JOB_AID_GUIDELINES = [
         uploadDate: "2025-12-04",
         fileType: "HTML",
         tags: ["ETP", "Service Provider Resource", "Case Management", "ICM", "Indirect Services", "HTML", "Guideline"],
-        description: ""
+        description: "",
+        nameRefs: ['div_wdt', 'branch_tes', 'dept_bmtjc'],
     },
 
     {
@@ -149,7 +165,8 @@ const JOB_AID_GUIDELINES = [
         uploadDate: "2026-09-24",
         fileType: "HTML",
         tags: ["Skills Development", "Procedure", "Direct Services", "Office Administration", "General Service Delivery", "Case Management", "HTML", "Guideline"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -167,7 +184,8 @@ const JOB_AID_GUIDELINES = [
         uploadDate: "2026-09-24",
         fileType: "HTML",
         tags: ["ETP", "Initiatives", "Indirect Services", "Operations", "HTML", "Job Aid"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes', 'unit_osu'],
     },
 
     {
@@ -176,7 +194,8 @@ const JOB_AID_GUIDELINES = [
         uploadDate: "2026-09-24",
         fileType: "HTML",
         tags: ["Initiatives", "Skills Development", "EAPD", "ICM", "Procedure", "Direct Services", "Case Management", "Operations", "HTML", "Job Aid"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -188,12 +207,106 @@ const JOB_AID_GUIDELINES = [
         description: ""
     },
 
-    // Add job aid and guideline documents here
+    {
+        title: "Self Employment for Non-Contracted Service Providers Job Aid",
+        fileName: "documents/jobAidsAndGuidelines/selfEmploymentForNonContractedServiceProvidersJobAid.html",
+        uploadDate: "2026-10-02",
+        fileType: "HTML",
+        tags: ["ICM", "Self Employment", "Direct Services", "HTML", "Job Aid"],
+        description: "",
+        nameRefs: ['branch_tes'],
+    },
 
+    {
+        title: "Assessment Funding Requests Job Aid",
+        fileName: "documents/jobAidsAndGuidelines/assessmentJobAid.html",
+        uploadDate: "2026-10-05",
+        fileType: "HTML",
+        tags: ["EAPD", "HTML", "Job Aid"],
+        description: ""
+    },
+
+    {
+        title: "Educational Funding Requests Job Aid",
+        fileName: "documents/jobAidsAndGuidelines/educationFundingJobAid.html",
+        uploadDate: "2026-10-05",
+        fileType: "HTML",
+        tags: ["EAPD", "HTML", "Job Aid"],
+        description: ""
+    },
+
+    {
+        title: "Employment Services Funding Requests Job Aid",
+        fileName: "documents/jobAidsAndGuidelines/employmentServicesJobAid.html",
+        uploadDate: "2026-10-05",
+        fileType: "HTML",
+        tags: ["EAPD", "HTML", "Job Aid"],
+        description: ""
+    },
+
+    {
+        title: "Employment Supports Funding Requests Job Aid",
+        fileName: "documents/jobAidsAndGuidelines/employmentSupportsJobAid.html",
+        uploadDate: "2026-10-05",
+        fileType: "HTML",
+        tags: ["EAPD", "HTML", "Job Aid"],
+        description: ""
+    },
+
+    {
+        title: "Event Calendar Request Job Aid",
+        fileName: "documents/jobAidsAndGuidelines/eventCalendarRequest.docx",
+        uploadDate: "2026-10-05",
+        fileType: "Word",
+        tags: ["ETP","Word", "Service Provider Resource", "Job Aid"],
+        description: "",
+        nameRefs: ['dept_bmtjc'],
+    },
+
+    {
+        title: "Event Calendar Request Job Aid French",
+        fileName: "documents/jobAidsAndGuidelines/eventCalendarRequestFr.docx",
+        uploadDate: "2026-10-05",
+        fileType: "Word",
+        tags: ["ETP","Word", "Service Provider Resource", "Job Aid", "French"],
+        description: "",
+        nameRefs: ['dept_bmtjc'],
+    },
+
+    {
+        title: "Translation Service Requests Job Aid",
+        fileName: "documents/jobAidsAndGuidelines/translationServiceRequests.html",
+        uploadDate: "2026-10-05",
+        fileType: "HTML",
+        tags: ["ETP","HTML", "Service Provider Resource", "Job Aid", "English"],
+        description: "",
+        nameRefs: ['branch_tes', 'unit_osu'],
+    },
+    // Add procedure and guideline documents here
+    // Example:
+    // {
+    //     title: "Case Management Procedures",
+    //     fileName: "case-management-procedures.pdf",
+    //     uploadDate: "2026-01-15",
+    //     fileType: "PDF",
+    //     tags: ["procedures", "case management", "workflow"],
+    //     description: "Step-by-step procedures for case management activities"
+    // }
 ];
 
-// Forms & Templates
+// Forms, Templates 
 const FORMS_TEMPLATES = [
+
+    // Add forms, templates, and resource documents here
+    // Example:
+    // {
+    //     title: "Project Approval Request (PAR) Form",
+    //     fileName: "forms/PAR-form.docx",
+    //     uploadDate: "2026-01-10",
+    //     fileType: "DOCX",
+    //     tags: ["form", "project approval", "funding"],
+    //     description: "Form for requesting project approval and funding"
+    // }
 
     {
         title: "Changes to Approved Training Intervention",
@@ -201,7 +314,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "PDF",
         tags: ["Skills Development", "Case Management", "PDF", "Forms", "English"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes']
     },
 
     {
@@ -228,7 +342,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "PDF",
         tags: ["Skills Development", "Case Management", "PDF", "Forms", "English"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -237,7 +352,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "PDF",
         tags: ["Skills Development", "Case Management", "PDF", "Forms", "French"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -246,7 +362,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "PDF",
         tags: ["Skills Development", "Case Management", "Assessments", "PDF", "Letters", "English"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -264,7 +381,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "PDF",
         tags: ["Skills Development", "Case Management", "Client Resource", "Agreements", "PDF", "Information Sheet", "English"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -273,7 +391,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "PDF",
         tags: ["Skills Development", "Case Management", "Client Resource", "Agreements", "PDF", "Information Sheet", "French"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -282,7 +401,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "PDF",
         tags: ["Skills Development", "Case Management", "Career Development", "Assessments", "Client Resource", "PDF", "Forms", "English"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -291,7 +411,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "PDF",
         tags: ["Skills Development", "Case Management", "Career Development", "Assessments", "Client Resource", "PDF", "Forms", "French"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -317,8 +438,9 @@ const FORMS_TEMPLATES = [
         fileName: "documents/formsAndTemplates/requestForInformationFromOtherFunders.pdf",
         uploadDate: "2026-09-23",
         fileType: "PDF",
-        tags: ["Skills Development", "EAPD", "Assessments", "Agreements", "Case Management", "PDF", "Forms", "English"],
-        description: ""
+        tags: ["Skills Development", "EAPD", "Assessments", "Agreements", "Case Management", "PDF", "Forms","English"],
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -327,25 +449,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "PDF",
         tags: ["Skills Development", "EAPD", "Assessments", "Agreements", "Case Management", "PDF", "Forms", "French"],
-        description: ""
-    },
-
-    {
-        title: "Skills Development Eligibility And Priority Assessment Worksheet English",
-        fileName: "documents/formsAndTemplates/sdEligibilityAndPriorityAssessmentWorksheet.xlsx",
-        uploadDate: "2026-09-23",
-        fileType: "Excel",
-        tags: ["Skills Development", "Assessments", "Agreements", "Case Management", "Excel", "Templates", "English"],
-        description: ""
-    },
-
-    {
-        title: "Skills Development Eligibility And Priority Assessment Worksheet French",
-        fileName: "documents/formsAndTemplates/sdEligibilityAndPriorityAssessmentWorksheetFr.xlsx",
-        uploadDate: "2026-09-23",
-        fileType: "Excel",
-        tags: ["Skills Development", "Assessments", "Agreements", "Case Management", "Excel", "Templates", "French"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -354,7 +459,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "PDF",
         tags: ["Skills Development", "Education", "Agreements", "Case Management", "PDF", "Forms", "English"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -363,7 +469,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "PDF",
         tags: ["Skills Development", "Education", "Agreements", "Case Management", "PDF", "Forms", "French"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -372,7 +479,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "Word",
         tags: ["Finance", "Office Administration", "Skills Development", "Direct Services", "Case Management", "Overpayments", "Operations", "Word", "Forms", "English"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -381,7 +489,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "Word",
         tags: ["Finance", "Office Administration", "Skills Development", "Direct Services", "Case Management", "Overpayments", "Operations", "Word", "Letters", "English"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes', 'dept_bmtjc', 'div_wdt'],
     },
 
     {
@@ -390,7 +499,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "Word",
         tags: ["Finance", "Office Administration", "Skills Development", "Direct Services", "Case Management", "Overpayments", "Operations", "Word", "Letters", "French"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes', 'dept_bmtjc', 'div_wdt'],
     },
 
     {
@@ -399,7 +509,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "Word",
         tags: ["Finance", "Office Administration", "Skills Development", "Direct Services", "Case Management", "Overpayments", "Operations", "Word", "Letters", "English"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes', 'dept_bmtjc', 'div_wdt'],
     },
 
     {
@@ -408,7 +519,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "Word",
         tags: ["Finance", "Office Administration", "Skills Development", "Direct Services", "Case Management", "Overpayments", "Operations", "Word", "Letters", "French"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes', 'dept_bmtjc', 'div_wdt'],
     },
 
     {
@@ -417,7 +529,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "Word",
         tags: ["Finance", "Office Administration", "Skills Development", "Direct Services", "Case Management", "Overpayments", "Operations", "Word", "Letters", "English"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes', 'dept_bmtjc', 'div_wdt'],
     },
 
     {
@@ -426,7 +539,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "Word",
         tags: ["Finance", "Office Administration", "Skills Development", "Direct Services", "Case Management", "Overpayments", "Operations", "Word", "Letters", "French"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes', 'dept_bmtjc', 'div_wdt'],
     },
 
     {
@@ -435,7 +549,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "Word",
         tags: ["Skills Development", "Agreements", "Case Management", "Word", "Templates", "English"],
-        description: ""
+        description: "",
+        nameRefs: ['dept_bmtjc'],
     },
 
     {
@@ -444,7 +559,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-09-23",
         fileType: "Word",
         tags: ["Skills Development", "Agreements", "Case Management", "Word", "Templates", "French"],
-        description: ""
+        description: "",
+        nameRefs: ['dept_bmtjc'],
     },
 
     {
@@ -471,7 +587,8 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-10-02",
         fileType: "PDF",
         tags: ["Skills Development", "Finance", "Case Management", "PDF", "Forms", "English"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -480,18 +597,126 @@ const FORMS_TEMPLATES = [
         uploadDate: "2026-10-02",
         fileType: "PDF",
         tags: ["Skills Development", "Finance", "Case Management", "PDF", "Forms", "French"],
+        description: "",
+        nameRefs: ['branch_tes'],
+    },
+
+    {
+        title: "ACL Letter English",
+        fileName: "documents/formsAndTemplates/alcLetter.pdf",
+        uploadDate: "2026-10-05",
+        fileType: "PDF",
+        tags: ["Skills Development", "EAPD", "Education", "Assessments", "Case Management","PDF", "Forms", "English"],
+        description: "",
+        nameRefs: ['branch_tes']
+    },
+
+    {
+        title: "ACL Letter French",
+        fileName: "documents/formsAndTemplates/alcLetterFr.pdf",
+        uploadDate: "2026-10-05",
+        fileType: "PDF",
+        tags: ["Skills Development", "EAPD", "Education", "Assessments", "Case Management","PDF", "Forms", "French"],
+        description: "",
+        nameRefs: ['branch_tes']
+    },
+
+    {
+        title: "EAPD Application Form English",
+        fileName: "documents/formsAndTemplates/eapdApplicationForm.pdf",
+        uploadDate: "2026-10-06",
+        fileType: "PDF",
+        tags: ["EAPD", "Case Management", "Assessments","PDF", "Forms", "English"],
+        description: "",
+        nameRefs: ['branch_tes'],
+    },
+
+    {
+        title: "EAPD Application Form French",
+        fileName: "documents/formsAndTemplates/eapdApplicationFormFr.pdf",
+        uploadDate: "2026-10-06",
+        fileType: "PDF",
+        tags: ["EAPD", "Case Management", "Assessments","PDF", "Forms", "French"],
+        description: "",
+        nameRefs: ['branch_tes'],
+    },
+
+    {
+        title: "EAPD Consent Form English",
+        fileName: "documents/formsAndTemplates/eapdConsentForm.pdf",
+        uploadDate: "2026-10-06",
+        fileType: "PDF",
+        tags: ["EAPD", "Case Management","PDF", "Forms", "English"],
+        description: "",
+        nameRefs: ['branch_tes'],
+    },
+
+    {
+        title: "EAPD Consent Form French",
+        fileName: "documents/formsAndTemplates/eapdConsentFormFr.pdf",
+        uploadDate: "2026-10-06",
+        fileType: "PDF",
+        tags: ["EAPD", "Case Management","PDF", "Forms", "French"],
+        description: "",
+        nameRefs: ['branch_tes'],
+    },
+
+    {
+        title: "EAPD Privacy Notice Consent Service Provider Intake Form English",
+        fileName: "documents/formsAndTemplates/eapdPrivacyNoticeConsentSpIntakeForm.pdf",
+        uploadDate: "2026-10-06",
+        fileType: "PDF",
+        tags: ["EAPD", "ETP","Service Provider Resource","PDF", "Forms", "English"],
+        description: "",
+        nameRefs: ['branch_tes'],
+    },
+
+    {
+        title: "EAPD Privacy Notice Consent Service Provider Intake Form French",
+        fileName: "documents/formsAndTemplates/eapdPrivacyNoticeConsentSpIntakeFormFr.pdf",
+        uploadDate: "2026-10-06",
+        fileType: "PDF",
+        tags: ["EAPD", "ETP","Service Provider Resource","PDF", "Forms", "French"],
+        description: "",
+        nameRefs: ['branch_tes'],
+    },
+
+    {
+        title: "Individualized Vocational Plan English",
+        fileName: "documents/formsAndTemplates/individualizedVocationalPlan.pdf",
+        uploadDate: "2026-10-06",
+        fileType: "PDF",
+        tags: ["EAPD", "Case Management","PDF", "Forms", "English"],
         description: ""
     },
 
-    // Add forms and templates here
+    {
+        title: "Individualized Vocational Plan French",
+        fileName: "documents/formsAndTemplates/individualizedVocationalPlanFr.pdf",
+        uploadDate: "2026-10-06",
+        fileType: "PDF",
+        tags: ["EAPD", "Case Management","PDF", "Forms", "French"],
+        description: ""
+    },
+
 
 ];
 
 // Finance Operations
 const FINANCE_OPERATIONS = [
 
-    // Add finance operations documents here
+    
 
+    // Add forms, templates, and resource documents here
+    // Example:
+    // {
+    //     title: "Project Approval Request (PAR) Form",
+    //     fileName: "forms/PAR-form.docx",
+    //     uploadDate: "2026-01-10",
+    //     fileType: "DOCX",
+    //     tags: ["form", "project approval", "funding"],
+    //     description: "Form for requesting project approval and funding"
+    // }
 ];
 
 // Resources
@@ -502,8 +727,9 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/mjsdCenterSlideshowEnglishAndFrench.pptx",
         uploadDate: "2026-03-03",
         fileType: "PowerPoint",
-        tags: ["Marketing", "General Service Delivery", "English", "French", "PowerPoint", "Presentation Suites"],
-        description: ""
+        tags: ["Marketing", "General Service Delivery", "English", "French", "PowerPoint", "Persentation Suites"],
+        description: "",
+        nameRefs: ['branch_tes', 'dept_bmtjc'],
     },
 
     {
@@ -512,7 +738,8 @@ const RESOURCE_DOCS = [
         uploadDate: "2026-03-03",
         fileType: "PDF",
         tags: ["Skills Development", "English", "PDF", "Fact Sheets"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -521,7 +748,8 @@ const RESOURCE_DOCS = [
         uploadDate: "2026-03-03",
         fileType: "PDF",
         tags: ["Skills Development", "French", "PDF", "Fact Sheets"],
-        description: ""
+        description: "",
+        nameRefs: ['branch_tes'],
     },
 
     {
@@ -529,26 +757,27 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/tesPresentationToGeneralPublicEnglish.pptx",
         uploadDate: "2026-03-03",
         fileType: "PowerPoint",
-        tags: ["Marketing", "General Service Delivery", "English", "PowerPoint", "Presentation Suites"],
-        description: ""
+        tags: ["Marketing", "General Service Delivery", "English", "PowerPoint", "Persentation Suites"],
+        description: "",
+        nameRefs: ['branch_tes'],
     },
-
     {
         title: "TES Presentation to General Public French",
         fileName: "documents/resources/tesPresentationToGeneralPublicFrench.pptx",
         uploadDate: "2026-03-03",
         fileType: "PowerPoint",
-        tags: ["Marketing", "General Service Delivery", "French", "PowerPoint", "Presentation Suites"],
-        description: ""
+        tags: ["Marketing", "General Service Delivery", "French", "PowerPoint", "Persentation Suites"],
+        description: "",
+        nameRefs: ['branch_tes'],
     },
-
     {
         title: "TES Presentation to Stakeholders English",
         fileName: "documents/resources/tesPresentationToStakeholdersEnglish.pptx",
         uploadDate: "2026-03-03",
         fileType: "PowerPoint",
-        tags: ["Marketing", "General Service Delivery", "English", "PowerPoint", "Presentation Suites"],
-        description: ""
+        tags: ["Marketing", "General Service Delivery", "English", "PowerPoint", "Persentation Suites"],
+        description: "",
+        nameRefs: ['branch_tes', 'area_wnmsa', 'area_wemsa'],
     },
 
     {
@@ -556,16 +785,16 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/tesPresentationToStakeholdersFrench.pptx",
         uploadDate: "2026-03-03",
         fileType: "PowerPoint",
-        tags: ["Marketing", "General Service Delivery", "French", "PowerPoint", "Presentation Suites"],
-        description: ""
+        tags: ["Marketing", "General Service Delivery", "French", "PowerPoint", "Persentation Suites"],
+        description: "",
+        nameRefs: ['branch_tes', 'area_wnmsa', 'area_wemsa'],
     },
-
     {
         title: "QR Code - Employer Supports English",
         fileName: "documents/resources/qrCodeEmployerSupportsEnglish.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "English", "Image", "Presentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "English", "Image", "Persentation Suites"],
         description: ""
     },
 
@@ -574,7 +803,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeEmployerSupportsFrench.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "French", "Image", "Presentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "French", "Image", "Persentation Suites"],
         description: ""
     },
 
@@ -583,7 +812,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeEtpPageEnglish.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "English", "Image", "Presentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "English", "Image", "Persentation Suites"],
         description: ""
     },
 
@@ -592,7 +821,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeEtpPageFrench.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "French", "Image", "Presentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "French", "Image", "Persentation Suites"],
         description: ""
     },
 
@@ -601,7 +830,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeMjsdCentersEnglish.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "English", "Image", "Presentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "English", "Image", "Persentation Suites"],
         description: ""
     },
 
@@ -610,7 +839,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeMjsdCentersFrench.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "French", "Image", "Presentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "French", "Image", "Persentation Suites"],
         description: ""
     },
 
@@ -619,7 +848,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeTesIndexPageEnglish.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "English", "Image", "Presentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "English", "Image", "Persentation Suites"],
         description: ""
     },
 
@@ -628,7 +857,7 @@ const RESOURCE_DOCS = [
         fileName: "documents/resources/qrCodeTesIndexPageFrench.png",
         uploadDate: "2026-03-03",
         fileType: "Image",
-        tags: ["Marketing", "General Service Delivery", "French", "Image", "Presentation Suites"],
+        tags: ["Marketing", "General Service Delivery", "French", "Image", "Persentation Suites"],
         description: ""
     },
 
@@ -647,7 +876,9 @@ const RESOURCE_DOCS = [
         uploadDate: "2026-09-23",
         fileType: "HTML",
         tags: ["Tech Tips", "General Service Delivery", "Case Management", "Operations", "English", "HTML", "Resources"],
-        description: ""
+        description: "",
+        nameRefs: ['div_wdt'],
+
     },
 
     {
@@ -656,7 +887,8 @@ const RESOURCE_DOCS = [
         uploadDate: "2026-09-23",
         fileType: "HTML",
         tags: ["Tech Tips", "General Service Delivery", "Case Management", "Operations", "English", "HTML", "Resources"],
-        description: ""
+        description: "",
+        nameRefs: ['div_wdt'],
     },
 
     {
@@ -665,9 +897,64 @@ const RESOURCE_DOCS = [
         uploadDate: "2026-04-01",
         fileType: "Word",
         tags: ["Direct Services", "Case Management", "Career Development", "Operations", "General Service Delivery", "English", "Word", "Career Planning Tools"],
+        description: "",
+        nameRefs: ['div_wdt'],
+
+        //Enter Links in this document
+    },
+
+    {
+        title: "Manitoba Jobs and Skills Development Factsheet English",
+        fileName: "documents/resources/manitobaJobsAndSkillsDevelopmentFactsheet.pdf",
+        uploadDate: "2026-10-05",
+        fileType: "PDF",
+        tags: ["General Service Delivery", "Client Resource", "English", "PDF", "Factsheet"],
+        description: "",
+        nameRefs: ['branch_tes'],
+    },
+
+    {
+        title: "Manitoba Jobs and Skills Development Factsheet French",
+        fileName: "documents/resources/manitobaJobsAndSkillsDevelopmentFactsheetFr.pdf",
+        uploadDate: "2026-10-05",
+        fileType: "PDF",
+        tags: ["General Service Delivery", "Client Resource", "French", "PDF", "Factsheet"],
+        description: "",
+        nameRefs: ['branch_tes'],
+    },
+
+    {
+        title: "Pulic Computer Use Notice General English",
+        fileName: "documents/resources/publicComputerUseNoticeGeneral.docx",
+        uploadDate: "2026-10-05",
+        fileType: "Word",
+        tags: ["General Service Delivery", "English", "Word", "Signage"],
         description: ""
     },
 
-    // Add resource documents here
+    {
+        title: "Pulic Computer Use Notice General French",
+        fileName: "documents/resources/publicComputerUseNoticeGeneralFr.doc",
+        uploadDate: "2026-10-05",
+        fileType: "Word",
+        tags: ["General Service Delivery", "French", "Word", "Signage"],
+        description: ""
+    },
 
+
+
+
+    // Add forms, templates, and resource documents here
+    // Example:
+    // {
+    //     title: "Project Approval Request (PAR) Form",
+    //     fileName: "forms/PAR-form.docx",
+    //     uploadDate: "2026-01-10",
+    //     fileType: "DOCX",
+    //     tags: ["form", "project approval", "funding"],
+    //     description: "Form for requesting project approval and funding"
+    // }
 ];
+
+
+
