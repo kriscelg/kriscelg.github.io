@@ -83,7 +83,7 @@ const EVENTS = [
             { title: "New Year's Day",                                                    date: new Date(year, 0, 1) },
             { title: "Louis Riel Day",                                                    date: nthMonday(year, 1, 3) },
             { title: "Good Friday",                                                       date: goodFriday },
-            { title: "Victory Day",                                                       date: victoryDay(year) },
+            { title: "Victoria Day",                                                       date: victoryDay(year) },
             { title: "Canada Day",                                                        date: new Date(year, 6, 1) },
             { title: "Terry Fox Day",                                                     date: nthMonday(year, 7, 1) },
             { title: "Labour Day",                                                        date: nthMonday(year, 8, 1) },

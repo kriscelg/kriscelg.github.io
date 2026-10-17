@@ -12,7 +12,7 @@
  *   title          Document title (required)
  *   fileName       Path to the file, e.g. 'archived/policy-name.pdf' (required)
  *   fileType       'PDF', 'Word', 'Excel', 'PowerPoint', 'HTML', 'Image'
- *   category       'Policy', 'Job Aids & Guidelines', 'Forms & Templates', 'Financial Operations', 'Resources', 'Other'
+ *   category       category       'Policy', 'Job Aids & Guidelines', 'Forms & Templates', 'Financial Operations', 'Resources', 'Other'
  *   activeFrom     When this document became active — YYYY-MM-DD or 'FY2020/21'
  *   activeUntil    When this document was superseded — YYYY-MM-DD or 'FY2024/25'
  *   archivedOn     Date it was moved to archive — YYYY-MM-DD (required)
@@ -42,5 +42,40 @@ const ARCHIVED_DOCUMENTS = [
     //     tags: ['Skills Development', 'TES', 'Policy'],
     //     description: 'Previous version of the Skills Development program policy.'
     // },
+
+
+    {
+        id: 1,
+        title: 'Skills Development Parameters',
+        fileName: 'documents/archivedDocuments/skillsDevelopmentParameters.html',
+        fileType: 'HTML',
+        category: 'Policy',
+        activeFrom: 'FY2020/21', //not sure if correct
+        activeUntil: 'FY2026/27', 
+        archivedOn: '2026-08-21', //Check with Candice when
+        supersededBy: 'policy-documents.html', //check with candice if there are new docs
+        supersededByTitle: 'Skills Development Policy 2026',
+        reason: 'Replaced by updated policy effective August 21, 2026.', //check when it was archived 
+        tags: ['Skills Development', 'Procedure', 'Case Management'],
+        description: 'Previous version of the Skills Development program policy.'
+    },
+
+    {
+        id: 2,
+        title: 'Authorized Quits',
+        fileName: 'documents/archivedDocuments/authorizedQuits.html',
+        fileType: 'HTML',
+        category: 'Policy',
+        activeFrom: 'FY2020/21', //not sure if correct
+        activeUntil: 'FY2026/27', 
+        archivedOn: '2026-08-21', //Check with Candice when
+        supersededBy: 'policy-documents.html', //check with candice if there are new docs
+        supersededByTitle: 'Skills Development Policy 2026',
+        reason: 'Replaced by updated policy effective August 21, 2026.', //check when it was archived 
+        tags: ['Skills Development', 'Direct Services', 'Case Management'],
+        description: 'Previous version of the Skills Development program policy.'
+    },
+
+
 
 ];

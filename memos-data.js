@@ -2,51 +2,20 @@
 const MEMOS = [
     {
         id: 1,
-        title: 'Updated Remote Work Policy',
-        date: '2025-01-15',
-        tags: ['Policy', 'HR', 'Remote Work'],
-        subject: 'This memo outlines the updated remote work policy for all division employees, including eligibility criteria and work arrangements.',
-        pdfFile: '' // Add PDF file path here when available
+        title: 'Labour Market Transfer Agreement (LMTA) Reduction Policy Changes',
+        date: '2025-10-16',
+        tags: ['Policy', 'Skills Development'],
+        subject: 'This memo is a further amendment to the previous memo dated July 8, 2024, to update the parameters of the Skills Development Program (SD).',
+        pdfFile: 'memos/Memo_Update_Skill_Development_Policy_Changes.pdf' // Add PDF file path here when available
     },
     {
         id: 2,
-        title: 'Q1 Operational Priorities',
-        date: '2025-01-10',
-        tags: ['Operational', 'Planning'],
-        subject: 'Key operational priorities for the first quarter of 2025, including project timelines and resource allocation.',
-        pdfFile: ''
+        title: 'Canada Post Disruption 2025',
+        date: '2025-09-29',
+        tags: ['Operations'],
+        subject: 'Canada Post workers have initiated a national strike for all mail and parcel delivery.',
+        pdfFile: 'memos/Canada_Post_Disruption_in_2025_Memo.pdf'
     },
-    {
-        id: 3,
-        title: 'Office Supply Ordering Process',
-        date: '2025-01-08',
-        tags: ['Administrative', 'Procurement'],
-        subject: 'New procedures for ordering office supplies and submitting requisitions through the updated procurement system.',
-        pdfFile: ''
-    },
-    {
-        id: 4,
-        title: 'Annual Training Requirements',
-        date: '2024-12-15',
-        tags: ['Training', 'HR', 'Compliance'],
-        subject: 'Mandatory training requirements for all staff to be completed before the end of the fiscal year.',
-        pdfFile: ''
-    },
-    {
-        id: 5,
-        title: 'Budget Update for FY 2024-25',
-        date: '2024-11-20',
-        tags: ['Finance', 'Budget', 'Planning'],
-        subject: 'Mid-year budget review and adjustments for the current fiscal year, including allocation changes.',
-        pdfFile: ''
-    },
-    {
-        id: 6,
-        title: 'New Security Protocols',
-        date: '2024-10-25',
-        tags: ['Security', 'Policy', 'IT'],
-        subject: 'Implementation of new security protocols for accessing division systems and handling sensitive information.',
-        pdfFile: ''
-    }
+
     // Add more memos as needed
 ];

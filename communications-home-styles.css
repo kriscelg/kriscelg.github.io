@@ -33,6 +33,14 @@
     color: white;
 }
 
+
+.page-header .header-text {
+    flex: 0.3;
+}
+
+.page-header .header-detail {
+    flex: 4;
+}
 .page-header .header-text h1 {
     font-size: 36px;
     font-weight: 800;
@@ -41,12 +49,12 @@
     letter-spacing: -0.5px;
 }
 
-.page-header .header-text p {
+.page-header .header-detail p {
     margin: 0;
     font-size: 17px;
     opacity: 0.95;
     line-height: 1.6;
-    max-width: 700px;
+    max-width: 800px;
     color: rgba(255, 255, 255, 0.95);
 }
 

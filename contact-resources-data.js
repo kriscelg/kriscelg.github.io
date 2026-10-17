@@ -7,36 +7,6 @@
 
 // OSU Support Forms
 // Add or edit support request forms here
-const OSU_SUPPORT = [
-
-    {
-        icon: "fas fa-laptop",
-        title: "IT Support Request",
-        description: "Hardware, software, and general system issues",
-        link: "#" // Replace with your Microsoft Forms URL
-    },
-
-    {
-        icon: "fas fa-shield-alt",
-        title: "Security & Access",
-        description: "Account access, permissions, and security issues",
-        link: "#" // Replace with your Microsoft Forms URL
-    },
-
-    {
-        icon: "fas fa-rectangle-list",
-        title: "Communications",
-        description: "Documents, Webpage, Bulletins and Social Media Updates",
-        link: "#" // Replace with your Microsoft Forms URL
-    },
-
-    {
-        icon: "fas fa-tools",
-        title: "Other Support",
-        description: "General inquiries and other technical needs",
-        link: "#" // Replace with your Microsoft Forms URL
-    }
-];
 
 // Key Contacts
 // Add or edit key personnel contacts here
@@ -74,6 +44,14 @@ const KEY_CONTACTS = [
 const STAFF_RESOURCES = [
     {
         icon: "fas fa-user",
+        title: "BMTJC Forms, Templates and Policies",
+        description: "BMTJC forms, templates and guides",
+        link: "https://www.intranet.mbgov.ca/editnr/forms/index.html" // Replace with actual link
+    },
+
+
+    {
+        icon: "fas fa-user",
         title: "Employee Self-Service (ESS)",
         description: "View personal information stored in SAP",
         link: "https://employeeselfservice.me.mbgov.ca/" // Replace with actual link
@@ -86,12 +64,6 @@ const STAFF_RESOURCES = [
         link: "https://sspr.me.mbgov.ca/" // Replace with actual link
     },
 
-    {
-        icon: "fas fa-file-arrow-down",
-        title: "TES Referral Form",
-        description: "Refer an individual to Training and Employment Services",
-        link: "staff resources/newTesReferralFormDraft.docx" // Replace with actual link
-    },
     {
         icon: "fas fa-file-contract",
         title: "GEMA Collective Agreement",
