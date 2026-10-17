@@ -251,6 +251,54 @@
         .ql-desc { font-size: 12px; color: #475569; }
         .ql-note { font-size: 11px; color: #94a3b8; margin-top: 2px; }
 
+        /* ── Document Entry Generator ────────────────── */
+        .gen-form { display: flex; flex-direction: column; gap: 14px; }
+        .gen-field { display: flex; flex-direction: column; gap: 5px; }
+        .gen-label { font-size: 12px; font-weight: 600; color: #475569; }
+        .gen-opt { font-weight: 400; color: #94a3b8; }
+        .gen-input, .gen-select {
+            width: 100%; padding: 8px 10px; border: 1.5px solid #e2e8f0;
+            border-radius: 6px; font-size: 13px; font-family: inherit;
+            outline: none; transition: border-color .2s; background: #fff; color: #1e293b;
+        }
+        .gen-input:focus, .gen-select:focus { border-color: #0d5f5f; }
+        .gen-file-row { display: flex; align-items: center; }
+        .gen-file-prefix {
+            padding: 8px 10px; background: #f8fafc; border: 1.5px solid #e2e8f0;
+            border-right: none; border-radius: 6px 0 0 6px;
+            font-size: 11px; font-family: monospace; color: #64748b; white-space: nowrap; flex-shrink: 0;
+        }
+        .gen-file-input { flex: 1 !important; border-radius: 0 6px 6px 0 !important; font-family: monospace !important; font-size: 12px !important; }
+        .tag-input-wrap {
+            border: 1.5px solid #e2e8f0; border-radius: 6px;
+            padding: 5px 8px; background: #fff;
+            display: flex; flex-wrap: wrap; gap: 5px; align-items: center;
+            cursor: text; transition: border-color .2s; min-height: 38px; position: relative;
+        }
+        .tag-input-wrap.focused { border-color: #0d5f5f; }
+        .tag-chip { background: #e0f2fe; color: #0369a1; border-radius: 4px; padding: 2px 6px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+        .tag-chip-remove { background: none; border: none; cursor: pointer; font-size: 13px; color: #0369a1; padding: 0; line-height: 1; }
+        .tag-chip-remove:hover { color: #dc2626; }
+        .tag-text-input { border: none; outline: none; font-size: 13px; font-family: inherit; flex: 1; min-width: 80px; background: transparent; color: #1e293b; padding: 2px 0; }
+        .tag-suggestions { position: absolute; top: calc(100% + 2px); left: -2px; right: -2px; background: #fff; border: 1.5px solid #0d5f5f; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,.12); z-index: 50; max-height: 160px; overflow-y: auto; display: none; }
+        .tag-suggestions.open { display: block; }
+        .tag-suggestion { padding: 7px 10px; font-size: 13px; cursor: pointer; color: #1e293b; }
+        .tag-suggestion:hover, .tag-suggestion.active { background: #f0fdf4; color: #0d5f5f; }
+        .nameref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 4px; }
+        .nameref-item { display: flex; align-items: center; gap: 6px; padding: 5px 7px; border-radius: 5px; cursor: pointer; font-size: 12px; color: #475569; transition: background .15s; }
+        .nameref-item:hover { background: #f0fdf4; }
+        .nameref-item input[type="checkbox"] { cursor: pointer; accent-color: #0d5f5f; flex-shrink: 0; }
+        .nameref-key { font-size: 10px; color: #94a3b8; font-family: monospace; margin-left: auto; }
+        .gen-preview-wrap { position: sticky; top: 70px; }
+        .gen-preview-label { font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 7px; }
+        .gen-preview-box { background: #0f172a; border-radius: 8px; padding: 16px 18px; font-family: 'Courier New', Courier, monospace; font-size: 12px; line-height: 1.75; color: #e2e8f0; overflow-x: auto; min-height: 140px; white-space: pre; border: 1px solid #1e293b; }
+        .gen-copy-btn { width: 100%; margin-top: 10px; padding: 10px; background: #0d5f5f; color: #fff; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background .2s; }
+        .gen-copy-btn:hover { background: #0a4a4a; }
+        .gen-copy-btn.copied { background: #16a34a; }
+        .gen-target-hint { font-size: 11px; color: #64748b; margin-top: 5px; padding: 5px 10px; background: #f8fafc; border-radius: 4px; border-left: 3px solid #0d5f5f; }
+        .gen-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media (max-width: 800px) { .gen-two-col { grid-template-columns: 1fr; } }
+
         /* ── Responsive ───────────────────────────────── */
         @media (max-width: 600px) {
             .kpi-grid { grid-template-columns: repeat(2, 1fr); }
@@ -383,6 +431,97 @@
                 <button class="link-check-btn" id="linkCheckBtn"><i class="fas fa-play"></i> Run Check</button>
                 <div class="link-check-progress" id="linkCheckProgress"></div>
                 <div class="link-check-result" id="linkCheckResult"></div>
+            </div>
+        </div>
+
+        <!-- ── Document Entry Generator ──────────────── -->
+        <div class="admin-section">
+            <div class="admin-section-title"><i class="fas fa-code"></i>&ensp;Document Entry Generator</div>
+            <div style="font-size:13px;color:#475569;margin-bottom:16px;">Fill in the fields to generate the JavaScript object to paste into a data file. Tag autocomplete pulls from all existing document tags.</div>
+            <div class="two-col" style="align-items:start;">
+
+                <!-- Form -->
+                <div class="card" style="padding:18px 20px;">
+                    <div class="gen-form" id="genForm">
+
+                        <!-- Target array -->
+                        <div class="gen-field">
+                            <label class="gen-label" for="genArray">Target array</label>
+                            <select class="gen-select" id="genArray">
+                                <option value="POLICY_DOCUMENTS">POLICY_DOCUMENTS</option>
+                                <option value="JOB_AID_GUIDELINES">JOB_AID_GUIDELINES</option>
+                                <option value="FORMS_TEMPLATES">FORMS_TEMPLATES</option>
+                                <option value="FINANCE_OPERATIONS">FINANCE_OPERATIONS</option>
+                                <option value="RESOURCE_DOCS">RESOURCE_DOCS</option>
+                            </select>
+                            <div class="gen-target-hint" id="genTargetHint"></div>
+                        </div>
+
+                        <!-- Title -->
+                        <div class="gen-field">
+                            <label class="gen-label" for="genTitle">Title</label>
+                            <input type="text" class="gen-input" id="genTitle" placeholder="e.g. Agreement Monitoring Policy">
+                        </div>
+
+                        <!-- File name -->
+                        <div class="gen-field">
+                            <label class="gen-label" for="genFileName">File name</label>
+                            <div class="gen-file-row">
+                                <div class="gen-file-prefix" id="genFilePrefix">documents/policy/</div>
+                                <input type="text" class="gen-input gen-file-input" id="genFileName" placeholder="e.g. agreementMonitoringPolicy.html">
+                            </div>
+                        </div>
+
+                        <!-- Date + File type -->
+                        <div class="gen-two-col">
+                            <div class="gen-field">
+                                <label class="gen-label" for="genDate">Upload date</label>
+                                <input type="date" class="gen-input" id="genDate">
+                            </div>
+                            <div class="gen-field">
+                                <label class="gen-label" for="genFileType">File type</label>
+                                <select class="gen-select" id="genFileType">
+                                    <option value="HTML">HTML</option>
+                                    <option value="PDF">PDF</option>
+                                    <option value="Word">Word</option>
+                                    <option value="Excel">Excel</option>
+                                    <option value="PowerPoint">PowerPoint</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="gen-field">
+                            <label class="gen-label">Tags <span class="gen-opt">(type and press Enter or , to add)</span></label>
+                            <div class="tag-input-wrap" id="tagWrap">
+                                <input type="text" class="tag-text-input" id="tagInput" placeholder="Add tag…" autocomplete="off">
+                                <div class="tag-suggestions" id="tagSuggestions"></div>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="gen-field">
+                            <label class="gen-label" for="genDesc">Description <span class="gen-opt">(optional)</span></label>
+                            <input type="text" class="gen-input" id="genDesc" placeholder="Leave blank for empty string">
+                        </div>
+
+                        <!-- Name Refs -->
+                        <div class="gen-field">
+                            <label class="gen-label">Name Refs <span class="gen-opt">(optional — select org names referenced in the document)</span></label>
+                            <div class="nameref-grid" id="genNameRefs"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Preview -->
+                <div class="gen-preview-wrap">
+                    <div class="gen-preview-label"><i class="fas fa-eye"></i>&ensp;Live Preview</div>
+                    <div class="gen-preview-box" id="genPreview"></div>
+                    <button class="gen-copy-btn" id="genCopyBtn"><i class="fas fa-copy"></i> Copy to Clipboard</button>
+                    <div style="font-size:11px;color:#94a3b8;margin-top:8px;line-height:1.5;" id="genCopyHint"></div>
+                </div>
+
             </div>
         </div>
 
@@ -1110,6 +1249,203 @@ function buildStats() {
             <div class="ql-desc">${f.desc}</div>
             <div class="ql-note">Link not yet configured</div>
         </div>`).join('');
+
+    buildGenerator(allActive);
+}
+
+// ── Document Entry Generator ─────────────────────────────
+function buildGenerator(allActive) {
+    // Today's date
+    document.getElementById('genDate').value = new Date().toISOString().slice(0, 10);
+
+    // All existing tags (sorted, deduped)
+    const existingTags = [...new Set(allActive.flatMap(d => d.tags || []))].sort((a, b) => a.localeCompare(b));
+
+    // Array config: key → folder + data file
+    const ARRAY_CONFIG = {
+        POLICY_DOCUMENTS:   { folder: 'documents/policy/',                file: 'documents-data.js' },
+        JOB_AID_GUIDELINES: { folder: 'documents/jobAidsAndGuidelines/',  file: 'documents-data.js' },
+        FORMS_TEMPLATES:    { folder: 'documents/formsAndTemplates/',     file: 'documents-data.js' },
+        FINANCE_OPERATIONS: { folder: 'documents/financialOperations/',   file: 'documents-data.js' },
+        RESOURCE_DOCS:      { folder: 'documents/resources/',             file: 'documents-data.js' },
+    };
+
+    // Name registry keys that have an English value
+    const NR = typeof NAME_REGISTRY !== 'undefined' ? NAME_REGISTRY : {};
+    const nrKeys = Object.keys(NR)
+        .filter(k => k.endsWith('_en') && NR[k])
+        .map(k => ({ key: k.replace('_en', ''), label: NR[k] }))
+        .sort((a, b) => a.label.localeCompare(b.label));
+
+    // Render name-ref checkboxes
+    document.getElementById('genNameRefs').innerHTML = nrKeys.map(nr =>
+        `<label class="nameref-item">
+            <input type="checkbox" class="gen-nameref-cb" value="${nr.key}">
+            <span>${nr.label}</span>
+            <span class="nameref-key">${nr.key}</span>
+        </label>`
+    ).join('');
+
+    // ── Tag chip state ──────────────────────────────────
+    let selectedTags = [];
+    let activeSugIdx = -1;
+
+    const tagInput = document.getElementById('tagInput');
+    const tagWrap  = document.getElementById('tagWrap');
+    const tagSugs  = document.getElementById('tagSuggestions');
+
+    function renderChips() {
+        tagWrap.querySelectorAll('.tag-chip').forEach(el => el.remove());
+        selectedTags.forEach(function (tag, i) {
+            const chip = document.createElement('span');
+            chip.className = 'tag-chip';
+            chip.innerHTML = tag + ' <button class="tag-chip-remove" data-i="' + i + '" title="Remove">&times;</button>';
+            tagWrap.insertBefore(chip, tagInput);
+        });
+        tagWrap.querySelectorAll('.tag-chip-remove').forEach(function (btn) {
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                selectedTags.splice(Number(this.dataset.i), 1);
+                renderChips(); updatePreview();
+            });
+        });
+    }
+
+    function addTag(val) {
+        const t = val.trim();
+        if (t && !selectedTags.includes(t)) { selectedTags.push(t); renderChips(); updatePreview(); }
+        tagInput.value = '';
+        closeSugs();
+    }
+
+    function matchSugs(q) {
+        if (!q) return [];
+        const lq = q.toLowerCase();
+        return existingTags.filter(t => !selectedTags.includes(t) && t.toLowerCase().includes(lq)).slice(0, 8);
+    }
+
+    function showSugs(q) {
+        const items = matchSugs(q);
+        if (!items.length) { closeSugs(); return; }
+        tagSugs.innerHTML = items.map(s => '<div class="tag-suggestion" data-val="' + s + '">' + s + '</div>').join('');
+        tagSugs.classList.add('open');
+        activeSugIdx = -1;
+        tagSugs.querySelectorAll('.tag-suggestion').forEach(function (el) {
+            el.addEventListener('mousedown', function (e) { e.preventDefault(); addTag(this.dataset.val); });
+        });
+    }
+
+    function closeSugs() { tagSugs.classList.remove('open'); tagSugs.innerHTML = ''; activeSugIdx = -1; }
+
+    tagInput.addEventListener('input', function () { showSugs(this.value); });
+    tagInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ',') {
+            e.preventDefault();
+            const active = tagSugs.querySelector('.tag-suggestion.active');
+            if (active) addTag(active.dataset.val);
+            else if (tagInput.value.trim()) addTag(tagInput.value);
+        } else if (e.key === 'Backspace' && !tagInput.value && selectedTags.length) {
+            selectedTags.pop(); renderChips(); updatePreview();
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const items = tagSugs.querySelectorAll('.tag-suggestion');
+            activeSugIdx = Math.min(activeSugIdx + 1, items.length - 1);
+            items.forEach(function (el, i) { el.classList.toggle('active', i === activeSugIdx); });
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            const items = tagSugs.querySelectorAll('.tag-suggestion');
+            activeSugIdx = Math.max(activeSugIdx - 1, -1);
+            items.forEach(function (el, i) { el.classList.toggle('active', i === activeSugIdx); });
+        } else if (e.key === 'Escape') { closeSugs(); }
+    });
+    tagInput.addEventListener('blur', function () { setTimeout(closeSugs, 150); });
+    tagWrap.addEventListener('click', function () { tagInput.focus(); });
+    tagWrap.addEventListener('focusin', function () { tagWrap.classList.add('focused'); });
+    tagWrap.addEventListener('focusout', function (e) {
+        if (!tagWrap.contains(e.relatedTarget)) tagWrap.classList.remove('focused');
+    });
+
+    // ── Array select → update folder prefix + hint ──────
+    function updateArrayConfig() {
+        const val = document.getElementById('genArray').value;
+        const cfg = ARRAY_CONFIG[val] || {};
+        document.getElementById('genFilePrefix').textContent = cfg.folder || '';
+        document.getElementById('genTargetHint').textContent = 'Paste into: ' + (cfg.file || 'documents-data.js') + ' → ' + val + ' array';
+        document.getElementById('genCopyHint').innerHTML = 'Paste this block inside the <code>' + val + '</code> array in <code>' + (cfg.file || 'documents-data.js') + '</code>.';
+        updatePreview();
+    }
+    document.getElementById('genArray').addEventListener('change', updateArrayConfig);
+    updateArrayConfig();
+
+    // ── File name → auto-detect file type ───────────────
+    document.getElementById('genFileName').addEventListener('input', function () {
+        const ext = (this.value.split('.').pop() || '').toLowerCase();
+        const map = { html: 'HTML', pdf: 'PDF', docx: 'Word', doc: 'Word', xlsx: 'Excel', xls: 'Excel', pptx: 'PowerPoint', ppt: 'PowerPoint', png: 'Image', jpg: 'Image', jpeg: 'Image' };
+        if (map[ext]) document.getElementById('genFileType').value = map[ext];
+        updatePreview();
+    });
+
+    // ── Wire all other inputs ───────────────────────────
+    ['genTitle', 'genDate', 'genFileType', 'genDesc'].forEach(function (id) {
+        document.getElementById(id).addEventListener('input', updatePreview);
+    });
+    document.getElementById('genNameRefs').addEventListener('change', updatePreview);
+
+    // ── Live preview ────────────────────────────────────
+    function updatePreview() {
+        const sel      = document.getElementById('genArray').value;
+        const cfg      = ARRAY_CONFIG[sel] || {};
+        const title    = document.getElementById('genTitle').value.trim();
+        const rawFile  = document.getElementById('genFileName').value.trim();
+        const fileName = rawFile ? (cfg.folder || '') + rawFile : (cfg.folder || '') + '…';
+        const date     = document.getElementById('genDate').value;
+        const fileType = document.getElementById('genFileType').value;
+        const desc     = document.getElementById('genDesc').value;
+        const refs     = [...document.querySelectorAll('.gen-nameref-cb:checked')].map(function (cb) { return cb.value; });
+
+        const tagsStr = selectedTags.length
+            ? '[' + selectedTags.map(function (t) { return '"' + t + '"'; }).join(', ') + ']'
+            : '[]';
+
+        let out = '    {\n';
+        out += '        title: "' + (title || '…') + '",\n';
+        out += '        fileName: "' + fileName + '",\n';
+        out += '        uploadDate: "' + (date || 'YYYY-MM-DD') + '",\n';
+        out += '        fileType: "' + fileType + '",\n';
+        out += '        tags: ' + tagsStr + ',\n';
+        out += '        description: "' + desc + '",';
+        if (refs.length) {
+            out += '\n        nameRefs: [' + refs.map(function (r) { return "'" + r + "'"; }).join(', ') + '],';
+        }
+        out += '\n    },';
+
+        document.getElementById('genPreview').textContent = out;
+    }
+    updatePreview();
+
+    // ── Copy button ──────────────────────────────────────
+    document.getElementById('genCopyBtn').addEventListener('click', function () {
+        const text = document.getElementById('genPreview').textContent;
+        const btn  = this;
+        function markCopied() {
+            btn.classList.add('copied');
+            btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(function () {
+                btn.classList.remove('copied');
+                btn.innerHTML = '<i class="fas fa-copy"></i> Copy to Clipboard';
+            }, 2000);
+        }
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(markCopied).catch(fallback);
+        } else { fallback(); }
+        function fallback() {
+            const ta = document.createElement('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); markCopied(); } catch (e) {}
+            document.body.removeChild(ta);
+        }
+    });
 }
 
 // ── Broken link checker ──────────────────────────────────
