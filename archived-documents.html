@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archived Documents - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="archived-documents-styles.css">
+</head>
+<body data-page="documents">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- Page Header -->
+            <div class="archive-page-header">
+                <div class="archive-header-icon">
+                    <i class="fas fa-archive"></i>
+                </div>
+                <div class="archive-header-text">
+                    <h1>Archived Documents</h1>
+                    <p>Historical documents retained for reference, file audits, and funded-client justification. These documents are no longer current policy or active guidance.</p>
+                </div>
+            </div>
+
+            <!-- Warning Notice -->
+            <div class="archive-warning-notice">
+                <div class="archive-warning-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="archive-warning-body">
+                    <h3>These documents are no longer active</h3>
+                    <p>Archived documents have been superseded and should <strong>not</strong> be used to guide current work or new client files. They are retained here solely to support reference for existing funded clients and file audits. If you are looking for current policy, return to <a href="documents.html" style="color:#92400e;font-weight:600;">Documents</a>.</p>
+                </div>
+            </div>
+
+            <!-- Controls: Search + Filters -->
+            <div class="archive-controls">
+                <div class="archive-search-wrap">
+                    <label class="archive-search-label" for="archiveSearch">Search archived documents</label>
+                    <div class="archive-search-inner">
+                        <i class="fas fa-search search-icon"></i>
+                        <input
+                            type="text"
+                            id="archiveSearch"
+                            class="archive-search-input"
+                            placeholder="Search by title, tags, or reason..."
+                            autocomplete="off"
+                        >
+                        <button id="clearArchiveSearch" class="archive-clear-search" style="display:none;" aria-label="Clear search">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="archive-filter-wrap">
+                    <div class="archive-filter-group">
+                        <label for="categoryFilter">Category</label>
+                        <select id="categoryFilter" class="archive-filter-select">
+                            <option value="all">All Categories</option>
+                            <option value="Policy">Policy</option>
+                            <option value="Job Aids & Guidelines">Job Aids &amp; Guidelines</option>
+                            <option value="Forms & Templates">Forms &amp; Templates</option>
+                            <option value="Financial Operations">Financial Operations</option>
+                            <option value="Resources">Resources</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="archive-filter-group">
+                        <label for="fiscalYearFilter">Active Until</label>
+                        <select id="fiscalYearFilter" class="archive-filter-select">
+                            <option value="all">All Years</option>
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+
+                    <div class="archive-filter-group archive-filter-group--clear">
+                        <label>&nbsp;</label>
+                        <button id="clearAllFilters" class="archive-clear-all-btn">
+                            <i class="fas fa-times"></i> Clear Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="archiveResultsInfo" class="archive-results-info"></div>
+
+            <!-- Document List -->
+            <div id="archiveList"></div>
+
+            <!-- Empty states live OUTSIDE archiveList so list.innerHTML='' never loses them -->
+            <div class="archive-empty" id="archiveEmpty" style="display:none;">
+                <i class="fas fa-box-open"></i>
+                <h3>No archived documents found</h3>
+                <p>Try adjusting your search or filters.</p>
+            </div>
+            <div class="archive-empty" id="archiveNoContent" style="display:none;">
+                <i class="fas fa-archive"></i>
+                <h3>No documents have been archived yet</h3>
+                <p>Documents moved out of active use will appear here.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Acknowledge Before Download Modal -->
+    <div class="archive-modal-overlay" id="archiveAckModal">
+        <div class="archive-modal-box">
+            <div class="archive-modal-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2>Archived Document</h2>
+            <p>
+                You are about to open <strong id="ackDocTitle"></strong>.<br><br>
+                This document has been <strong>archived and is no longer current</strong>.
+                It should only be used to support existing funded clients or file audits —
+                not to guide new work or current decisions.
+            </p>
+            <div class="archive-modal-actions">
+                <button class="archive-modal-cancel" id="ackCancel">Cancel</button>
+                <a href="#" id="ackConfirm" target="_blank" rel="noopener noreferrer" class="archive-modal-confirm">
+                    <i class="fas fa-download"></i> I understand, open document
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+
+    <!-- Archived documents data (intentionally NOT loaded on any other page) -->
+    <script src="archived-documents-data.js"></script>
+
+    <script>
+    // ================================================================
+    // ARCHIVE PAGE SCRIPT
+    // ================================================================
+
+    const FILE_ICONS = {
+        'HTML': 'fa-file-code', 'PDF': 'fa-file-pdf', 'Word': 'fa-file-word',
+        'Excel': 'fa-file-excel', 'PowerPoint': 'fa-file-powerpoint',
+        'Text': 'fa-file-alt', 'Image': 'fa-file-image'
+    };
+
+    const CATEGORY_ICONS = {
+        'Policy':                  'fa-clipboard-list',
+        'Job Aids & Guidelines':   'fa-tools',
+        'Forms & Templates':       'fa-file-invoice',
+        'Financial Operations':    'fa-coins',
+        'Resources':               'fa-book',
+        'Other':                   'fa-file-alt',
+    };
+
+    function formatDate(ds) {
+        if (!ds) return '';
+        if (!ds.includes('-')) return ds; // fiscal year string — show as-is
+        const [y, m, d] = ds.split('-').map(Number);
+        if (!y) return ds;
+        return new Date(y, m - 1, d).toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    function escHtml(s) {
+        return String(s || '')
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // ---- State ----
+    let activeSearch   = '';
+    let activeCategory = 'all';
+    let activeFY       = 'all';
+    const docs = typeof ARCHIVED_DOCUMENTS !== 'undefined' ? ARCHIVED_DOCUMENTS : [];
+
+    // ---- Populate fiscal year filter ----
+    function populateFYFilter() {
+        const sel = document.getElementById('fiscalYearFilter');
+        const years = [...new Set(docs.map(d => d.activeUntil).filter(Boolean))].sort().reverse();
+        years.forEach(y => {
+            const opt = document.createElement('option');
+            opt.value = y;
+            opt.textContent = y;
+            sel.appendChild(opt);
+        });
+    }
+
+    // ---- Filter + render ----
+    function getFiltered() {
+        const q = activeSearch.toLowerCase();
+        return docs.filter(d => {
+            const catOk = activeCategory === 'all' || d.category === activeCategory;
+            const fyOk  = activeFY === 'all' || d.activeUntil === activeFY;
+            if (!catOk || !fyOk) return false;
+            if (!q) return true;
+            return (d.title || '').toLowerCase().includes(q)
+                || (d.reason || '').toLowerCase().includes(q)
+                || (d.description || '').toLowerCase().includes(q)
+                || (d.tags || []).some(t => t.toLowerCase().includes(q));
+        });
+    }
+
+    function renderCards() {
+        const list       = document.getElementById('archiveList');
+        const info       = document.getElementById('archiveResultsInfo');
+        const emptyEl    = document.getElementById('archiveEmpty');
+        const noContentEl = document.getElementById('archiveNoContent');
+
+        if (docs.length === 0) {
+            list.innerHTML = '';
+            noContentEl.style.display = 'block';
+            emptyEl.style.display = 'none';
+            info.textContent = '';
+            return;
+        }
+
+        const filtered = getFiltered();
+        const isFiltering = activeSearch || activeCategory !== 'all' || activeFY !== 'all';
+
+        if (filtered.length === 0) {
+            list.innerHTML = '';
+            emptyEl.style.display = 'block';
+            noContentEl.style.display = 'none';
+            info.textContent = 'No results found.';
+            info.className = 'archive-results-info';
+            return;
+        }
+
+        emptyEl.style.display = 'none';
+        noContentEl.style.display = 'none';
+
+        if (isFiltering) {
+            info.textContent = `Showing ${filtered.length} of ${docs.length} archived document${docs.length !== 1 ? 's' : ''}`;
+            info.className = 'archive-results-info active';
+        } else {
+            info.textContent = `${docs.length} archived document${docs.length !== 1 ? 's' : ''}`;
+            info.className = 'archive-results-info';
+        }
+
+        list.innerHTML = filtered.map(d => {
+            const fileIcon = FILE_ICONS[d.fileType] || 'fa-file';
+            const catIcon  = CATEGORY_ICONS[d.category] || 'fa-file-alt';
+
+            const activePeriod = [d.activeFrom, d.activeUntil].filter(Boolean)
+                .map(formatDate).join(' – ');
+
+            const supersededHtml = d.supersededBy
+                ? `<a href="${escHtml(d.supersededBy)}" class="archive-superseded-link" target="_blank" rel="noopener noreferrer">
+                       <i class="fas fa-arrow-right"></i> Current version: ${escHtml(d.supersededByTitle || 'View replacement')}
+                   </a>`
+                : '';
+
+            const reasonHtml = d.reason
+                ? `<div class="archive-reason"><i class="fas fa-info-circle" style="margin-right:6px;"></i>${escHtml(d.reason)}</div>`
+                : '';
+
+            const tagsHtml = (d.tags || []).length > 0
+                ? `<div class="archive-doc-tags">${d.tags.map(t => `<span class="archive-doc-tag">${escHtml(t)}</span>`).join('')}</div>`
+                : '';
+
+            return `
+            <div class="archive-doc-card">
+                <div class="archive-doc-icon">
+                    <i class="fas ${catIcon}"></i>
+                </div>
+                <div class="archive-doc-body">
+                    <div class="archive-doc-top">
+                        <h3 class="archive-doc-title">${escHtml(d.title)}</h3>
+                        <span class="archive-category-badge">
+                            <i class="fas ${catIcon}"></i> ${escHtml(d.category || 'Document')}
+                        </span>
+                        <span class="archive-stamp">
+                            <i class="fas fa-archive"></i> Archived
+                        </span>
+                    </div>
+                    <div class="archive-doc-meta">
+                        ${activePeriod ? `<span><i class="fas fa-calendar-alt"></i> Active: ${escHtml(activePeriod)}</span>` : ''}
+                        ${d.archivedOn ? `<span><i class="fas fa-box"></i> Archived: ${escHtml(formatDate(d.archivedOn))}</span>` : ''}
+                        ${d.fileType ? `<span><i class="fas fa-file"></i> ${escHtml(d.fileType)}</span>` : ''}
+                    </div>
+                    ${reasonHtml}
+                    ${supersededHtml}
+                    ${tagsHtml}
+                </div>
+                <div class="archive-doc-actions">
+                    <button
+                        class="archive-download-btn"
+                        data-title="${escHtml(d.title)}"
+                        data-url="${escHtml(d.fileName || '#')}"
+                        onclick="openAckModal(this)"
+                    >
+                        <i class="fas fa-download"></i> Open
+                    </button>
+                    ${d.fileType ? `<span class="archive-file-type-badge">${escHtml(d.fileType)}</span>` : ''}
+                </div>
+            </div>
+            `;
+        }).join('');
+    }
+
+    // ---- Acknowledge modal ----
+    function openAckModal(btn) {
+        const title = btn.getAttribute('data-title');
+        const url   = btn.getAttribute('data-url');
+        document.getElementById('ackDocTitle').textContent = title;
+        document.getElementById('ackConfirm').href = url;
+        document.getElementById('archiveAckModal').classList.add('active');
+    }
+
+    document.getElementById('ackCancel').addEventListener('click', () => {
+        document.getElementById('archiveAckModal').classList.remove('active');
+    });
+
+    document.getElementById('ackConfirm').addEventListener('click', () => {
+        document.getElementById('archiveAckModal').classList.remove('active');
+    });
+
+    // Close on backdrop click
+    document.getElementById('archiveAckModal').addEventListener('click', function(e) {
+        if (e.target === this) this.classList.remove('active');
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') document.getElementById('archiveAckModal').classList.remove('active');
+    });
+
+    // ---- Event listeners ----
+    const searchEl = document.getElementById('archiveSearch');
+    const clearEl  = document.getElementById('clearArchiveSearch');
+
+    searchEl.addEventListener('input', e => {
+        activeSearch = e.target.value.trim();
+        clearEl.style.display = activeSearch ? 'flex' : 'none';
+        renderCards();
+    });
+
+    clearEl.addEventListener('click', () => {
+        searchEl.value = '';
+        activeSearch = '';
+        clearEl.style.display = 'none';
+        searchEl.focus();
+        renderCards();
+    });
+
+    document.getElementById('categoryFilter').addEventListener('change', e => {
+        activeCategory = e.target.value;
+        renderCards();
+    });
+
+    document.getElementById('fiscalYearFilter').addEventListener('change', e => {
+        activeFY = e.target.value;
+        renderCards();
+    });
+
+    document.getElementById('clearAllFilters').addEventListener('click', () => {
+        searchEl.value = '';
+        activeSearch = '';
+        activeCategory = 'all';
+        activeFY = 'all';
+        clearEl.style.display = 'none';
+        document.getElementById('categoryFilter').value = 'all';
+        document.getElementById('fiscalYearFilter').value = 'all';
+        renderCards();
+    });
+
+    // ---- Init ----
+    populateFYFilter();
+    renderCards();
+    </script>
+</body>
+</html>

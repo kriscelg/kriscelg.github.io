@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Resources - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contact-resources-styles.css">
+</head>
+<body data-page="contact">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Contact & Resources</h1>
+                <p>Get help, find resources, and connect with key personnel</p>
+            </div>
+
+            <!-- SIB Support Section -->
+            <section class="sib-support-wrapper" id="sib-support">
+                <div class="sib-support-header">
+                    <i class="fas fa-headset"></i>
+                    <h2><span data-wdt-name="branch_sib_acronym">SIB</span> - Support</h2>
+                </div>
+
+                <div class="support-sections-container">
+                    <!-- Contact OSU Section -->
+                    <div class="contact-support-section">
+                        <h3 class="support-section-title">Contact <span data-wdt-name="unit_osu_acronym">OSU</span></h3>
+                        <p class="support-section-description">Submit a support request to the <span data-wdt-name="unit_osu_en">Operational Supports Unit</span></p>
+                        <a href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=6U32q1wqd026oqdiZTZ9Ols_4B3VO2xIjuNj7cHFvIVUNDFFVlBNV0E2WTIxQUk3MTFEWVFaTlNXRyQlQCN0PWcu" class="support-button" target="_blank" rel="noopener noreferrer">
+                            <div class="button-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="button-content">
+                                <span class="button-title">Submit <span data-wdt-name="unit_osu_acronym">OSU</span> Request</span>
+                                <span class="button-subtitle">Open support form</span>
+                            </div>
+                            <i class="fas fa-external-link-alt button-arrow"></i>
+                        </a>
+                    </div>
+
+                    <!-- Contact SMU Section -->
+                    <div class="contact-support-section">
+                        <h3 class="support-section-title">Contact <span data-wdt-name="unit_smu_acronym">SMU</span></h3>
+                        <p class="support-section-description">Submit a support request to the <span data-wdt-name="unit_smu_en">Service Modernization Unit</span></p>
+                        <a href="YOUR_SMU_MICROSOFT_FORMS_LINK_HERE" class="support-button" target="_blank" rel="noopener noreferrer">
+                            <div class="button-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="button-content">
+                                <span class="button-title">Submit <span data-wdt-name="unit_smu_acronym">SMU</span> Request</span>
+                                <span class="button-subtitle">Open support form</span>
+                            </div>
+                            <i class="fas fa-external-link-alt button-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Contacts Section -->
+            <section class="contacts-section" id="key-contacts">
+                <div class="section-header">
+                    <i class="fas fa-address-book"></i>
+                    <h2>Key Contacts</h2>
+                </div>
+                <p class="section-description">Important contacts for different departments and services</p>
+
+                <div class="contacts-grid" id="contactsGrid">
+                    <!-- Key contacts will be loaded dynamically from contact-resources-data.js -->
+                </div>
+            </section>
+
+            <!-- Staff Resources Section -->
+            <section class="resources-section" id="staff-resources">
+                <div class="section-header">
+                    <i class="fas fa-book"></i>
+                    <h2>Staff Resources</h2>
+                </div>
+                <p class="section-description">Quick access to important resources and tools</p>
+
+                <div class="resources-grid" id="resourcesGrid">
+                    <!-- Staff resources will be loaded dynamically from contact-resources-data.js -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Load shared navigation and footer -->
+    <script src="nav-footer-loader.js"></script>
+
+    <!-- Load contact and resources data -->
+    <script src="contact-resources-data.js"></script>
+
+    <!-- Load and display contact and resources data -->
+    <script>
+        // Load Key Contacts
+        function loadKeyContacts() {
+            const contactsGrid = document.getElementById('contactsGrid');
+            const contacts = typeof KEY_CONTACTS !== 'undefined' ? KEY_CONTACTS : [];
+
+            if (contacts.length === 0) {
+                contactsGrid.innerHTML = '<p class="no-items">No contacts available.</p>';
+                return;
+            }
+
+            contactsGrid.innerHTML = contacts.map(contact => `
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <i class="${contact.icon}"></i>
+                        <h3>${contact.title}</h3>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:${contact.email}">${contact.email}</a>
+                            <button class="copy-email-btn" onclick="copyEmail('${contact.email}', this)" title="Copy email">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Copy email to clipboard
+        function copyEmail(email, button) {
+            // Use the Clipboard API to copy the email
+            navigator.clipboard.writeText(email).then(() => {
+                // Change icon to checkmark temporarily
+                const icon = button.querySelector('i');
+                icon.classList.remove('fa-copy');
+                icon.classList.add('fa-check');
+                button.classList.add('copied');
+
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    icon.classList.remove('fa-check');
+                    icon.classList.add('fa-copy');
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy email: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = email;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    const icon = button.querySelector('i');
+                    icon.classList.remove('fa-copy');
+                    icon.classList.add('fa-check');
+                    button.classList.add('copied');
+
+                    setTimeout(() => {
+                        icon.classList.remove('fa-check');
+                        icon.classList.add('fa-copy');
+                        button.classList.remove('copied');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Fallback: Failed to copy', err);
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+
+        // Load Staff Resources
+        function loadStaffResources() {
+            const resourcesGrid = document.getElementById('resourcesGrid');
+            const resources = typeof STAFF_RESOURCES !== 'undefined' ? STAFF_RESOURCES : [];
+
+            if (resources.length === 0) {
+                resourcesGrid.innerHTML = '<p class="no-items">No resources available.</p>';
+                return;
+            }
+
+            resourcesGrid.innerHTML = resources.map(resource => `
+                <a href="${resource.link}" class="resource-card" target="_blank" rel="noopener noreferrer">
+                    <div class="resource-icon">
+                        <i class="${resource.icon}"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h3>${resource.title}</h3>
+                        <p>${resource.description}</p>
+                    </div>
+                    <i class="fas fa-chevron-right resource-arrow"></i>
+                </a>
+            `).join('');
+        }
+
+        // Load all sections when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadKeyContacts();
+            loadStaffResources();
+        });
+    </script>
+    <script src="name-registry-data.js"></script>
+</body>
+</html>
