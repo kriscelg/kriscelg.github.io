@@ -333,6 +333,14 @@
         .gen-tab-pill:hover { border-color:#0d5f5f; color:#0d5f5f; }
         .gen-tab-pill.active { background:#0d5f5f; border-color:#0d5f5f; color:#fff; }
         textarea.gen-input { resize:vertical; min-height:60px; }
+        /* ── Supporting Docs Repeater ─────────────────── */
+        .sup-doc-row { display:grid; grid-template-columns: 1fr 1fr auto auto; gap:6px; align-items:center; margin-bottom:6px; }
+        @media (max-width:800px) { .sup-doc-row { grid-template-columns: 1fr 1fr; } .sup-doc-row .sup-doc-remove { grid-column:span 2; } }
+        .sup-doc-remove { background:none; border:1.5px solid #fca5a5; color:#ef4444; border-radius:5px; padding:5px 8px; font-size:12px; cursor:pointer; flex-shrink:0; transition:background .15s; }
+        .sup-doc-remove:hover { background:#fef2f2; }
+        .sup-doc-add { margin-top:4px; background:none; border:1.5px dashed #cbd5e1; color:#64748b; border-radius:6px; padding:6px 12px; font-size:12px; font-family:inherit; cursor:pointer; width:100%; transition:border-color .15s,color .15s; }
+        .sup-doc-add:hover { border-color:#0d5f5f; color:#0d5f5f; }
+        .sup-doc-select { padding:7px 8px; border:1.5px solid #e2e8f0; border-radius:6px; font-size:12.5px; font-family:inherit; background:#fff; color:#1e293b; }
 
         /* ── Responsive ───────────────────────────────── */
         @media (max-width: 600px) {
@@ -678,6 +686,13 @@
                             <input type="text" class="gen-input" id="genEmbedUrl" placeholder="https://app.powerbi.com/reportEmbed?...">
                             <label class="gen-label" style="margin-top:8px" for="genPowerBiUrl">Power BI URL <span class="gen-opt">(opt)</span></label>
                             <input type="text" class="gen-input" id="genPowerBiUrl" style="margin-top:4px" placeholder="https://app.powerbi.com/groups/...">
+                        </div>
+
+                        <!-- ⑱b Report Dashboard: supporting documents -->
+                        <div class="gen-field" id="gf-supporting-docs">
+                            <label class="gen-label">Supporting Documents <span class="gen-opt">(optional)</span></label>
+                            <div id="supDocRows"></div>
+                            <button type="button" class="sup-doc-add" id="supDocAddBtn"><i class="fas fa-plus"></i> Add supporting document</button>
                         </div>
 
                         <!-- ⑲ Tags -->
@@ -1487,7 +1502,7 @@ function buildGenerator(allActive) {
         'event':            ['gf-date','gf-event-details','gf-description'],
         'video':            ['gf-filename','gf-date','gf-program-area','gf-media-meta','gf-caption','gf-tags','gf-description'],
         'presentation':     ['gf-filename','gf-date','gf-program-area','gf-media-meta','gf-tags','gf-description'],
-        'report-dashboard': ['gf-report-file','gf-date','gf-embed-urls','gf-description'],
+        'report-dashboard': ['gf-report-file','gf-date','gf-embed-urls','gf-supporting-docs','gf-description'],
         'report-doc':       ['gf-report-file','gf-filetype','gf-category','gf-report-doc-url','gf-report-doc-meta','gf-description'],
         'faq':              ['gf-faq-keywords','gf-faq-answer','gf-faq-followups'],
         'acronym':          ['gf-acronym-def'],
@@ -1700,6 +1715,10 @@ function buildGenerator(allActive) {
             if (th) th.placeholder = meta.thumbPH;
         }
 
+        if (type !== 'report-dashboard') {
+            document.getElementById('supDocRows').innerHTML = '';
+        }
+
         updateTargetHint();
         updatePreview();
     }
@@ -1756,6 +1775,33 @@ function buildGenerator(allActive) {
         if (map[ext]) document.getElementById('genFileType').value = map[ext];
         updatePreview();
     });
+
+    // ── Supporting Documents repeater (report-dashboard) ──
+    function addSupDocRow(title, url, fileType) {
+        var row = document.createElement('div');
+        row.className = 'sup-doc-row';
+        row.innerHTML =
+            '<input type="text" class="gen-input sup-doc-title" placeholder="Document title" value="' + (title||'') + '">' +
+            '<input type="text" class="gen-input sup-doc-url" placeholder="URL or relative path" value="' + (url||'') + '">' +
+            '<select class="sup-doc-select sup-doc-type">' +
+                '<option value="PDF"' + (fileType==='PDF'?' selected':'') + '>PDF</option>' +
+                '<option value="Word"' + (fileType==='Word'?' selected':'') + '>Word</option>' +
+                '<option value="Excel"' + (fileType==='Excel'?' selected':'') + '>Excel</option>' +
+                '<option value="PowerPoint"' + (fileType==='PowerPoint'?' selected':'') + '>PowerPoint</option>' +
+                '<option value="HTML"' + (fileType==='HTML'?' selected':'') + '>HTML</option>' +
+                '<option value="Image"' + (fileType==='Image'?' selected':'') + '>Image</option>' +
+            '</select>' +
+            '<button type="button" class="sup-doc-remove" title="Remove"><i class="fas fa-times"></i></button>';
+        row.querySelector('.sup-doc-remove').addEventListener('click', function () {
+            row.remove(); updatePreview();
+        });
+        row.querySelectorAll('input, select').forEach(function (el) {
+            el.addEventListener('input', updatePreview);
+        });
+        document.getElementById('supDocRows').appendChild(row);
+        updatePreview();
+    }
+    document.getElementById('supDocAddBtn').addEventListener('click', function () { addSupDocRow(); });
 
     ['genTitle','genDate','genFileType','genDesc','genCategory','genReason','genSubject',
      'genTime','genLocation','genProgramArea','genThumbnail','genDuration',
@@ -1887,13 +1933,29 @@ function buildGenerator(allActive) {
             }
             case 'report-dashboard': {
                 var pbiUrl = v('genPowerBiUrl');
+                var supRows = document.querySelectorAll('#supDocRows .sup-doc-row');
+                var supDocs = [];
+                supRows.forEach(function (row) {
+                    var t = row.querySelector('.sup-doc-title').value.trim();
+                    var u = row.querySelector('.sup-doc-url').value.trim();
+                    var ft = row.querySelector('.sup-doc-type').value;
+                    if (t || u) supDocs.push({ title: t||'…', url: u||'#', fileType: ft });
+                });
                 out  = '    {\n';
                 out += '        title: "' + (v('genTitle')||'…') + '",\n';
                 out += '        description: "' + v('genDesc') + '",\n';
                 out += '        embedUrl: "' + v('genEmbedUrl') + '",\n';
                 if (pbiUrl) out += '        powerBiUrl: "' + pbiUrl + '",\n';
                 out += '        lastRefreshed: "' + (v('genDate')||'YYYY-MM-DD') + '",\n';
-                out += '        supportingDocuments: [],\n';
+                if (supDocs.length) {
+                    out += '        supportingDocuments: [\n';
+                    supDocs.forEach(function (d) {
+                        out += '            { title: "' + d.title + '", url: "' + d.url + '", fileType: "' + d.fileType + '" },\n';
+                    });
+                    out += '        ],\n';
+                } else {
+                    out += '        supportingDocuments: [],\n';
+                }
                 out += '    },';
                 break;
             }
