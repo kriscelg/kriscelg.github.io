@@ -269,21 +269,50 @@
             font-size: 11px; font-family: monospace; color: #64748b; white-space: nowrap; flex-shrink: 0;
         }
         .gen-file-input { flex: 1 !important; border-radius: 0 6px 6px 0 !important; font-family: monospace !important; font-size: 12px !important; }
-        .tag-input-wrap {
-            border: 1.5px solid #e2e8f0; border-radius: 6px;
-            padding: 5px 8px; background: #fff;
-            display: flex; flex-wrap: wrap; gap: 5px; align-items: center;
-            cursor: text; transition: border-color .2s; min-height: 38px; position: relative;
-        }
-        .tag-input-wrap.focused { border-color: #0d5f5f; }
+        .tag-chips-row { display: flex; flex-wrap: wrap; gap: 5px; min-height: 0; }
+        .tag-chips-row:not(:empty) { margin-bottom: 7px; }
         .tag-chip { background: #e0f2fe; color: #0369a1; border-radius: 4px; padding: 2px 6px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
         .tag-chip-remove { background: none; border: none; cursor: pointer; font-size: 13px; color: #0369a1; padding: 0; line-height: 1; }
         .tag-chip-remove:hover { color: #dc2626; }
-        .tag-text-input { border: none; outline: none; font-size: 13px; font-family: inherit; flex: 1; min-width: 80px; background: transparent; color: #1e293b; padding: 2px 0; }
-        .tag-suggestions { position: absolute; top: calc(100% + 2px); left: -2px; right: -2px; background: #fff; border: 1.5px solid #0d5f5f; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,.12); z-index: 50; max-height: 160px; overflow-y: auto; display: none; }
-        .tag-suggestions.open { display: block; }
-        .tag-suggestion { padding: 7px 10px; font-size: 13px; cursor: pointer; color: #1e293b; }
-        .tag-suggestion:hover, .tag-suggestion.active { background: #f0fdf4; color: #0d5f5f; }
+        .tag-multi-wrap { position: relative; }
+        .tag-multi-trigger {
+            width: 100%; padding: 8px 10px; border: 1.5px solid #e2e8f0;
+            border-radius: 6px; font-size: 13px; font-family: inherit;
+            background: #fff; cursor: pointer; text-align: left;
+            display: flex; align-items: center; justify-content: space-between; gap: 8px;
+            transition: border-color .2s; color: #64748b;
+        }
+        .tag-multi-trigger.open { border-color: #0d5f5f; border-radius: 6px 6px 0 0; color: #1e293b; }
+        .tag-multi-trigger:hover:not(.open) { border-color: #94a3b8; }
+        .tag-multi-trigger.has-selection { color: #1e293b; }
+        .tag-multi-panel {
+            position: absolute; top: 100%; left: 0; right: 0;
+            background: #fff; border: 1.5px solid #0d5f5f; border-top: none;
+            border-radius: 0 0 6px 6px; box-shadow: 0 8px 20px rgba(0,0,0,.12);
+            z-index: 100; max-height: 300px; overflow: hidden;
+            display: none; flex-direction: column;
+        }
+        .tag-multi-panel.open { display: flex; }
+        .tag-multi-search {
+            padding: 7px 10px; border: none; border-bottom: 1px solid #e2e8f0;
+            font-size: 13px; font-family: inherit; outline: none;
+            width: 100%; background: #f8fafc; color: #1e293b; flex-shrink: 0;
+        }
+        .tag-multi-list { overflow-y: auto; flex: 1; }
+        .tag-multi-group-title {
+            padding: 5px 10px; font-size: 10px; font-weight: 700; letter-spacing: .6px;
+            text-transform: uppercase; color: #0d5f5f; background: #f0fdf4;
+            border-bottom: 1px solid #e2e8f0; position: sticky; top: 0;
+        }
+        .tag-multi-item {
+            display: flex; align-items: center; gap: 8px;
+            padding: 6px 10px; cursor: pointer; font-size: 13px; color: #1e293b;
+            transition: background .1s;
+        }
+        .tag-multi-item:hover { background: #f8fafc; }
+        .tag-multi-item input[type="checkbox"] { cursor: pointer; accent-color: #0d5f5f; flex-shrink: 0; }
+        .tag-multi-item.tm-hidden { display: none; }
+        .tag-multi-group.tm-all-hidden .tag-multi-group-title { display: none; }
         .nameref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 4px; }
         .nameref-item { display: flex; align-items: center; gap: 6px; padding: 5px 7px; border-radius: 5px; cursor: pointer; font-size: 12px; color: #475569; transition: background .15s; }
         .nameref-item:hover { background: #f0fdf4; }
@@ -486,16 +515,24 @@
                                     <option value="Word">Word</option>
                                     <option value="Excel">Excel</option>
                                     <option value="PowerPoint">PowerPoint</option>
+                                    <option value="Image">Image</option>
                                 </select>
                             </div>
                         </div>
 
                         <!-- Tags -->
                         <div class="gen-field">
-                            <label class="gen-label">Tags <span class="gen-opt">(type and press Enter or , to add)</span></label>
-                            <div class="tag-input-wrap" id="tagWrap">
-                                <input type="text" class="tag-text-input" id="tagInput" placeholder="Add tag…" autocomplete="off">
-                                <div class="tag-suggestions" id="tagSuggestions"></div>
+                            <label class="gen-label">Tags</label>
+                            <div class="tag-chips-row" id="tagChipsRow"></div>
+                            <div class="tag-multi-wrap" id="tagMultiWrap">
+                                <button type="button" class="tag-multi-trigger" id="tagMultiTrigger">
+                                    <span id="tagMultiLabel">Select tags…</span>
+                                    <i class="fas fa-chevron-down" id="tagMultiChevron" style="font-size:11px;transition:transform .2s;flex-shrink:0;"></i>
+                                </button>
+                                <div class="tag-multi-panel" id="tagMultiPanel">
+                                    <input type="text" class="tag-multi-search" id="tagMultiSearch" placeholder="Search all tags…" autocomplete="off">
+                                    <div class="tag-multi-list" id="tagMultiList"></div>
+                                </div>
                             </div>
                         </div>
 
@@ -1258,9 +1295,6 @@ function buildGenerator(allActive) {
     // Today's date
     document.getElementById('genDate').value = new Date().toISOString().slice(0, 10);
 
-    // All existing tags (sorted, deduped)
-    const existingTags = [...new Set(allActive.flatMap(d => d.tags || []))].sort((a, b) => a.localeCompare(b));
-
     // Array config: key → folder + data file
     const ARRAY_CONFIG = {
         POLICY_DOCUMENTS:   { folder: 'documents/policy/',                file: 'documents-data.js' },
@@ -1286,84 +1320,122 @@ function buildGenerator(allActive) {
         </label>`
     ).join('');
 
-    // ── Tag chip state ──────────────────────────────────
-    let selectedTags = [];
-    let activeSugIdx = -1;
+    // ── Tag categories & multi-select ───────────────────
+    const PAGE_TAG_CATEGORIES = {
+        'Subcategory': ['Policy', 'Program Parameters', 'Management Documents (HR)', 'Management Documents (all resources including forms)', 'Memos (Policy Related)', 'Memos (General Communication)', 'Templates', 'Forms', 'Checklists', 'Letters', 'Career Planning Tools', 'System Documents', 'Terminology', 'Fact Sheets', 'Persentation Suites', 'Signage', 'FAQ', 'Job Aid', 'Guideline', 'Procedure', 'Resources', 'Reports', 'Information Sheet', 'Speaker Series'],
+        'Programs': ['Skills Development', 'Wage Subsidy', 'EAPD', 'ETP', 'Self Employment', 'Intitiatives'],
+        'Systems': ['ICM', 'SPRS', 'EIBIS', 'SAP', 'SFAIS', 'ETA'],
+        'Financials': ['Finance', 'Overpayments', 'Vendor Management'],
+        'Document Type': ['HTML', 'PDF', 'Word', 'Excel', 'PowerPoint', 'Image'],
+        'Position': ['Mananger', 'CDC', 'PO', 'VC', 'LMSA', 'PSC', 'ASO'],
+        'Information Systems': ['User Access', 'Operations', 'Procedure', 'Office Administration', 'Tech Tips', 'Generative AI'],
+        'Services / Resource': ['Direct Services', 'Indirect Services', 'General Service Delivery', 'Case Management', 'Career Development', 'Service Provider Resource', 'Client Resource', 'Assessments', 'Education', 'Engagement', 'Agreements'],
+        'Promotional': ['Marketing', 'Business', 'Community'],
+        'HR': ['Respectful Workplace Policy and Toolkit'],
+        'Language': ['English', 'French'],
+    };
 
-    const tagInput = document.getElementById('tagInput');
-    const tagWrap  = document.getElementById('tagWrap');
-    const tagSugs  = document.getElementById('tagSuggestions');
+    let selectedTags = [];
+
+    const chipsRow   = document.getElementById('tagChipsRow');
+    const trigger    = document.getElementById('tagMultiTrigger');
+    const panel      = document.getElementById('tagMultiPanel');
+    const searchInput = document.getElementById('tagMultiSearch');
+    const listEl     = document.getElementById('tagMultiList');
+
+    // Build the grouped checkbox list
+    (function buildTagList() {
+        listEl.innerHTML = Object.keys(PAGE_TAG_CATEGORIES).map(function (group) {
+            const items = PAGE_TAG_CATEGORIES[group].map(function (tag) {
+                const id = 'tm_' + tag.replace(/[^a-z0-9]/gi, '_');
+                return '<label class="tag-multi-item" id="tmi_' + id + '">' +
+                    '<input type="checkbox" id="' + id + '" value="' + tag + '" class="tm-cb">' +
+                    '<span>' + tag + '</span>' +
+                '</label>';
+            }).join('');
+            return '<div class="tag-multi-group" id="tmg_' + group.replace(/[^a-z0-9]/gi, '_') + '">' +
+                '<div class="tag-multi-group-title">' + group + '</div>' +
+                items +
+            '</div>';
+        }).join('');
+        // Wire checkboxes
+        listEl.querySelectorAll('.tm-cb').forEach(function (cb) {
+            cb.addEventListener('change', function () {
+                if (this.checked) {
+                    if (!selectedTags.includes(this.value)) selectedTags.push(this.value);
+                } else {
+                    selectedTags = selectedTags.filter(function (t) { return t !== cb.value; });
+                }
+                renderChips(); updateTriggerLabel(); updatePreview();
+            });
+        });
+    })();
 
     function renderChips() {
-        tagWrap.querySelectorAll('.tag-chip').forEach(el => el.remove());
-        selectedTags.forEach(function (tag, i) {
+        chipsRow.innerHTML = '';
+        selectedTags.forEach(function (tag) {
             const chip = document.createElement('span');
             chip.className = 'tag-chip';
-            chip.innerHTML = tag + ' <button class="tag-chip-remove" data-i="' + i + '" title="Remove">&times;</button>';
-            tagWrap.insertBefore(chip, tagInput);
+            chip.innerHTML = tag + ' <button class="tag-chip-remove" data-tag="' + tag + '" title="Remove">&times;</button>';
+            chipsRow.appendChild(chip);
         });
-        tagWrap.querySelectorAll('.tag-chip-remove').forEach(function (btn) {
+        chipsRow.querySelectorAll('.tag-chip-remove').forEach(function (btn) {
             btn.addEventListener('click', function (e) {
                 e.stopPropagation();
-                selectedTags.splice(Number(this.dataset.i), 1);
-                renderChips(); updatePreview();
+                const tag = this.dataset.tag;
+                selectedTags = selectedTags.filter(function (t) { return t !== tag; });
+                // Uncheck corresponding checkbox
+                const cb = listEl.querySelector('.tm-cb[value="' + tag + '"]');
+                if (cb) cb.checked = false;
+                renderChips(); updateTriggerLabel(); updatePreview();
             });
         });
     }
 
-    function addTag(val) {
-        const t = val.trim();
-        if (t && !selectedTags.includes(t)) { selectedTags.push(t); renderChips(); updatePreview(); }
-        tagInput.value = '';
-        closeSugs();
+    function updateTriggerLabel() {
+        const label = document.getElementById('tagMultiLabel');
+        if (selectedTags.length === 0) {
+            label.textContent = 'Select tags…';
+            trigger.classList.remove('has-selection');
+        } else {
+            label.textContent = selectedTags.length + ' tag' + (selectedTags.length > 1 ? 's' : '') + ' selected';
+            trigger.classList.add('has-selection');
+        }
     }
 
-    function matchSugs(q) {
-        if (!q) return [];
-        const lq = q.toLowerCase();
-        return existingTags.filter(t => !selectedTags.includes(t) && t.toLowerCase().includes(lq)).slice(0, 8);
-    }
+    // Open / close panel
+    trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const isOpen = panel.classList.toggle('open');
+        trigger.classList.toggle('open', isOpen);
+        document.getElementById('tagMultiChevron').style.transform = isOpen ? 'rotate(180deg)' : '';
+        if (isOpen) { searchInput.value = ''; filterTags(''); searchInput.focus(); }
+    });
 
-    function showSugs(q) {
-        const items = matchSugs(q);
-        if (!items.length) { closeSugs(); return; }
-        tagSugs.innerHTML = items.map(s => '<div class="tag-suggestion" data-val="' + s + '">' + s + '</div>').join('');
-        tagSugs.classList.add('open');
-        activeSugIdx = -1;
-        tagSugs.querySelectorAll('.tag-suggestion').forEach(function (el) {
-            el.addEventListener('mousedown', function (e) { e.preventDefault(); addTag(this.dataset.val); });
+    document.addEventListener('click', function (e) {
+        if (!document.getElementById('tagMultiWrap').contains(e.target)) {
+            panel.classList.remove('open');
+            trigger.classList.remove('open');
+            document.getElementById('tagMultiChevron').style.transform = '';
+        }
+    });
+
+    // Search / filter
+    searchInput.addEventListener('input', function () { filterTags(this.value); });
+
+    function filterTags(q) {
+        const lq = q.toLowerCase().trim();
+        listEl.querySelectorAll('.tag-multi-group').forEach(function (grp) {
+            let anyVisible = false;
+            grp.querySelectorAll('.tag-multi-item').forEach(function (item) {
+                const tag = item.querySelector('.tm-cb').value;
+                const match = !lq || tag.toLowerCase().includes(lq);
+                item.classList.toggle('tm-hidden', !match);
+                if (match) anyVisible = true;
+            });
+            grp.classList.toggle('tm-all-hidden', !anyVisible);
         });
     }
-
-    function closeSugs() { tagSugs.classList.remove('open'); tagSugs.innerHTML = ''; activeSugIdx = -1; }
-
-    tagInput.addEventListener('input', function () { showSugs(this.value); });
-    tagInput.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ',') {
-            e.preventDefault();
-            const active = tagSugs.querySelector('.tag-suggestion.active');
-            if (active) addTag(active.dataset.val);
-            else if (tagInput.value.trim()) addTag(tagInput.value);
-        } else if (e.key === 'Backspace' && !tagInput.value && selectedTags.length) {
-            selectedTags.pop(); renderChips(); updatePreview();
-        } else if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            const items = tagSugs.querySelectorAll('.tag-suggestion');
-            activeSugIdx = Math.min(activeSugIdx + 1, items.length - 1);
-            items.forEach(function (el, i) { el.classList.toggle('active', i === activeSugIdx); });
-        } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            const items = tagSugs.querySelectorAll('.tag-suggestion');
-            activeSugIdx = Math.max(activeSugIdx - 1, -1);
-            items.forEach(function (el, i) { el.classList.toggle('active', i === activeSugIdx); });
-        } else if (e.key === 'Escape') { closeSugs(); }
-    });
-    tagInput.addEventListener('blur', function () { setTimeout(closeSugs, 150); });
-    tagWrap.addEventListener('click', function () { tagInput.focus(); });
-    tagWrap.addEventListener('focusin', function () { tagWrap.classList.add('focused'); });
-    tagWrap.addEventListener('focusout', function (e) {
-        if (!tagWrap.contains(e.relatedTarget)) tagWrap.classList.remove('focused');
-    });
 
     // ── Array select → update folder prefix + hint ──────
     function updateArrayConfig() {
