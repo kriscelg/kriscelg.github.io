@@ -327,6 +327,12 @@
         .gen-target-hint { font-size: 11px; color: #64748b; margin-top: 5px; padding: 5px 10px; background: #f8fafc; border-radius: 4px; border-left: 3px solid #0d5f5f; }
         .gen-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         @media (max-width: 800px) { .gen-two-col { grid-template-columns: 1fr; } }
+        /* ── Generator Tab Pills ── */
+        .gen-type-tabs { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:14px; }
+        .gen-tab-pill { padding:4px 12px; font-size:11.5px; font-weight:500; border:1.5px solid #e2e8f0; background:#fff; color:#64748b; border-radius:20px; cursor:pointer; transition:all .15s; line-height:1.8; white-space:nowrap; }
+        .gen-tab-pill:hover { border-color:#0d5f5f; color:#0d5f5f; }
+        .gen-tab-pill.active { background:#0d5f5f; border-color:#0d5f5f; color:#fff; }
+        textarea.gen-input { resize:vertical; min-height:60px; }
 
         /* ── Responsive ───────────────────────────────── */
         @media (max-width: 600px) {
@@ -465,16 +471,32 @@
 
         <!-- ── Document Entry Generator ──────────────── -->
         <div class="admin-section">
-            <div class="admin-section-title"><i class="fas fa-code"></i>&ensp;Document Entry Generator</div>
-            <div style="font-size:13px;color:#475569;margin-bottom:16px;">Fill in the fields to generate the JavaScript object to paste into a data file. Tag autocomplete pulls from all existing document tags.</div>
+            <div class="admin-section-title"><i class="fas fa-code"></i>&ensp;Entry Generator</div>
+            <div style="font-size:13px;color:#475569;margin-bottom:12px;">Select an entry type, fill in the fields, then copy the generated code into the right data file.</div>
+
+            <!-- Type switcher pills -->
+            <div class="gen-type-tabs" id="genTypeTabs">
+                <button class="gen-tab-pill active" data-type="document">Document</button>
+                <button class="gen-tab-pill" data-type="archived">Archived Doc</button>
+                <button class="gen-tab-pill" data-type="bulletin">Bulletin</button>
+                <button class="gen-tab-pill" data-type="memo">Memo</button>
+                <button class="gen-tab-pill" data-type="event">Event</button>
+                <button class="gen-tab-pill" data-type="video">Video</button>
+                <button class="gen-tab-pill" data-type="presentation">Presentation</button>
+                <button class="gen-tab-pill" data-type="report-dashboard">Report Dashboard</button>
+                <button class="gen-tab-pill" data-type="report-doc">Report Doc</button>
+                <button class="gen-tab-pill" data-type="faq">Chatbot FAQ</button>
+                <button class="gen-tab-pill" data-type="acronym">Acronym</button>
+            </div>
+
             <div class="two-col" style="align-items:start;">
 
                 <!-- Form -->
                 <div class="card" style="padding:18px 20px;">
                     <div class="gen-form" id="genForm">
 
-                        <!-- Target array -->
-                        <div class="gen-field">
+                        <!-- ① Document: target array -->
+                        <div class="gen-field" id="gf-doc-array">
                             <label class="gen-label" for="genArray">Target array</label>
                             <select class="gen-select" id="genArray">
                                 <option value="POLICY_DOCUMENTS">POLICY_DOCUMENTS</option>
@@ -483,45 +505,183 @@
                                 <option value="FINANCE_OPERATIONS">FINANCE_OPERATIONS</option>
                                 <option value="RESOURCE_DOCS">RESOURCE_DOCS</option>
                             </select>
-                            <div class="gen-target-hint" id="genTargetHint"></div>
                         </div>
 
-                        <!-- Title -->
-                        <div class="gen-field">
-                            <label class="gen-label" for="genTitle">Title</label>
+                        <!-- ② Reporting file -->
+                        <div class="gen-field" id="gf-report-file">
+                            <label class="gen-label" for="genReportFile">Reporting file</label>
+                            <select class="gen-select" id="genReportFile">
+                                <option value="tes-reporting-data.js">TES — tes-reporting-data.js</option>
+                                <option value="apprenticeship-reporting-data.js">Apprenticeship — apprenticeship-reporting-data.js</option>
+                                <option value="bits-reporting-data.js">BITS — bits-reporting-data.js</option>
+                                <option value="finance-reporting-data.js">Finance — finance-reporting-data.js</option>
+                                <option value="sib-reporting-data.js">SIB — sib-reporting-data.js</option>
+                            </select>
+                        </div>
+
+                        <!-- Target hint (always visible) -->
+                        <div class="gen-target-hint" id="genTargetHint"></div>
+
+                        <!-- ③ Title / Subject / Question / Key -->
+                        <div class="gen-field" id="gf-title">
+                            <label class="gen-label" id="genTitleLabel" for="genTitle">Title</label>
                             <input type="text" class="gen-input" id="genTitle" placeholder="e.g. Agreement Monitoring Policy">
                         </div>
 
-                        <!-- File name -->
-                        <div class="gen-field">
-                            <label class="gen-label" for="genFileName">File name</label>
+                        <!-- ④ File name -->
+                        <div class="gen-field" id="gf-filename">
+                            <label class="gen-label" id="genFileNameLabel" for="genFileName">File name</label>
                             <div class="gen-file-row">
                                 <div class="gen-file-prefix" id="genFilePrefix">documents/policy/</div>
-                                <input type="text" class="gen-input gen-file-input" id="genFileName" placeholder="e.g. agreementMonitoringPolicy.html">
+                                <input type="text" class="gen-input gen-file-input" id="genFileName" placeholder="filename.html">
                             </div>
                         </div>
 
-                        <!-- Date + File type -->
-                        <div class="gen-two-col">
-                            <div class="gen-field">
-                                <label class="gen-label" for="genDate">Upload date</label>
-                                <input type="date" class="gen-input" id="genDate">
-                            </div>
-                            <div class="gen-field">
-                                <label class="gen-label" for="genFileType">File type</label>
-                                <select class="gen-select" id="genFileType">
-                                    <option value="HTML">HTML</option>
-                                    <option value="PDF">PDF</option>
-                                    <option value="Word">Word</option>
-                                    <option value="Excel">Excel</option>
-                                    <option value="PowerPoint">PowerPoint</option>
-                                    <option value="Image">Image</option>
-                                </select>
+                        <!-- ⑤ Date -->
+                        <div class="gen-field" id="gf-date">
+                            <label class="gen-label" id="genDateLabel" for="genDate">Upload date</label>
+                            <input type="date" class="gen-input" id="genDate">
+                        </div>
+
+                        <!-- ⑥ File type -->
+                        <div class="gen-field" id="gf-filetype">
+                            <label class="gen-label" for="genFileType">File type</label>
+                            <select class="gen-select" id="genFileType">
+                                <option value="HTML">HTML</option>
+                                <option value="PDF">PDF</option>
+                                <option value="Word">Word</option>
+                                <option value="Excel">Excel</option>
+                                <option value="PowerPoint">PowerPoint</option>
+                                <option value="Image">Image</option>
+                            </select>
+                        </div>
+
+                        <!-- ⑦ Archived: 3 date fields -->
+                        <div class="gen-field" id="gf-archived-dates">
+                            <label class="gen-label">Active period &amp; archived on</label>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                <div style="flex:1;min-width:120px;">
+                                    <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">Active From</div>
+                                    <input type="date" class="gen-input" id="genActiveFrom">
+                                </div>
+                                <div style="flex:1;min-width:120px;">
+                                    <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">Active Until</div>
+                                    <input type="date" class="gen-input" id="genActiveUntil">
+                                </div>
+                                <div style="flex:1;min-width:120px;">
+                                    <div style="font-size:10px;color:#94a3b8;margin-bottom:2px;">Archived On</div>
+                                    <input type="date" class="gen-input" id="genArchivedOn">
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Tags -->
-                        <div class="gen-field">
+                        <!-- ⑧ Category -->
+                        <div class="gen-field" id="gf-category">
+                            <label class="gen-label" for="genCategory">Category</label>
+                            <select class="gen-select" id="genCategory">
+                                <option value="Policy">Policy</option>
+                                <option value="Job Aids &amp; Guidelines">Job Aids &amp; Guidelines</option>
+                                <option value="Forms &amp; Templates">Forms &amp; Templates</option>
+                                <option value="Financial Operations">Financial Operations</option>
+                                <option value="Resources">Resources</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- ⑨ Report Doc: document URL -->
+                        <div class="gen-field" id="gf-report-doc-url">
+                            <label class="gen-label" for="genReportDocUrl">Document URL</label>
+                            <input type="text" class="gen-input" id="genReportDocUrl" placeholder="https://... or relative path">
+                        </div>
+
+                        <!-- ⑩ Report Doc: category icon + year -->
+                        <div class="gen-field" id="gf-report-doc-meta">
+                            <div class="gen-two-col">
+                                <div class="gen-field" style="margin:0">
+                                    <label class="gen-label" for="genReportCatIcon">Category icon</label>
+                                    <input type="text" class="gen-input" id="genReportCatIcon" placeholder="fas fa-chart-bar">
+                                </div>
+                                <div class="gen-field" style="margin:0">
+                                    <label class="gen-label" for="genReportDocYear">Year</label>
+                                    <input type="text" class="gen-input" id="genReportDocYear" placeholder="2025-2026">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ⑪ Archived: superseded by -->
+                        <div class="gen-field" id="gf-superseded">
+                            <label class="gen-label">Superseded by <span class="gen-opt">(optional)</span></label>
+                            <div class="gen-two-col">
+                                <input type="text" class="gen-input" id="genSupersededBy" placeholder="New doc ID">
+                                <input type="text" class="gen-input" id="genSupersededByTitle" placeholder="New doc title">
+                            </div>
+                        </div>
+
+                        <!-- ⑫ Archived: reason -->
+                        <div class="gen-field" id="gf-reason">
+                            <label class="gen-label" for="genReason">Reason for archiving</label>
+                            <input type="text" class="gen-input" id="genReason" placeholder="e.g. Superseded by updated policy">
+                        </div>
+
+                        <!-- ⑬ Memo: subject -->
+                        <div class="gen-field" id="gf-subject">
+                            <label class="gen-label" for="genSubject">Subject</label>
+                            <input type="text" class="gen-input" id="genSubject" placeholder="Memo subject line">
+                        </div>
+
+                        <!-- ⑭ Event: time + location -->
+                        <div class="gen-field" id="gf-event-details">
+                            <div class="gen-two-col">
+                                <div class="gen-field" style="margin:0">
+                                    <label class="gen-label" for="genTime">Time</label>
+                                    <input type="text" class="gen-input" id="genTime" placeholder="2:00 PM – 3:00 PM">
+                                </div>
+                                <div class="gen-field" style="margin:0">
+                                    <label class="gen-label" for="genLocation">Location</label>
+                                    <input type="text" class="gen-input" id="genLocation" placeholder="Teams / Room 200">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ⑮ Video/Presentation: program area -->
+                        <div class="gen-field" id="gf-program-area">
+                            <label class="gen-label" for="genProgramArea">Program area</label>
+                            <select class="gen-select" id="genProgramArea">
+                                <option value="TES">TES</option>
+                                <option value="BITS">BITS</option>
+                            </select>
+                        </div>
+
+                        <!-- ⑯ Video/Presentation: thumbnail + duration/slides -->
+                        <div class="gen-field" id="gf-media-meta">
+                            <div class="gen-two-col">
+                                <div class="gen-field" style="margin:0">
+                                    <label class="gen-label" for="genThumbnail">Thumbnail <span class="gen-opt">(opt)</span></label>
+                                    <input type="text" class="gen-input" id="genThumbnail" placeholder="videos/thumb.jpg">
+                                </div>
+                                <div class="gen-field" style="margin:0">
+                                    <label class="gen-label" id="genDurationLabel" for="genDuration">Duration</label>
+                                    <input type="text" class="gen-input" id="genDuration" placeholder="5:30">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ⑰ Video: caption file -->
+                        <div class="gen-field" id="gf-caption">
+                            <label class="gen-label" for="genCaptionFile">Caption file <span class="gen-opt">(optional)</span></label>
+                            <input type="text" class="gen-input" id="genCaptionFile" placeholder="videos/captions.vtt">
+                        </div>
+
+                        <!-- ⑱ Report Dashboard: embed URLs -->
+                        <div class="gen-field" id="gf-embed-urls">
+                            <label class="gen-label" for="genEmbedUrl">Embed URL</label>
+                            <input type="text" class="gen-input" id="genEmbedUrl" placeholder="https://app.powerbi.com/reportEmbed?...">
+                            <label class="gen-label" style="margin-top:8px" for="genPowerBiUrl">Power BI URL <span class="gen-opt">(opt)</span></label>
+                            <input type="text" class="gen-input" id="genPowerBiUrl" style="margin-top:4px" placeholder="https://app.powerbi.com/groups/...">
+                        </div>
+
+                        <!-- ⑲ Tags -->
+                        <div class="gen-field" id="gf-tags">
                             <label class="gen-label">Tags</label>
                             <div class="tag-chips-row" id="tagChipsRow"></div>
                             <div class="tag-multi-wrap" id="tagMultiWrap">
@@ -536,16 +696,40 @@
                             </div>
                         </div>
 
-                        <!-- Description -->
-                        <div class="gen-field">
+                        <!-- ⑳ Description -->
+                        <div class="gen-field" id="gf-description">
                             <label class="gen-label" for="genDesc">Description <span class="gen-opt">(optional)</span></label>
                             <input type="text" class="gen-input" id="genDesc" placeholder="Leave blank for empty string">
                         </div>
 
-                        <!-- Name Refs -->
-                        <div class="gen-field">
-                            <label class="gen-label">Name Refs <span class="gen-opt">(optional — select org names referenced in the document)</span></label>
+                        <!-- ㉑ Name Refs (Document only) -->
+                        <div class="gen-field" id="gf-namerefs">
+                            <label class="gen-label">Name Refs <span class="gen-opt">(optional)</span></label>
                             <div class="nameref-grid" id="genNameRefs"></div>
+                        </div>
+
+                        <!-- ㉒ FAQ: keywords -->
+                        <div class="gen-field" id="gf-faq-keywords">
+                            <label class="gen-label" for="genKeywords">Keywords <span class="gen-opt">(comma-separated)</span></label>
+                            <input type="text" class="gen-input" id="genKeywords" placeholder="agreement, monitoring, contract">
+                        </div>
+
+                        <!-- ㉓ FAQ: answer -->
+                        <div class="gen-field" id="gf-faq-answer">
+                            <label class="gen-label" for="genAnswer">Answer <span class="gen-opt">(plain text or HTML)</span></label>
+                            <textarea class="gen-input" id="genAnswer" rows="3"></textarea>
+                        </div>
+
+                        <!-- ㉔ FAQ: follow-up questions -->
+                        <div class="gen-field" id="gf-faq-followups">
+                            <label class="gen-label" for="genFollowUps">Follow-up questions <span class="gen-opt">(one per line, opt)</span></label>
+                            <textarea class="gen-input" id="genFollowUps" rows="2"></textarea>
+                        </div>
+
+                        <!-- ㉕ Acronym: definition -->
+                        <div class="gen-field" id="gf-acronym-def">
+                            <label class="gen-label" for="genAcronymDef">Definition</label>
+                            <input type="text" class="gen-input" id="genAcronymDef" placeholder="Full form of the acronym">
                         </div>
 
                     </div>
@@ -1292,11 +1476,34 @@ function buildStats() {
 
 // ── Document Entry Generator ─────────────────────────────
 function buildGenerator(allActive) {
-    // Today's date
-    document.getElementById('genDate').value = new Date().toISOString().slice(0, 10);
+    var today = new Date().toISOString().slice(0, 10);
 
-    // Array config: key → folder + data file
-    const ARRAY_CONFIG = {
+    // ── Type → visible fields mapping ────────────────────
+    var TYPE_FIELDS = {
+        'document':         ['gf-doc-array','gf-filename','gf-date','gf-filetype','gf-tags','gf-description','gf-namerefs'],
+        'archived':         ['gf-filename','gf-archived-dates','gf-filetype','gf-category','gf-superseded','gf-reason','gf-tags','gf-description'],
+        'bulletin':         ['gf-filename','gf-date'],
+        'memo':             ['gf-filename','gf-date','gf-subject','gf-tags'],
+        'event':            ['gf-date','gf-event-details','gf-description'],
+        'video':            ['gf-filename','gf-date','gf-program-area','gf-media-meta','gf-caption','gf-tags','gf-description'],
+        'presentation':     ['gf-filename','gf-date','gf-program-area','gf-media-meta','gf-tags','gf-description'],
+        'report-dashboard': ['gf-report-file','gf-date','gf-embed-urls','gf-description'],
+        'report-doc':       ['gf-report-file','gf-filetype','gf-category','gf-report-doc-url','gf-report-doc-meta','gf-description'],
+        'faq':              ['gf-faq-keywords','gf-faq-answer','gf-faq-followups'],
+        'acronym':          ['gf-acronym-def'],
+    };
+
+    // All optional field IDs (derived from union of all TYPE_FIELDS values)
+    var ALL_OPTIONAL = (function () {
+        var seen = {}, result = [];
+        Object.keys(TYPE_FIELDS).forEach(function (t) {
+            TYPE_FIELDS[t].forEach(function (id) { if (!seen[id]) { seen[id] = true; result.push(id); } });
+        });
+        return result;
+    })();
+
+    // ── Array config for document arrays ─────────────────
+    var ARRAY_CONFIG = {
         POLICY_DOCUMENTS:   { folder: 'documents/policy/',                file: 'documents-data.js' },
         JOB_AID_GUIDELINES: { folder: 'documents/jobAidsAndGuidelines/',  file: 'documents-data.js' },
         FORMS_TEMPLATES:    { folder: 'documents/formsAndTemplates/',     file: 'documents-data.js' },
@@ -1304,24 +1511,39 @@ function buildGenerator(allActive) {
         RESOURCE_DOCS:      { folder: 'documents/resources/',             file: 'documents-data.js' },
     };
 
-    // Name registry keys that have an English value
-    const NR = typeof NAME_REGISTRY !== 'undefined' ? NAME_REGISTRY : {};
-    const nrKeys = Object.keys(NR)
-        .filter(k => k.endsWith('_en') && NR[k])
-        .map(k => ({ key: k.replace('_en', ''), label: NR[k] }))
-        .sort((a, b) => a.label.localeCompare(b.label));
+    // ── Per-type metadata ─────────────────────────────────
+    var TYPE_META = {
+        'document':         { titleLabel:'Title',          titlePH:'e.g. Agreement Monitoring Policy',  dateLabel:'Upload date',    fnLabel:'File name',    filePrefix:null,               durationLabel:null,      durationPH:null,    thumbPH:null },
+        'archived':         { titleLabel:'Title',          titlePH:'e.g. Policy Name (Archived)',       dateLabel:null,             fnLabel:'File name',    filePrefix:'documents/archived/', durationLabel:null,   durationPH:null,    thumbPH:null },
+        'bulletin':         { titleLabel:'Subject',        titlePH:'Bulletin subject line',             dateLabel:'Date',           fnLabel:'File name',    filePrefix:'bulletins/',         durationLabel:null,    durationPH:null,    thumbPH:null },
+        'memo':             { titleLabel:'Title',          titlePH:'Memo title',                        dateLabel:'Date',           fnLabel:'PDF file',     filePrefix:'memos/',             durationLabel:null,    durationPH:null,    thumbPH:null },
+        'event':            { titleLabel:'Title',          titlePH:'Event title',                       dateLabel:'Date',           fnLabel:null,           filePrefix:null,                 durationLabel:null,    durationPH:null,    thumbPH:null },
+        'video':            { titleLabel:'Title',          titlePH:'Video title',                       dateLabel:'Date',           fnLabel:'Video file',   filePrefix:'videos/',            durationLabel:'Duration', durationPH:'5:30', thumbPH:'videos/thumb.jpg' },
+        'presentation':     { titleLabel:'Title',          titlePH:'Presentation title',                dateLabel:'Date',           fnLabel:'PDF file',     filePrefix:'presentations/',     durationLabel:'Slides',   durationPH:'12',   thumbPH:'presentations/thumb.jpg' },
+        'report-dashboard': { titleLabel:'Title',          titlePH:'Dashboard title',                   dateLabel:'Last Refreshed', fnLabel:null,           filePrefix:null,                 durationLabel:null,    durationPH:null,    thumbPH:null },
+        'report-doc':       { titleLabel:'Document Title', titlePH:'Report document title',             dateLabel:null,             fnLabel:null,           filePrefix:null,                 durationLabel:null,    durationPH:null,    thumbPH:null },
+        'faq':              { titleLabel:'Question',       titlePH:'What is…?',                         dateLabel:null,             fnLabel:null,           filePrefix:null,                 durationLabel:null,    durationPH:null,    thumbPH:null },
+        'acronym':          { titleLabel:'Acronym Key',    titlePH:'e.g. WDT',                          dateLabel:null,             fnLabel:null,           filePrefix:null,                 durationLabel:null,    durationPH:null,    thumbPH:null },
+    };
 
-    // Render name-ref checkboxes
-    document.getElementById('genNameRefs').innerHTML = nrKeys.map(nr =>
-        `<label class="nameref-item">
-            <input type="checkbox" class="gen-nameref-cb" value="${nr.key}">
-            <span>${nr.label}</span>
-            <span class="nameref-key">${nr.key}</span>
-        </label>`
-    ).join('');
+    var activeType = 'document';
 
-    // ── Tag categories & multi-select ───────────────────
-    const PAGE_TAG_CATEGORIES = {
+    // ── Name registry ─────────────────────────────────────
+    var NR = typeof NAME_REGISTRY !== 'undefined' ? NAME_REGISTRY : {};
+    var nrKeys = Object.keys(NR)
+        .filter(function (k) { return k.endsWith('_en') && NR[k]; })
+        .map(function (k) { return { key: k.replace('_en', ''), label: NR[k] }; })
+        .sort(function (a, b) { return a.label.localeCompare(b.label); });
+    document.getElementById('genNameRefs').innerHTML = nrKeys.map(function (nr) {
+        return '<label class="nameref-item">' +
+            '<input type="checkbox" class="gen-nameref-cb" value="' + nr.key + '">' +
+            '<span>' + nr.label + '</span>' +
+            '<span class="nameref-key">' + nr.key + '</span>' +
+        '</label>';
+    }).join('');
+
+    // ── Tag multi-select ──────────────────────────────────
+    var PAGE_TAG_CATEGORIES = {
         'Subcategory': ['Policy', 'Program Parameters', 'Management Documents (HR)', 'Management Documents (all resources including forms)', 'Memos (Policy Related)', 'Memos (General Communication)', 'Templates', 'Forms', 'Checklists', 'Letters', 'Career Planning Tools', 'System Documents', 'Terminology', 'Fact Sheets', 'Persentation Suites', 'Signage', 'FAQ', 'Job Aid', 'Guideline', 'Procedure', 'Resources', 'Reports', 'Information Sheet', 'Speaker Series'],
         'Programs': ['Skills Development', 'Wage Subsidy', 'EAPD', 'ETP', 'Self Employment', 'Intitiatives'],
         'Systems': ['ICM', 'SPRS', 'EIBIS', 'SAP', 'SFAIS', 'ETA'],
@@ -1335,30 +1557,26 @@ function buildGenerator(allActive) {
         'Language': ['English', 'French'],
     };
 
-    let selectedTags = [];
+    var selectedTags = [];
+    var chipsRow   = document.getElementById('tagChipsRow');
+    var trigger    = document.getElementById('tagMultiTrigger');
+    var panel      = document.getElementById('tagMultiPanel');
+    var tagSearch  = document.getElementById('tagMultiSearch');
+    var listEl     = document.getElementById('tagMultiList');
 
-    const chipsRow   = document.getElementById('tagChipsRow');
-    const trigger    = document.getElementById('tagMultiTrigger');
-    const panel      = document.getElementById('tagMultiPanel');
-    const searchInput = document.getElementById('tagMultiSearch');
-    const listEl     = document.getElementById('tagMultiList');
-
-    // Build the grouped checkbox list
     (function buildTagList() {
         listEl.innerHTML = Object.keys(PAGE_TAG_CATEGORIES).map(function (group) {
-            const items = PAGE_TAG_CATEGORIES[group].map(function (tag) {
-                const id = 'tm_' + tag.replace(/[^a-z0-9]/gi, '_');
+            var items = PAGE_TAG_CATEGORIES[group].map(function (tag) {
+                var id = 'tm_' + tag.replace(/[^a-z0-9]/gi, '_');
                 return '<label class="tag-multi-item" id="tmi_' + id + '">' +
                     '<input type="checkbox" id="' + id + '" value="' + tag + '" class="tm-cb">' +
                     '<span>' + tag + '</span>' +
                 '</label>';
             }).join('');
             return '<div class="tag-multi-group" id="tmg_' + group.replace(/[^a-z0-9]/gi, '_') + '">' +
-                '<div class="tag-multi-group-title">' + group + '</div>' +
-                items +
+                '<div class="tag-multi-group-title">' + group + '</div>' + items +
             '</div>';
         }).join('');
-        // Wire checkboxes
         listEl.querySelectorAll('.tm-cb').forEach(function (cb) {
             cb.addEventListener('change', function () {
                 if (this.checked) {
@@ -1374,7 +1592,7 @@ function buildGenerator(allActive) {
     function renderChips() {
         chipsRow.innerHTML = '';
         selectedTags.forEach(function (tag) {
-            const chip = document.createElement('span');
+            var chip = document.createElement('span');
             chip.className = 'tag-chip';
             chip.innerHTML = tag + ' <button class="tag-chip-remove" data-tag="' + tag + '" title="Remove">&times;</button>';
             chipsRow.appendChild(chip);
@@ -1382,10 +1600,9 @@ function buildGenerator(allActive) {
         chipsRow.querySelectorAll('.tag-chip-remove').forEach(function (btn) {
             btn.addEventListener('click', function (e) {
                 e.stopPropagation();
-                const tag = this.dataset.tag;
+                var tag = this.dataset.tag;
                 selectedTags = selectedTags.filter(function (t) { return t !== tag; });
-                // Uncheck corresponding checkbox
-                const cb = listEl.querySelector('.tm-cb[value="' + tag + '"]');
+                var cb = listEl.querySelector('.tm-cb[value="' + tag + '"]');
                 if (cb) cb.checked = false;
                 renderChips(); updateTriggerLabel(); updatePreview();
             });
@@ -1393,23 +1610,22 @@ function buildGenerator(allActive) {
     }
 
     function updateTriggerLabel() {
-        const label = document.getElementById('tagMultiLabel');
+        var lbl = document.getElementById('tagMultiLabel');
         if (selectedTags.length === 0) {
-            label.textContent = 'Select tags…';
+            lbl.textContent = 'Select tags…';
             trigger.classList.remove('has-selection');
         } else {
-            label.textContent = selectedTags.length + ' tag' + (selectedTags.length > 1 ? 's' : '') + ' selected';
+            lbl.textContent = selectedTags.length + ' tag' + (selectedTags.length > 1 ? 's' : '') + ' selected';
             trigger.classList.add('has-selection');
         }
     }
 
-    // Open / close panel
     trigger.addEventListener('click', function (e) {
         e.stopPropagation();
-        const isOpen = panel.classList.toggle('open');
+        var isOpen = panel.classList.toggle('open');
         trigger.classList.toggle('open', isOpen);
         document.getElementById('tagMultiChevron').style.transform = isOpen ? 'rotate(180deg)' : '';
-        if (isOpen) { searchInput.value = ''; filterTags(''); searchInput.focus(); }
+        if (isOpen) { tagSearch.value = ''; filterTags(''); tagSearch.focus(); }
     });
 
     document.addEventListener('click', function (e) {
@@ -1420,16 +1636,15 @@ function buildGenerator(allActive) {
         }
     });
 
-    // Search / filter
-    searchInput.addEventListener('input', function () { filterTags(this.value); });
+    tagSearch.addEventListener('input', function () { filterTags(this.value); });
 
     function filterTags(q) {
-        const lq = q.toLowerCase().trim();
+        var lq = q.toLowerCase().trim();
         listEl.querySelectorAll('.tag-multi-group').forEach(function (grp) {
-            let anyVisible = false;
+            var anyVisible = false;
             grp.querySelectorAll('.tag-multi-item').forEach(function (item) {
-                const tag = item.querySelector('.tm-cb').value;
-                const match = !lq || tag.toLowerCase().includes(lq);
+                var tag = item.querySelector('.tm-cb').value;
+                var match = !lq || tag.toLowerCase().includes(lq);
                 item.classList.toggle('tm-hidden', !match);
                 if (match) anyVisible = true;
             });
@@ -1437,68 +1652,299 @@ function buildGenerator(allActive) {
         });
     }
 
-    // ── Array select → update folder prefix + hint ──────
-    function updateArrayConfig() {
-        const val = document.getElementById('genArray').value;
-        const cfg = ARRAY_CONFIG[val] || {};
-        document.getElementById('genFilePrefix').textContent = cfg.folder || '';
-        document.getElementById('genTargetHint').textContent = 'Paste into: ' + (cfg.file || 'documents-data.js') + ' → ' + val + ' array';
-        document.getElementById('genCopyHint').innerHTML = 'Paste this block inside the <code>' + val + '</code> array in <code>' + (cfg.file || 'documents-data.js') + '</code>.';
+    // ── Type switching ────────────────────────────────────
+    function switchType(type) {
+        activeType = type;
+        var meta   = TYPE_META[type];
+        var fields = TYPE_FIELDS[type];
+
+        document.querySelectorAll('#genTypeTabs .gen-tab-pill').forEach(function (p) {
+            p.classList.toggle('active', p.dataset.type === type);
+        });
+
+        ALL_OPTIONAL.forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.style.display = fields.includes(id) ? '' : 'none';
+        });
+
+        var tl = document.getElementById('genTitleLabel');
+        var ti = document.getElementById('genTitle');
+        if (tl) tl.textContent = meta.titleLabel;
+        if (ti) ti.placeholder = meta.titlePH;
+
+        if (meta.dateLabel) {
+            var dl = document.getElementById('genDateLabel');
+            if (dl) dl.textContent = meta.dateLabel;
+        }
+
+        if (fields.includes('gf-filename')) {
+            var fp  = document.getElementById('genFilePrefix');
+            var fnl = document.getElementById('genFileNameLabel');
+            if (type === 'document') {
+                var arrCfg = ARRAY_CONFIG[document.getElementById('genArray').value] || {};
+                if (fp) fp.textContent = arrCfg.folder || '';
+            } else {
+                if (fp) fp.textContent = meta.filePrefix || '';
+            }
+            if (fnl) fnl.textContent = meta.fnLabel || 'File name';
+        }
+
+        if (meta.durationLabel) {
+            var dl2 = document.getElementById('genDurationLabel');
+            var di  = document.getElementById('genDuration');
+            if (dl2) dl2.textContent = meta.durationLabel;
+            if (di)  di.placeholder  = meta.durationPH || '';
+        }
+        if (meta.thumbPH) {
+            var th = document.getElementById('genThumbnail');
+            if (th) th.placeholder = meta.thumbPH;
+        }
+
+        updateTargetHint();
         updatePreview();
     }
-    document.getElementById('genArray').addEventListener('change', updateArrayConfig);
-    updateArrayConfig();
 
-    // ── File name → auto-detect file type ───────────────
+    function updateTargetHint() {
+        var hintFile = '', hintArray = '';
+        switch (activeType) {
+            case 'document':
+                var sel = document.getElementById('genArray').value;
+                var ac  = ARRAY_CONFIG[sel] || {};
+                hintFile  = ac.file || 'documents-data.js';
+                hintArray = sel;
+                break;
+            case 'archived':      hintFile = 'archived-documents-data.js';     hintArray = 'ARCHIVED_DOCUMENTS'; break;
+            case 'bulletin':      hintFile = 'communications-data.js';          hintArray = 'BULLETINS';          break;
+            case 'memo':          hintFile = 'memos-data.js';                   hintArray = 'MEMOS';              break;
+            case 'event':         hintFile = 'events-data.js';                  hintArray = 'EVENTS';             break;
+            case 'video':         hintFile = 'videos-presentations-data.js';    hintArray = 'VIDEOS';             break;
+            case 'presentation':  hintFile = 'videos-presentations-data.js';    hintArray = 'PRESENTATIONS';      break;
+            case 'report-dashboard':
+            case 'report-doc':
+                hintFile  = document.getElementById('genReportFile').value;
+                hintArray = activeType === 'report-dashboard' ? 'POWERBI_DASHBOARDS' : 'REPORTING_DOCUMENTS';
+                break;
+            case 'faq':     hintFile = 'chatbot-data.js';     hintArray = 'CHATBOT_FAQS';  break;
+            case 'acronym': hintFile = 'chatbot-acronyms.js'; hintArray = 'WDT_ACRONYMS';  break;
+        }
+        document.getElementById('genTargetHint').textContent = 'Paste into: ' + hintFile + ' → ' + hintArray;
+        document.getElementById('genCopyHint').innerHTML = activeType === 'acronym'
+            ? 'Add this property inside the <code>WDT_ACRONYMS</code> object in <code>chatbot-acronyms.js</code>.'
+            : 'Paste this block inside the <code>' + hintArray + '</code> array in <code>' + hintFile + '</code>.';
+    }
+
+    // ── Wire events ───────────────────────────────────────
+    document.getElementById('genTypeTabs').addEventListener('click', function (e) {
+        var pill = e.target.closest('.gen-tab-pill');
+        if (pill) switchType(pill.dataset.type);
+    });
+
+    document.getElementById('genArray').addEventListener('change', function () {
+        var cfg = ARRAY_CONFIG[this.value] || {};
+        var fp = document.getElementById('genFilePrefix');
+        if (fp) fp.textContent = cfg.folder || '';
+        updateTargetHint(); updatePreview();
+    });
+
+    document.getElementById('genReportFile').addEventListener('change', function () {
+        updateTargetHint(); updatePreview();
+    });
+
     document.getElementById('genFileName').addEventListener('input', function () {
-        const ext = (this.value.split('.').pop() || '').toLowerCase();
-        const map = { html: 'HTML', pdf: 'PDF', docx: 'Word', doc: 'Word', xlsx: 'Excel', xls: 'Excel', pptx: 'PowerPoint', ppt: 'PowerPoint', png: 'Image', jpg: 'Image', jpeg: 'Image' };
+        var ext = (this.value.split('.').pop() || '').toLowerCase();
+        var map = { html:'HTML', pdf:'PDF', docx:'Word', doc:'Word', xlsx:'Excel', xls:'Excel', pptx:'PowerPoint', ppt:'PowerPoint', png:'Image', jpg:'Image', jpeg:'Image', gif:'Image', webp:'Image' };
         if (map[ext]) document.getElementById('genFileType').value = map[ext];
         updatePreview();
     });
 
-    // ── Wire all other inputs ───────────────────────────
-    ['genTitle', 'genDate', 'genFileType', 'genDesc'].forEach(function (id) {
-        document.getElementById(id).addEventListener('input', updatePreview);
+    ['genTitle','genDate','genFileType','genDesc','genCategory','genReason','genSubject',
+     'genTime','genLocation','genProgramArea','genThumbnail','genDuration',
+     'genCaptionFile','genEmbedUrl','genPowerBiUrl','genReportCatIcon','genReportDocYear',
+     'genReportDocUrl','genKeywords','genAnswer','genFollowUps','genAcronymDef',
+     'genSupersededBy','genSupersededByTitle','genActiveFrom','genActiveUntil','genArchivedOn'
+    ].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener('input', updatePreview);
     });
     document.getElementById('genNameRefs').addEventListener('change', updatePreview);
 
-    // ── Live preview ────────────────────────────────────
+    // ── Live preview ──────────────────────────────────────
     function updatePreview() {
-        const sel      = document.getElementById('genArray').value;
-        const cfg      = ARRAY_CONFIG[sel] || {};
-        const title    = document.getElementById('genTitle').value.trim();
-        const rawFile  = document.getElementById('genFileName').value.trim();
-        const fileName = rawFile ? (cfg.folder || '') + rawFile : (cfg.folder || '') + '…';
-        const date     = document.getElementById('genDate').value;
-        const fileType = document.getElementById('genFileType').value;
-        const desc     = document.getElementById('genDesc').value;
-        const refs     = [...document.querySelectorAll('.gen-nameref-cb:checked')].map(function (cb) { return cb.value; });
-
-        const tagsStr = selectedTags.length
+        var type = activeType, out = '';
+        var tagsStr = selectedTags.length
             ? '[' + selectedTags.map(function (t) { return '"' + t + '"'; }).join(', ') + ']'
             : '[]';
 
-        let out = '    {\n';
-        out += '        title: "' + (title || '…') + '",\n';
-        out += '        fileName: "' + fileName + '",\n';
-        out += '        uploadDate: "' + (date || 'YYYY-MM-DD') + '",\n';
-        out += '        fileType: "' + fileType + '",\n';
-        out += '        tags: ' + tagsStr + ',\n';
-        out += '        description: "' + desc + '",';
-        if (refs.length) {
-            out += '\n        nameRefs: [' + refs.map(function (r) { return "'" + r + "'"; }).join(', ') + '],';
+        function v(id, fallback) {
+            var el = document.getElementById(id);
+            var val = el ? el.value.trim() : '';
+            return val !== '' ? val : (fallback !== undefined ? fallback : '');
         }
-        out += '\n    },';
 
-        document.getElementById('genPreview').textContent = out;
+        switch (type) {
+            case 'document': {
+                var sel = v('genArray','POLICY_DOCUMENTS'), cfg = ARRAY_CONFIG[sel] || {};
+                var rawFile = v('genFileName'), fn = rawFile ? (cfg.folder||'') + rawFile : (cfg.folder||'') + '…';
+                var refs = Array.from(document.querySelectorAll('.gen-nameref-cb:checked')).map(function (cb) { return cb.value; });
+                out  = '    {\n';
+                out += '        title: "' + (v('genTitle') || '…') + '",\n';
+                out += '        fileName: "' + fn + '",\n';
+                out += '        uploadDate: "' + (v('genDate') || 'YYYY-MM-DD') + '",\n';
+                out += '        fileType: "' + v('genFileType','HTML') + '",\n';
+                out += '        tags: ' + tagsStr + ',\n';
+                out += '        description: "' + v('genDesc') + '",';
+                if (refs.length) out += '\n        nameRefs: [' + refs.map(function (r) { return "'" + r + "'"; }).join(', ') + '],';
+                out += '\n    },';
+                break;
+            }
+            case 'archived': {
+                var rawFile = v('genFileName'), fn = rawFile ? 'documents/archived/' + rawFile : 'documents/archived/…';
+                var slug = (v('genTitle')||'xxx').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,30);
+                var sb = v('genSupersededBy'), sbt = v('genSupersededByTitle');
+                out  = '    {\n';
+                out += '        id: "archived-' + slug + '",\n';
+                out += '        title: "' + (v('genTitle')||'…') + '",\n';
+                out += '        fileName: "' + fn + '",\n';
+                out += '        fileType: "' + v('genFileType','PDF') + '",\n';
+                out += '        category: "' + v('genCategory','Policy') + '",\n';
+                out += '        activeFrom: "' + (v('genActiveFrom')||'YYYY-MM-DD') + '",\n';
+                out += '        activeUntil: "' + (v('genActiveUntil')||'YYYY-MM-DD') + '",\n';
+                out += '        archivedOn: "' + (v('genArchivedOn')||today) + '",\n';
+                out += '        supersededBy: ' + (sb ? '"'+sb+'"' : 'null') + ',\n';
+                out += '        supersededByTitle: ' + (sbt ? '"'+sbt+'"' : 'null') + ',\n';
+                out += '        reason: "' + v('genReason') + '",\n';
+                out += '        tags: ' + tagsStr + ',\n';
+                out += '        description: "' + v('genDesc') + '",\n';
+                out += '    },';
+                break;
+            }
+            case 'bulletin': {
+                var rawFile = v('genFileName'), dateStr = v('genDate')||'YYYY-MM-DD';
+                out  = '    {\n';
+                out += '        id: "bulletin-' + dateStr.replace(/-/g,'') + '",\n';
+                out += '        subject: "' + (v('genTitle')||'…') + '",\n';
+                out += '        fileName: "' + (rawFile ? 'bulletins/'+rawFile : 'bulletins/…') + '",\n';
+                out += '        date: "' + dateStr + '",\n';
+                out += '    },';
+                break;
+            }
+            case 'memo': {
+                var rawFile = v('genFileName'), dateStr = v('genDate')||'YYYY-MM-DD';
+                out  = '    {\n';
+                out += '        id: "memo-' + dateStr.replace(/-/g,'') + '",\n';
+                out += '        title: "' + (v('genTitle')||'…') + '",\n';
+                out += '        date: "' + dateStr + '",\n';
+                out += '        tags: ' + tagsStr + ',\n';
+                out += '        subject: "' + v('genSubject') + '",\n';
+                out += '        pdfFile: "' + (rawFile ? 'memos/'+rawFile : 'memos/…') + '",\n';
+                out += '    },';
+                break;
+            }
+            case 'event': {
+                var dateStr = v('genDate')||'YYYY-MM-DD';
+                out  = '    {\n';
+                out += '        id: "event-' + dateStr.replace(/-/g,'') + '",\n';
+                out += '        title: "' + (v('genTitle')||'…') + '",\n';
+                out += '        date: "' + dateStr + '",\n';
+                out += '        time: "' + v('genTime') + '",\n';
+                out += '        location: "' + v('genLocation') + '",\n';
+                out += '        description: "' + v('genDesc') + '",\n';
+                out += '    },';
+                break;
+            }
+            case 'video': {
+                var rawFile = v('genFileName'), thumb = v('genThumbnail'), cap = v('genCaptionFile');
+                var slug = (v('genTitle')||'xxx').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,20);
+                out  = '    {\n';
+                out += '        id: "video-' + slug + '",\n';
+                out += '        title: "' + (v('genTitle')||'…') + '",\n';
+                out += '        description: "' + v('genDesc') + '",\n';
+                out += '        videoFile: "' + (rawFile ? 'videos/'+rawFile : 'videos/…') + '",\n';
+                if (thumb) out += '        thumbnail: "' + thumb + '",\n';
+                out += '        duration: "' + (v('genDuration')||'0:00') + '",\n';
+                out += '        date: "' + (v('genDate')||'YYYY-MM-DD') + '",\n';
+                out += '        tags: ' + tagsStr + ',\n';
+                out += '        programArea: "' + v('genProgramArea','TES') + '",\n';
+                if (cap) out += '        captionFile: "' + cap + '",\n';
+                out += '    },';
+                break;
+            }
+            case 'presentation': {
+                var rawFile = v('genFileName'), thumb = v('genThumbnail'), slidesRaw = v('genDuration');
+                var slug = (v('genTitle')||'xxx').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,20);
+                out  = '    {\n';
+                out += '        id: "pres-' + slug + '",\n';
+                out += '        title: "' + (v('genTitle')||'…') + '",\n';
+                out += '        description: "' + v('genDesc') + '",\n';
+                out += '        pdfFile: "' + (rawFile ? 'presentations/'+rawFile : 'presentations/…') + '",\n';
+                if (thumb) out += '        thumbnail: "' + thumb + '",\n';
+                if (slidesRaw) out += '        slides: ' + (parseInt(slidesRaw)||0) + ',\n';
+                out += '        date: "' + (v('genDate')||'YYYY-MM-DD') + '",\n';
+                out += '        tags: ' + tagsStr + ',\n';
+                out += '        programArea: "' + v('genProgramArea','TES') + '",\n';
+                out += '    },';
+                break;
+            }
+            case 'report-dashboard': {
+                var pbiUrl = v('genPowerBiUrl');
+                out  = '    {\n';
+                out += '        title: "' + (v('genTitle')||'…') + '",\n';
+                out += '        description: "' + v('genDesc') + '",\n';
+                out += '        embedUrl: "' + v('genEmbedUrl') + '",\n';
+                if (pbiUrl) out += '        powerBiUrl: "' + pbiUrl + '",\n';
+                out += '        lastRefreshed: "' + (v('genDate')||'YYYY-MM-DD') + '",\n';
+                out += '        supportingDocuments: [],\n';
+                out += '    },';
+                break;
+            }
+            case 'report-doc': {
+                var year = v('genReportDocYear');
+                out  = '    {\n';
+                out += '        category: "' + v('genCategory','General') + '",\n';
+                out += '        icon: "' + v('genReportCatIcon','fas fa-file-alt') + '",\n';
+                out += '        documents: [\n';
+                out += '            {\n';
+                out += '                title: "' + (v('genTitle')||'…') + '",\n';
+                out += '                url: "' + v('genReportDocUrl','#') + '",\n';
+                out += '                fileType: "' + v('genFileType','PDF') + '",\n';
+                if (year) out += '                year: "' + year + '",\n';
+                out += '                description: "' + v('genDesc') + '",\n';
+                out += '            }\n';
+                out += '        ],\n';
+                out += '    },';
+                break;
+            }
+            case 'faq': {
+                var kwRaw = v('genKeywords');
+                var kwArr = kwRaw ? '[' + kwRaw.split(',').map(function (k) { return '"'+k.trim()+'"'; }).filter(Boolean).join(', ') + ']' : '[]';
+                var fuEl  = document.getElementById('genFollowUps');
+                var fuRaw = fuEl ? fuEl.value.trim() : '';
+                var fuArr = fuRaw ? '[' + fuRaw.split('\n').filter(Boolean).map(function (f) { return '"'+f.trim().replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"'; }).join(', ') + ']' : '[]';
+                var ansEl = document.getElementById('genAnswer');
+                var ans   = ansEl ? ansEl.value.replace(/\\/g,'\\\\').replace(/"/g,'\\"').replace(/\r?\n/g,'\\n') : '';
+                out  = '    {\n';
+                out += '        question: "' + (v('genTitle')||'…') + '",\n';
+                out += '        keywords: ' + kwArr + ',\n';
+                out += '        answer: "' + ans + '",\n';
+                out += '        followUp: ' + fuArr + ',\n';
+                out += '    },';
+                break;
+            }
+            case 'acronym': {
+                var key = (v('genTitle')||'KEY').toUpperCase().replace(/[^A-Z0-9\-+\/]/g,'');
+                var def = v('genAcronymDef','Definition');
+                out = '    "' + key + '": "' + def + '",';
+                break;
+            }
+        }
+
+        document.getElementById('genPreview').textContent = out || '    // Fill in the fields above';
     }
-    updatePreview();
 
-    // ── Copy button ──────────────────────────────────────
+    // ── Copy button ───────────────────────────────────────
     document.getElementById('genCopyBtn').addEventListener('click', function () {
-        const text = document.getElementById('genPreview').textContent;
-        const btn  = this;
+        var text = document.getElementById('genPreview').textContent;
+        var btn  = this;
         function markCopied() {
             btn.classList.add('copied');
             btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
@@ -1511,13 +1957,17 @@ function buildGenerator(allActive) {
             navigator.clipboard.writeText(text).then(markCopied).catch(fallback);
         } else { fallback(); }
         function fallback() {
-            const ta = document.createElement('textarea');
+            var ta = document.createElement('textarea');
             ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
             document.body.appendChild(ta); ta.select();
             try { document.execCommand('copy'); markCopied(); } catch (e) {}
             document.body.removeChild(ta);
         }
     });
+
+    // ── Init ──────────────────────────────────────────────
+    document.getElementById('genDate').value = today;
+    switchType('document');
 }
 
 // ── Broken link checker ──────────────────────────────────
