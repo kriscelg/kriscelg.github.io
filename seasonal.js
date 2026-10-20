@@ -50,7 +50,7 @@
     // noteColor / footerNote: seasonal message in the footer.
     var CONFIGS = {
         'remembrance': {
-            iconSrc:        'logos/seasonal/poppy-icon.webp',
+            iconSrc:        'logos/seasonal/poppy-icon.png',
             icon:           '🌹',
             footerNote:     'We remember. Lest We Forget.',
             borderGradient: 'linear-gradient(to right, #1a0000, #7f1d1d, #dc2626, #b91c1c, #7f1d1d, #1a0000)',
@@ -81,7 +81,7 @@
             noteColor:      'rgba(255, 210, 180, 0.85)',
         },
         'cwdm': {
-            iconSrc:        'logos/seasonal/cwdm-icon.webp',
+            iconSrc:        'logos/seasonal/cwdm-icon.png',
             icon:           '🎯',
             footerNote:     'November is Career & Workforce Development Month',
             borderGradient: 'linear-gradient(to right, #4c1d95, #7c3aed, #059669, #10b981, #7c3aed, #4c1d95)',
