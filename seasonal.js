@@ -31,13 +31,11 @@
         if (inNPSW)                                                       return 'npsw';
         if (m === 10 && d >= 24)                                         return 'halloween';
         if (m === 11 && ((d >= 1 && d <= 9) || d >= 12))               return 'cwdm';
-        if (m === 12 && d >= 1  && d <= 26)                             return 'christmas';
+        if (m === 12 && d >= 20 && d <= 26)                             return 'christmas';  // Dec 20–26 (5 days before Christmas + Boxing Day)
         if ((m === 12 && d >= 27) || (m === 1 && d <= 2))              return 'newyear';
-        if ((m === 9  && d >= 22) || (m === 10 && d <= 23))            return 'fall';
-        if ((m === 3  && d >= 20) || m === 4 || m === 5 ||
-            (m === 6  && d <= 20 && !inNPSW))                           return 'spring';
-        if ((m === 6  && d >= 21) || m === 7 || m === 8 ||
-            (m === 9  && d <= 21))                                        return 'summer';
+        if (m === 9  && d >= 22 && d <= 26)                             return 'fall';       // Sept 22–26 (autumnal equinox + 4 days)
+        if (m === 3  && d >= 20 && d <= 24)                             return 'spring';     // Mar 20–24 (vernal equinox + 4 days)
+        if (m === 6  && d >= 21 && d <= 25)                             return 'summer';     // Jun 21–25 (summer solstice + 4 days)
         return null;
     }
 
