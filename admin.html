@@ -341,6 +341,18 @@
         .sup-doc-add { margin-top:4px; background:none; border:1.5px dashed #cbd5e1; color:#64748b; border-radius:6px; padding:6px 12px; font-size:12px; font-family:inherit; cursor:pointer; width:100%; transition:border-color .15s,color .15s; }
         .sup-doc-add:hover { border-color:#0d5f5f; color:#0d5f5f; }
         .sup-doc-select { padding:7px 8px; border:1.5px solid #e2e8f0; border-radius:6px; font-size:12.5px; font-family:inherit; background:#fff; color:#1e293b; }
+        /* ── Entry Queue ──────────────────────────────── */
+        .queue-section { margin-top:14px; }
+        .queue-item { display:flex; align-items:flex-start; gap:8px; padding:8px 10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; margin-bottom:6px; }
+        .queue-item-preview { flex:1; font-family:'Courier New',monospace; font-size:11px; color:#334155; white-space:pre; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+        .queue-item-remove { background:none; border:none; color:#94a3b8; cursor:pointer; padding:2px 4px; font-size:13px; flex-shrink:0; transition:color .15s; }
+        .queue-item-remove:hover { color:#ef4444; }
+        .queue-add-btn { width:100%; margin-top:8px; padding:9px; background:#0d5f5f; color:#fff; border:none; border-radius:6px; font-size:13px; font-weight:600; font-family:inherit; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:background .2s; }
+        .queue-add-btn:hover { background:#0a4a4a; }
+        .queue-copy-all-btn { width:100%; margin-top:6px; padding:9px; background:#fff; color:#0d5f5f; border:2px solid #0d5f5f; border-radius:6px; font-size:13px; font-weight:600; font-family:inherit; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:background .2s,color .2s; }
+        .queue-copy-all-btn:hover { background:#f0fdf4; }
+        .queue-copy-all-btn.copied { background:#16a34a; border-color:#16a34a; color:#fff; }
+        .queue-count-badge { background:#0d5f5f; color:#fff; border-radius:10px; padding:1px 7px; font-size:11px; font-weight:700; margin-left:6px; }
 
         /* ── Responsive ───────────────────────────────── */
         @media (max-width: 600px) {
@@ -536,22 +548,7 @@
                             <input type="text" class="gen-input" id="genTitle" placeholder="e.g. Agreement Monitoring Policy">
                         </div>
 
-                        <!-- ④ File name -->
-                        <div class="gen-field" id="gf-filename">
-                            <label class="gen-label" id="genFileNameLabel" for="genFileName">File name</label>
-                            <div class="gen-file-row">
-                                <div class="gen-file-prefix" id="genFilePrefix">documents/policy/</div>
-                                <input type="text" class="gen-input gen-file-input" id="genFileName" placeholder="filename.html">
-                            </div>
-                        </div>
-
-                        <!-- ⑤ Date -->
-                        <div class="gen-field" id="gf-date">
-                            <label class="gen-label" id="genDateLabel" for="genDate">Upload date</label>
-                            <input type="date" class="gen-input" id="genDate">
-                        </div>
-
-                        <!-- ⑥ File type -->
+                        <!-- ④ File type -->
                         <div class="gen-field" id="gf-filetype">
                             <label class="gen-label" for="genFileType">File type</label>
                             <select class="gen-select" id="genFileType">
@@ -560,8 +557,24 @@
                                 <option value="Word">Word</option>
                                 <option value="Excel">Excel</option>
                                 <option value="PowerPoint">PowerPoint</option>
+                                <option value="MP4">MP4</option>
                                 <option value="Image">Image</option>
                             </select>
+                        </div>
+
+                        <!-- ⑤ File name -->
+                        <div class="gen-field" id="gf-filename">
+                            <label class="gen-label" id="genFileNameLabel" for="genFileName">File name</label>
+                            <div class="gen-file-row">
+                                <div class="gen-file-prefix" id="genFilePrefix">documents/policy/</div>
+                                <input type="text" class="gen-input gen-file-input" id="genFileName" placeholder="filename.html">
+                            </div>
+                        </div>
+
+                        <!-- ⑥ Date -->
+                        <div class="gen-field" id="gf-date">
+                            <label class="gen-label" id="genDateLabel" for="genDate">Upload date</label>
+                            <input type="date" class="gen-input" id="genDate">
                         </div>
 
                         <!-- ⑦ Archived: 3 date fields -->
@@ -649,6 +662,12 @@
                                     <input type="text" class="gen-input" id="genLocation" placeholder="Teams / Room 200">
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Event end date (optional, for multi-day events) -->
+                        <div class="gen-field" id="gf-event-end">
+                            <label class="gen-label" for="genEventEnd">End date <span class="gen-opt">(leave blank for single-day)</span></label>
+                            <input type="date" class="gen-input" id="genEventEnd">
                         </div>
 
                         <!-- ⑮ Video/Presentation: program area -->
@@ -756,6 +775,15 @@
                     <div class="gen-preview-box" id="genPreview"></div>
                     <button class="gen-copy-btn" id="genCopyBtn"><i class="fas fa-copy"></i> Copy to Clipboard</button>
                     <div style="font-size:11px;color:#94a3b8;margin-top:8px;line-height:1.5;" id="genCopyHint"></div>
+                    <!-- Entry Queue -->
+                    <div class="queue-section">
+                        <div style="font-size:12px;font-weight:600;color:#475569;margin-bottom:6px;">
+                            Entry Queue <span class="queue-count-badge" id="queueBadge">0</span>
+                        </div>
+                        <button class="queue-add-btn" id="queueAddBtn"><i class="fas fa-plus"></i> Add to Queue</button>
+                        <div id="queueList" style="margin-top:8px;"></div>
+                        <button class="queue-copy-all-btn" id="queueCopyAllBtn" style="display:none;"><i class="fas fa-copy"></i> Copy All Queued</button>
+                    </div>
                 </div>
 
             </div>
@@ -1154,10 +1182,17 @@ function buildStats() {
         </tr>`;
     }).join('');
 
-    // File type table
-    document.getElementById('fileTypeTable').innerHTML = Object.entries(fileTypes)
+    // File type table — always show all 6 standard types, then extras
+    const STANDARD_TYPES = ['HTML', 'PDF', 'Word', 'Excel', 'PowerPoint', 'Image'];
+    const stdRows = STANDARD_TYPES
+        .map(t => [t, fileTypes[t] || 0])
         .sort((a, b) => b[1] - a[1])
-        .map(([type, count]) => `<tr><td class="td-label">${type}</td><td class="td-num">${count}</td></tr>`).join('');
+        .map(([type, count]) => `<tr><td class="td-label">${type}</td><td class="td-num">${count > 0 ? count : '<span style="color:#94a3b8">0</span>'}</td></tr>`);
+    const extraRows = Object.entries(fileTypes)
+        .filter(([t]) => !STANDARD_TYPES.includes(t))
+        .sort((a, b) => b[1] - a[1])
+        .map(([type, count]) => `<tr><td class="td-label">${type}</td><td class="td-num">${count}</td></tr>`);
+    document.getElementById('fileTypeTable').innerHTML = [...stdRows, ...extraRows].join('');
 
     // Reporting grid
     document.getElementById('reportingGrid').innerHTML = depts.map(d => {
@@ -1180,8 +1215,8 @@ function buildStats() {
         { label: 'Bulletins', count: bulletins.length, latest: fmtDate(latestDate(bulletins, 'date')) },
         { label: 'Memos', count: memos.length, latest: fmtDate(latestDate(memos, 'date')) },
         { label: 'Upcoming Events', count: upcomingEvents, latest: '—' },
-        { label: 'Videos', count: videos.length, latest: '—' },
-        { label: 'Presentations', count: presentations.length, latest: '—' },
+        { label: 'Videos', count: videos.length, latest: fmtDate(latestDate(videos, 'date')) },
+        { label: 'Presentations', count: presentations.length, latest: fmtDate(latestDate(presentations, 'date')) },
     ].map(r => `<tr>
         <td class="td-label">${r.label}</td>
         <td class="td-num">${r.count}</td>
@@ -1497,11 +1532,11 @@ function buildGenerator(allActive) {
     var TYPE_FIELDS = {
         'document':         ['gf-doc-array','gf-filename','gf-date','gf-filetype','gf-tags','gf-description','gf-namerefs'],
         'archived':         ['gf-filename','gf-archived-dates','gf-filetype','gf-category','gf-superseded','gf-reason','gf-tags','gf-description'],
-        'bulletin':         ['gf-filename','gf-date'],
-        'memo':             ['gf-filename','gf-date','gf-subject','gf-tags'],
-        'event':            ['gf-date','gf-event-details','gf-description'],
-        'video':            ['gf-filename','gf-date','gf-program-area','gf-media-meta','gf-caption','gf-tags','gf-description'],
-        'presentation':     ['gf-filename','gf-date','gf-program-area','gf-media-meta','gf-tags','gf-description'],
+        'bulletin':         ['gf-filetype','gf-filename','gf-date'],
+        'memo':             ['gf-filetype','gf-filename','gf-date','gf-subject','gf-tags'],
+        'event':            ['gf-date','gf-event-details','gf-event-end','gf-description'],
+        'video':            ['gf-filetype','gf-filename','gf-date','gf-program-area','gf-media-meta','gf-caption','gf-tags','gf-description'],
+        'presentation':     ['gf-filetype','gf-filename','gf-date','gf-program-area','gf-media-meta','gf-tags','gf-description'],
         'report-dashboard': ['gf-report-file','gf-date','gf-embed-urls','gf-supporting-docs','gf-description'],
         'report-doc':       ['gf-report-file','gf-filetype','gf-category','gf-report-doc-url','gf-report-doc-meta','gf-description'],
         'faq':              ['gf-faq-keywords','gf-faq-answer','gf-faq-followups'],
@@ -1719,6 +1754,17 @@ function buildGenerator(allActive) {
             document.getElementById('supDocRows').innerHTML = '';
         }
 
+        // Lock file type for types with a fixed extension
+        var ftEl = document.getElementById('genFileType');
+        var lockedTypes = { bulletin: 'HTML', memo: 'PDF', video: 'MP4' };
+        if (lockedTypes[type]) {
+            ftEl.value = lockedTypes[type];
+            ftEl.disabled = true;
+            applyExtension(lockedTypes[type]);
+        } else {
+            ftEl.disabled = false;
+        }
+
         updateTargetHint();
         updatePreview();
     }
@@ -1769,10 +1815,31 @@ function buildGenerator(allActive) {
         updateTargetHint(); updatePreview();
     });
 
+    // Extension map for auto-fill
+    var EXT_FOR_TYPE = { HTML:'.html', PDF:'.pdf', Word:'.docx', Excel:'.xlsx', PowerPoint:'.pptx', MP4:'.mp4' };
+
+    function applyExtension(fileType) {
+        var ext = EXT_FOR_TYPE[fileType];
+        if (!ext) return;
+        var fn = document.getElementById('genFileName');
+        if (!fn) return;
+        var val = fn.value;
+        if (val === '') return;
+        var dotIdx = val.lastIndexOf('.');
+        fn.value = dotIdx >= 0 ? val.slice(0, dotIdx) + ext : val + ext;
+    }
+
+    document.getElementById('genFileType').addEventListener('change', function () {
+        var fields = TYPE_FIELDS[activeType] || [];
+        if (fields.includes('gf-filename')) applyExtension(this.value);
+        updatePreview();
+    });
+
     document.getElementById('genFileName').addEventListener('input', function () {
         var ext = (this.value.split('.').pop() || '').toLowerCase();
-        var map = { html:'HTML', pdf:'PDF', docx:'Word', doc:'Word', xlsx:'Excel', xls:'Excel', pptx:'PowerPoint', ppt:'PowerPoint', png:'Image', jpg:'Image', jpeg:'Image', gif:'Image', webp:'Image' };
-        if (map[ext]) document.getElementById('genFileType').value = map[ext];
+        var map = { html:'HTML', pdf:'PDF', docx:'Word', doc:'Word', xlsx:'Excel', xls:'Excel', pptx:'PowerPoint', ppt:'PowerPoint', mp4:'MP4', png:'Image', jpg:'Image', jpeg:'Image', gif:'Image', webp:'Image' };
+        var ftEl = document.getElementById('genFileType');
+        if (map[ext] && !ftEl.disabled) ftEl.value = map[ext];
         updatePreview();
     });
 
@@ -1803,7 +1870,54 @@ function buildGenerator(allActive) {
     }
     document.getElementById('supDocAddBtn').addEventListener('click', function () { addSupDocRow(); });
 
-    ['genTitle','genDate','genFileType','genDesc','genCategory','genReason','genSubject',
+    // ── Entry queue ───────────────────────────────────────
+    var entryQueue = [];
+
+    function queueRender() {
+        var list = document.getElementById('queueList');
+        var badge = document.getElementById('queueBadge');
+        var copyAllBtn = document.getElementById('queueCopyAllBtn');
+        badge.textContent = entryQueue.length;
+        copyAllBtn.style.display = entryQueue.length > 0 ? '' : 'none';
+        if (!entryQueue.length) { list.innerHTML = ''; return; }
+        list.innerHTML = entryQueue.map(function (entry, i) {
+            var preview = entry.code.split('\n').slice(0,3).join('\n');
+            return '<div class="queue-item">' +
+                '<div class="queue-item-preview">' + preview.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>' +
+                '<button class="queue-item-remove" data-idx="' + i + '" title="Remove"><i class="fas fa-times"></i></button>' +
+                '</div>';
+        }).join('');
+        list.querySelectorAll('.queue-item-remove').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                entryQueue.splice(parseInt(this.dataset.idx), 1);
+                queueRender();
+            });
+        });
+    }
+
+    document.getElementById('queueAddBtn').addEventListener('click', function () {
+        var preview = document.getElementById('genPreview');
+        var code = preview ? preview.textContent.trim() : '';
+        if (!code) return;
+        entryQueue.push({ type: activeType, code: code });
+        queueRender();
+    });
+
+    document.getElementById('queueCopyAllBtn').addEventListener('click', function () {
+        if (!entryQueue.length) return;
+        var all = entryQueue.map(function (e) { return e.code; }).join('\n');
+        var btn = this;
+        navigator.clipboard.writeText(all).then(function () {
+            btn.classList.add('copied');
+            btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(function () {
+                btn.classList.remove('copied');
+                btn.innerHTML = '<i class="fas fa-copy"></i> Copy All Queued';
+            }, 2000);
+        });
+    });
+
+    ['genTitle','genDate','genEventEnd','genFileType','genDesc','genCategory','genReason','genSubject',
      'genTime','genLocation','genProgramArea','genThumbnail','genDuration',
      'genCaptionFile','genEmbedUrl','genPowerBiUrl','genReportCatIcon','genReportDocYear',
      'genReportDocUrl','genKeywords','genAnswer','genFollowUps','genAcronymDef',
@@ -1888,10 +2002,13 @@ function buildGenerator(allActive) {
             }
             case 'event': {
                 var dateStr = v('genDate')||'YYYY-MM-DD';
+                var endDate = v('genEventEnd');
+                var slug = (v('genTitle')||'xxx').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,20);
                 out  = '    {\n';
                 out += '        id: "event-' + dateStr.replace(/-/g,'') + '",\n';
                 out += '        title: "' + (v('genTitle')||'…') + '",\n';
                 out += '        date: "' + dateStr + '",\n';
+                if (endDate) out += '        endDate: "' + endDate + '",\n';
                 out += '        time: "' + v('genTime') + '",\n';
                 out += '        location: "' + v('genLocation') + '",\n';
                 out += '        description: "' + v('genDesc') + '",\n';
