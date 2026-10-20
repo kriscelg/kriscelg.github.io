@@ -286,10 +286,10 @@
         .tag-multi-trigger:hover:not(.open) { border-color: #94a3b8; }
         .tag-multi-trigger.has-selection { color: #1e293b; }
         .tag-multi-panel {
-            position: absolute; top: 100%; left: 0; right: 0;
-            background: #fff; border: 1.5px solid #0d5f5f; border-top: none;
-            border-radius: 0 0 6px 6px; box-shadow: 0 8px 20px rgba(0,0,0,.12);
-            z-index: 100; max-height: 300px; overflow: hidden;
+            position: fixed;
+            background: #fff; border: 1.5px solid #0d5f5f;
+            box-shadow: 0 8px 20px rgba(0,0,0,.12);
+            z-index: 9999; max-height: 300px; overflow: hidden;
             display: none; flex-direction: column;
         }
         .tag-multi-panel.open { display: flex; }
@@ -1670,21 +1670,63 @@ function buildGenerator(allActive) {
         }
     }
 
+    function positionPanel() {
+        var rect = trigger.getBoundingClientRect();
+        var maxH = 300;
+        var spaceBelow = window.innerHeight - rect.bottom;
+        var spaceAbove = rect.top;
+        panel.style.width = rect.width + 'px';
+        panel.style.left   = rect.left + 'px';
+        panel.style.right  = 'auto';
+        if (spaceBelow < maxH && spaceAbove > spaceBelow) {
+            // Flip upward
+            var h = Math.min(maxH, spaceAbove - 6);
+            panel.style.maxHeight    = h + 'px';
+            panel.style.top          = 'auto';
+            panel.style.bottom       = (window.innerHeight - rect.top) + 'px';
+            panel.style.borderRadius = '6px 6px 0 0';
+            panel.style.borderTop    = '1.5px solid #0d5f5f';
+            panel.style.borderBottom = 'none';
+        } else {
+            // Open downward
+            var h2 = Math.min(maxH, spaceBelow - 6);
+            panel.style.maxHeight    = h2 + 'px';
+            panel.style.top          = rect.bottom + 'px';
+            panel.style.bottom       = 'auto';
+            panel.style.borderRadius = '0 0 6px 6px';
+            panel.style.borderTop    = 'none';
+            panel.style.borderBottom = '1.5px solid #0d5f5f';
+        }
+    }
+
+    function closePanel() {
+        panel.classList.remove('open');
+        trigger.classList.remove('open');
+        document.getElementById('tagMultiChevron').style.transform = '';
+    }
+
     trigger.addEventListener('click', function (e) {
         e.stopPropagation();
-        var isOpen = panel.classList.toggle('open');
-        trigger.classList.toggle('open', isOpen);
-        document.getElementById('tagMultiChevron').style.transform = isOpen ? 'rotate(180deg)' : '';
-        if (isOpen) { tagSearch.value = ''; filterTags(''); tagSearch.focus(); }
+        var opening = !panel.classList.contains('open');
+        if (opening) {
+            positionPanel();
+            panel.classList.add('open');
+            trigger.classList.add('open');
+            document.getElementById('tagMultiChevron').style.transform = 'rotate(180deg)';
+            tagSearch.value = ''; filterTags(''); tagSearch.focus();
+        } else {
+            closePanel();
+        }
     });
 
     document.addEventListener('click', function (e) {
-        if (!document.getElementById('tagMultiWrap').contains(e.target)) {
-            panel.classList.remove('open');
-            trigger.classList.remove('open');
-            document.getElementById('tagMultiChevron').style.transform = '';
+        if (!document.getElementById('tagMultiWrap').contains(e.target) && !panel.contains(e.target)) {
+            closePanel();
         }
     });
+
+    window.addEventListener('resize', function () { if (panel.classList.contains('open')) positionPanel(); });
+    window.addEventListener('scroll', function () { if (panel.classList.contains('open')) positionPanel(); }, true);
 
     tagSearch.addEventListener('input', function () { filterTags(this.value); });
 
