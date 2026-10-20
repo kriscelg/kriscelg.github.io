@@ -563,6 +563,20 @@ const FOOTER_TEMPLATE = `
         });
     }
 
+    // Function to load and apply seasonal theme
+    function loadSeasonal() {
+        if (document.querySelector('script[src="seasonal.js"]')) {
+            if (typeof window._wdtSeasonalDecorate === 'function') window._wdtSeasonalDecorate();
+            return;
+        }
+        var s = document.createElement('script');
+        s.src = 'seasonal.js';
+        s.onload = function () {
+            if (typeof window._wdtSeasonalDecorate === 'function') window._wdtSeasonalDecorate();
+        };
+        document.head.appendChild(s);
+    }
+
     // Function to load chatbot scripts sequentially
     function loadChatbot() {
         function loadScript(src, onload) {
@@ -612,6 +626,7 @@ const FOOTER_TEMPLATE = `
         initializeSearch();
         initializeScrollTop();
         loadChatbot();
+        loadSeasonal();
     }
 
     // Run initialization when DOM is fully loaded
