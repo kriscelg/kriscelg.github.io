@@ -90,7 +90,7 @@
         'christmas': {
             icon:           '❄️',
             footerNote:     'Happy Holidays from WDT! ❄️',
-            borderGradient: 'linear-gradient(to right, #991b1b, #16a34a, #f0fdf4, #16a34a, #991b1b)',
+            borderGradient: 'repeating-linear-gradient(45deg, #dc2626 0px, #dc2626 8px, #ffffff 8px, #ffffff 16px)',
             noteColor:      'rgba(190, 240, 210, 0.85)',
         },
         'newyear': {
