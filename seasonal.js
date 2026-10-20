@@ -42,7 +42,6 @@
     }
 
     var key = getKey();
-    if (!key) return;
 
     // ── Theme configuration ────────────────────────────────
     var CONFIGS = {
@@ -114,6 +113,11 @@
         },
     };
 
+    // ?theme=key URL param overrides the date logic (preview only)
+    var preview = new URLSearchParams(window.location.search).get('theme');
+    if (preview && CONFIGS[preview]) key = preview;
+
+    if (!key) return;
     var cfg = CONFIGS[key];
     if (!cfg) return;
 
