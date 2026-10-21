@@ -1132,27 +1132,28 @@ function refreshPreview(immediate) {
     clearTimeout(_previewTimer);
     const run = () => {
         const iframe = document.getElementById('pb-preview');
-        const scrollY = iframe.contentWindow?.scrollY || 0;
+        const win = iframe.contentWindow;
+        const scrollY = win?.scrollY || 0;
         const html = generateHTML(true);
-        const blob = new Blob([html], { type: 'text/html' });
-        const url = URL.createObjectURL(blob);
-        iframe.src = url;
-        iframe.addEventListener('load', function onLoad() {
-            iframe.removeEventListener('load', onLoad);
-            if (scrollY) iframe.contentWindow?.scrollTo(0, scrollY);
-            // Block any link that would navigate the iframe away from the preview
-            try {
-                iframe.contentDocument?.addEventListener('click', function(e) {
-                    const a = e.target.closest('a');
-                    if (a) {
-                        const href = a.getAttribute('href') || '';
-                        if (!href.startsWith('#')) e.preventDefault();
-                    }
-                }, true);
-            } catch(err) {}
-        });
+        // Write content in-place — no blank flash, no load-event race conditions
+        try {
+            const doc = iframe.contentDocument || win.document;
+            doc.open();
+            doc.write(html);
+            doc.close();
+            // Restore scroll and block navigating links synchronously
+            win?.scrollTo(0, scrollY);
+            doc.addEventListener('click', function(e) {
+                const a = e.target.closest('a');
+                if (a && !(a.getAttribute('href') || '').startsWith('#')) e.preventDefault();
+            }, true);
+        } catch(err) {
+            // Fallback: blob URL (cross-origin or sandboxed iframe)
+            const blob = new Blob([html], { type: 'text/html' });
+            iframe.src = URL.createObjectURL(blob);
+        }
     };
-    if (immediate) run(); else _previewTimer = setTimeout(run, 500);
+    if (immediate) run(); else _previewTimer = setTimeout(run, 400);
 }
 
 // ── Copy HTML ─────────────────────────────────────────────
