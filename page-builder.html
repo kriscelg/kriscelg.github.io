@@ -321,8 +321,6 @@ const BLOCK_DEFS = {
               options: ['Policy','Guideline','Procedure','Standard','Memo','Notice','Report','Guide','Forms and Templates','Job Aids and Guidelines','Resources'] },
             { key: 'lastUpdated', label: 'Last Updated',       type: 'text',   placeholder: 'e.g. May 5, 2026' },
             { key: 'department',  label: 'Department / Branch',type: 'text',   placeholder: 'e.g. Workforce Development & Training' },
-            { key: 'depth',       label: 'File Location',      type: 'select',
-              options: ['root', 'subfolder'] },
         ],
     },
     'flag': {
@@ -446,7 +444,7 @@ function uid() { return ++_uid; }
 function defaultBlock(type) {
     const b = { _id: uid(), _type: type };
     if (type === 'header') {
-        b.title = ''; b.docType = 'Policy'; b.lastUpdated = ''; b.department = 'Workforce Development & Training'; b.depth = 'root';
+        b.title = ''; b.docType = 'Policy'; b.lastUpdated = ''; b.department = 'Workforce Development & Training';
     } else if (type === 'flag') {
         b.text = ''; b.style = 'info';
     } else if (type === 'section' || type === 'subsection' || type === 'subsubsection') {
@@ -941,7 +939,7 @@ function generateHTML(forPreview) {
     const docType     = hb.docType     || 'Policy';
     const lastUpdated = hb.lastUpdated || '';
     const department  = hb.department  || '';
-    const cssBase     = (hb.depth === 'subfolder') ? '../' : '';
+    const cssBase     = '../';
 
     const contentBlocks = blocks.filter(b =>
         b._type !== 'header' && b._type !== 'supporting-docs' && b._type !== 'version-history'
