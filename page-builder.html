@@ -284,18 +284,8 @@ let blocks = [];
 let selectedId = null;
 let _uid = 0;
 
-// ── Cached asset content for live preview ─────────────────
-let _cssContent = '';
-let _jsContent  = '';
-(async function loadPreviewAssets() {
-    try {
-        const [cr, jr] = await Promise.all([fetch('html-document-styles.css'), fetch('html-document-script.js')]);
-        if (cr.ok) _cssContent = await cr.text();
-        if (jr.ok) _jsContent  = await jr.text();
-        // Re-render preview now that assets are loaded
-        if (document.getElementById('pb-preview')) refreshPreview();
-    } catch (e) { /* silently fail — preview degrades gracefully */ }
-})();
+// Base URL of the site root (same directory as page-builder.html)
+const _siteBase = window.location.href.replace(/\/[^/]*$/, '/');
 
 // ── Auth ─────────────────────────────────────────────────
 const ADMIN_PASSWORD = 'intranet8you';
@@ -963,10 +953,10 @@ function generateHTML(forPreview) {
     const verHistHtml = verHistBlock ? buildVerHistHtml(verHistBlock) : '';
 
     const cssTag = forPreview
-        ? `    <style>\n${_cssContent}\n    </style>`
+        ? `    <link rel="stylesheet" href="${_siteBase}html-document-styles.css">`
         : `    <link rel="stylesheet" href="${cssBase}html-document-styles.css">`;
     const jsTag = forPreview
-        ? `    <script>\n${_jsContent}\n    <\/script>`
+        ? `    <script src="${_siteBase}html-document-script.js"><\/script>`
         : `    <script src="${cssBase}html-document-script.js"><\/script>`;
 
     return `<!DOCTYPE html>
