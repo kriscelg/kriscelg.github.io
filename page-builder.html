@@ -320,7 +320,7 @@ const BLOCK_DEFS = {
             { key: 'docType',     label: 'Document Type',      type: 'select',
               options: ['Policy','Guideline','Procedure','Standard','Memo','Notice','Report','Guide','Forms and Templates','Job Aids and Guidelines','Resources'] },
             { key: 'lastUpdated', label: 'Last Updated',       type: 'text',   placeholder: 'e.g. May 5, 2026' },
-            { key: 'department',  label: 'Department / Branch',type: 'text',   placeholder: 'e.g. Workforce Development & Training' },
+            { key: 'department',  label: 'Branch',             type: 'text',   placeholder: 'e.g. TES' },
         ],
     },
     'flag': {
@@ -444,7 +444,7 @@ function uid() { return ++_uid; }
 function defaultBlock(type) {
     const b = { _id: uid(), _type: type };
     if (type === 'header') {
-        b.title = ''; b.docType = 'Policy'; b.lastUpdated = ''; b.department = 'Workforce Development & Training';
+        b.title = ''; b.docType = 'Policy'; b.lastUpdated = ''; b.department = 'TES';
     } else if (type === 'flag') {
         b.text = ''; b.style = 'info';
     } else if (type === 'section' || type === 'subsection' || type === 'subsubsection') {
@@ -999,7 +999,7 @@ ${cssTag}
                     </div>` : ''}${department ? `
                     <div class="meta-item">
                         <i class="fas fa-building"></i>
-                        <span class="meta-label">Department:</span>
+                        <span class="meta-label">Branch:</span>
                         <span>${escHtml(department)}</span>
                     </div>` : ''}
                 </div>
