@@ -294,8 +294,6 @@ function showApp() {
     init();
 }
 
-if (sessionStorage.getItem(SESSION_KEY) === '1') showApp();
-
 document.getElementById('gateBtn').addEventListener('click', tryAuth);
 document.getElementById('gateInput').addEventListener('keydown', e => { if (e.key === 'Enter') tryAuth(); });
 
@@ -1105,6 +1103,9 @@ function escHtml(str) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
 }
+
+// ── Boot (after all declarations) ────────────────────────
+if (sessionStorage.getItem(SESSION_KEY) === '1') showApp();
 </script>
 </body>
 </html>
