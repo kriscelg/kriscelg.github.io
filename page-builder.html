@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Builder — WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #f0f4f8; color: #1e293b; font-size: 14px; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+        /* ── Password Gate ────────────────────────────── */
+        #pb-gate {
+            position: fixed; inset: 0; background: #0d5f5f;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+        }
+        .gate-card {
+            background: #fff; border-radius: 12px;
+            padding: 48px 40px; width: 100%; max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); text-align: center;
+        }
+        .gate-logo { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #94a3b8; text-transform: uppercase; margin-bottom: 8px; }
+        .gate-title { font-size: 22px; font-weight: 800; color: #0d5f5f; margin-bottom: 6px; }
+        .gate-sub { font-size: 13px; color: #64748b; margin-bottom: 32px; }
+        .gate-input {
+            width: 100%; padding: 12px 16px; border: 1.5px solid #e2e8f0;
+            border-radius: 8px; font-size: 15px; font-family: inherit;
+            outline: none; transition: border-color .2s;
+        }
+        .gate-input:focus { border-color: #0d5f5f; }
+        .gate-btn {
+            width: 100%; margin-top: 14px; padding: 13px;
+            background: #0d5f5f; color: #fff; border: none; border-radius: 8px;
+            font-size: 15px; font-weight: 600; font-family: inherit;
+            cursor: pointer; transition: background .2s;
+        }
+        .gate-btn:hover { background: #0a4a4a; }
+        .gate-error { margin-top: 10px; font-size: 13px; color: #dc2626; display: none; }
+
+        /* ── Top Bar ──────────────────────────────────── */
+        #pb-app { display: none; flex-direction: column; height: 100vh; }
+        .pb-topbar {
+            background: #0d5f5f; color: #fff; height: 48px; flex-shrink: 0;
+            display: flex; align-items: center; padding: 0 16px; gap: 12px;
+        }
+        .pb-topbar a { color: rgba(255,255,255,0.7); font-size: 13px; text-decoration: none; }
+        .pb-topbar a:hover { color: #fff; }
+        .pb-topbar-sep { color: rgba(255,255,255,0.3); }
+        .pb-topbar-title { font-size: 15px; font-weight: 700; flex: 1; }
+        .pb-topbar-actions { display: flex; gap: 8px; }
+        .pb-btn {
+            padding: 7px 14px; border-radius: 6px; font-size: 13px; font-weight: 600;
+            font-family: inherit; cursor: pointer; border: none; transition: background .15s;
+        }
+        .pb-btn-outline {
+            background: transparent; color: #fff;
+            border: 1.5px solid rgba(255,255,255,0.4);
+        }
+        .pb-btn-outline:hover { background: rgba(255,255,255,0.1); }
+        .pb-btn-primary { background: #fff; color: #0d5f5f; }
+        .pb-btn-primary:hover { background: #e0f2f2; }
+        .pb-btn-danger { background: #dc2626; color: #fff; }
+        .pb-btn-danger:hover { background: #b91c1c; }
+
+        /* ── Main Layout ──────────────────────────────── */
+        .pb-main {
+            flex: 1; display: flex; min-height: 0;
+        }
+
+        /* ── Left Panel: Block List ───────────────────── */
+        .pb-left {
+            width: 42%; border-right: 1px solid #d1d5db;
+            display: flex; flex-direction: column; background: #fff; min-height: 0;
+        }
+        .pb-panel-header {
+            padding: 12px 16px; border-bottom: 1px solid #e5e7eb;
+            font-size: 12px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.8px; color: #64748b; background: #f8fafc;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .pb-panel-header span { color: #94a3b8; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 11px; }
+        .pb-block-list {
+            flex: 1; overflow-y: auto; padding: 8px;
+        }
+        .pb-block-item {
+            border: 1.5px solid #e5e7eb; border-radius: 8px; margin-bottom: 6px;
+            background: #fff; cursor: default; transition: border-color .15s;
+        }
+        .pb-block-item.selected { border-color: #0d5f5f; box-shadow: 0 0 0 3px rgba(13,95,95,0.1); }
+        .pb-block-header {
+            display: flex; align-items: center; gap: 8px;
+            padding: 9px 12px; cursor: pointer;
+        }
+        .pb-block-type-badge {
+            font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+            padding: 2px 7px; border-radius: 4px; text-transform: uppercase; flex-shrink: 0;
+        }
+        .pb-block-preview {
+            flex: 1; font-size: 13px; color: #374151; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis;
+        }
+        .pb-block-actions {
+            display: flex; gap: 2px; flex-shrink: 0;
+        }
+        .pb-block-act-btn {
+            background: none; border: none; padding: 4px 6px; border-radius: 4px;
+            cursor: pointer; color: #9ca3af; font-size: 12px; transition: color .1s, background .1s;
+        }
+        .pb-block-act-btn:hover { color: #374151; background: #f3f4f6; }
+        .pb-block-act-btn.del:hover { color: #dc2626; background: #fef2f2; }
+        .pb-block-form {
+            padding: 12px; border-top: 1px solid #f1f5f9; display: none;
+        }
+        .pb-block-item.selected .pb-block-form { display: block; }
+        .pb-field { margin-bottom: 10px; }
+        .pb-field:last-child { margin-bottom: 0; }
+        .pb-field label { display: block; font-size: 11px; font-weight: 600; color: #64748b; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .pb-field input[type="text"],
+        .pb-field input[type="url"],
+        .pb-field textarea,
+        .pb-field select {
+            width: 100%; padding: 8px 10px; border: 1.5px solid #e5e7eb;
+            border-radius: 6px; font-size: 13px; font-family: inherit;
+            outline: none; transition: border-color .15s; background: #fff; color: #1e293b;
+        }
+        .pb-field input:focus,
+        .pb-field textarea:focus,
+        .pb-field select:focus { border-color: #0d5f5f; }
+        .pb-field textarea { resize: vertical; min-height: 72px; line-height: 1.5; }
+        .pb-field-hint { font-size: 11px; color: #94a3b8; margin-top: 3px; line-height: 1.4; }
+        .pb-field-row { display: flex; gap: 8px; }
+        .pb-field-row .pb-field { flex: 1; }
+        .pb-toggle-row { display: flex; align-items: center; gap: 10px; }
+        .pb-toggle {
+            position: relative; width: 36px; height: 20px; flex-shrink: 0;
+        }
+        .pb-toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+        .pb-toggle-slider {
+            position: absolute; inset: 0; background: #cbd5e1;
+            border-radius: 10px; transition: background .2s; cursor: pointer;
+        }
+        .pb-toggle-slider::before {
+            content: ''; position: absolute; width: 14px; height: 14px;
+            left: 3px; top: 3px; background: #fff; border-radius: 50%;
+            transition: transform .2s;
+        }
+        .pb-toggle input:checked + .pb-toggle-slider { background: #0d5f5f; }
+        .pb-toggle input:checked + .pb-toggle-slider::before { transform: translateX(16px); }
+        .pb-toggle-label { font-size: 13px; color: #374151; }
+
+        /* Add block toolbar */
+        .pb-add-bar {
+            padding: 10px 8px; border-top: 1px solid #e5e7eb; background: #f8fafc;
+            display: flex; flex-wrap: wrap; gap: 6px;
+        }
+        .pb-add-btn {
+            padding: 5px 10px; border: 1.5px solid #e5e7eb; border-radius: 6px;
+            font-size: 12px; font-weight: 600; background: #fff; cursor: pointer;
+            color: #374151; font-family: inherit; transition: border-color .1s, background .1s;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .pb-add-btn:hover { border-color: #0d5f5f; color: #0d5f5f; background: #f0fdfd; }
+
+        /* ── Right Panel: Preview ─────────────────────── */
+        .pb-right {
+            flex: 1; display: flex; flex-direction: column; min-height: 0; background: #e5e7eb;
+        }
+        #pb-preview {
+            flex: 1; border: none; background: #fff;
+        }
+
+        /* ── Table editor rows ────────────────────────── */
+        .tbl-editor { width: 100%; }
+        .tbl-row { display: flex; gap: 4px; margin-bottom: 4px; align-items: center; }
+        .tbl-row input { flex: 1; padding: 6px 8px; border: 1.5px solid #e5e7eb; border-radius: 5px; font-size: 12px; font-family: inherit; outline: none; }
+        .tbl-row input:focus { border-color: #0d5f5f; }
+        .tbl-row-del { background: none; border: none; cursor: pointer; color: #dc2626; font-size: 13px; padding: 4px; }
+        .tbl-add-row { font-size: 12px; color: #0d5f5f; cursor: pointer; background: none; border: none; font-family: inherit; font-weight: 600; padding: 2px 0; }
+        .tbl-add-row:hover { text-decoration: underline; }
+
+        /* ── FAQ / List row editors ────────────────────── */
+        .repeater-row { display: flex; gap: 4px; margin-bottom: 6px; align-items: flex-start; }
+        .repeater-row textarea { flex: 1; padding: 6px 8px; border: 1.5px solid #e5e7eb; border-radius: 5px; font-size: 12px; font-family: inherit; outline: none; resize: vertical; min-height: 40px; }
+        .repeater-row textarea:focus { border-color: #0d5f5f; }
+        .repeater-row input { flex: 1; padding: 6px 8px; border: 1.5px solid #e5e7eb; border-radius: 5px; font-size: 12px; font-family: inherit; outline: none; }
+        .repeater-row input:focus { border-color: #0d5f5f; }
+
+        /* Supporting docs rows */
+        .sdoc-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 4px; margin-bottom: 4px; align-items: center; }
+        .sdoc-row input { padding: 6px 8px; border: 1.5px solid #e5e7eb; border-radius: 5px; font-size: 12px; font-family: inherit; outline: none; }
+        .sdoc-row input:focus { border-color: #0d5f5f; }
+
+        /* Version history rows */
+        .vh-row { display: grid; grid-template-columns: 90px 1fr auto; gap: 4px; margin-bottom: 4px; align-items: center; }
+        .vh-row input { padding: 6px 8px; border: 1.5px solid #e5e7eb; border-radius: 5px; font-size: 12px; font-family: inherit; outline: none; }
+        .vh-row input:focus { border-color: #0d5f5f; }
+
+        /* ── Copy overlay ─────────────────────────────── */
+        #copy-toast {
+            position: fixed; bottom: 24px; right: 24px; background: #0d5f5f; color: #fff;
+            padding: 10px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+            opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 9000;
+        }
+        #copy-toast.show { opacity: 1; }
+
+        /* Badge colors per block type */
+        .badge-header    { background: #0d5f5f20; color: #0d5f5f; }
+        .badge-flag      { background: #fef3c720; color: #92400e; }
+        .badge-section   { background: #dbeafe; color: #1d4ed8; }
+        .badge-subsection { background: #ede9fe; color: #6d28d9; }
+        .badge-subsubsection { background: #fce7f3; color: #9d174d; }
+        .badge-paragraph { background: #f1f5f9; color: #475569; }
+        .badge-note      { background: #dcfce7; color: #166534; }
+        .badge-list      { background: #fef9c3; color: #713f12; }
+        .badge-table     { background: #e0f2fe; color: #0369a1; }
+        .badge-faq       { background: #fae8ff; color: #7e22ce; }
+        .badge-button    { background: #d1fae5; color: #065f46; }
+        .badge-image     { background: #fee2e2; color: #991b1b; }
+        .badge-supporting-docs { background: #f0fdf4; color: #166534; }
+        .badge-version-history { background: #f8fafc; color: #475569; }
+    </style>
+</head>
+<body>
+
+<!-- Password Gate -->
+<div id="pb-gate">
+    <div class="gate-card">
+        <div class="gate-logo">WDT Intranet</div>
+        <div class="gate-title">Page Builder</div>
+        <div class="gate-sub">Enter the admin password to continue.</div>
+        <input class="gate-input" type="password" id="gateInput" placeholder="Password" autocomplete="current-password">
+        <button class="gate-btn" id="gateBtn">Unlock</button>
+        <div class="gate-error" id="gateError">Incorrect password. Try again.</div>
+    </div>
+</div>
+
+<!-- Main App -->
+<div id="pb-app">
+    <!-- Top Bar -->
+    <div class="pb-topbar">
+        <a href="admin.html"><i class="fas fa-arrow-left"></i> Admin</a>
+        <span class="pb-topbar-sep">|</span>
+        <div class="pb-topbar-title"><i class="fas fa-file-code" style="opacity:.7;margin-right:6px;"></i>Page Builder</div>
+        <div class="pb-topbar-actions">
+            <button class="pb-btn pb-btn-outline" id="btnReset"><i class="fas fa-undo"></i> Reset</button>
+            <button class="pb-btn pb-btn-primary" id="btnCopy"><i class="fas fa-copy"></i> Copy HTML</button>
+        </div>
+    </div>
+
+    <!-- Main two-column layout -->
+    <div class="pb-main">
+        <!-- Left: Block list -->
+        <div class="pb-left">
+            <div class="pb-panel-header">
+                Blocks
+                <span id="block-count">0 blocks</span>
+            </div>
+            <div class="pb-block-list" id="blockList"></div>
+            <div class="pb-add-bar" id="addBar"></div>
+        </div>
+
+        <!-- Right: Preview -->
+        <div class="pb-right">
+            <div class="pb-panel-header" style="background:#e5e7eb;border-bottom:1px solid #d1d5db;">
+                Live Preview
+                <span>Updates as you type</span>
+            </div>
+            <iframe id="pb-preview" title="Page preview"></iframe>
+        </div>
+    </div>
+</div>
+
+<div id="copy-toast">HTML copied to clipboard!</div>
+
+<script>
+'use strict';
+
+// ── Auth ─────────────────────────────────────────────────
+const ADMIN_PASSWORD = 'intranet8you';
+const SESSION_KEY = 'wdt_admin_auth';
+
+function showApp() {
+    document.getElementById('pb-gate').style.display = 'none';
+    document.getElementById('pb-app').style.display = 'flex';
+    init();
+}
+
+if (sessionStorage.getItem(SESSION_KEY) === '1') showApp();
+
+document.getElementById('gateBtn').addEventListener('click', tryAuth);
+document.getElementById('gateInput').addEventListener('keydown', e => { if (e.key === 'Enter') tryAuth(); });
+
+function tryAuth() {
+    if (document.getElementById('gateInput').value === ADMIN_PASSWORD) {
+        sessionStorage.setItem(SESSION_KEY, '1');
+        showApp();
+    } else {
+        document.getElementById('gateError').style.display = 'block';
+    }
+}
+
+// ── Block definitions ─────────────────────────────────────
+const BLOCK_DEFS = {
+    'header': {
+        label: 'Header',
+        preview: b => b.title || '(untitled)',
+        fields: [
+            { key: 'title',    label: 'Page Title',   type: 'text',     placeholder: 'Page title' },
+            { key: 'subtitle', label: 'Subtitle',      type: 'text',     placeholder: 'Optional subtitle' },
+            { key: 'flag',     label: 'Classification Flag', type: 'select',
+              options: ['', 'PROTECTED B', 'PROTECTED A', 'UNCLASSIFIED', 'SECRET'] },
+            { key: 'owner',    label: 'Document Owner', type: 'text',    placeholder: 'e.g. Jane Smith' },
+            { key: 'date',     label: 'Date',           type: 'text',    placeholder: 'e.g. June 2025' },
+        ],
+    },
+    'flag': {
+        label: 'Flag Banner',
+        preview: b => b.text || '(flag text)',
+        fields: [
+            { key: 'text',  label: 'Flag Text',  type: 'text', placeholder: 'e.g. PROTECTED B' },
+            { key: 'style', label: 'Style', type: 'select',
+              options: ['info', 'warning', 'danger', 'success', 'neutral'] },
+        ],
+    },
+    'section': {
+        label: 'Section',
+        preview: b => b.title || '(section title)',
+        fields: [
+            { key: 'title', label: 'Section Title', type: 'text', placeholder: 'Section heading' },
+        ],
+    },
+    'subsection': {
+        label: 'Subsection',
+        preview: b => b.title || '(subsection title)',
+        fields: [
+            { key: 'title', label: 'Subsection Title', type: 'text', placeholder: 'Subsection heading' },
+        ],
+    },
+    'subsubsection': {
+        label: 'Sub-subsection',
+        preview: b => b.title || '(sub-subsection title)',
+        fields: [
+            { key: 'title', label: 'Sub-subsection Title', type: 'text', placeholder: 'Sub-subsection heading' },
+        ],
+    },
+    'paragraph': {
+        label: 'Paragraph',
+        preview: b => (b.text || '(paragraph text)').slice(0, 60),
+        fields: [
+            { key: 'text', label: 'Text', type: 'textarea', placeholder: 'Paragraph content. Supports **bold**, [link text](url), [link](url){new}' },
+        ],
+    },
+    'note': {
+        label: 'Note',
+        preview: b => b.text ? b.text.slice(0, 50) : '(note text)',
+        fields: [
+            { key: 'style', label: 'Style', type: 'select',
+              options: ['info', 'warning', 'tip', 'important'] },
+            { key: 'text', label: 'Text', type: 'textarea', placeholder: 'Note content. Supports **bold**, [link](url)' },
+        ],
+    },
+    'list': {
+        label: 'List',
+        preview: b => b.listType === 'ordered' ? 'Ordered list' : 'Bullet list',
+        fields: [
+            { key: 'listType', label: 'Type', type: 'select', options: ['unordered', 'ordered'] },
+            { key: '_items', label: 'Items', type: 'repeater-text', placeholder: 'List item' },
+        ],
+    },
+    'table': {
+        label: 'Table',
+        preview: b => {
+            const cols = (b._headers || []).filter(Boolean);
+            return cols.length ? `${cols.length} columns` : 'Table';
+        },
+        fields: [
+            { key: '_table', label: 'Table Data', type: 'table-editor' },
+        ],
+    },
+    'faq': {
+        label: 'FAQ',
+        preview: b => {
+            const qs = b._faqs || [];
+            return qs.length ? `${qs.length} Q&A${qs.length > 1 ? 's' : ''}` : 'FAQ';
+        },
+        fields: [
+            { key: '_faqs', label: 'Questions & Answers', type: 'faq-editor' },
+        ],
+    },
+    'button': {
+        label: 'Button',
+        preview: b => b.label || '(button label)',
+        fields: [
+            { key: 'label', label: 'Button Label', type: 'text', placeholder: 'Click here' },
+            { key: 'href',  label: 'URL',           type: 'url',  placeholder: 'https://...' },
+            { key: 'newTab', label: 'Open in new tab', type: 'toggle' },
+        ],
+    },
+    'image': {
+        label: 'Image',
+        preview: b => b.src || '(image path)',
+        fields: [
+            { key: 'src', label: 'Image Path / URL', type: 'text', placeholder: 'images/photo.png or https://...' },
+            { key: 'alt', label: 'Alt Text',         type: 'text', placeholder: 'Describe the image' },
+            { key: 'caption', label: 'Caption',      type: 'text', placeholder: 'Optional caption' },
+            { key: 'width',   label: 'Max Width',    type: 'text', placeholder: 'e.g. 600px or 80%' },
+        ],
+    },
+    'supporting-docs': {
+        label: 'Supporting Docs',
+        preview: b => {
+            const docs = b._docs || [];
+            return docs.length ? `${docs.length} document${docs.length > 1 ? 's' : ''}` : 'Supporting Documents';
+        },
+        fields: [
+            { key: 'title', label: 'Section Title', type: 'text', placeholder: 'Supporting Documents' },
+            { key: '_docs', label: 'Documents (Label → URL)', type: 'sdocs-editor' },
+        ],
+    },
+    'version-history': {
+        label: 'Version History',
+        preview: b => {
+            const rows = b._versions || [];
+            return rows.length ? `${rows.length} entr${rows.length > 1 ? 'ies' : 'y'}` : 'Version History';
+        },
+        fields: [
+            { key: '_versions', label: 'Version Entries (Date, Description)', type: 'vh-editor' },
+        ],
+    },
+};
+
+// ── State ─────────────────────────────────────────────────
+let blocks = [];
+let selectedId = null;
+let _uid = 0;
+
+function uid() { return ++_uid; }
+
+function defaultBlock(type) {
+    const b = { _id: uid(), _type: type };
+    if (type === 'header') {
+        b.title = ''; b.subtitle = ''; b.flag = ''; b.owner = ''; b.date = '';
+    } else if (type === 'flag') {
+        b.text = ''; b.style = 'info';
+    } else if (type === 'section' || type === 'subsection' || type === 'subsubsection') {
+        b.title = '';
+    } else if (type === 'paragraph') {
+        b.text = '';
+    } else if (type === 'note') {
+        b.style = 'info'; b.text = '';
+    } else if (type === 'list') {
+        b.listType = 'unordered'; b._items = [''];
+    } else if (type === 'table') {
+        b._headers = ['Column 1', 'Column 2', 'Column 3'];
+        b._rows = [['', '', '']];
+    } else if (type === 'faq') {
+        b._faqs = [{ q: '', a: '' }];
+    } else if (type === 'button') {
+        b.label = ''; b.href = ''; b.newTab = false;
+    } else if (type === 'image') {
+        b.src = ''; b.alt = ''; b.caption = ''; b.width = '';
+    } else if (type === 'supporting-docs') {
+        b.title = 'Supporting Documents'; b._docs = [{ label: '', url: '' }];
+    } else if (type === 'version-history') {
+        b._versions = [{ date: '', desc: '' }];
+    }
+    return b;
+}
+
+// ── Init ──────────────────────────────────────────────────
+function init() {
+    renderAddBar();
+    // Default initial blocks
+    const hb = defaultBlock('header');
+    hb.title = 'Page Title';
+    blocks.push(hb);
+    const sb = defaultBlock('section');
+    sb.title = 'Description';
+    blocks.push(sb);
+    const pb = defaultBlock('paragraph');
+    pb.text = 'Enter your content here.';
+    blocks.push(pb);
+
+    renderAll();
+    document.getElementById('btnCopy').addEventListener('click', copyHTML);
+    document.getElementById('btnReset').addEventListener('click', () => {
+        if (!confirm('Reset all blocks? This cannot be undone.')) return;
+        blocks = [];
+        selectedId = null;
+        blocks.push(Object.assign(defaultBlock('header'), { title: 'Page Title' }));
+        blocks.push(Object.assign(defaultBlock('section'), { title: 'Description' }));
+        blocks.push(Object.assign(defaultBlock('paragraph'), { text: 'Enter your content here.' }));
+        renderAll();
+    });
+}
+
+// ── Render block list ─────────────────────────────────────
+function renderAll() {
+    const list = document.getElementById('blockList');
+    list.innerHTML = '';
+    blocks.forEach((b, idx) => {
+        list.appendChild(buildBlockItem(b, idx));
+    });
+    document.getElementById('block-count').textContent = blocks.length + ' block' + (blocks.length !== 1 ? 's' : '');
+    refreshPreview();
+}
+
+function buildBlockItem(b, idx) {
+    const def = BLOCK_DEFS[b._type];
+    const wrap = document.createElement('div');
+    wrap.className = 'pb-block-item' + (b._id === selectedId ? ' selected' : '');
+    wrap.dataset.id = b._id;
+
+    const header = document.createElement('div');
+    header.className = 'pb-block-header';
+    header.innerHTML = `
+        <span class="pb-block-type-badge badge-${b._type}">${def.label}</span>
+        <span class="pb-block-preview">${escHtml(def.preview(b))}</span>
+        <div class="pb-block-actions">
+            ${idx > 0 ? `<button class="pb-block-act-btn" title="Move up" data-act="up"><i class="fas fa-chevron-up"></i></button>` : ''}
+            ${idx < blocks.length - 1 ? `<button class="pb-block-act-btn" title="Move down" data-act="down"><i class="fas fa-chevron-down"></i></button>` : ''}
+            <button class="pb-block-act-btn dup" title="Duplicate" data-act="dup"><i class="fas fa-copy"></i></button>
+            <button class="pb-block-act-btn del" title="Delete" data-act="del"><i class="fas fa-trash"></i></button>
+        </div>
+    `;
+
+    header.addEventListener('click', e => {
+        const act = e.target.closest('[data-act]');
+        if (act) {
+            handleAct(b._id, act.dataset.act);
+            return;
+        }
+        selectedId = (selectedId === b._id) ? null : b._id;
+        renderAll();
+    });
+
+    const form = document.createElement('div');
+    form.className = 'pb-block-form';
+    buildForm(b, form);
+
+    wrap.appendChild(header);
+    wrap.appendChild(form);
+    return wrap;
+}
+
+function handleAct(id, act) {
+    const idx = blocks.findIndex(b => b._id === id);
+    if (idx === -1) return;
+    if (act === 'up' && idx > 0) {
+        [blocks[idx - 1], blocks[idx]] = [blocks[idx], blocks[idx - 1]];
+    } else if (act === 'down' && idx < blocks.length - 1) {
+        [blocks[idx], blocks[idx + 1]] = [blocks[idx + 1], blocks[idx]];
+    } else if (act === 'dup') {
+        const copy = JSON.parse(JSON.stringify(blocks[idx]));
+        copy._id = uid();
+        blocks.splice(idx + 1, 0, copy);
+        selectedId = copy._id;
+    } else if (act === 'del') {
+        blocks.splice(idx, 1);
+        if (selectedId === id) selectedId = null;
+    }
+    renderAll();
+}
+
+// ── Form builder ─────────────────────────────────────────
+function buildForm(b, container) {
+    const def = BLOCK_DEFS[b._type];
+    def.fields.forEach(f => {
+        const wrap = document.createElement('div');
+        wrap.className = 'pb-field';
+        const lbl = document.createElement('label');
+        lbl.textContent = f.label;
+        wrap.appendChild(lbl);
+
+        if (f.type === 'text' || f.type === 'url') {
+            const inp = document.createElement('input');
+            inp.type = f.type === 'url' ? 'url' : 'text';
+            inp.value = b[f.key] || '';
+            inp.placeholder = f.placeholder || '';
+            inp.addEventListener('input', () => { b[f.key] = inp.value; refreshPreview(); updatePreview(b); });
+            wrap.appendChild(inp);
+        } else if (f.type === 'textarea') {
+            const ta = document.createElement('textarea');
+            ta.value = b[f.key] || '';
+            ta.placeholder = f.placeholder || '';
+            ta.rows = 4;
+            ta.addEventListener('input', () => { b[f.key] = ta.value; refreshPreview(); updatePreview(b); });
+            wrap.appendChild(ta);
+            const hint = document.createElement('div');
+            hint.className = 'pb-field-hint';
+            hint.textContent = 'Markup: **bold**, [text](url), [text](url){new}';
+            wrap.appendChild(hint);
+        } else if (f.type === 'select') {
+            const sel = document.createElement('select');
+            (f.options || []).forEach(opt => {
+                const o = document.createElement('option');
+                o.value = opt; o.textContent = opt || '— none —';
+                if (b[f.key] === opt) o.selected = true;
+                sel.appendChild(o);
+            });
+            sel.addEventListener('change', () => { b[f.key] = sel.value; refreshPreview(); updatePreview(b); });
+            wrap.appendChild(sel);
+        } else if (f.type === 'toggle') {
+            const row = document.createElement('div');
+            row.className = 'pb-toggle-row';
+            const tog = document.createElement('label');
+            tog.className = 'pb-toggle';
+            const inp = document.createElement('input');
+            inp.type = 'checkbox';
+            inp.checked = !!b[f.key];
+            const slider = document.createElement('span');
+            slider.className = 'pb-toggle-slider';
+            tog.appendChild(inp);
+            tog.appendChild(slider);
+            const togLbl = document.createElement('span');
+            togLbl.className = 'pb-toggle-label';
+            togLbl.textContent = f.placeholder || f.label;
+            inp.addEventListener('change', () => { b[f.key] = inp.checked; refreshPreview(); });
+            row.appendChild(tog);
+            row.appendChild(togLbl);
+            wrap.appendChild(row);
+        } else if (f.type === 'repeater-text') {
+            wrap.appendChild(buildRepeaterText(b));
+        } else if (f.type === 'table-editor') {
+            wrap.appendChild(buildTableEditor(b));
+        } else if (f.type === 'faq-editor') {
+            wrap.appendChild(buildFaqEditor(b));
+        } else if (f.type === 'sdocs-editor') {
+            wrap.appendChild(buildSdocsEditor(b));
+        } else if (f.type === 'vh-editor') {
+            wrap.appendChild(buildVhEditor(b));
+        }
+
+        container.appendChild(wrap);
+    });
+}
+
+function updatePreview(b) {
+    // Update the preview text in the block header without full re-render
+    const def = BLOCK_DEFS[b._type];
+    const item = document.querySelector(`.pb-block-item[data-id="${b._id}"] .pb-block-preview`);
+    if (item) item.textContent = def.preview(b);
+}
+
+// ── Repeater: plain text items ────────────────────────────
+function buildRepeaterText(b) {
+    if (!b._items) b._items = [''];
+    const wrap = document.createElement('div');
+
+    function render() {
+        wrap.innerHTML = '';
+        b._items.forEach((item, i) => {
+            const row = document.createElement('div');
+            row.className = 'repeater-row';
+            const inp = document.createElement('input');
+            inp.type = 'text';
+            inp.value = item;
+            inp.placeholder = 'List item';
+            inp.addEventListener('input', () => { b._items[i] = inp.value; refreshPreview(); });
+            const del = document.createElement('button');
+            del.type = 'button';
+            del.className = 'tbl-row-del';
+            del.innerHTML = '<i class="fas fa-times"></i>';
+            del.addEventListener('click', () => { b._items.splice(i, 1); if (!b._items.length) b._items.push(''); render(); refreshPreview(); });
+            row.appendChild(inp);
+            row.appendChild(del);
+            wrap.appendChild(row);
+        });
+        const add = document.createElement('button');
+        add.type = 'button';
+        add.className = 'tbl-add-row';
+        add.textContent = '+ Add item';
+        add.addEventListener('click', () => { b._items.push(''); render(); refreshPreview(); });
+        wrap.appendChild(add);
+    }
+    render();
+    return wrap;
+}
+
+// ── Table editor ──────────────────────────────────────────
+function buildTableEditor(b) {
+    if (!b._headers) b._headers = ['Column 1', 'Column 2', 'Column 3'];
+    if (!b._rows) b._rows = [['', '', '']];
+    const wrap = document.createElement('div');
+
+    function render() {
+        wrap.innerHTML = '';
+
+        // Header row
+        const hdrLbl = document.createElement('div');
+        hdrLbl.style.cssText = 'font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;';
+        hdrLbl.textContent = 'Column Headers';
+        wrap.appendChild(hdrLbl);
+
+        const hdrRow = document.createElement('div');
+        hdrRow.className = 'tbl-row';
+        b._headers.forEach((h, ci) => {
+            const inp = document.createElement('input');
+            inp.value = h;
+            inp.placeholder = 'Header ' + (ci + 1);
+            inp.addEventListener('input', () => { b._headers[ci] = inp.value; refreshPreview(); });
+            hdrRow.appendChild(inp);
+        });
+        const addCol = document.createElement('button');
+        addCol.type = 'button';
+        addCol.className = 'tbl-row-del';
+        addCol.innerHTML = '<i class="fas fa-plus"></i>';
+        addCol.title = 'Add column';
+        addCol.style.color = '#0d5f5f';
+        addCol.addEventListener('click', () => {
+            b._headers.push('Column ' + (b._headers.length + 1));
+            b._rows.forEach(r => r.push(''));
+            render(); refreshPreview();
+        });
+        hdrRow.appendChild(addCol);
+        wrap.appendChild(hdrRow);
+
+        // Data rows
+        const rowsLbl = document.createElement('div');
+        rowsLbl.style.cssText = 'font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin:8px 0 4px;';
+        rowsLbl.textContent = 'Rows';
+        wrap.appendChild(rowsLbl);
+
+        b._rows.forEach((row, ri) => {
+            const rowEl = document.createElement('div');
+            rowEl.className = 'tbl-row';
+            b._headers.forEach((_, ci) => {
+                const inp = document.createElement('input');
+                inp.value = row[ci] || '';
+                inp.placeholder = 'Cell';
+                inp.addEventListener('input', () => { b._rows[ri][ci] = inp.value; refreshPreview(); });
+                rowEl.appendChild(inp);
+            });
+            const del = document.createElement('button');
+            del.type = 'button';
+            del.className = 'tbl-row-del';
+            del.innerHTML = '<i class="fas fa-times"></i>';
+            del.addEventListener('click', () => { b._rows.splice(ri, 1); render(); refreshPreview(); });
+            rowEl.appendChild(del);
+            wrap.appendChild(rowEl);
+        });
+
+        const addRow = document.createElement('button');
+        addRow.type = 'button';
+        addRow.className = 'tbl-add-row';
+        addRow.textContent = '+ Add row';
+        addRow.addEventListener('click', () => {
+            b._rows.push(b._headers.map(() => ''));
+            render(); refreshPreview();
+        });
+        wrap.appendChild(addRow);
+    }
+    render();
+    return wrap;
+}
+
+// ── FAQ editor ────────────────────────────────────────────
+function buildFaqEditor(b) {
+    if (!b._faqs) b._faqs = [{ q: '', a: '' }];
+    const wrap = document.createElement('div');
+
+    function render() {
+        wrap.innerHTML = '';
+        b._faqs.forEach((faq, i) => {
+            const qrow = document.createElement('div');
+            qrow.className = 'repeater-row';
+            const qinp = document.createElement('input');
+            qinp.type = 'text';
+            qinp.value = faq.q;
+            qinp.placeholder = 'Question ' + (i + 1);
+            qinp.addEventListener('input', () => { b._faqs[i].q = qinp.value; refreshPreview(); });
+            const del = document.createElement('button');
+            del.type = 'button';
+            del.className = 'tbl-row-del';
+            del.innerHTML = '<i class="fas fa-times"></i>';
+            del.addEventListener('click', () => { b._faqs.splice(i, 1); if (!b._faqs.length) b._faqs.push({q:'',a:''}); render(); refreshPreview(); });
+            qrow.appendChild(qinp);
+            qrow.appendChild(del);
+            wrap.appendChild(qrow);
+
+            const arow = document.createElement('div');
+            arow.className = 'repeater-row';
+            const ata = document.createElement('textarea');
+            ata.value = faq.a;
+            ata.placeholder = 'Answer';
+            ata.rows = 2;
+            ata.addEventListener('input', () => { b._faqs[i].a = ata.value; refreshPreview(); });
+            arow.appendChild(ata);
+            wrap.appendChild(arow);
+
+            if (i < b._faqs.length - 1) {
+                const sep = document.createElement('hr');
+                sep.style.cssText = 'border:none;border-top:1px solid #e5e7eb;margin:4px 0 8px;';
+                wrap.appendChild(sep);
+            }
+        });
+        const add = document.createElement('button');
+        add.type = 'button';
+        add.className = 'tbl-add-row';
+        add.textContent = '+ Add Q&A';
+        add.addEventListener('click', () => { b._faqs.push({q:'',a:''}); render(); refreshPreview(); });
+        wrap.appendChild(add);
+    }
+    render();
+    return wrap;
+}
+
+// ── Supporting docs editor ────────────────────────────────
+function buildSdocsEditor(b) {
+    if (!b._docs) b._docs = [{ label: '', url: '' }];
+    const wrap = document.createElement('div');
+
+    function render() {
+        wrap.innerHTML = '';
+        const hdr = document.createElement('div');
+        hdr.style.cssText = 'display:grid;grid-template-columns:1fr 1fr auto;gap:4px;margin-bottom:4px;';
+        hdr.innerHTML = '<span style="font-size:11px;color:#94a3b8;">Label</span><span style="font-size:11px;color:#94a3b8;">URL</span><span></span>';
+        wrap.appendChild(hdr);
+
+        b._docs.forEach((doc, i) => {
+            const row = document.createElement('div');
+            row.className = 'sdoc-row';
+            const linp = document.createElement('input');
+            linp.type = 'text';
+            linp.value = doc.label;
+            linp.placeholder = 'Document label';
+            linp.addEventListener('input', () => { b._docs[i].label = linp.value; refreshPreview(); });
+            const uinp = document.createElement('input');
+            uinp.type = 'text';
+            uinp.value = doc.url;
+            uinp.placeholder = 'URL or file path';
+            uinp.addEventListener('input', () => { b._docs[i].url = uinp.value; refreshPreview(); });
+            const del = document.createElement('button');
+            del.type = 'button';
+            del.className = 'tbl-row-del';
+            del.innerHTML = '<i class="fas fa-times"></i>';
+            del.addEventListener('click', () => { b._docs.splice(i, 1); if (!b._docs.length) b._docs.push({label:'',url:''}); render(); refreshPreview(); });
+            row.appendChild(linp);
+            row.appendChild(uinp);
+            row.appendChild(del);
+            wrap.appendChild(row);
+        });
+        const add = document.createElement('button');
+        add.type = 'button';
+        add.className = 'tbl-add-row';
+        add.textContent = '+ Add document';
+        add.addEventListener('click', () => { b._docs.push({label:'',url:''}); render(); refreshPreview(); });
+        wrap.appendChild(add);
+    }
+    render();
+    return wrap;
+}
+
+// ── Version history editor ────────────────────────────────
+function buildVhEditor(b) {
+    if (!b._versions) b._versions = [{ date: '', desc: '' }];
+    const wrap = document.createElement('div');
+
+    function render() {
+        wrap.innerHTML = '';
+        const hdr = document.createElement('div');
+        hdr.style.cssText = 'display:grid;grid-template-columns:90px 1fr auto;gap:4px;margin-bottom:4px;';
+        hdr.innerHTML = '<span style="font-size:11px;color:#94a3b8;">Date</span><span style="font-size:11px;color:#94a3b8;">Description</span><span></span>';
+        wrap.appendChild(hdr);
+
+        b._versions.forEach((v, i) => {
+            const row = document.createElement('div');
+            row.className = 'vh-row';
+            const dinp = document.createElement('input');
+            dinp.type = 'text';
+            dinp.value = v.date;
+            dinp.placeholder = 'e.g. 2025-01';
+            dinp.addEventListener('input', () => { b._versions[i].date = dinp.value; refreshPreview(); });
+            const desc = document.createElement('input');
+            desc.type = 'text';
+            desc.value = v.desc;
+            desc.placeholder = 'Change description';
+            desc.addEventListener('input', () => { b._versions[i].desc = desc.value; refreshPreview(); });
+            const del = document.createElement('button');
+            del.type = 'button';
+            del.className = 'tbl-row-del';
+            del.innerHTML = '<i class="fas fa-times"></i>';
+            del.addEventListener('click', () => { b._versions.splice(i, 1); if (!b._versions.length) b._versions.push({date:'',desc:''}); render(); refreshPreview(); });
+            row.appendChild(dinp);
+            row.appendChild(desc);
+            row.appendChild(del);
+            wrap.appendChild(row);
+        });
+        const add = document.createElement('button');
+        add.type = 'button';
+        add.className = 'tbl-add-row';
+        add.textContent = '+ Add version';
+        add.addEventListener('click', () => { b._versions.push({date:'',desc:''}); render(); refreshPreview(); });
+        wrap.appendChild(add);
+    }
+    render();
+    return wrap;
+}
+
+// ── Add bar ───────────────────────────────────────────────
+function renderAddBar() {
+    const bar = document.getElementById('addBar');
+    bar.innerHTML = '';
+    Object.entries(BLOCK_DEFS).forEach(([type, def]) => {
+        const btn = document.createElement('button');
+        btn.className = 'pb-add-btn';
+        btn.innerHTML = `<i class="fas fa-plus" style="font-size:10px;"></i> ${def.label}`;
+        btn.addEventListener('click', () => {
+            const b = defaultBlock(type);
+            blocks.push(b);
+            selectedId = b._id;
+            renderAll();
+            // Scroll new block into view
+            setTimeout(() => {
+                const el = document.querySelector(`.pb-block-item[data-id="${b._id}"]`);
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 50);
+        });
+        bar.appendChild(btn);
+    });
+}
+
+// ── Inline markup parser ──────────────────────────────────
+function parseInline(text) {
+    if (!text) return '';
+    // Escape HTML first
+    let s = escHtml(text);
+    // **bold**
+    s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    // [text](url){new} — new tab
+    s = s.replace(/\[([^\]]+)\]\(([^)]+)\)\{new\}/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    // [text](url)
+    s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+    return s;
+}
+
+// ── HTML generator ────────────────────────────────────────
+const FLAG_STYLES = {
+    info:      'background:#eff6ff;border-left:4px solid #3b82f6;color:#1e3a5f;',
+    warning:   'background:#fffbeb;border-left:4px solid #f59e0b;color:#78350f;',
+    danger:    'background:#fef2f2;border-left:4px solid #ef4444;color:#7f1d1d;',
+    success:   'background:#f0fdf4;border-left:4px solid #22c55e;color:#14532d;',
+    neutral:   'background:#f8fafc;border-left:4px solid #94a3b8;color:#334155;',
+};
+const NOTE_STYLES = {
+    info:      { bg: '#eff6ff', border: '#3b82f6', color: '#1e3a5f', icon: 'ℹ️' },
+    warning:   { bg: '#fffbeb', border: '#f59e0b', color: '#78350f', icon: '⚠️' },
+    tip:       { bg: '#f0fdf4', border: '#22c55e', color: '#14532d', icon: '💡' },
+    important: { bg: '#fdf4ff', border: '#a855f7', color: '#4a044e', icon: '❗' },
+};
+
+function generateHTML() {
+    let headerBlock = blocks.find(b => b._type === 'header');
+    const title = headerBlock ? (headerBlock.title || 'Untitled Page') : 'Untitled Page';
+
+    let body = '';
+    let openSection = false;
+
+    blocks.forEach(b => {
+        if (b._type === 'section') {
+            if (openSection) body += '</section>\n';
+            openSection = true;
+            body += `<section>\n<h2>${escHtml(b.title || '')}</h2>\n`;
+        } else if (b._type === 'header') {
+            // Rendered as page header below
+        } else if (b._type === 'subsection') {
+            body += `<h3>${escHtml(b.title || '')}</h3>\n`;
+        } else if (b._type === 'subsubsection') {
+            body += `<h4>${escHtml(b.title || '')}</h4>\n`;
+        } else if (b._type === 'paragraph') {
+            body += `<p>${parseInline(b.text || '')}</p>\n`;
+        } else if (b._type === 'flag') {
+            const st = FLAG_STYLES[b.style] || FLAG_STYLES.info;
+            body += `<div style="padding:12px 16px;border-radius:4px;margin:12px 0;${st}">${escHtml(b.text || '')}</div>\n`;
+        } else if (b._type === 'note') {
+            const ns = NOTE_STYLES[b.style] || NOTE_STYLES.info;
+            body += `<div style="background:${ns.bg};border-left:4px solid ${ns.border};color:${ns.color};padding:12px 16px;border-radius:4px;margin:12px 0;">${ns.icon} ${parseInline(b.text || '')}</div>\n`;
+        } else if (b._type === 'list') {
+            const tag = b.listType === 'ordered' ? 'ol' : 'ul';
+            const items = (b._items || []).filter(i => i.trim()).map(i => `<li>${parseInline(i)}</li>`).join('\n');
+            body += `<${tag}>\n${items}\n</${tag}>\n`;
+        } else if (b._type === 'table') {
+            const hdrs = (b._headers || []).map(h => `<th>${escHtml(h)}</th>`).join('');
+            const rows = (b._rows || []).map(r => {
+                const cells = (b._headers || []).map((_, ci) => `<td>${parseInline(r[ci] || '')}</td>`).join('');
+                return `<tr>${cells}</tr>`;
+            }).join('\n');
+            body += `<div style="overflow-x:auto;"><table border="1" style="border-collapse:collapse;width:100%;font-size:14px;">\n<thead><tr>${hdrs}</tr></thead>\n<tbody>${rows}</tbody>\n</table></div>\n`;
+        } else if (b._type === 'faq') {
+            const items = (b._faqs || []).filter(f => f.q || f.a).map(f =>
+                `<details style="margin-bottom:8px;"><summary style="cursor:pointer;font-weight:600;padding:8px 0;">${escHtml(f.q || '')}</summary><div style="padding:8px 0 4px;">${parseInline(f.a || '')}</div></details>`
+            ).join('\n');
+            body += `<div class="faq">\n${items}\n</div>\n`;
+        } else if (b._type === 'button') {
+            const target = b.newTab ? ' target="_blank" rel="noopener noreferrer"' : '';
+            body += `<p><a href="${escHtml(b.href || '#')}"${target} style="display:inline-block;padding:10px 20px;background:#0d5f5f;color:#fff;border-radius:6px;text-decoration:none;font-weight:600;">${escHtml(b.label || 'Click here')}</a></p>\n`;
+        } else if (b._type === 'image') {
+            const wStyle = b.width ? `max-width:${escHtml(b.width)};` : 'max-width:100%;';
+            body += `<figure style="margin:16px 0;">\n<img src="${escHtml(b.src || '')}" alt="${escHtml(b.alt || '')}" style="${wStyle}display:block;">\n${b.caption ? `<figcaption style="font-size:13px;color:#64748b;margin-top:6px;">${escHtml(b.caption)}</figcaption>` : ''}\n</figure>\n`;
+        } else if (b._type === 'supporting-docs') {
+            const docs = (b._docs || []).filter(d => d.label || d.url);
+            if (docs.length) {
+                const items = docs.map(d => `<li><a href="${escHtml(d.url || '#')}">${escHtml(d.label || d.url)}</a></li>`).join('\n');
+                body += `<div class="supporting-docs">\n<strong>${escHtml(b.title || 'Supporting Documents')}</strong>\n<ul style="margin-top:8px;">\n${items}\n</ul>\n</div>\n`;
+            }
+        } else if (b._type === 'version-history') {
+            const rows = (b._versions || []).filter(v => v.date || v.desc);
+            if (rows.length) {
+                const trs = rows.map(v => `<tr><td style="padding:6px 10px;white-space:nowrap;color:#64748b;">${escHtml(v.date)}</td><td style="padding:6px 10px;">${escHtml(v.desc)}</td></tr>`).join('\n');
+                body += `<div class="version-history">\n<strong>Version History</strong>\n<table border="1" style="border-collapse:collapse;width:100%;margin-top:8px;font-size:13px;">\n<thead><tr><th style="padding:6px 10px;text-align:left;">Date</th><th style="padding:6px 10px;text-align:left;">Change</th></tr></thead>\n<tbody>${trs}</tbody>\n</table>\n</div>\n`;
+            }
+        }
+    });
+
+    if (openSection) body += '</section>\n';
+
+    // Page header
+    let headerHtml = '';
+    if (headerBlock) {
+        const hb = headerBlock;
+        headerHtml = `<div class="page-header">
+${hb.flag ? `<div class="page-flag">${escHtml(hb.flag)}</div>` : ''}
+<h1>${escHtml(hb.title || '')}</h1>
+${hb.subtitle ? `<p class="page-subtitle">${escHtml(hb.subtitle)}</p>` : ''}
+<div class="page-meta">
+${hb.owner ? `<span>Owner: ${escHtml(hb.owner)}</span>` : ''}
+${hb.date ? `<span>${escHtml(hb.date)}</span>` : ''}
+</div>
+</div>`;
+    }
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${escHtml(title)}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;font-size:15px;line-height:1.7;}
+.page-wrapper{max-width:860px;margin:0 auto;padding:32px 24px 64px;}
+.page-header{border-bottom:2px solid #0d5f5f;padding-bottom:20px;margin-bottom:32px;}
+.page-flag{display:inline-block;background:#0d5f5f;color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:4px;margin-bottom:10px;text-transform:uppercase;}
+h1{font-size:28px;font-weight:800;color:#0d5f5f;margin-bottom:6px;}
+.page-subtitle{font-size:16px;color:#475569;margin-bottom:10px;}
+.page-meta{font-size:13px;color:#94a3b8;display:flex;gap:16px;flex-wrap:wrap;}
+section{margin-bottom:32px;}
+h2{font-size:18px;font-weight:700;color:#0d5f5f;margin-bottom:16px;padding-bottom:6px;border-bottom:1px solid #e5e7eb;}
+h3{font-size:16px;font-weight:700;color:#1e293b;margin-bottom:10px;margin-top:20px;}
+h4{font-size:14px;font-weight:700;color:#475569;margin-bottom:8px;margin-top:16px;}
+p{margin-bottom:12px;}
+a{color:#0d5f5f;}
+ul,ol{padding-left:22px;margin-bottom:12px;}
+li{margin-bottom:4px;}
+table{border-color:#e5e7eb;}
+th{background:#f1f5f9;padding:8px 12px;text-align:left;font-size:13px;}
+td{padding:8px 12px;font-size:14px;}
+figure{margin:16px 0;}
+figcaption{font-size:13px;color:#64748b;margin-top:6px;}
+.supporting-docs{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:16px;margin:16px 0;}
+.version-history{background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:16px;margin:16px 0;}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+${headerHtml}
+${body}
+</div>
+</body>
+</html>`;
+}
+
+// ── Preview ───────────────────────────────────────────────
+function refreshPreview() {
+    const iframe = document.getElementById('pb-preview');
+    const html = generateHTML();
+    // Use a blob URL so relative paths in the HTML resolve against the site root
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    iframe.src = url;
+}
+
+// ── Copy HTML ─────────────────────────────────────────────
+function copyHTML() {
+    const html = generateHTML();
+    navigator.clipboard.writeText(html).then(() => {
+        const toast = document.getElementById('copy-toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2400);
+    });
+}
+
+// ── Helpers ───────────────────────────────────────────────
+function escHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+</script>
+</body>
+</html>
