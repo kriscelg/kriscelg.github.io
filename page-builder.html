@@ -279,6 +279,11 @@
 <script>
 'use strict';
 
+// ── State (must be declared before any call to showApp/init) ──
+let blocks = [];
+let selectedId = null;
+let _uid = 0;
+
 // ── Auth ─────────────────────────────────────────────────
 const ADMIN_PASSWORD = 'intranet8you';
 const SESSION_KEY = 'wdt_admin_auth';
@@ -432,11 +437,6 @@ const BLOCK_DEFS = {
         ],
     },
 };
-
-// ── State ─────────────────────────────────────────────────
-let blocks = [];
-let selectedId = null;
-let _uid = 0;
 
 function uid() { return ++_uid; }
 
