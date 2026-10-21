@@ -284,6 +284,17 @@ let blocks = [];
 let selectedId = null;
 let _uid = 0;
 
+// ── Cached asset content for live preview ─────────────────
+let _cssContent = '';
+let _jsContent  = '';
+(async function loadPreviewAssets() {
+    try {
+        const [cr, jr] = await Promise.all([fetch('html-document-styles.css'), fetch('html-document-script.js')]);
+        if (cr.ok) _cssContent = await cr.text();
+        if (jr.ok) _jsContent  = await jr.text();
+    } catch (e) { /* silently fail — preview degrades gracefully */ }
+})();
+
 // ── Auth ─────────────────────────────────────────────────
 const ADMIN_PASSWORD = 'intranet8you';
 const SESSION_KEY = 'wdt_admin_auth';
@@ -312,12 +323,13 @@ const BLOCK_DEFS = {
         label: 'Header',
         preview: b => b.title || '(untitled)',
         fields: [
-            { key: 'title',    label: 'Page Title',   type: 'text',     placeholder: 'Page title' },
-            { key: 'subtitle', label: 'Subtitle',      type: 'text',     placeholder: 'Optional subtitle' },
-            { key: 'flag',     label: 'Classification Flag', type: 'select',
-              options: ['', 'PROTECTED B', 'PROTECTED A', 'UNCLASSIFIED', 'SECRET'] },
-            { key: 'owner',    label: 'Document Owner', type: 'text',    placeholder: 'e.g. Jane Smith' },
-            { key: 'date',     label: 'Date',           type: 'text',    placeholder: 'e.g. June 2025' },
+            { key: 'title',       label: 'Document Title',     type: 'text',   placeholder: 'Your Document Title Here' },
+            { key: 'docType',     label: 'Document Type',      type: 'select',
+              options: ['Policy','Guideline','Procedure','Standard','Memo','Notice','Report','Guide','Forms and Templates','Job Aids and Guidelines','Resources'] },
+            { key: 'lastUpdated', label: 'Last Updated',       type: 'text',   placeholder: 'e.g. May 5, 2026' },
+            { key: 'department',  label: 'Department / Branch',type: 'text',   placeholder: 'e.g. Workforce Development & Training' },
+            { key: 'depth',       label: 'File Location',      type: 'select',
+              options: ['root', 'subfolder'] },
         ],
     },
     'flag': {
@@ -431,7 +443,7 @@ const BLOCK_DEFS = {
             return rows.length ? `${rows.length} entr${rows.length > 1 ? 'ies' : 'y'}` : 'Version History';
         },
         fields: [
-            { key: '_versions', label: 'Version Entries (Date, Description)', type: 'vh-editor' },
+            { key: '_versions', label: 'Version Entries', type: 'vh-editor' },
         ],
     },
 };
@@ -441,7 +453,7 @@ function uid() { return ++_uid; }
 function defaultBlock(type) {
     const b = { _id: uid(), _type: type };
     if (type === 'header') {
-        b.title = ''; b.subtitle = ''; b.flag = ''; b.owner = ''; b.date = '';
+        b.title = ''; b.docType = 'Policy'; b.lastUpdated = ''; b.department = 'Workforce Development & Training'; b.depth = 'root';
     } else if (type === 'flag') {
         b.text = ''; b.style = 'info';
     } else if (type === 'section' || type === 'subsection' || type === 'subsubsection') {
@@ -464,7 +476,7 @@ function defaultBlock(type) {
     } else if (type === 'supporting-docs') {
         b.title = 'Supporting Documents'; b._docs = [{ label: '', url: '' }];
     } else if (type === 'version-history') {
-        b._versions = [{ date: '', desc: '' }];
+        b._versions = [{ ver: '', date: '', author: '', desc: '' }];
     }
     return b;
 }
@@ -474,7 +486,9 @@ function init() {
     renderAddBar();
     // Default initial blocks
     const hb = defaultBlock('header');
-    hb.title = 'Page Title';
+    hb.title = 'Document Title';
+    hb.docType = 'Policy';
+    hb.department = 'Workforce Development & Training';
     blocks.push(hb);
     const sb = defaultBlock('section');
     sb.title = 'Description';
@@ -855,44 +869,34 @@ function buildSdocsEditor(b) {
 
 // ── Version history editor ────────────────────────────────
 function buildVhEditor(b) {
-    if (!b._versions) b._versions = [{ date: '', desc: '' }];
+    if (!b._versions) b._versions = [{ ver: '', date: '', author: '', desc: '' }];
     const wrap = document.createElement('div');
 
     function render() {
         wrap.innerHTML = '';
         const hdr = document.createElement('div');
-        hdr.style.cssText = 'display:grid;grid-template-columns:90px 1fr auto;gap:4px;margin-bottom:4px;';
-        hdr.innerHTML = '<span style="font-size:11px;color:#94a3b8;">Date</span><span style="font-size:11px;color:#94a3b8;">Description</span><span></span>';
+        hdr.style.cssText = 'display:grid;grid-template-columns:56px 100px 1fr 1fr auto;gap:4px;margin-bottom:4px;';
+        hdr.innerHTML = '<span style="font-size:11px;color:#94a3b8;">Ver.</span><span style="font-size:11px;color:#94a3b8;">Date</span><span style="font-size:11px;color:#94a3b8;">Updated By</span><span style="font-size:11px;color:#94a3b8;">Changes</span><span></span>';
         wrap.appendChild(hdr);
 
         b._versions.forEach((v, i) => {
             const row = document.createElement('div');
-            row.className = 'vh-row';
-            const dinp = document.createElement('input');
-            dinp.type = 'text';
-            dinp.value = v.date;
-            dinp.placeholder = 'e.g. 2025-01';
+            row.style.cssText = 'display:grid;grid-template-columns:56px 100px 1fr 1fr auto;gap:4px;margin-bottom:4px;';
+            const vinp = document.createElement('input'); vinp.type='text'; vinp.value=v.ver||''; vinp.placeholder='1.0';
+            vinp.addEventListener('input', () => { b._versions[i].ver = vinp.value; refreshPreview(); });
+            const dinp = document.createElement('input'); dinp.type='text'; dinp.value=v.date||''; dinp.placeholder='May 5, 2026';
             dinp.addEventListener('input', () => { b._versions[i].date = dinp.value; refreshPreview(); });
-            const desc = document.createElement('input');
-            desc.type = 'text';
-            desc.value = v.desc;
-            desc.placeholder = 'Change description';
+            const ainp = document.createElement('input'); ainp.type='text'; ainp.value=v.author||''; ainp.placeholder='Author name';
+            ainp.addEventListener('input', () => { b._versions[i].author = ainp.value; refreshPreview(); });
+            const desc = document.createElement('input'); desc.type='text'; desc.value=v.desc||''; desc.placeholder='Changes made';
             desc.addEventListener('input', () => { b._versions[i].desc = desc.value; refreshPreview(); });
-            const del = document.createElement('button');
-            del.type = 'button';
-            del.className = 'tbl-row-del';
-            del.innerHTML = '<i class="fas fa-times"></i>';
-            del.addEventListener('click', () => { b._versions.splice(i, 1); if (!b._versions.length) b._versions.push({date:'',desc:''}); render(); refreshPreview(); });
-            row.appendChild(dinp);
-            row.appendChild(desc);
-            row.appendChild(del);
+            const del = document.createElement('button'); del.type='button'; del.className='tbl-row-del'; del.innerHTML='<i class="fas fa-times"></i>';
+            del.addEventListener('click', () => { b._versions.splice(i,1); if (!b._versions.length) b._versions.push({ver:'',date:'',author:'',desc:''}); render(); refreshPreview(); });
+            [vinp,dinp,ainp,desc,del].forEach(el => row.appendChild(el));
             wrap.appendChild(row);
         });
-        const add = document.createElement('button');
-        add.type = 'button';
-        add.className = 'tbl-add-row';
-        add.textContent = '+ Add version';
-        add.addEventListener('click', () => { b._versions.push({date:'',desc:''}); render(); refreshPreview(); });
+        const add = document.createElement('button'); add.type='button'; add.className='tbl-add-row'; add.textContent='+ Add version';
+        add.addEventListener('click', () => { b._versions.push({ver:'',date:'',author:'',desc:''}); render(); refreshPreview(); });
         wrap.appendChild(add);
     }
     render();
@@ -937,148 +941,204 @@ function parseInline(text) {
 }
 
 // ── HTML generator ────────────────────────────────────────
-const FLAG_STYLES = {
-    info:      'background:#eff6ff;border-left:4px solid #3b82f6;color:#1e3a5f;',
-    warning:   'background:#fffbeb;border-left:4px solid #f59e0b;color:#78350f;',
-    danger:    'background:#fef2f2;border-left:4px solid #ef4444;color:#7f1d1d;',
-    success:   'background:#f0fdf4;border-left:4px solid #22c55e;color:#14532d;',
-    neutral:   'background:#f8fafc;border-left:4px solid #94a3b8;color:#334155;',
-};
-const NOTE_STYLES = {
-    info:      { bg: '#eff6ff', border: '#3b82f6', color: '#1e3a5f', icon: 'ℹ️' },
-    warning:   { bg: '#fffbeb', border: '#f59e0b', color: '#78350f', icon: '⚠️' },
-    tip:       { bg: '#f0fdf4', border: '#22c55e', color: '#14532d', icon: '💡' },
-    important: { bg: '#fdf4ff', border: '#a855f7', color: '#4a044e', icon: '❗' },
-};
 
-function generateHTML() {
-    let headerBlock = blocks.find(b => b._type === 'header');
-    const title = headerBlock ? (headerBlock.title || 'Untitled Page') : 'Untitled Page';
+function generateHTML(forPreview) {
+    const hb = blocks.find(b => b._type === 'header') || {};
+    const title       = hb.title       || 'Untitled Document';
+    const docType     = hb.docType     || 'Policy';
+    const lastUpdated = hb.lastUpdated || '';
+    const department  = hb.department  || '';
+    const cssBase     = (hb.depth === 'subfolder') ? '../' : '';
 
-    let body = '';
-    let openSection = false;
+    const contentBlocks = blocks.filter(b =>
+        b._type !== 'header' && b._type !== 'supporting-docs' && b._type !== 'version-history'
+    );
+    const supDocsBlock = blocks.find(b => b._type === 'supporting-docs');
+    const verHistBlock = blocks.find(b => b._type === 'version-history');
 
-    blocks.forEach(b => {
-        if (b._type === 'section') {
-            if (openSection) body += '</section>\n';
-            openSection = true;
-            body += `<section>\n<h2>${escHtml(b.title || '')}</h2>\n`;
-        } else if (b._type === 'header') {
-            // Rendered as page header below
-        } else if (b._type === 'subsection') {
-            body += `<h3>${escHtml(b.title || '')}</h3>\n`;
-        } else if (b._type === 'subsubsection') {
-            body += `<h4>${escHtml(b.title || '')}</h4>\n`;
-        } else if (b._type === 'paragraph') {
-            body += `<p>${parseInline(b.text || '')}</p>\n`;
-        } else if (b._type === 'flag') {
-            const st = FLAG_STYLES[b.style] || FLAG_STYLES.info;
-            body += `<div style="padding:12px 16px;border-radius:4px;margin:12px 0;${st}">${escHtml(b.text || '')}</div>\n`;
-        } else if (b._type === 'note') {
-            const ns = NOTE_STYLES[b.style] || NOTE_STYLES.info;
-            body += `<div style="background:${ns.bg};border-left:4px solid ${ns.border};color:${ns.color};padding:12px 16px;border-radius:4px;margin:12px 0;">${ns.icon} ${parseInline(b.text || '')}</div>\n`;
-        } else if (b._type === 'list') {
-            const tag = b.listType === 'ordered' ? 'ol' : 'ul';
-            const items = (b._items || []).filter(i => i.trim()).map(i => `<li>${parseInline(i)}</li>`).join('\n');
-            body += `<${tag}>\n${items}\n</${tag}>\n`;
-        } else if (b._type === 'table') {
-            const hdrs = (b._headers || []).map(h => `<th>${escHtml(h)}</th>`).join('');
-            const rows = (b._rows || []).map(r => {
-                const cells = (b._headers || []).map((_, ci) => `<td>${parseInline(r[ci] || '')}</td>`).join('');
-                return `<tr>${cells}</tr>`;
-            }).join('\n');
-            body += `<div style="overflow-x:auto;"><table border="1" style="border-collapse:collapse;width:100%;font-size:14px;">\n<thead><tr>${hdrs}</tr></thead>\n<tbody>${rows}</tbody>\n</table></div>\n`;
-        } else if (b._type === 'faq') {
-            const items = (b._faqs || []).filter(f => f.q || f.a).map(f =>
-                `<details style="margin-bottom:8px;"><summary style="cursor:pointer;font-weight:600;padding:8px 0;">${escHtml(f.q || '')}</summary><div style="padding:8px 0 4px;">${parseInline(f.a || '')}</div></details>`
-            ).join('\n');
-            body += `<div class="faq">\n${items}\n</div>\n`;
-        } else if (b._type === 'button') {
-            const target = b.newTab ? ' target="_blank" rel="noopener noreferrer"' : '';
-            body += `<p><a href="${escHtml(b.href || '#')}"${target} style="display:inline-block;padding:10px 20px;background:#0d5f5f;color:#fff;border-radius:6px;text-decoration:none;font-weight:600;">${escHtml(b.label || 'Click here')}</a></p>\n`;
-        } else if (b._type === 'image') {
-            const wStyle = b.width ? `max-width:${escHtml(b.width)};` : 'max-width:100%;';
-            body += `<figure style="margin:16px 0;">\n<img src="${escHtml(b.src || '')}" alt="${escHtml(b.alt || '')}" style="${wStyle}display:block;">\n${b.caption ? `<figcaption style="font-size:13px;color:#64748b;margin-top:6px;">${escHtml(b.caption)}</figcaption>` : ''}\n</figure>\n`;
-        } else if (b._type === 'supporting-docs') {
-            const docs = (b._docs || []).filter(d => d.label || d.url);
-            if (docs.length) {
-                const items = docs.map(d => `<li><a href="${escHtml(d.url || '#')}">${escHtml(d.label || d.url)}</a></li>`).join('\n');
-                body += `<div class="supporting-docs">\n<strong>${escHtml(b.title || 'Supporting Documents')}</strong>\n<ul style="margin-top:8px;">\n${items}\n</ul>\n</div>\n`;
-            }
-        } else if (b._type === 'version-history') {
-            const rows = (b._versions || []).filter(v => v.date || v.desc);
-            if (rows.length) {
-                const trs = rows.map(v => `<tr><td style="padding:6px 10px;white-space:nowrap;color:#64748b;">${escHtml(v.date)}</td><td style="padding:6px 10px;">${escHtml(v.desc)}</td></tr>`).join('\n');
-                body += `<div class="version-history">\n<strong>Version History</strong>\n<table border="1" style="border-collapse:collapse;width:100%;margin-top:8px;font-size:13px;">\n<thead><tr><th style="padding:6px 10px;text-align:left;">Date</th><th style="padding:6px 10px;text-align:left;">Change</th></tr></thead>\n<tbody>${trs}</tbody>\n</table>\n</div>\n`;
-            }
-        }
-    });
+    const bodyHtml    = buildBodyHtml(contentBlocks);
+    const supDocsHtml = supDocsBlock ? buildSupDocsHtml(supDocsBlock) : '';
+    const verHistHtml = verHistBlock ? buildVerHistHtml(verHistBlock) : '';
 
-    if (openSection) body += '</section>\n';
-
-    // Page header
-    let headerHtml = '';
-    if (headerBlock) {
-        const hb = headerBlock;
-        headerHtml = `<div class="page-header">
-${hb.flag ? `<div class="page-flag">${escHtml(hb.flag)}</div>` : ''}
-<h1>${escHtml(hb.title || '')}</h1>
-${hb.subtitle ? `<p class="page-subtitle">${escHtml(hb.subtitle)}</p>` : ''}
-<div class="page-meta">
-${hb.owner ? `<span>Owner: ${escHtml(hb.owner)}</span>` : ''}
-${hb.date ? `<span>${escHtml(hb.date)}</span>` : ''}
-</div>
-</div>`;
-    }
+    const cssTag = forPreview
+        ? `    <style>\n${_cssContent}\n    </style>`
+        : `    <link rel="stylesheet" href="${cssBase}html-document-styles.css">`;
+    const jsTag = forPreview
+        ? `    <script>\n${_jsContent}\n    <\/script>`
+        : `    <script src="${cssBase}html-document-script.js"><\/script>`;
 
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${escHtml(title)}</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Inter',sans-serif;background:#f8fafc;color:#1e293b;font-size:15px;line-height:1.7;}
-.page-wrapper{max-width:860px;margin:0 auto;padding:32px 24px 64px;}
-.page-header{border-bottom:2px solid #0d5f5f;padding-bottom:20px;margin-bottom:32px;}
-.page-flag{display:inline-block;background:#0d5f5f;color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:4px;margin-bottom:10px;text-transform:uppercase;}
-h1{font-size:28px;font-weight:800;color:#0d5f5f;margin-bottom:6px;}
-.page-subtitle{font-size:16px;color:#475569;margin-bottom:10px;}
-.page-meta{font-size:13px;color:#94a3b8;display:flex;gap:16px;flex-wrap:wrap;}
-section{margin-bottom:32px;}
-h2{font-size:18px;font-weight:700;color:#0d5f5f;margin-bottom:16px;padding-bottom:6px;border-bottom:1px solid #e5e7eb;}
-h3{font-size:16px;font-weight:700;color:#1e293b;margin-bottom:10px;margin-top:20px;}
-h4{font-size:14px;font-weight:700;color:#475569;margin-bottom:8px;margin-top:16px;}
-p{margin-bottom:12px;}
-a{color:#0d5f5f;}
-ul,ol{padding-left:22px;margin-bottom:12px;}
-li{margin-bottom:4px;}
-table{border-color:#e5e7eb;}
-th{background:#f1f5f9;padding:8px 12px;text-align:left;font-size:13px;}
-td{padding:8px 12px;font-size:14px;}
-figure{margin:16px 0;}
-figcaption{font-size:13px;color:#64748b;margin-top:6px;}
-.supporting-docs{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:16px;margin:16px 0;}
-.version-history{background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:16px;margin:16px 0;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${escHtml(title)}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+${cssTag}
 </head>
 <body>
-<div class="page-wrapper">
-${headerHtml}
-${body}
-</div>
+    <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+    <button id="scrollToTopBtn" title="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+    <div class="policy-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">${escHtml(title)}</div>
+                <div class="sidebar-subtitle">Navigation</div>
+            </div>
+            <nav class="sidebar-nav" id="sidebarNav"></nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="document-header">
+                <h1 class="document-title">${escHtml(title)}</h1>
+                <div class="document-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-file-alt"></i>
+                        <span class="meta-label">Document Type:</span>
+                        <span>${escHtml(docType)}</span>
+                    </div>${lastUpdated ? `
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span class="meta-label">Last Updated:</span>
+                        <span>${escHtml(lastUpdated)}</span>
+                    </div>` : ''}${department ? `
+                    <div class="meta-item">
+                        <i class="fas fa-building"></i>
+                        <span class="meta-label">Department:</span>
+                        <span>${escHtml(department)}</span>
+                    </div>` : ''}
+                </div>
+            </header>
+
+            <div class="terminology-notice">
+                <i class="fas fa-info-circle"></i>
+                <span>This document follows the standard internal terminology defined on the <a href="${cssBase}documents.html">Documents homepage</a></span>
+            </div>
+
+            <article class="document-content">
+${bodyHtml}
+            </article>
+${supDocsHtml}${verHistHtml}
+        </main>
+    </div>
+
+${jsTag}
 </body>
 </html>`;
+}
+
+function buildBodyHtml(contentBlocks) {
+    let html = '';
+    let sectionOpen = false;
+    let subsectionOpen = false;
+    const i0 = '                ';    // 16 sp — inside article
+    const i1 = '                    '; // 20 sp — inside section
+    const i2 = '                        '; // 24 sp — inside subsection div
+
+    contentBlocks.forEach(b => {
+        if (b._type === 'section') {
+            if (subsectionOpen) { html += i1 + '</div>\n'; subsectionOpen = false; }
+            if (sectionOpen)    { html += i0 + '</section>\n\n'; }
+            html += `${i0}<section class="section" id="${escHtml(b.title || 'section')}">\n`;
+            html += `${i1}<h2 class="section-title">${escHtml(b.title || '')}</h2>\n`;
+            sectionOpen = true;
+        } else if (b._type === 'subsection') {
+            if (subsectionOpen) { html += i1 + '</div>\n'; }
+            html += `${i1}<div id="${escHtml(b.title || 'subsection')}">\n`;
+            html += `${i2}<h3 class="subsection-title">${escHtml(b.title || '')}</h3>\n`;
+            subsectionOpen = true;
+        } else if (b._type === 'subsubsection') {
+            const ind = subsectionOpen ? i2 : i1;
+            html += `${ind}<h4 class="sub-subsection-title" id="${escHtml(b.title || 'sub')}">${escHtml(b.title || '')}</h4>\n`;
+        } else {
+            const ind = subsectionOpen ? i2 : (sectionOpen ? i1 : i0);
+            html += renderBlockHtml(b, ind);
+        }
+    });
+
+    if (subsectionOpen) html += i1 + '</div>\n';
+    if (sectionOpen)    html += i0 + '</section>\n';
+    return html;
+}
+
+function renderBlockHtml(b, ind) {
+    switch (b._type) {
+        case 'flag':
+            return `${ind}<div class="document-flag">\n${ind}    <strong>${escHtml(b.text || '')}</strong>\n${ind}</div>\n`;
+        case 'paragraph':
+            return `${ind}<p>${parseInline(b.text || '')}</p>\n`;
+        case 'note':
+            return `${ind}<div class="note">\n${ind}    <p>${parseInline(b.text || '')}</p>\n${ind}</div>\n`;
+        case 'list': {
+            const tag = b.listType === 'ordered' ? 'ol' : 'ul';
+            const items = (b._items || []).filter(i => i.trim()).map(i => `${ind}    <li>${parseInline(i)}</li>`).join('\n');
+            return items ? `${ind}<${tag}>\n${items}\n${ind}</${tag}>\n` : '';
+        }
+        case 'table': {
+            const hdrs = (b._headers || []).map(h => `<th>${escHtml(h)}</th>`).join('');
+            const rows = (b._rows || []).map(r => {
+                const cells = (b._headers || []).map((_, ci) => `<td>${parseInline(r[ci] || '')}</td>`).join('');
+                return `${ind}        <tr>${cells}</tr>`;
+            }).join('\n');
+            return `${ind}<table class="data-table">\n${ind}    <thead><tr>${hdrs}</tr></thead>\n${ind}    <tbody>\n${rows}\n${ind}    </tbody>\n${ind}</table>\n`;
+        }
+        case 'faq': {
+            const items = (b._faqs || []).filter(f => f.q || f.a).map(f =>
+                `${ind}<details class="faq-item">\n${ind}    <summary class="faq-question">${escHtml(f.q || '')}</summary>\n${ind}    <div class="faq-answer"><p>${parseInline(f.a || '')}</p></div>\n${ind}</details>`
+            ).join('\n');
+            return items ? items + '\n' : '';
+        }
+        case 'button': {
+            const target = b.newTab ? ' target="_blank" rel="noopener noreferrer"' : '';
+            return `${ind}<div class="doc-btn-group">\n${ind}    <a href="${escHtml(b.href || '#')}" class="doc-btn doc-btn-primary"${target}>${escHtml(b.label || 'Click here')}</a>\n${ind}</div>\n`;
+        }
+        case 'image': {
+            const caption = b.caption ? `\n${ind}<p style="font-size:13px;color:#64748b;text-align:center;margin-top:6px;">${escHtml(b.caption)}</p>` : '';
+            return `${ind}<img src="${escHtml(b.src || '')}" alt="${escHtml(b.alt || '')}" class="document-image">${caption}\n`;
+        }
+        default: return '';
+    }
+}
+
+function buildSupDocsHtml(b) {
+    const docs = (b._docs || []).filter(d => d.label || d.url);
+    if (!docs.length) return '';
+    const links = docs.map(d =>
+        `                <a href="${escHtml(d.url || '#')}" class="document-link">\n                    <i class="fas fa-file-alt"></i>\n                    <span>${escHtml(d.label || d.url)}</span>\n                </a>`
+    ).join('\n');
+    return `            <section class="linked-documents" id="Support Documents">
+                <h2 class="section-heading"><i class="fas fa-link"></i> Supporting Documents</h2>
+                <div class="document-links">
+${links}
+                </div>
+            </section>\n`;
+}
+
+function buildVerHistHtml(b) {
+    const rows = (b._versions || []).filter(v => v.date || v.desc || v.ver);
+    if (!rows.length) return '';
+    const trs = rows.map(v =>
+        `                    <tr>\n                        <td><span class="version-number">${escHtml(v.ver||'')}</span></td>\n                        <td>${escHtml(v.date||'')}</td>\n                        <td>${escHtml(v.author||'')}</td>\n                        <td>${escHtml(v.desc||'')}</td>\n                    </tr>`
+    ).join('\n');
+    return `            <section class="version-history" id="Version History">
+                <h2 class="section-heading"><i class="fas fa-history"></i> Version History</h2>
+                <table class="version-table">
+                    <thead><tr><th>Version</th><th>Date</th><th>Updated By</th><th>Changes</th></tr></thead>
+                    <tbody>
+${trs}
+                    </tbody>
+                </table>
+            </section>\n`;
 }
 
 // ── Preview ───────────────────────────────────────────────
 function refreshPreview() {
     const iframe = document.getElementById('pb-preview');
-    const html = generateHTML();
-    // Use a blob URL so relative paths in the HTML resolve against the site root
+    const html = generateHTML(true);
     const blob = new Blob([html], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     iframe.src = url;
@@ -1086,7 +1146,7 @@ function refreshPreview() {
 
 // ── Copy HTML ─────────────────────────────────────────────
 function copyHTML() {
-    const html = generateHTML();
+    const html = generateHTML(false);
     navigator.clipboard.writeText(html).then(() => {
         const toast = document.getElementById('copy-toast');
         toast.classList.add('show');
