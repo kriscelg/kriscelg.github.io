@@ -511,7 +511,7 @@ function renderAll() {
         list.appendChild(buildBlockItem(b, idx));
     });
     document.getElementById('block-count').textContent = blocks.length + ' block' + (blocks.length !== 1 ? 's' : '');
-    refreshPreview();
+    refreshPreview(true);
 }
 
 function buildBlockItem(b, idx) {
@@ -607,7 +607,7 @@ function buildForm(b, container) {
                 if (b[f.key] === opt) o.selected = true;
                 sel.appendChild(o);
             });
-            sel.addEventListener('change', () => { b[f.key] = sel.value; refreshPreview(); updatePreview(b); });
+            sel.addEventListener('change', () => { b[f.key] = sel.value; refreshPreview(true); updatePreview(b); });
             wrap.appendChild(sel);
         } else if (f.type === 'toggle') {
             const row = document.createElement('div');
@@ -624,7 +624,7 @@ function buildForm(b, container) {
             const togLbl = document.createElement('span');
             togLbl.className = 'pb-toggle-label';
             togLbl.textContent = f.placeholder || f.label;
-            inp.addEventListener('change', () => { b[f.key] = inp.checked; refreshPreview(); });
+            inp.addEventListener('change', () => { b[f.key] = inp.checked; refreshPreview(true); });
             row.appendChild(tog);
             row.appendChild(togLbl);
             wrap.appendChild(row);
@@ -670,7 +670,7 @@ function buildRepeaterText(b) {
             del.type = 'button';
             del.className = 'tbl-row-del';
             del.innerHTML = '<i class="fas fa-times"></i>';
-            del.addEventListener('click', () => { b._items.splice(i, 1); if (!b._items.length) b._items.push(''); render(); refreshPreview(); });
+            del.addEventListener('click', () => { b._items.splice(i, 1); if (!b._items.length) b._items.push(''); render(); refreshPreview(true); });
             row.appendChild(inp);
             row.appendChild(del);
             wrap.appendChild(row);
@@ -679,7 +679,7 @@ function buildRepeaterText(b) {
         add.type = 'button';
         add.className = 'tbl-add-row';
         add.textContent = '+ Add item';
-        add.addEventListener('click', () => { b._items.push(''); render(); refreshPreview(); });
+        add.addEventListener('click', () => { b._items.push(''); render(); refreshPreview(true); });
         wrap.appendChild(add);
     }
     render();
@@ -719,7 +719,7 @@ function buildTableEditor(b) {
         addCol.addEventListener('click', () => {
             b._headers.push('Column ' + (b._headers.length + 1));
             b._rows.forEach(r => r.push(''));
-            render(); refreshPreview();
+            render(); refreshPreview(true);
         });
         hdrRow.appendChild(addCol);
         wrap.appendChild(hdrRow);
@@ -744,7 +744,7 @@ function buildTableEditor(b) {
             del.type = 'button';
             del.className = 'tbl-row-del';
             del.innerHTML = '<i class="fas fa-times"></i>';
-            del.addEventListener('click', () => { b._rows.splice(ri, 1); render(); refreshPreview(); });
+            del.addEventListener('click', () => { b._rows.splice(ri, 1); render(); refreshPreview(true); });
             rowEl.appendChild(del);
             wrap.appendChild(rowEl);
         });
@@ -755,7 +755,7 @@ function buildTableEditor(b) {
         addRow.textContent = '+ Add row';
         addRow.addEventListener('click', () => {
             b._rows.push(b._headers.map(() => ''));
-            render(); refreshPreview();
+            render(); refreshPreview(true);
         });
         wrap.appendChild(addRow);
     }
@@ -782,7 +782,7 @@ function buildFaqEditor(b) {
             del.type = 'button';
             del.className = 'tbl-row-del';
             del.innerHTML = '<i class="fas fa-times"></i>';
-            del.addEventListener('click', () => { b._faqs.splice(i, 1); if (!b._faqs.length) b._faqs.push({q:'',a:''}); render(); refreshPreview(); });
+            del.addEventListener('click', () => { b._faqs.splice(i, 1); if (!b._faqs.length) b._faqs.push({q:'',a:''}); render(); refreshPreview(true); });
             qrow.appendChild(qinp);
             qrow.appendChild(del);
             wrap.appendChild(qrow);
@@ -807,7 +807,7 @@ function buildFaqEditor(b) {
         add.type = 'button';
         add.className = 'tbl-add-row';
         add.textContent = '+ Add Q&A';
-        add.addEventListener('click', () => { b._faqs.push({q:'',a:''}); render(); refreshPreview(); });
+        add.addEventListener('click', () => { b._faqs.push({q:'',a:''}); render(); refreshPreview(true); });
         wrap.appendChild(add);
     }
     render();
@@ -843,7 +843,7 @@ function buildSdocsEditor(b) {
             del.type = 'button';
             del.className = 'tbl-row-del';
             del.innerHTML = '<i class="fas fa-times"></i>';
-            del.addEventListener('click', () => { b._docs.splice(i, 1); if (!b._docs.length) b._docs.push({label:'',url:''}); render(); refreshPreview(); });
+            del.addEventListener('click', () => { b._docs.splice(i, 1); if (!b._docs.length) b._docs.push({label:'',url:''}); render(); refreshPreview(true); });
             row.appendChild(linp);
             row.appendChild(uinp);
             row.appendChild(del);
@@ -853,7 +853,7 @@ function buildSdocsEditor(b) {
         add.type = 'button';
         add.className = 'tbl-add-row';
         add.textContent = '+ Add document';
-        add.addEventListener('click', () => { b._docs.push({label:'',url:''}); render(); refreshPreview(); });
+        add.addEventListener('click', () => { b._docs.push({label:'',url:''}); render(); refreshPreview(true); });
         wrap.appendChild(add);
     }
     render();
@@ -884,12 +884,12 @@ function buildVhEditor(b) {
             const desc = document.createElement('input'); desc.type='text'; desc.value=v.desc||''; desc.placeholder='Changes made';
             desc.addEventListener('input', () => { b._versions[i].desc = desc.value; refreshPreview(); });
             const del = document.createElement('button'); del.type='button'; del.className='tbl-row-del'; del.innerHTML='<i class="fas fa-times"></i>';
-            del.addEventListener('click', () => { b._versions.splice(i,1); if (!b._versions.length) b._versions.push({ver:'',date:'',author:'',desc:''}); render(); refreshPreview(); });
+            del.addEventListener('click', () => { b._versions.splice(i,1); if (!b._versions.length) b._versions.push({ver:'',date:'',author:'',desc:''}); render(); refreshPreview(true); });
             [vinp,dinp,ainp,desc,del].forEach(el => row.appendChild(el));
             wrap.appendChild(row);
         });
         const add = document.createElement('button'); add.type='button'; add.className='tbl-add-row'; add.textContent='+ Add version';
-        add.addEventListener('click', () => { b._versions.push({ver:'',date:'',author:'',desc:''}); render(); refreshPreview(); });
+        add.addEventListener('click', () => { b._versions.push({ver:'',date:'',author:'',desc:''}); render(); refreshPreview(true); });
         wrap.appendChild(add);
     }
     render();
@@ -1129,12 +1129,17 @@ ${trs}
 }
 
 // ── Preview ───────────────────────────────────────────────
-function refreshPreview() {
-    const iframe = document.getElementById('pb-preview');
-    const html = generateHTML(true);
-    const blob = new Blob([html], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    iframe.src = url;
+let _previewTimer = null;
+function refreshPreview(immediate) {
+    clearTimeout(_previewTimer);
+    const run = () => {
+        const iframe = document.getElementById('pb-preview');
+        const html = generateHTML(true);
+        const blob = new Blob([html], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        iframe.src = url;
+    };
+    if (immediate) run(); else _previewTimer = setTimeout(run, 500);
 }
 
 // ── Copy HTML ─────────────────────────────────────────────
