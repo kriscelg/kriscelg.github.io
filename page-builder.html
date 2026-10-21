@@ -1140,6 +1140,16 @@ function refreshPreview(immediate) {
         iframe.addEventListener('load', function onLoad() {
             iframe.removeEventListener('load', onLoad);
             if (scrollY) iframe.contentWindow?.scrollTo(0, scrollY);
+            // Block any link that would navigate the iframe away from the preview
+            try {
+                iframe.contentDocument?.addEventListener('click', function(e) {
+                    const a = e.target.closest('a');
+                    if (a) {
+                        const href = a.getAttribute('href') || '';
+                        if (!href.startsWith('#')) e.preventDefault();
+                    }
+                }, true);
+            } catch(err) {}
         });
     };
     if (immediate) run(); else _previewTimer = setTimeout(run, 500);
