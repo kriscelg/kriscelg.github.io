@@ -1132,10 +1132,15 @@ function refreshPreview(immediate) {
     clearTimeout(_previewTimer);
     const run = () => {
         const iframe = document.getElementById('pb-preview');
+        const scrollY = iframe.contentWindow?.scrollY || 0;
         const html = generateHTML(true);
         const blob = new Blob([html], { type: 'text/html' });
         const url = URL.createObjectURL(blob);
         iframe.src = url;
+        iframe.addEventListener('load', function onLoad() {
+            iframe.removeEventListener('load', onLoad);
+            if (scrollY) iframe.contentWindow?.scrollTo(0, scrollY);
+        });
     };
     if (immediate) run(); else _previewTimer = setTimeout(run, 500);
 }
