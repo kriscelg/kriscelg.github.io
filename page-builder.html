@@ -292,6 +292,8 @@ let _jsContent  = '';
         const [cr, jr] = await Promise.all([fetch('html-document-styles.css'), fetch('html-document-script.js')]);
         if (cr.ok) _cssContent = await cr.text();
         if (jr.ok) _jsContent  = await jr.text();
+        // Re-render preview now that assets are loaded
+        if (document.getElementById('pb-preview')) refreshPreview();
     } catch (e) { /* silently fail — preview degrades gracefully */ }
 })();
 
