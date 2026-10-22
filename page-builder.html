@@ -173,12 +173,14 @@
             flex: 1; border: none; background: #fff;
         }
 
-        /* ── Table editor rows ────────────────────────── */
-        .tbl-editor { width: 100%; }
-        .tbl-row { display: flex; gap: 4px; margin-bottom: 4px; align-items: center; }
-        .tbl-row input { flex: 1; padding: 6px 8px; border: 1.5px solid #e5e7eb; border-radius: 5px; font-size: 12px; font-family: inherit; outline: none; }
-        .tbl-row input:focus { border-color: #0d5f5f; }
+        /* ── Table editor ─────────────────────────────── */
+        .tbl-scroll { overflow-x: auto; width: 100%; }
+        .tbl-grid-row { display: grid; gap: 4px; margin-bottom: 4px; align-items: center; }
+        .tbl-grid-row input { width: 100%; min-width: 0; padding: 6px 8px; border: 1.5px solid #e5e7eb; border-radius: 5px; font-size: 12px; font-family: inherit; outline: none; box-sizing: border-box; }
+        .tbl-grid-row input:focus { border-color: #0d5f5f; }
         .tbl-row-del { background: none; border: none; cursor: pointer; color: #dc2626; font-size: 13px; padding: 4px; }
+        .tbl-col-del { background: none; border: none; cursor: pointer; color: #dc2626; font-size: 11px; padding: 2px 4px; width: 100%; text-align: center; }
+        .tbl-col-del:hover { color: #b91c1c; }
         .tbl-add-row { font-size: 12px; color: #0d5f5f; cursor: pointer; background: none; border: none; font-family: inherit; font-weight: 600; padding: 2px 0; }
         .tbl-add-row:hover { text-decoration: underline; }
 
@@ -690,17 +692,46 @@ function buildTableEditor(b) {
     if (!b._rows) b._rows = [['', '', '']];
     const wrap = document.createElement('div');
 
+    function colTemplate() {
+        // Each data column: min 80px, equal share; last cell: 26px for row-delete / add-col button
+        return `repeat(${b._headers.length}, minmax(80px, 1fr)) 26px`;
+    }
+
     function render() {
         wrap.innerHTML = '';
+        const scroll = document.createElement('div');
+        scroll.className = 'tbl-scroll';
 
-        // Header row
+        // ── Column-delete buttons ──
+        const delColRow = document.createElement('div');
+        delColRow.className = 'tbl-grid-row';
+        delColRow.style.gridTemplateColumns = colTemplate();
+        b._headers.forEach((_, ci) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'tbl-col-del';
+            btn.title = 'Delete column';
+            btn.innerHTML = '<i class="fas fa-times"></i>';
+            btn.addEventListener('click', () => {
+                if (b._headers.length <= 1) return;
+                b._headers.splice(ci, 1);
+                b._rows.forEach(r => r.splice(ci, 1));
+                render(); refreshPreview(true);
+            });
+            delColRow.appendChild(btn);
+        });
+        delColRow.appendChild(document.createElement('span')); // spacer for last column
+        scroll.appendChild(delColRow);
+
+        // ── Column headers ──
         const hdrLbl = document.createElement('div');
         hdrLbl.style.cssText = 'font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;';
         hdrLbl.textContent = 'Column Headers';
-        wrap.appendChild(hdrLbl);
+        scroll.appendChild(hdrLbl);
 
         const hdrRow = document.createElement('div');
-        hdrRow.className = 'tbl-row';
+        hdrRow.className = 'tbl-grid-row';
+        hdrRow.style.gridTemplateColumns = colTemplate();
         b._headers.forEach((h, ci) => {
             const inp = document.createElement('input');
             inp.value = h;
@@ -710,27 +741,27 @@ function buildTableEditor(b) {
         });
         const addCol = document.createElement('button');
         addCol.type = 'button';
-        addCol.className = 'tbl-row-del';
+        addCol.style.cssText = 'background:none;border:none;cursor:pointer;color:#0d5f5f;font-size:14px;padding:4px;width:26px;';
         addCol.innerHTML = '<i class="fas fa-plus"></i>';
         addCol.title = 'Add column';
-        addCol.style.color = '#0d5f5f';
         addCol.addEventListener('click', () => {
             b._headers.push('Column ' + (b._headers.length + 1));
             b._rows.forEach(r => r.push(''));
             render(); refreshPreview(true);
         });
         hdrRow.appendChild(addCol);
-        wrap.appendChild(hdrRow);
+        scroll.appendChild(hdrRow);
 
-        // Data rows
+        // ── Data rows ──
         const rowsLbl = document.createElement('div');
         rowsLbl.style.cssText = 'font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin:8px 0 4px;';
         rowsLbl.textContent = 'Rows';
-        wrap.appendChild(rowsLbl);
+        scroll.appendChild(rowsLbl);
 
         b._rows.forEach((row, ri) => {
             const rowEl = document.createElement('div');
-            rowEl.className = 'tbl-row';
+            rowEl.className = 'tbl-grid-row';
+            rowEl.style.gridTemplateColumns = colTemplate();
             b._headers.forEach((_, ci) => {
                 const inp = document.createElement('input');
                 inp.value = row[ci] || '';
@@ -742,9 +773,10 @@ function buildTableEditor(b) {
             del.type = 'button';
             del.className = 'tbl-row-del';
             del.innerHTML = '<i class="fas fa-times"></i>';
+            del.title = 'Delete row';
             del.addEventListener('click', () => { b._rows.splice(ri, 1); render(); refreshPreview(true); });
             rowEl.appendChild(del);
-            wrap.appendChild(rowEl);
+            scroll.appendChild(rowEl);
         });
 
         const addRow = document.createElement('button');
@@ -755,7 +787,8 @@ function buildTableEditor(b) {
             b._rows.push(b._headers.map(() => ''));
             render(); refreshPreview(true);
         });
-        wrap.appendChild(addRow);
+        scroll.appendChild(addRow);
+        wrap.appendChild(scroll);
     }
     render();
     return wrap;
