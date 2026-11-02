@@ -159,6 +159,22 @@ const FOOTER_TEMPLATE = `
 
 // Load navigation and footer components
 (function() {
+    // ── Maintenance mode redirect ────────────────────────────────────────────
+    // Loads maintenance-data.js and redirects if enabled.
+    // admin.html and maintenance.html itself are never redirected.
+    (function() {
+        var page = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+        if (page === 'maintenance.html' || page === 'admin.html') return;
+        var s = document.createElement('script');
+        s.src = 'maintenance-data.js';
+        s.onload = function() {
+            if (typeof WDT_MAINTENANCE !== 'undefined' && WDT_MAINTENANCE.enabled) {
+                window.location.replace('maintenance.html');
+            }
+        };
+        document.head.appendChild(s);
+    })();
+
     // Function to load HTML content into a container
     function loadComponent(html, containerId) {
         const container = document.getElementById(containerId);

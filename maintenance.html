@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WDT Intranet — Under Maintenance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(145deg, #0b3535 0%, #0d5f5f 60%, #115f5f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .maint-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 56px 48px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+        }
+
+        .maint-logo {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #0d5f5f;
+            margin-bottom: 32px;
+        }
+
+        .maint-icon-wrap {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: #e8f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+        }
+
+        .maint-icon-wrap i {
+            font-size: 38px;
+            color: #0d5f5f;
+        }
+
+        .maint-heading {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 36px;
+            font-weight: 600;
+            color: #0b3535;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .maint-message {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a3a3a;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .maint-detail {
+            font-size: 15px;
+            font-weight: 400;
+            color: #4a6868;
+            line-height: 1.6;
+        }
+
+        .maint-return {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 28px;
+            padding: 14px 24px;
+            background: #e8f4f4;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0b3535;
+        }
+
+        .maint-return i {
+            color: #0d5f5f;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .maint-contact {
+            margin-top: 28px;
+            font-size: 14px;
+            color: #4a6868;
+        }
+
+        .maint-contact a {
+            color: #0d5f5f;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .maint-contact a:hover {
+            text-decoration: underline;
+        }
+
+        .maint-divider {
+            border: none;
+            border-top: 1px solid #e0eeee;
+            margin: 32px 0 24px;
+        }
+
+        .maint-footer {
+            font-size: 12px;
+            color: #8aabab;
+        }
+
+        @media (max-width: 480px) {
+            .maint-card { padding: 40px 24px; }
+            .maint-heading { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="maint-card">
+        <p class="maint-logo">WDT Intranet</p>
+
+        <div class="maint-icon-wrap">
+            <i class="fas fa-tools"></i>
+        </div>
+
+        <h1 class="maint-heading" id="maintHeading">Under Maintenance</h1>
+        <p class="maint-message" id="maintMessage">The WDT Intranet is currently undergoing scheduled maintenance.</p>
+        <p class="maint-detail" id="maintDetail">We apologize for the inconvenience. Please check back shortly.</p>
+
+        <div class="maint-return" id="maintReturn" style="display:none">
+            <i class="fas fa-clock"></i>
+            <span id="maintReturnText"></span>
+        </div>
+
+        <div class="maint-contact" id="maintContact" style="display:none">
+            <p>Questions? Contact <a id="maintContactLink" href="#">—</a></p>
+        </div>
+
+        <hr class="maint-divider">
+        <p class="maint-footer">Workforce Development Training Division &mdash; Manitoba Government</p>
+    </div>
+
+    <script src="maintenance-data.js"></script>
+    <script>
+        (function() {
+            if (typeof WDT_MAINTENANCE === 'undefined') return;
+            var m = WDT_MAINTENANCE;
+
+            if (m.heading)  document.getElementById('maintHeading').textContent  = m.heading;
+            if (m.message)  document.getElementById('maintMessage').textContent  = m.message;
+            if (m.detail)   document.getElementById('maintDetail').textContent   = m.detail;
+
+            if (m.expectedReturn && m.expectedReturn.trim()) {
+                document.getElementById('maintReturnText').textContent = 'Expected return: ' + m.expectedReturn;
+                document.getElementById('maintReturn').style.display   = 'flex';
+            }
+
+            if (m.contactEmail && m.contactEmail.trim()) {
+                var link  = document.getElementById('maintContactLink');
+                var label = m.contactName && m.contactName.trim() ? m.contactName : m.contactEmail;
+                link.textContent = label;
+                link.href        = 'mailto:' + m.contactEmail;
+                document.getElementById('maintContact').style.display = 'block';
+            }
+        })();
+    </script>
+</body>
+</html>
