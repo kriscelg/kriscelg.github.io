@@ -642,7 +642,7 @@ const FOOTER_TEMPLATE = `
         initializeSearch();
         initializeScrollTop();
         loadChatbot();
-        loadSeasonal();
+        // loadSeasonal();
     }
 
     // Run initialization when DOM is fully loaded
