@@ -164,6 +164,11 @@
             if (typeof WDT_MAINTENANCE === 'undefined') return;
             var m = WDT_MAINTENANCE;
 
+            if (!m.enabled) {
+                window.location.replace('index.html');
+                return;
+            }
+
             if (m.heading)  document.getElementById('maintHeading').textContent  = m.heading;
             if (m.message)  document.getElementById('maintMessage').textContent  = m.message;
             if (m.detail)   document.getElementById('maintDetail').textContent   = m.detail;
