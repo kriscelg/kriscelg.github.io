@@ -245,7 +245,7 @@
     <script>
         // ── Announcement Banner ──────────────────────────────────────────────
         (function() {
-            if (!window.WDT_ANNOUNCEMENT || !WDT_ANNOUNCEMENT.enabled) return;
+            if (typeof WDT_ANNOUNCEMENT === 'undefined' || !WDT_ANNOUNCEMENT.enabled) return;
             const msg = WDT_ANNOUNCEMENT.message || '';
             if (sessionStorage.getItem('wdt_ann_msg') === msg) return;
 
