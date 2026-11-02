@@ -14,6 +14,16 @@
     <!-- Navigation loaded from nav.html -->
     <div id="nav-container"></div>
 
+    <!-- Announcement Banner (controlled by announcement-data.js) -->
+    <div id="announcement-banner" style="display:none" role="alert">
+        <div class="announcement-content">
+            <i class="fas fa-bullhorn announcement-icon"></i>
+            <span class="announcement-message"></span>
+            <a class="announcement-link" href="#" target="_blank" rel="noopener noreferrer"></a>
+        </div>
+        <button class="announcement-close" id="announcementClose" title="Dismiss">&times;</button>
+    </div>
+
     <!-- Main Content -->
     <main class="main-content">
         <div class="container">
@@ -226,12 +236,43 @@
     <script src="nav-footer-loader.js"></script>
 
     <!-- Load data files FIRST, before any scripts that use them -->
+    <script src="announcement-data.js"></script>
     <script src="events-data.js"></script>
     <script src="communications-data.js"></script>
     <script src="documents-data.js"></script>
     <script src="memos-data.js"></script>
 
     <script>
+        // ── Announcement Banner ──────────────────────────────────────────────
+        (function() {
+            if (!window.WDT_ANNOUNCEMENT || !WDT_ANNOUNCEMENT.enabled) return;
+            const msg = WDT_ANNOUNCEMENT.message || '';
+            if (sessionStorage.getItem('wdt_ann_msg') === msg) return;
+
+            const banner  = document.getElementById('announcement-banner');
+            const msgEl   = banner.querySelector('.announcement-message');
+            const linkEl  = banner.querySelector('.announcement-link');
+            const closeBtn = document.getElementById('announcementClose');
+
+            banner.classList.add('type-' + (WDT_ANNOUNCEMENT.type || 'info'));
+            msgEl.textContent = msg;
+
+            if (WDT_ANNOUNCEMENT.link) {
+                linkEl.href        = WDT_ANNOUNCEMENT.link;
+                linkEl.textContent = WDT_ANNOUNCEMENT.linkText || 'Learn more';
+                linkEl.style.display = '';
+            } else {
+                linkEl.style.display = 'none';
+            }
+
+            banner.style.display = '';
+
+            closeBtn.addEventListener('click', function() {
+                banner.style.display = 'none';
+                sessionStorage.setItem('wdt_ann_msg', msg);
+            });
+        })();
+
         // Helper: encode file paths for use in href attributes
         function encodeFilePath(filePath) {
             return filePath.split('/').map(part => encodeURIComponent(part)).join('/');
