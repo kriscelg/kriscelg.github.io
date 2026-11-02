@@ -14,15 +14,8 @@
     <!-- Navigation loaded from nav.html -->
     <div id="nav-container"></div>
 
-    <!-- Announcement Banner (controlled by announcement-data.js) -->
-    <div id="announcement-banner" style="display:none" role="alert">
-        <div class="announcement-content">
-            <i class="fas fa-bullhorn announcement-icon"></i>
-            <span class="announcement-message"></span>
-            <a class="announcement-link" href="#" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-        <button class="announcement-close" id="announcementClose" title="Dismiss">&times;</button>
-    </div>
+    <!-- Announcement Banners (controlled by announcement-data.js) -->
+    <div id="announcement-banners"></div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -243,33 +236,42 @@
     <script src="memos-data.js"></script>
 
     <script>
-        // ── Announcement Banner ──────────────────────────────────────────────
+        // ── Announcement Banners ─────────────────────────────────────────────
         (function() {
-            if (typeof WDT_ANNOUNCEMENT === 'undefined' || !WDT_ANNOUNCEMENT.enabled) return;
-            const msg = WDT_ANNOUNCEMENT.message || '';
-            if (sessionStorage.getItem('wdt_ann_msg') === msg) return;
+            var list = typeof WDT_ANNOUNCEMENTS !== 'undefined' ? WDT_ANNOUNCEMENTS : [];
+            var container = document.getElementById('announcement-banners');
+            if (!container || !list.length) return;
 
-            const banner  = document.getElementById('announcement-banner');
-            const msgEl   = banner.querySelector('.announcement-message');
-            const linkEl  = banner.querySelector('.announcement-link');
-            const closeBtn = document.getElementById('announcementClose');
-
-            banner.classList.add('type-' + (WDT_ANNOUNCEMENT.type || 'info'));
-            msgEl.textContent = msg;
-
-            if (WDT_ANNOUNCEMENT.link) {
-                linkEl.href        = WDT_ANNOUNCEMENT.link;
-                linkEl.textContent = WDT_ANNOUNCEMENT.linkText || 'Learn more';
-                linkEl.style.display = '';
-            } else {
-                linkEl.style.display = 'none';
+            function esc(str) {
+                return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
             }
 
-            banner.style.display = 'flex';
+            list.filter(function(a) { return a.enabled; }).forEach(function(ann) {
+                var msg    = ann.message     || '';
+                var desc   = ann.description || '';
+                var ssKey  = 'wdt_ann:' + msg;
+                if (sessionStorage.getItem(ssKey) === msg) return;
 
-            closeBtn.addEventListener('click', function() {
-                banner.style.display = 'none';
-                sessionStorage.setItem('wdt_ann_msg', msg);
+                var banner = document.createElement('div');
+                banner.className = 'announcement-banner type-' + (ann.type || 'info');
+                banner.setAttribute('role', 'alert');
+                banner.innerHTML =
+                    '<div class="announcement-content">' +
+                        '<i class="fas fa-bullhorn announcement-icon"></i>' +
+                        '<div class="announcement-text">' +
+                            '<span class="announcement-message">' + esc(msg) + '</span>' +
+                            (desc ? '<span class="announcement-desc">' + esc(desc) + '</span>' : '') +
+                        '</div>' +
+                        (ann.link ? '<a class="announcement-link" href="' + esc(ann.link) + '" target="_blank" rel="noopener noreferrer">' + esc(ann.linkText || 'Learn more') + '</a>' : '') +
+                    '</div>' +
+                    '<button class="announcement-close" title="Dismiss">&times;</button>';
+
+                banner.querySelector('.announcement-close').addEventListener('click', function() {
+                    banner.remove();
+                    sessionStorage.setItem(ssKey, msg);
+                });
+
+                container.appendChild(banner);
             });
         })();
 
