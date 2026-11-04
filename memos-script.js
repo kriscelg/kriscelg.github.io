@@ -125,7 +125,7 @@ function displayMemos() {
     }
 
     memosList.innerHTML = filteredMemos.map(memo => `
-        <div class="memo-card" onclick="openPdfModal(${memo.id})">
+        <a class="memo-card" href="${memo.pdfFile || '#'}" target="_blank" rel="noopener noreferrer">
             <div class="memo-header">
                 <div class="memo-icon">
                     <i class="fas fa-file-alt"></i>
@@ -151,7 +151,7 @@ function displayMemos() {
                     View Memo <i class="fas fa-arrow-right"></i>
                 </span>
             </div>
-        </div>
+        </a>
     `).join('');
 }
 

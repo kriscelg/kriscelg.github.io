@@ -300,7 +300,7 @@ function createPresentationCard(presentation) {
         : `<i class="fas fa-file-pdf placeholder-icon"></i>`;
 
     return `
-        <div class="content-card" onclick="openPdfModal(${presentation.id})">
+        <a class="content-card" href="${encodedPath || '#'}" target="_blank" rel="noopener noreferrer">
             <div class="card-thumbnail">
                 ${thumbnailHtml}
                 <div class="play-overlay">
@@ -323,7 +323,7 @@ function createPresentationCard(presentation) {
                     ${presentation.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('')}
                 </div>
             </div>
-        </div>
+        </a>
     `;
 }
 
