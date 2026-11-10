@@ -1764,17 +1764,17 @@ const BULLETINS = [
  * Your website folder should look like this:
  *
  * /your-website-folder/
- *   ├── index.html
- *   ├── bulletins.html
- *   ├── communications-data.js  (this file)
- *   ├── newsletters/
- *   │   ├── 2025-11-week1.html
- *   │   ├── 2025-11-week2.html
- *   │   └── ...
- *   └── bulletins/
- *       ├── bulletin-165.html
- *       ├── bulletin-164.html
- *       └── ...
+ *   \u251c\u2500\u2500 index.html
+ *   \u251c\u2500\u2500 bulletins.html
+ *   \u251c\u2500\u2500 communications-data.js  (this file)
+ *   \u251c\u2500\u2500 newsletters/
+ *   \u2502   \u251c\u2500\u2500 2025-11-week1.html
+ *   \u2502   \u251c\u2500\u2500 2025-11-week2.html
+ *   \u2502   \u2514\u2500\u2500 ...
+ *   \u2514\u2500\u2500 bulletins/
+ *       \u251c\u2500\u2500 bulletin-165.html
+ *       \u251c\u2500\u2500 bulletin-164.html
+ *       \u2514\u2500\u2500 ...
  *
  * ============================================
  * EXAMPLE: Adding a new newsletter

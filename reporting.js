@@ -6,13 +6,13 @@
  * Shared rendering functions for TES and Apprenticeship reporting pages.
  * Each page loads its own data file first, then this script.
  *
- * TES page    → tes-reporting-data.js  (POWERBI_DASHBOARDS, REPORTING_DOCUMENTS)
- * AM page     → apprenticeship-reporting-data.js  (AM_POWERBI_DASHBOARDS, AM_REPORTING_DOCUMENTS)
+ * TES page    \u2192 tes-reporting-data.js  (POWERBI_DASHBOARDS, REPORTING_DOCUMENTS)
+ * AM page     \u2192 apprenticeship-reporting-data.js  (AM_POWERBI_DASHBOARDS, AM_REPORTING_DOCUMENTS)
  */
 
 (function () {
 
-    // ── Helpers ────────────────────────────────────────────────
+    // \u2500\u2500 Helpers \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
     function formatDate(ds) {
         if (!ds) return '';
@@ -24,7 +24,7 @@
         return { PDF: 'fa-file-pdf', Word: 'fa-file-word', Excel: 'fa-file-excel', PowerPoint: 'fa-file-powerpoint', SSRS: 'fa-chart-column' }[type] || 'fa-file';
     }
 
-    // ── Dashboard renderer ─────────────────────────────────────
+    // \u2500\u2500 Dashboard renderer \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
     function renderDashboards(dashboards, containerId) {
         const container = document.getElementById(containerId);
@@ -70,7 +70,7 @@
             </div>`).join('');
     }
 
-    // ── Report document renderer ───────────────────────────────
+    // \u2500\u2500 Report document renderer \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
     function renderReports(categories, containerId, countId) {
         const container = document.getElementById(containerId);
@@ -108,7 +108,7 @@
             </div>`).join('');
     }
 
-    // ── Init ───────────────────────────────────────────────────
+    // \u2500\u2500 Init \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
     document.addEventListener('DOMContentLoaded', function () {
 

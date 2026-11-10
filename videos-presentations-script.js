@@ -2,7 +2,7 @@
  * WDT Intranet - Videos & Presentations Script
  */
 
-// ── Inject shared modal HTML ───────────────────────────────────────
+// \u2500\u2500 Inject shared modal HTML \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 // Both TES and BITS pages pull this one script, so modals live here.
 document.body.insertAdjacentHTML('beforeend', `
     <div class="modal" id="videoModal">

@@ -6,7 +6,7 @@
  * Edit this file to manage TES Power BI dashboards and reports.
  * This file is only loaded on tes-reporting.html.
  *
- * ── DASHBOARDS ──────────────────────────────────────────────
+ * \u2500\u2500 DASHBOARDS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
  *   title              Dashboard name
  *   description        Short description, e.g. "Updated Weekly"
  *   embedUrl           Power BI embed URL (reportEmbed link)
@@ -17,7 +17,7 @@
  *       url            Path to the file
  *       icon           'fa-file-pdf', 'fa-file-word', 'fa-file-excel', 'fa-file-powerpoint'
  *
- * ── REPORTING DOCUMENTS ─────────────────────────────────────
+ * \u2500\u2500 REPORTING DOCUMENTS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
  *   category           Section heading
  *   icon               Font Awesome icon for the section
  *   documents[]

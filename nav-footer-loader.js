@@ -159,7 +159,7 @@ const FOOTER_TEMPLATE = `
 
 // Load navigation and footer components
 (function() {
-    // ── Maintenance mode redirect ────────────────────────────────────────────
+    // \u2500\u2500 Maintenance mode redirect \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     // Loads maintenance-data.js and redirects if enabled.
     // admin.html and maintenance.html itself are never redirected.
     (function() {

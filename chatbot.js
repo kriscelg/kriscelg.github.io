@@ -7,7 +7,7 @@
 
     const faqs = typeof CHATBOT_FAQS !== 'undefined' ? CHATBOT_FAQS : [];
 
-    // ── Inject CSS ─────────────────────────────────────────────────────
+    // \u2500\u2500 Inject CSS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     const style = document.createElement('style');
     style.textContent = `
         #wdt-chat-btn {
@@ -206,7 +206,7 @@
     `;
     document.head.appendChild(style);
 
-    // ── Build widget HTML ──────────────────────────────────────────────
+    // \u2500\u2500 Build widget HTML \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     const panel = document.createElement('div');
     panel.id = 'wdt-chat-panel';
     panel.setAttribute('role', 'dialog');
@@ -237,14 +237,14 @@
     document.body.appendChild(panel);
     document.body.appendChild(btn);
 
-    // ── Refs ───────────────────────────────────────────────────────────
+    // \u2500\u2500 Refs \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     const messagesEl = document.getElementById('wdt-chat-messages');
     const chipsEl    = document.getElementById('wdt-chat-chips');
     const inputEl    = document.getElementById('wdt-chat-input');
     let isOpen = false;
     let greeted = false;
 
-    // ── Matching ───────────────────────────────────────────────────────
+    // \u2500\u2500 Matching \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     function findAnswer(query) {
         const exact = faqs.find(f => f.question === query);
         if (exact) return exact;
@@ -275,7 +275,7 @@
         return best;
     }
 
-    // ── Render helpers ─────────────────────────────────────────────────
+    // \u2500\u2500 Render helpers \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     function addMessage(html, sender) {
         const div = document.createElement('div');
         div.className = `wdt-msg wdt-msg-${sender}`;
@@ -447,7 +447,7 @@
         }, 250);
     }
 
-    // ── Open / close ───────────────────────────────────────────────────
+    // \u2500\u2500 Open / close \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     function openPanel() {
         isOpen = true;
         panel.classList.add('open');
@@ -462,7 +462,7 @@
         btn.innerHTML = '<i class="fas fa-comment-dots"></i>';
     }
 
-    // ── Event listeners ────────────────────────────────────────────────
+    // \u2500\u2500 Event listeners \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     btn.addEventListener('click', () => isOpen ? closePanel() : openPanel());
     document.getElementById('wdt-chat-close').addEventListener('click', closePanel);
 

@@ -197,11 +197,11 @@ const EVENTS = [
     let nextId = 9101;
 
     for (let year = thisYear - 1; year <= thisYear + 2; year++) {
-        // National Mental Health Week: first Monday of May → following Sunday
+        // National Mental Health Week: first Monday of May \u2192 following Sunday
         const mentalHealthStart = firstMonday(year, 4);
         const mentalHealthEnd   = new Date(year, 4, mentalHealthStart.getDate() + 6);
 
-        // Manitoba Access Awareness Week: last Sunday of May → following Saturday
+        // Manitoba Access Awareness Week: last Sunday of May \u2192 following Saturday
         const accessStart = lastSundayOf(year, 4);
         const accessEnd   = new Date(accessStart.getFullYear(), accessStart.getMonth(), accessStart.getDate() + 6);
 
@@ -248,7 +248,7 @@ const EVENTS = [
 
             // June
             { title: 'National Indigenous Peoples Day',
-              description: 'A day for all Canadians to recognize and celebrate the unique heritage, diverse cultures, and outstanding contributions of First Nations, Inuit, and Métis peoples.',
+              description: 'A day for all Canadians to recognize and celebrate the unique heritage, diverse cultures, and outstanding contributions of First Nations, Inuit, and M\u00e9tis peoples.',
               date: new Date(year, 5, 21) },
             { title: 'Canadian Multiculturalism Day',
               description: 'Celebrating Canada\'s multicultural heritage and the contributions of all Canadians regardless of their origins.',

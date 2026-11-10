@@ -22,19 +22,19 @@
 
 const NAME_REGISTRY = {
 
-    // ── Department ───────────────────────────────────────────
+    // \u2500\u2500 Department \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     dept_bmtjc_en:       'Business, Mining, Trade and Job Creation',
-    dept_bmtjc_fr:       'Affaires, Mines, Commerce et Création d\'emplois',
+    dept_bmtjc_fr:       'Affaires, Mines, Commerce et Cr\u00e9ation d\'emplois',
     dept_bmtjc_acronym:  'BMTJC',
     //dept_bmtjc_changed:  true,
 
-    // ── Division ─────────────────────────────────────────────
+    // \u2500\u2500 Division \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     div_wdt_en:          'Workforce Development and Training',
-    div_wdt_fr:          'Développement et formation de la main-d\'œuvre',
+    div_wdt_fr:          'D\u00e9veloppement et formation de la main-d\'\u0153uvre',
     div_wdt_acronym:     'WDT',
     //div_wdt_changed:     true,
 
-    // ── Branch: Training and Employment Services ─────────────
+    // \u2500\u2500 Branch: Training and Employment Services \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     branch_tes_en:       'Training and Employment Services',
     branch_tes_fr:       'Services d\'emploi et de formation professionnelle',
     branch_tes_acronym:  'TES',
@@ -42,12 +42,12 @@ const NAME_REGISTRY = {
 
     // Service Areas (under TES)
     area_wemsa_en:       'Winnipeg and Eastern Manitoba Service Area',
-    area_wemsa_fr:       'Zone de service de Winnipeg et de l’est du Manitoba',
+    area_wemsa_fr:       'Zone de service de Winnipeg et de l\u2019est du Manitoba',
     area_wemsa_acronym:  'WEMSAx',
     //area_wemsa_changed:  true,
 
     area_wnmsa_en:       'Western and Northern Manitoba Service Area',
-    area_wnmsa_fr:       'Zone de service de l’ouest et du nord du Manitoba',
+    area_wnmsa_fr:       'Zone de service de l\u2019ouest et du nord du Manitoba',
     area_wnmsa_acronym:  'WNMSA',
     //area_wnmsa_changed:  true,
 
@@ -56,7 +56,7 @@ const NAME_REGISTRY = {
     area_ps_acronym:     'PS',
     //area_ps_changed:     true,
 
-    // ── Branch: Apprenticeship Manitoba ──────────────────────
+    // \u2500\u2500 Branch: Apprenticeship Manitoba \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     branch_am_en:        'Apprenticeship Manitoba',
     branch_am_fr:        'Apprentissage Manitoba',
     branch_am_acronym:   'AM',
@@ -83,9 +83,9 @@ const NAME_REGISTRY = {
     unit_ts_acronym:     '',
     //unit_ts_changed:     true,
 
-    // ── Branch: Business and Industry Training Supports ──────
+    // \u2500\u2500 Branch: Business and Industry Training Supports \u2500\u2500\u2500\u2500\u2500\u2500
     branch_bits_en:      'Business and Industry Training Supports',
-    branch_bits_fr:      'Aides à la formation dans les entreprises et l\'industrie',
+    branch_bits_fr:      'Aides \u00e0 la formation dans les entreprises et l\'industrie',
     branch_bits_acronym: 'BITS',
     //branch_bits_changed: true,
 
@@ -100,9 +100,9 @@ const NAME_REGISTRY = {
     unit_iss_acronym:    '',
     //unit_iss_changed:   true,
 
-    // ── Branch: Economic and Labour Market Policy ─────────────
+    // \u2500\u2500 Branch: Economic and Labour Market Policy \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     branch_elmp_en:      'Economic and Labour Market Policy',
-    branch_elmp_fr:      'Politique économique et marché du travail',
+    branch_elmp_fr:      'Politique \u00e9conomique et march\u00e9 du travail',
     branch_elmp_acronym: 'ELMP',
     //branch_elmp_changed: true,
 
@@ -117,7 +117,7 @@ const NAME_REGISTRY = {
     unit_ewps_acronym:   '',
     //unit_ewps_changed:   true,
 
-    // ── Branch: Service Innovation Branch ────────────────────
+    // \u2500\u2500 Branch: Service Innovation Branch \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     branch_sib_en:       'Service Innovation Branch',
     branch_sib_fr:       'Services et innovation',
     branch_sib_acronym:  'SIB',
@@ -136,7 +136,7 @@ const NAME_REGISTRY = {
 
 };
 
-// ── Resolver ─────────────────────────────────────────────────
+// \u2500\u2500 Resolver \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 // Runs automatically when this file is loaded. Finds every
 // [data-wdt-name] span and replaces its text with the current
 // registry value. Empty values are ignored so fallback text

@@ -14,7 +14,7 @@
     var d   = now.getDate();
     var todayStr = y + '-' + pad(m) + '-' + pad(d);
 
-    // First Monday of June → National Public Service Week (Mon\u2013Sun)
+    // First Monday of June \u2192 National Public Service Week (Mon\u2013Sun)
     var ns = new Date(y, 5, 1);
     while (ns.getDay() !== 1) ns.setDate(ns.getDate() + 1);
     var ne = new Date(ns);
@@ -41,7 +41,7 @@
 
     var key = getKey();
 
-    // ── Theme configuration ────────────────────────────────────────────────────
+    // \u2500\u2500 Theme configuration \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     // borderGradient: CSS gradient for the 4px top border on the nav header.
     // icon: emoji fallback used when iconSrc is absent.
     // iconSrc: path to an image asset used instead of the emoji (optional).
@@ -49,69 +49,69 @@
     var CONFIGS = {
         'remembrance': {
             iconSrc:        'logos/seasonal/poppy-icon.png',
-            icon:           '🌹',
+            icon:           '\u1f339',
             footerNote:     'We remember. Lest We Forget.',
             borderGradient: 'linear-gradient(to right, #1a0000, #7f1d1d, #dc2626, #b91c1c, #7f1d1d, #1a0000)',
             noteColor:      'rgba(255, 190, 190, 0.85)',
         },
         'canada-day': {
-            icon:           '🍁',
-            footerNote:     'Happy Canada Day! 🍁',
+            icon:           '\u1f341',
+            footerNote:     'Happy Canada Day! \u1f341',
             borderGradient: 'linear-gradient(to right, #dc2626, #dc2626 30%, #ffffff 45%, #ffffff 55%, #dc2626 70%, #dc2626)',
             noteColor:      'rgba(255, 200, 200, 0.85)',
         },
         'valentine': {
-            icon:           '♥',
-            footerNote:     "Happy Valentine's Day! ♥",
+            icon:           '\u2665',
+            footerNote:     "Happy Valentine's Day! \u2665",
             borderGradient: 'linear-gradient(to right, #fce7f3, #ec4899, #f43f5e, #ec4899, #fce7f3)',
             noteColor:      'rgba(255, 190, 220, 0.85)',
         },
         'npsw': {
-            icon:           '🍁',
-            footerNote:     'Happy National Public Service Week \u2014 thank you for your service! 🍁',
+            icon:           '\u1f341',
+            footerNote:     'Happy National Public Service Week \u2014 thank you for your service! \u1f341',
             borderGradient: 'linear-gradient(to right, #dc2626, #1d4ed8, #e0f2fe, #1d4ed8, #dc2626)',
             noteColor:      'rgba(190, 220, 255, 0.85)',
         },
         'halloween': {
-            icon:           '🎃',
-            footerNote:     'Happy Halloween! 🎃',
+            icon:           '\u1f383',
+            footerNote:     'Happy Halloween! \u1f383',
             borderGradient: 'linear-gradient(to right, #431407, #c2410c, #f97316, #7c3aed, #6d28d9, #4c1d95)',
             noteColor:      'rgba(255, 210, 180, 0.85)',
         },
         'cwdm': {
             iconSrc:        'logos/seasonal/cwdm-icon.png',
-            icon:           '🎯',
+            icon:           '\u1f3af',
             footerNote:     'November is Career & Workforce Development Month',
             borderGradient: 'linear-gradient(to right, #4c1d95, #7c3aed, #059669, #10b981, #7c3aed, #4c1d95)',
             noteColor:      'rgba(220, 200, 255, 0.85)',
         },
         'christmas': {
-            icon:           '❄️',
-            footerNote:     'Happy Holidays from WDT! ❄️',
+            icon:           '\u2744\ufe0f',
+            footerNote:     'Happy Holidays from WDT! \u2744\ufe0f',
             borderGradient: 'repeating-linear-gradient(45deg, #dc2626 0px, #dc2626 8px, #ffffff 8px, #ffffff 16px)',
             noteColor:      'rgba(190, 240, 210, 0.85)',
         },
         'newyear': {
-            icon:           '🎉',
-            footerNote:     'Happy New Year from WDT! 🎉',
+            icon:           '\u1f389',
+            footerNote:     'Happy New Year from WDT! \u1f389',
             borderGradient: 'linear-gradient(to right, #78350f, #d97706, #fbbf24, #fef9c3, #fbbf24, #d97706, #78350f)',
             noteColor:      'rgba(255, 235, 180, 0.85)',
         },
         'fall': {
-            icon:           '🍂',
-            footerNote:     'Happy Fall Season! 🍂',
+            icon:           '\u1f342',
+            footerNote:     'Happy Fall Season! \u1f342',
             borderGradient: 'linear-gradient(to right, #7c2d12, #c2410c, #d97706, #f59e0b, #b45309, #7c2d12)',
             noteColor:      'rgba(255, 225, 180, 0.85)',
         },
         'spring': {
-            icon:           '🌸',
-            footerNote:     'Happy Spring! 🌸',
+            icon:           '\u1f338',
+            footerNote:     'Happy Spring! \u1f338',
             borderGradient: 'linear-gradient(to right, #fce7f3, #ec4899, #bbf7d0, #10b981, #bbf7d0, #ec4899, #fce7f3)',
             noteColor:      'rgba(190, 245, 220, 0.85)',
         },
         'summer': {
-            icon:           '☀️',
-            footerNote:     'Happy Summer! ☀️',
+            icon:           '\u2600\ufe0f',
+            footerNote:     'Happy Summer! \u2600\ufe0f',
             borderGradient: 'linear-gradient(to right, #0284c7, #38bdf8, #fef9c3, #fbbf24, #f59e0b, #0284c7)',
             noteColor:      'rgba(255, 240, 190, 0.85)',
         },
@@ -125,7 +125,7 @@
     var cfg = CONFIGS[key];
     if (!cfg) return;
 
-    // ── Inject CSS ─────────────────────────────────────────────────────────────
+    // \u2500\u2500 Inject CSS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     var css =
         // Gradient top border on the nav header
         'html.wdt-theme-' + key + ' .main-header {' +
@@ -176,7 +176,7 @@
     // Apply class to <html> immediately so CSS takes effect before first paint
     document.documentElement.classList.add('wdt-theme-' + key);
 
-    // ── DOM decorator ──────────────────────────────────────────────────────────
+    // \u2500\u2500 DOM decorator \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     // Called by nav-footer-loader.js after nav/footer templates are rendered.
     window._wdtSeasonalDecorate = function () {
         // Logo icon \u2014 use image badge for themes that have one, otherwise emoji

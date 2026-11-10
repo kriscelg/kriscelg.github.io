@@ -9,7 +9,7 @@ const CHATBOT_ENABLED = true;
 
 const CHATBOT_FAQS = [
 
-    // ── ICM ─────────────────────────────────────────────────
+    // \u2500\u2500 ICM \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     {
         question: "How do I reset my ICM password?",
         keywords: ["reset", "password", "icm", "forgot", "locked", "unlock", "login"],
@@ -24,7 +24,7 @@ const CHATBOT_FAQS = [
         followUp: ["How do I reset my ICM password?", "How do I fix a data entry error in ICM?"]
     },
 
-    // ── System Access Requests ────────────────────────────────
+    // \u2500\u2500 System Access Requests \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     {
         question: "How do I request new employee access to a WDT system?",
         keywords: ["new", "access", "employee", "account", "onboard", "hire", "eibis", "crc", "criminal"],
@@ -38,7 +38,7 @@ const CHATBOT_FAQS = [
         followUp: ["How do I request new employee access to a WDT system?", "How long does OSU take to respond?"]
     },
 
-    // ── ICM \u2014 Case Management ─────────────────────────────────
+    // \u2500\u2500 ICM \u2014 Case Management \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     
     //Enter link here - for Request to Add/Change Vendor (Finance document)
     {
@@ -70,7 +70,7 @@ const CHATBOT_FAQS = [
     },
 
 
-    // ── AMT+ ──────────────────────────────────────────────────
+    // \u2500\u2500 AMT+ \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     {
         question: "I have an AMT+ error or my employee information is wrong",
         keywords: ["amt", "amt+", "employee", "number", "pending", "draft", "error", "position"],
@@ -78,7 +78,7 @@ const CHATBOT_FAQS = [
         followUp: ["How do I fix a data entry error in ICM?"]
     },
 
-    // ── SPRS ─────────────────────────────────────────────────
+    // \u2500\u2500 SPRS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     {
         question: "How do I update SPRS information for a service provider?",
         keywords: ["sprs", "update", "service", "provider", "email", "address", "date", "incorrect"],
@@ -86,7 +86,7 @@ const CHATBOT_FAQS = [
         followUp: ["How do I fix a data entry error in ICM?", "How long does OSU take to respond?"]
     },
 
-    // ── Email Distribution Lists ──────────────────────────────
+    // \u2500\u2500 Email Distribution Lists \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     {
         question: "How do I add or remove someone from an email distribution list?",
         keywords: ["email", "distribution", "list", "add", "remove", "group", "wpg", "bra"],
@@ -94,7 +94,7 @@ const CHATBOT_FAQS = [
         followUp: ["How long does OSU take to respond?"]
     },
 
-    // ── Documents & Content ───────────────────────────────────
+    // \u2500\u2500 Documents & Content \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     {
         question: "How do I request a new document or update an existing one?",
         keywords: ["request", "document", "webpage", "update", "new", "content", "intranet", "page", "translation", "french"],
@@ -102,7 +102,7 @@ const CHATBOT_FAQS = [
         followUp: ["Where can I find job aids?", "Where can I find policy documents?"]
     },
 
-    // ── Finance / DFSA ────────────────────────────────────────
+    // \u2500\u2500 Finance / DFSA \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     {
         question: "How do I request a DFSA limit update?",
         keywords: ["dfsa", "limit", "client", "provider", "finance", "accountability", "update", "osu"],
@@ -110,7 +110,7 @@ const CHATBOT_FAQS = [
         followUp: ["How long does OSU take to respond?"]
     },
 
-    // ── Delete a case note ────────────────────────────────────────────────
+    // \u2500\u2500 Delete a case note \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     {
         question: "How do I delete a case note in ICM or SPRS?",
         keywords: ["delete", "remove", "case", "note", "icm", "sprs", "wrong", "mistake"],
@@ -118,7 +118,7 @@ const CHATBOT_FAQS = [
         followUp: ["How do I fix a data entry error in ICM?", "How do I reopen a closed ICM file?"]
     },
 
-    // ── Communications (Bulletins / Newsletter / Social Media) ───────────
+    // \u2500\u2500 Communications (Bulletins / Newsletter / Social Media) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     {
         question: "How do I request a WDT Bulletin, TES Newsletter, or social media post?",
         keywords: ["bulletin", "newsletter", "social", "media", "communicate", "announcement", "announce", "post", "tes"],
@@ -126,7 +126,7 @@ const CHATBOT_FAQS = [
         followUp: ["How do I request a new document or update an existing one?"]
     },
 
-    // ── OSU response time ─────────────────────────────────────────────────
+    // \u2500\u2500 OSU response time \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     {
         question: "How long does OSU take to respond?",
         keywords: ["osu", "response", "time", "long", "days", "turnaround", "business", "hear", "back"],
@@ -134,7 +134,7 @@ const CHATBOT_FAQS = [
         followUp: ["How do I request a new document or update an existing one?", "How do I add a non-contracted service or service provider to ICM?"]
     },
 
-    // ── DTS / Software / Hardware redirect ───────────────────────────────
+    // \u2500\u2500 DTS / Software / Hardware redirect \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     {
         question: "Who do I contact for software, hardware, or DTS issues?",
         keywords: ["software", "hardware", "dts", "teams", "adobe", "digital", "technology", "outlook", "internet", "connection", "address"],
@@ -142,7 +142,7 @@ const CHATBOT_FAQS = [
         followUp: ["How long does OSU take to respond?"]
     },
 
-    // ── Manitoba Student Aid / SFAIS redirect ─────────────────────────────
+    // \u2500\u2500 Manitoba Student Aid / SFAIS redirect \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     {
         question: "Who do I contact for Manitoba Student Aid or SFAIS?",
         keywords: ["sfais", "student", "aid", "loan"],
@@ -150,7 +150,7 @@ const CHATBOT_FAQS = [
         followUp: ["How long does OSU take to respond?"]
     },
 
-    // ── Site Navigation ───────────────────────────────────────────────────
+    // \u2500\u2500 Site Navigation \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     {
         question: "Where do I find all documents?",
         keywords: ["documents", "all", "find", "where", "hub", "library"],

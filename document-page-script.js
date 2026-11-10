@@ -18,7 +18,7 @@
     let currentPage = 1;
     const PAGE_SIZE = 25;
 
-    // ── Helpers ────────────────────────────────────────────────────────────────
+    // \u2500\u2500 Helpers \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
     function encodeFilePath(filePath) {
         return filePath.split('/').map(part => encodeURIComponent(part)).join('/');
@@ -60,7 +60,7 @@
         return icons[fileType] || icons[fileType.toUpperCase()] || 'fa-file';
     }
 
-    // ── Render ─────────────────────────────────────────────────────────────────
+    // \u2500\u2500 Render \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
     function renderDocuments(docs) {
         const container = document.getElementById('documents-list');
@@ -145,7 +145,7 @@
         document.getElementById('documents-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // ── Tag filters ────────────────────────────────────────────────────────────
+    // \u2500\u2500 Tag filters \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
     function countTagDocuments(tag) {
         return documents.filter(doc => doc.tags && doc.tags.includes(tag)).length;
@@ -237,7 +237,7 @@
         updateActiveFilters();
     };
 
-    // ── Search / filter ────────────────────────────────────────────────────────
+    // \u2500\u2500 Search / filter \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
     function filterDocuments() {
         currentPage = 1;
@@ -265,7 +265,7 @@
         }
     }
 
-    // ── Event listeners ────────────────────────────────────────────────────────
+    // \u2500\u2500 Event listeners \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
     const searchInput = document.getElementById('documentSearch');
     const clearSearchBtn = document.getElementById('clearSearch');
@@ -290,7 +290,7 @@
         updateActiveFilters();
     });
 
-    // ── Init ───────────────────────────────────────────────────────────────────
+    // \u2500\u2500 Init \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
     generateTagFilters();
     renderDocuments(documents);

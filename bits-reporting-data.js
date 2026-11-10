@@ -6,7 +6,7 @@
  * Add Power BI dashboards and reporting documents here.
  * This file is only loaded on bits-reporting.html.
  *
- * ── DASHBOARDS ──────────────────────────────────────────────
+ * \u2500\u2500 DASHBOARDS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
  *
  *   title              Dashboard name shown on the page
  *   description        Short description, e.g. "Updated Monthly"
@@ -22,7 +22,7 @@
  *       icon           Font Awesome icon: 'fa-file-pdf', 'fa-file-word',
  *                      'fa-file-excel', 'fa-file-powerpoint'
  *
- * ── REPORTING DOCUMENTS ─────────────────────────────────────
+ * \u2500\u2500 REPORTING DOCUMENTS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
  *
  *   category           Section heading, e.g. "BITS Annual Reports"
  *   icon               Font Awesome icon for the section header
@@ -36,7 +36,7 @@
 
 const BITS_POWERBI_DASHBOARDS = [
 
-    // ── ADD DASHBOARDS BELOW ───────────────────────────────────
+    // \u2500\u2500 ADD DASHBOARDS BELOW \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
     // {
     //     title: "BITS Overview Dashboard",
@@ -53,7 +53,7 @@ const BITS_POWERBI_DASHBOARDS = [
 
 const BITS_REPORTING_DOCUMENTS = [
 
-    // ── ADD REPORT CATEGORIES BELOW ───────────────────────────
+    // \u2500\u2500 ADD REPORT CATEGORIES BELOW \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
     // {
     //     category: "BITS Annual Reports",
