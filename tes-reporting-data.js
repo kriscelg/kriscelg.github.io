@@ -11,7 +11,7 @@
  *   description        Short description, e.g. "Updated Weekly"
  *   embedUrl           Power BI embed URL (reportEmbed link)
  *   powerBiUrl         Direct Power BI share link (opens in new tab)
- *   lastRefreshed      YYYY-MM-DD — leave '' to hide
+ *   lastRefreshed      YYYY-MM-DD \u2014 leave '' to hide
  *   supportingDocuments
  *       title          File display name
  *       url            Path to the file

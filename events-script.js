@@ -190,7 +190,7 @@ function showEventsForDate(date, dateStr) {
             <div class="event-item${event.isHoliday ? ' holiday-item' : ''}">
                 <h4>${event.title}</h4>
                 ${event.endDate
-                    ? `<div class="event-time"><i class="fas fa-calendar-week"></i> ${formatDisplayDate(event.date)} – ${formatDisplayDate(event.endDate)}</div>`
+                    ? `<div class="event-time"><i class="fas fa-calendar-week"></i> ${formatDisplayDate(event.date)} \u2013 ${formatDisplayDate(event.endDate)}</div>`
                     : event.isHoliday
                         ? `<span class="holiday-badge"><i class="fas fa-landmark"></i> Public Holiday</span>`
                         : event.time

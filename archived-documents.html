@@ -121,7 +121,7 @@
             <p>
                 You are about to open <strong id="ackDocTitle"></strong>.<br><br>
                 This document has been <strong>archived and is no longer current</strong>.
-                It should only be used to support existing funded clients or file audits —
+                It should only be used to support existing funded clients or file audits &mdash;
                 not to guide new work or current decisions.
             </p>
             <div class="archive-modal-actions">
@@ -178,7 +178,7 @@
 
     function formatDate(ds) {
         if (!ds) return '';
-        if (!ds.includes('-')) return ds; // fiscal year string — show as-is
+        if (!ds.includes('-')) return ds; // fiscal year string &mdash; show as-is
         const [y, m, d] = ds.split('-').map(Number);
         if (!y) return ds;
         return new Date(y, m - 1, d).toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -265,7 +265,7 @@
             const catIcon  = CATEGORY_ICONS[d.category] || 'fa-file-alt';
 
             const activePeriod = [d.activeFrom, d.activeUntil].filter(Boolean)
-                .map(formatDate).join(' – ');
+                .map(formatDate).join(' &ndash; ');
 
             const supersededHtml = d.supersededBy
                 ? `<a href="${escHtml(d.supersededBy)}" class="archive-superseded-link" target="_blank" rel="noopener noreferrer">

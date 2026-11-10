@@ -9,7 +9,7 @@
 // Format date for display (e.g., "Nov 22, 2025")
 function formatDate(dateStr) {
     if (!dateStr) return '';
-    // Parse parts manually — avoids UTC-vs-local ambiguity that shifts dates by one day
+    // Parse parts manually \u2014 avoids UTC-vs-local ambiguity that shifts dates by one day
     const parts = dateStr.split('-').map(Number);
     if (parts.length !== 3 || parts.some(isNaN)) return '';
     const date = new Date(parts[0], parts[1] - 1, parts[2]);

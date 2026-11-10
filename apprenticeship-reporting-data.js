@@ -14,7 +14,7 @@
  *                      Leave '' to hide the iframe
  *   powerBiUrl         Direct Power BI share link (opens in new tab)
  *                      Leave '' to hide the "Open in Power BI" button
- *   lastRefreshed      Date data was last refreshed — YYYY-MM-DD
+ *   lastRefreshed      Date data was last refreshed \u2014 YYYY-MM-DD
  *                      Leave '' to hide the refresh date
  *   supportingDocuments  Array of related files shown below the dashboard
  *       title          File display name

@@ -6,9 +6,9 @@
 //  heading        → large heading on the maintenance page
 //  message        → main explanation paragraph
 //  detail         → second paragraph (extra context / apology)
-//  expectedReturn → optional — shown with a clock icon. Leave '' to hide.
-//  contactName    → optional — name of the person staff can contact
-//  contactEmail   → optional — their email address
+//  expectedReturn → optional \u2014 shown with a clock icon. Leave '' to hide.
+//  contactName    → optional \u2014 name of the person staff can contact
+//  contactEmail   → optional \u2014 their email address
 //
 //  NOTE: admin.html is never redirected so you can always toggle this off.
 //

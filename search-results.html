@@ -203,7 +203,7 @@
             <!-- No results -->
             <div class="no-results-container" id="noResults" style="display: none;">
                 <i class="fas fa-search" style="font-size: 35px; margin-right: 12px"></i>
-                <h3>No results found — try different keywords or browse by category</h3>
+                <h3>No results found &mdash; try different keywords or browse by category</h3>
             </div>
         </div>
     </main>
@@ -240,7 +240,7 @@
 
     <script>
     // ================================================================
-    // CONTENT INDEX — pools all data sources into one flat array
+    // CONTENT INDEX &mdash; pools all data sources into one flat array
     // ================================================================
 
     const TYPE_CONFIG = {
@@ -328,7 +328,7 @@
             openNewTab: !!m.pdfFile,
         }));
 
-        // ---- Events — deduplicate by title, showing current/upcoming occurrence ----
+        // ---- Events &mdash; deduplicate by title, showing current/upcoming occurrence ----
         const todayStr = new Date().toISOString().slice(0, 10);
         const rawEvents = typeof EVENTS !== 'undefined' ? EVENTS : [];
         const eventsByTitle = {};
@@ -627,7 +627,7 @@
 
     function formatDate(ds) {
         if (!ds) return '';
-        // Parse parts manually — avoids UTC-vs-local ambiguity that shifts dates by one day
+        // Parse parts manually &mdash; avoids UTC-vs-local ambiguity that shifts dates by one day
         const parts = ds.split('-').map(Number);
         if (parts.length !== 3 || parts.some(isNaN)) return '';
         const d = new Date(parts[0], parts[1] - 1, parts[2]);
@@ -731,7 +731,7 @@
         const start = (srPage - 1) * SR_PAGE_SIZE + 1;
         const end = Math.min(srPage * SR_PAGE_SIZE, total);
         pager.innerHTML = `
-            <div class="pagination-info">Showing ${start}–${end} of ${total} results</div>
+            <div class="pagination-info">Showing ${start}&ndash;${end} of ${total} results</div>
             <div class="pagination-controls">
                 <button class="pagination-btn" id="srPrevPage" ${srPage === 1 ? 'disabled' : ''}>
                     <i class="fas fa-chevron-left"></i> Previous

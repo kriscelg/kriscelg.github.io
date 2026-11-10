@@ -1,5 +1,5 @@
 /**
- * seasonal.js — WDT Intranet seasonal theme engine
+ * seasonal.js \u2014 WDT Intranet seasonal theme engine
  * Loaded dynamically by nav-footer-loader.js. Self-contained: injects its own
  * CSS and registers a decorator that nav-footer-loader calls after templates render.
  */
@@ -10,11 +10,11 @@
 
     var now = new Date();
     var y   = now.getFullYear();
-    var m   = now.getMonth() + 1;   // 1–12
+    var m   = now.getMonth() + 1;   // 1\u201312
     var d   = now.getDate();
     var todayStr = y + '-' + pad(m) + '-' + pad(d);
 
-    // First Monday of June → National Public Service Week (Mon–Sun)
+    // First Monday of June → National Public Service Week (Mon\u2013Sun)
     var ns = new Date(y, 5, 1);
     while (ns.getDay() !== 1) ns.setDate(ns.getDate() + 1);
     var ne = new Date(ns);
@@ -31,11 +31,11 @@
         if (inNPSW)                                                       return 'npsw';
         if (m === 10 && d >= 24)                                         return 'halloween';
         if (m === 11 && ((d >= 1 && d <= 9) || d >= 12))               return 'cwdm';
-        if (m === 12 && d >= 20 && d <= 26)                             return 'christmas';  // Dec 20–26 (5 days before Christmas + Boxing Day)
+        if (m === 12 && d >= 20 && d <= 26)                             return 'christmas';  // Dec 20\u201326 (5 days before Christmas + Boxing Day)
         if ((m === 12 && d >= 27) || (m === 1 && d <= 2))              return 'newyear';
-        if (m === 9  && d >= 22 && d <= 26)                             return 'fall';       // Sept 22–26 (autumnal equinox + 4 days)
-        if (m === 3  && d >= 20 && d <= 24)                             return 'spring';     // Mar 20–24 (vernal equinox + 4 days)
-        if (m === 6  && d >= 21 && d <= 25)                             return 'summer';     // Jun 21–25 (summer solstice + 4 days)
+        if (m === 9  && d >= 22 && d <= 26)                             return 'fall';       // Sept 22\u201326 (autumnal equinox + 4 days)
+        if (m === 3  && d >= 20 && d <= 24)                             return 'spring';     // Mar 20\u201324 (vernal equinox + 4 days)
+        if (m === 6  && d >= 21 && d <= 25)                             return 'summer';     // Jun 21\u201325 (summer solstice + 4 days)
         return null;
     }
 
@@ -68,7 +68,7 @@
         },
         'npsw': {
             icon:           '🍁',
-            footerNote:     'Happy National Public Service Week — thank you for your service! 🍁',
+            footerNote:     'Happy National Public Service Week \u2014 thank you for your service! 🍁',
             borderGradient: 'linear-gradient(to right, #dc2626, #1d4ed8, #e0f2fe, #1d4ed8, #dc2626)',
             noteColor:      'rgba(190, 220, 255, 0.85)',
         },
@@ -144,7 +144,7 @@
             'display: inline-block;' +
         '}' +
 
-        // Image icon — small circular badge so the white bg doesn't clash with the dark header
+        // Image icon \u2014 small circular badge so the white bg doesn't clash with the dark header
         '.seasonal-icon-img {' +
             'height: 28px;' +
             'width: 28px;' +
@@ -179,7 +179,7 @@
     // ── DOM decorator ──────────────────────────────────────────────────────────
     // Called by nav-footer-loader.js after nav/footer templates are rendered.
     window._wdtSeasonalDecorate = function () {
-        // Logo icon — use image badge for themes that have one, otherwise emoji
+        // Logo icon \u2014 use image badge for themes that have one, otherwise emoji
         var logo = document.querySelector('.logo');
         if (logo && !logo.querySelector('.seasonal-icon, .seasonal-icon-img')) {
             if (cfg.iconSrc) {
@@ -198,7 +198,7 @@
             }
         }
 
-        // Footer seasonal note — inserted as first child of .footer-bottom
+        // Footer seasonal note \u2014 inserted as first child of .footer-bottom
         var footerBottom = document.querySelector('.footer-bottom');
         if (footerBottom && !footerBottom.querySelector('.seasonal-footer-note')) {
             var noteEl = document.createElement('div');

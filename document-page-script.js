@@ -124,7 +124,7 @@
         const start = (currentPage - 1) * PAGE_SIZE + 1;
         const end = Math.min(currentPage * PAGE_SIZE, total);
         pager.innerHTML = `
-            <div class="pagination-info">Showing ${start}–${end} of ${total} documents</div>
+            <div class="pagination-info">Showing ${start}\u2013${end} of ${total} documents</div>
             <div class="pagination-controls">
                 <button class="pagination-btn" id="prevPage" ${currentPage === 1 ? 'disabled' : ''}>
                     <i class="fas fa-chevron-left"></i> Previous

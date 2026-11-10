@@ -16,7 +16,7 @@
  *   fails to load. Keep it up to date when you change a value
  *   here so it stays accurate as a fallback.
  *
- * LEAVE EMPTY STRINGS for values you don't have yet — they
+ * LEAVE EMPTY STRINGS for values you don't have yet \u2014 they
  * will not overwrite fallback text in the span.
  */
 

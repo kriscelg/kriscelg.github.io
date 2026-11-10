@@ -350,7 +350,7 @@ const FOOTER_TEMPLATE = `
             (typeof MEMOS !== 'undefined' ? MEMOS : []).forEach(m =>
                 push(m.title, m.pdfFile ? ep(m.pdfFile) : 'memos.html', 'Memo', 'ic-memo', 'fa-envelope', m.tags));
 
-            // Events — deduplicate recurring events (e.g. holidays) by title,
+            // Events \u2014 deduplicate recurring events (e.g. holidays) by title,
             // showing the current year's occurrence or next year's if already past.
             if (typeof EVENTS !== 'undefined') {
                 const todayStr = new Date().toISOString().slice(0, 10);

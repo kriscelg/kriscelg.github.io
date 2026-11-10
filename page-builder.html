@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Builder — WDT Intranet</title>
+    <title>Page Builder &mdash; WDT Intranet</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -603,7 +603,7 @@ function buildForm(b, container) {
             const sel = document.createElement('select');
             (f.options || []).forEach(opt => {
                 const o = document.createElement('option');
-                o.value = opt; o.textContent = opt || '— none —';
+                o.value = opt; o.textContent = opt || '&mdash; none &mdash;';
                 if (b[f.key] === opt) o.selected = true;
                 sel.appendChild(o);
             });
@@ -957,7 +957,7 @@ function parseInline(text) {
     let s = escHtml(text);
     // **bold**
     s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    // [text](url){new} — new tab
+    // [text](url){new} &mdash; new tab
     s = s.replace(/\[([^\]]+)\]\(([^)]+)\)\{new\}/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
     // [text](url)
     s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
@@ -1059,9 +1059,9 @@ function buildBodyHtml(contentBlocks) {
     let html = '';
     let sectionOpen = false;
     let subsectionOpen = false;
-    const i0 = '                ';    // 16 sp — inside article
-    const i1 = '                    '; // 20 sp — inside section
-    const i2 = '                        '; // 24 sp — inside subsection div
+    const i0 = '                ';    // 16 sp &mdash; inside article
+    const i1 = '                    '; // 20 sp &mdash; inside section
+    const i2 = '                        '; // 24 sp &mdash; inside subsection div
 
     contentBlocks.forEach(b => {
         if (b._type === 'section') {
@@ -1168,7 +1168,7 @@ function refreshPreview(immediate) {
         const win = iframe.contentWindow;
         const scrollY = win?.scrollY || 0;
         const html = generateHTML(true);
-        // Write content in-place — no blank flash, no load-event race conditions
+        // Write content in-place &mdash; no blank flash, no load-event race conditions
         try {
             const doc = iframe.contentDocument || win.document;
             doc.open();
