@@ -29,49 +29,21 @@
         return 'fa-file-alt';
     }
 
-    /* ── Auto-thumbnail for MP4 files ── */
-    function generateThumbnail(videoUrl, imgEl) {
-        var video   = document.createElement('video');
-        var canvas  = document.createElement('canvas');
-        video.muted      = true;
-        video.crossOrigin = 'anonymous';
-        video.preload    = 'metadata';
-        video.src        = videoUrl;
-
-        video.addEventListener('loadedmetadata', function () {
-            video.currentTime = Math.min(3, video.duration * 0.1);
-        });
-        video.addEventListener('seeked', function () {
-            canvas.width  = video.videoWidth  || 640;
-            canvas.height = video.videoHeight || 360;
-            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-            try {
-                imgEl.src = canvas.toDataURL('image/jpeg', 0.85);
-                imgEl.style.display = 'block';
-                var ph = imgEl.parentNode.querySelector('.session-thumb-placeholder');
-                if (ph) ph.style.display = 'none';
-            } catch (e) { /* CORS or empty frame — keep placeholder */ }
-            video.src = '';
-        });
-        video.addEventListener('error', function () { video.src = ''; });
-        video.load();
-    }
-
     /* ── Render a single card ── */
     function renderCard(s) {
         var hasVideo = s.videoUrl && s.videoUrl.trim() !== '';
-        var isLink   = s.videoType !== 'mp4';
+        var isMp4    = s.videoType === 'mp4';
 
-        /* Thumbnail area */
+        /* Thumbnail area — MP4: native <video #t=3> frame; link: placeholder */
         var watchAttr = hasVideo
             ? 'href="' + s.videoUrl + '" target="_blank" rel="noopener noreferrer"'
             : '';
-        var thumbInner =
-            '<img class="gs-thumb-img" data-session-id="' + s.id + '" style="display:none;" alt="">' +
-            '<div class="session-thumb-placeholder">' +
-                '<i class="fas ' + (hasVideo ? 'fa-video' : 'fa-clock') + '"></i>' +
-                (hasVideo ? 'Teams Recording' : 'Recording Pending') +
-            '</div>';
+        var thumbInner = isMp4 && hasVideo
+            ? '<video class="gs-thumb-video" src="' + s.videoUrl + '#t=3" preload="metadata" muted playsinline></video>'
+            : '<div class="session-thumb-placeholder">' +
+                  '<i class="fas ' + (hasVideo ? 'fa-video' : 'fa-clock') + '"></i>' +
+                  (hasVideo ? 'Teams Recording' : 'Recording Pending') +
+              '</div>';
         var watchOverlay = hasVideo
             ? '<a class="session-thumb-watch" ' + watchAttr + ' title="Watch recording">' +
                   '<div class="play-circle"><i class="fas fa-play"></i></div>' +
@@ -155,14 +127,6 @@
         }
 
         grid.innerHTML = filtered.map(renderCard).join('');
-
-        /* Generate thumbnails for MP4 sessions */
-        filtered.forEach(function (s) {
-            if (s.videoType === 'mp4' && s.videoUrl && s.videoUrl.trim() !== '') {
-                var imgEl = grid.querySelector('.gs-thumb-img[data-session-id="' + s.id + '"]');
-                if (imgEl) generateThumbnail(s.videoUrl, imgEl);
-            }
-        });
     }
 
     /* ── Year filter population ── */
