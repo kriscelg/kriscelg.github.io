@@ -40,10 +40,12 @@
         var hasThumbnail = s.thumbnail && s.thumbnail.trim() !== '';
         var thumbInner = hasThumbnail
             ? '<img src="' + s.thumbnail + '" alt="' + s.title + '">'
-            : '<div class="session-thumb-placeholder">' +
-                  '<i class="fas ' + (hasVideo ? 'fa-video' : 'fa-clock') + '"></i>' +
-                  (hasVideo ? 'Recording Available' : 'Recording Pending') +
-              '</div>';
+            : (isMp4 && hasVideo
+                ? '<video class="gs-thumb-video" data-src="' + s.videoUrl + '" muted playsinline preload="metadata"></video>'
+                : '<div class="session-thumb-placeholder">' +
+                      '<i class="fas ' + (hasVideo ? 'fa-video' : 'fa-clock') + '"></i>' +
+                      (hasVideo ? 'Recording Available' : 'Recording Pending') +
+                  '</div>');
         var watchOverlay = hasVideo
             ? '<a class="session-thumb-watch" ' + watchAttr + ' title="Watch recording">' +
                   '<div class="play-circle"><i class="fas fa-play"></i></div>' +
@@ -127,6 +129,14 @@
         }
 
         grid.innerHTML = filtered.map(renderCard).join('');
+
+        grid.querySelectorAll('.gs-thumb-video[data-src]').forEach(function (v) {
+            v.src = v.getAttribute('data-src');
+            v.addEventListener('loadedmetadata', function () {
+                v.currentTime = Math.min(3, v.duration * 0.1 || 0);
+            });
+            v.load();
+        });
     }
 
     /* ── Year filter population ── */
