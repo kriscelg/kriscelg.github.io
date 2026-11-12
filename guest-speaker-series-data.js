@@ -4,11 +4,11 @@
  * HOW TO ADD A NEW SESSION:
  *   Copy one entry block, paste it inside the array, and fill in the fields.
  *
- * videoUrl  : Teams / SharePoint recording link, OR path to an .mp4 file on the server.
+ * videoUrl  : Path to the .mp4 file on the server (e.g. 'documents/videos/recording.mp4').
  *             Leave as '' if the recording is not yet available.
- * videoType : 'link' for a Teams/SharePoint URL  |  'mp4' for a file on the server
  *
- * thumbnail : Path to a screenshot/image for the card thumbnail (e.g. 'documents/videos/thumb.jpg').
+ * thumbnail : Path to a screenshot/image to use instead of the auto-generated thumbnail.
+ *             Leave as '' to auto-generate from the video.
  *             Take a screenshot from the video, upload it via WinSCP, paste the path here.
  *             Leave as '' to show the default teal placeholder.
  *
@@ -24,7 +24,6 @@ var GUEST_SPEAKERS = [
         date: '2024-10-15',
         description: 'An overview of modern approaches to case management in employment services, including best practices for client engagement and outcome tracking.',
         videoUrl: '',
-        videoType: 'link',
         thumbnail: '',
         files: [
             { name: 'Presentation Slides', path: '' },

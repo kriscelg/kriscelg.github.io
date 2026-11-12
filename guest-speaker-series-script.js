@@ -32,7 +32,6 @@
     /* ── Render a single card ── */
     function renderCard(s) {
         var hasVideo = s.videoUrl && s.videoUrl.trim() !== '';
-        var isMp4    = s.videoType === 'mp4';
 
         var watchAttr = hasVideo
             ? 'href="' + s.videoUrl + '" target="_blank" rel="noopener noreferrer"'
@@ -40,11 +39,10 @@
         var hasThumbnail = s.thumbnail && s.thumbnail.trim() !== '';
         var thumbInner = hasThumbnail
             ? '<img src="' + s.thumbnail + '" alt="' + s.title + '">'
-            : (isMp4 && hasVideo
+            : (hasVideo
                 ? '<video class="gs-thumb-video" data-src="' + s.videoUrl + '" muted playsinline preload="metadata"></video>'
                 : '<div class="session-thumb-placeholder">' +
-                      '<i class="fas ' + (hasVideo ? 'fa-video' : 'fa-clock') + '"></i>' +
-                      (hasVideo ? 'Recording Available' : 'Recording Pending') +
+                      '<i class="fas fa-clock"></i>Recording Pending' +
                   '</div>');
         var watchOverlay = hasVideo
             ? '<a class="session-thumb-watch" ' + watchAttr + ' title="Watch recording">' +
