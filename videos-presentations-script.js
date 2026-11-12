@@ -259,7 +259,9 @@ function createVideoCard(video) {
 
     const thumbnailHtml = encodedThumb
         ? `<img src="${encodedThumb}" alt="${video.title}">`
-        : `<i class="fas fa-video placeholder-icon"></i>`;
+        : (video.videoFile
+            ? `<video class="vp-thumb-video" data-src="${encodedPath}" muted playsinline preload="metadata"></video>`
+            : `<i class="fas fa-video placeholder-icon"></i>`);
 
     return `
         <div class="content-card" onclick="openVideoModal(${video.id})">
@@ -384,6 +386,14 @@ function loadVideos() {
         videosGrid.style.display = 'grid';
         noVideosMessage.style.display = 'none';
         videosGrid.innerHTML = filteredVideos.map(video => createVideoCard(video)).join('');
+
+        videosGrid.querySelectorAll('.vp-thumb-video[data-src]').forEach(v => {
+            v.src = v.getAttribute('data-src');
+            v.addEventListener('loadedmetadata', function () {
+                v.currentTime = Math.min(3, v.duration * 0.1 || 0);
+            });
+            v.load();
+        });
     }
 
     return filteredVideos.length;
