@@ -37,11 +37,12 @@
         var watchAttr = hasVideo
             ? 'href="' + s.videoUrl + '" target="_blank" rel="noopener noreferrer"'
             : '';
-        var thumbInner = isMp4 && hasVideo
-            ? '<video class="gs-thumb-video" data-src="' + s.videoUrl + '" preload="metadata" muted playsinline></video>'
+        var hasThumbnail = s.thumbnail && s.thumbnail.trim() !== '';
+        var thumbInner = hasThumbnail
+            ? '<img src="' + s.thumbnail + '" alt="' + s.title + '">'
             : '<div class="session-thumb-placeholder">' +
                   '<i class="fas ' + (hasVideo ? 'fa-video' : 'fa-clock') + '"></i>' +
-                  (hasVideo ? 'Teams Recording' : 'Recording Pending') +
+                  (hasVideo ? 'Recording Available' : 'Recording Pending') +
               '</div>';
         var watchOverlay = hasVideo
             ? '<a class="session-thumb-watch" ' + watchAttr + ' title="Watch recording">' +
@@ -126,15 +127,6 @@
         }
 
         grid.innerHTML = filtered.map(renderCard).join('');
-
-        /* Seek each MP4 thumbnail to 3 seconds for a better preview frame */
-        grid.querySelectorAll('.gs-thumb-video[data-src]').forEach(function (v) {
-            v.src = v.getAttribute('data-src');
-            v.addEventListener('loadedmetadata', function () {
-                v.currentTime = Math.min(3, v.duration * 0.1 || 0);
-            });
-            v.load();
-        });
     }
 
     /* ── Year filter population ── */
