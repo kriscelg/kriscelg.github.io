@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="guest-speaker-series-styles.css">
 </head>
 <body data-page="communications">
-    <!-- Navigation loaded from nav.html -->
     <div id="nav-container"></div>
 
     <main class="main-content">
@@ -21,37 +20,35 @@
 
             <!-- Page Header -->
             <div class="page-header">
-                <div class="header-icon">
-                    <i class="fas fa-microphone-alt"></i>
+                <h1>Guest Speaker Series</h1>
+                <p>Recorded sessions and presentations from guest speakers across the division</p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-bar-container">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="gsSearch" class="search-input-gs" placeholder="Search sessions by title or description...">
+                    <button id="clearSearch" class="clear-search-btn" style="display:none;">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
-                <div class="header-text">
-                    <h1>Guest Speaker Series</h1>
-                    <p>Recorded sessions and presentations from guest speakers across the division</p>
+                <div id="sessionsCount" class="search-results-info"></div>
+            </div>
+
+            <!-- Year Filter -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="yearFilter">Fiscal Year:</label>
+                    <select id="yearFilter" class="filter-select">
+                        <option value="all">All Years</option>
+                    </select>
                 </div>
             </div>
 
-            <!-- Series Intro -->
-            <div class="series-intro">
-                <div class="series-intro-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="series-intro-text">
-                    <h2>About the Series</h2>
-                    <p>Each session pairs the full Teams recording with the accompanying presentation so you can watch, rewatch, and reference the material at your own pace. New sessions are added after each event.</p>
-                </div>
-            </div>
-
-            <!-- Controls -->
-            <div class="controls-row">
-                <p class="sessions-count">Showing <span id="sessionsCount"><strong>0</strong> sessions</span></p>
-            </div>
-
-            <!-- Sessions List -->
-            <div class="sessions-list" id="sessionsList">
-                <div class="empty-state">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <p>Loading sessions&hellip;</p>
-                </div>
+            <!-- Sessions Grid -->
+            <div class="sessions-grid" id="sessionsGrid">
+                <p class="loading-message">Loading sessions&hellip;</p>
             </div>
 
         </div>
@@ -71,7 +68,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <div id="footer-container"></div>
 
     <script src="nav-footer-loader.js"></script>

@@ -1,127 +1,223 @@
 /**
  * WDT Intranet - Guest Speaker Series Script
  */
-
 (function () {
-    var speakers = typeof GUEST_SPEAKERS !== 'undefined' ? GUEST_SPEAKERS : [];
+    var allSessions = typeof GUEST_SPEAKERS !== 'undefined' ? GUEST_SPEAKERS : [];
+    var searchQuery  = '';
+    var yearFilter   = 'all';
 
-    function formatDate(dateStr) {
-        if (!dateStr) return '';
-        var d = new Date(dateStr + 'T00:00:00');
+    /* ── Helpers ── */
+    function formatDate(str) {
+        if (!str) return '';
+        var d = new Date(str + 'T00:00:00');
         return d.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' });
     }
-
-    function initials(name) {
-        if (!name) return '?';
-        return name.split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+    function fiscalYear(str) {
+        if (!str) return null;
+        var d = new Date(str + 'T00:00:00');
+        var y = d.getFullYear();
+        var m = d.getMonth() + 1; // 1-based
+        return m >= 4 ? y + '/' + (y + 1) : (y - 1) + '/' + y;
+    }
+    function fileIcon(name) {
+        if (!name) return 'fa-file';
+        var n = name.toLowerCase();
+        if (n.endsWith('.pdf'))  return 'fa-file-pdf';
+        if (n.endsWith('.pptx') || n.endsWith('.ppt')) return 'fa-file-powerpoint';
+        if (n.endsWith('.docx') || n.endsWith('.doc')) return 'fa-file-word';
+        if (n.endsWith('.xlsx') || n.endsWith('.xls')) return 'fa-file-excel';
+        return 'fa-file-alt';
     }
 
-    function renderVideoPanel(s) {
-        var hasVideo = s.videoUrl && s.videoUrl.trim() !== '';
-        var thumbHtml = '';
+    /* ── Auto-thumbnail for MP4 files ── */
+    function generateThumbnail(videoUrl, imgEl) {
+        var video   = document.createElement('video');
+        var canvas  = document.createElement('canvas');
+        video.muted      = true;
+        video.crossOrigin = 'anonymous';
+        video.preload    = 'metadata';
+        video.src        = videoUrl;
 
-        if (s.videoThumbnail && s.videoThumbnail.trim() !== '') {
-            thumbHtml = '<img src="' + s.videoThumbnail + '" alt="' + s.title + '">';
-        } else if (s.videoType === 'mp4' && hasVideo) {
-            thumbHtml = '<video src="' + s.videoUrl + '" preload="metadata"></video>';
+        video.addEventListener('loadedmetadata', function () {
+            video.currentTime = Math.min(3, video.duration * 0.1);
+        });
+        video.addEventListener('seeked', function () {
+            canvas.width  = video.videoWidth  || 640;
+            canvas.height = video.videoHeight || 360;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            try {
+                imgEl.src = canvas.toDataURL('image/jpeg', 0.85);
+                imgEl.style.display = 'block';
+                var ph = imgEl.parentNode.querySelector('.session-thumb-placeholder');
+                if (ph) ph.style.display = 'none';
+            } catch (e) { /* CORS or empty frame — keep placeholder */ }
+            video.src = '';
+        });
+        video.addEventListener('error', function () { video.src = ''; });
+        video.load();
+    }
+
+    /* ── Render a single card ── */
+    function renderCard(s) {
+        var hasVideo = s.videoUrl && s.videoUrl.trim() !== '';
+        var isLink   = s.videoType !== 'mp4';
+
+        /* Thumbnail area */
+        var watchAttr = hasVideo
+            ? 'href="' + s.videoUrl + '" target="_blank" rel="noopener noreferrer"'
+            : '';
+        var thumbInner =
+            '<img class="gs-thumb-img" data-session-id="' + s.id + '" style="display:none;" alt="">' +
+            '<div class="session-thumb-placeholder">' +
+                '<i class="fas ' + (hasVideo ? 'fa-video' : 'fa-clock') + '"></i>' +
+                (hasVideo ? 'Teams Recording' : 'Recording Pending') +
+            '</div>';
+        var watchOverlay = hasVideo
+            ? '<a class="session-thumb-watch" ' + watchAttr + ' title="Watch recording">' +
+                  '<div class="play-circle"><i class="fas fa-play"></i></div>' +
+              '</a>'
+            : '';
+        var badge = hasVideo
+            ? '<span class="session-thumb-badge"><i class="fas fa-video"></i> Recording Available</span>'
+            : '';
+
+        /* Files */
+        var files = s.files || [];
+        var filesHtml = '';
+        if (files.length > 0) {
+            var links = files.map(function (f) {
+                var haspath = f.path && f.path.trim() !== '';
+                if (haspath) {
+                    return '<a class="session-file-link" href="' + f.path + '" target="_blank" rel="noopener noreferrer">' +
+                               '<i class="fas ' + fileIcon(f.path) + '"></i>' + f.name +
+                               ' <i class="fas fa-arrow-right" style="font-size:11px;"></i>' +
+                           '</a>';
+                }
+                return '<span class="session-file-unavailable">' +
+                           '<i class="fas ' + fileIcon(f.name) + '"></i>' + f.name + ' (coming soon)' +
+                       '</span>';
+            }).join('');
+            filesHtml =
+                '<div class="session-files">' +
+                    '<span class="session-files-label"><i class="fas fa-paperclip"></i>&nbsp; Files</span>' +
+                    links +
+                '</div>';
         } else {
-            thumbHtml =
-                '<div class="thumb-placeholder">' +
-                    '<i class="fas fa-video"></i>' +
-                    'Teams Recording' +
+            filesHtml =
+                '<div class="session-files">' +
+                    '<span class="session-file-unavailable"><i class="fas fa-clock"></i> Files coming soon</span>' +
                 '</div>';
         }
 
-        var watchBtn = hasVideo
-            ? '<a class="btn-watch" href="' + s.videoUrl + '" target="_blank" rel="noopener noreferrer">' +
-                  '<i class="fas fa-' + (s.videoType === 'mp4' ? 'play' : 'external-link-alt') + '"></i>' +
-                  (s.videoType === 'mp4' ? 'Play Recording' : 'Watch in Teams / SharePoint') +
-              '</a>'
-            : '<div class="btn-watch" style="opacity:0.45;cursor:default;">' +
-                  '<i class="fas fa-clock"></i> Recording Coming Soon' +
-              '</div>';
-
         return (
-            '<div class="session-video-panel">' +
+            '<div class="session-card" data-id="' + s.id + '">' +
                 '<div class="session-thumbnail">' +
-                    thumbHtml +
-                    '<span class="play-badge"><i class="fas fa-video"></i> Recording</span>' +
+                    thumbInner +
+                    watchOverlay +
+                    badge +
                 '</div>' +
-                '<div class="session-video-actions">' +
-                    watchBtn +
-                    (!hasVideo ? '<p class="no-video-note">Recording will be posted after the session</p>' : '') +
-                '</div>' +
-            '</div>'
-        );
-    }
-
-    function renderCard(s) {
-        var hasPresentation = s.presentationFile && s.presentationFile.trim() !== '';
-        var presentationBtn = hasPresentation
-            ? '<a class="btn-presentation" href="' + s.presentationFile + '" target="_blank" rel="noopener noreferrer">' +
-                  '<i class="fas fa-file-powerpoint"></i> View Presentation' +
-              '</a>'
-            : '<span class="btn-presentation-disabled"><i class="fas fa-file-powerpoint"></i> No Presentation Yet</span>';
-
-        var tagsHtml = (s.tags || []).map(function (t) {
-            return '<span class="session-tag">' + t + '</span>';
-        }).join('');
-
-        var speakerLine = s.speakerTitle
-            ? s.speakerTitle + (s.speakerOrg ? ' &mdash; ' + s.speakerOrg : '')
-            : (s.speakerOrg || '');
-
-        return (
-            '<div class="session-card">' +
-                renderVideoPanel(s) +
-                '<div class="session-info-panel">' +
-                    '<div class="session-meta">' +
-                        '<span class="session-date"><i class="far fa-calendar"></i> ' + formatDate(s.date) + '</span>' +
-                    '</div>' +
-                    '<h2 class="session-title">' + s.title + '</h2>' +
-                    '<div class="speaker-block">' +
-                        '<div class="speaker-avatar">' + initials(s.speaker) + '</div>' +
-                        '<div class="speaker-info">' +
-                            '<span class="speaker-name">' + s.speaker + '</span>' +
-                            (speakerLine ? '<span class="speaker-title">' + speakerLine + '</span>' : '') +
+                '<div class="session-body">' +
+                    '<div class="session-header">' +
+                        '<div class="session-icon"><i class="fas fa-microphone-alt"></i></div>' +
+                        '<div class="session-meta">' +
+                            '<h3 class="session-title">' + s.title + '</h3>' +
+                            '<span class="session-date"><i class="fas fa-calendar"></i> ' + formatDate(s.date) + '</span>' +
                         '</div>' +
                     '</div>' +
                     (s.description ? '<p class="session-description">' + s.description + '</p>' : '') +
-                    (tagsHtml ? '<div class="session-tags">' + tagsHtml + '</div>' : '') +
-                    '<div class="session-actions">' + presentationBtn + '</div>' +
+                    filesHtml +
                 '</div>' +
             '</div>'
         );
     }
 
+    /* ── Filter + render all ── */
     function render() {
-        var list = document.getElementById('sessionsList');
+        var grid    = document.getElementById('sessionsGrid');
         var countEl = document.getElementById('sessionsCount');
-        if (!list) return;
+        if (!grid) return;
 
-        var sorted = speakers.slice().sort(function (a, b) {
+        var filtered = allSessions.filter(function (s) {
+            var matchesYear = yearFilter === 'all' || fiscalYear(s.date) === yearFilter;
+            var matchesSearch = !searchQuery ||
+                s.title.toLowerCase().indexOf(searchQuery) > -1 ||
+                (s.description || '').toLowerCase().indexOf(searchQuery) > -1;
+            return matchesYear && matchesSearch;
+        }).sort(function (a, b) {
             return new Date(b.date) - new Date(a.date);
         });
 
-        if (countEl) {
-            countEl.innerHTML = '<strong>' + sorted.length + '</strong> session' + (sorted.length !== 1 ? 's' : '');
-        }
+        if (countEl) countEl.textContent = 'Showing ' + filtered.length + ' of ' + allSessions.length + ' session' + (allSessions.length !== 1 ? 's' : '');
 
-        if (sorted.length === 0) {
-            list.innerHTML =
-                '<div class="empty-state">' +
-                    '<i class="fas fa-microphone-slash"></i>' +
-                    '<p>No sessions have been posted yet. Check back soon.</p>' +
-                '</div>';
+        if (filtered.length === 0) {
+            grid.innerHTML = '<p class="no-items">No sessions match your search.</p>';
             return;
         }
 
-        list.innerHTML = sorted.map(renderCard).join('');
+        grid.innerHTML = filtered.map(renderCard).join('');
+
+        /* Generate thumbnails for MP4 sessions */
+        filtered.forEach(function (s) {
+            if (s.videoType === 'mp4' && s.videoUrl && s.videoUrl.trim() !== '') {
+                var imgEl = grid.querySelector('.gs-thumb-img[data-session-id="' + s.id + '"]');
+                if (imgEl) generateThumbnail(s.videoUrl, imgEl);
+            }
+        });
+    }
+
+    /* ── Year filter population ── */
+    function populateYears() {
+        var sel = document.getElementById('yearFilter');
+        if (!sel) return;
+        var years = [];
+        allSessions.forEach(function (s) {
+            var fy = fiscalYear(s.date);
+            if (fy && years.indexOf(fy) === -1) years.push(fy);
+        });
+        years.sort().reverse();
+        years.forEach(function (y) {
+            var opt = document.createElement('option');
+            opt.value = y;
+            opt.textContent = y;
+            sel.appendChild(opt);
+        });
+    }
+
+    /* ── Event wiring ── */
+    function init() {
+        populateYears();
+        render();
+
+        var searchInput = document.getElementById('gsSearch');
+        var clearBtn    = document.getElementById('clearSearch');
+        var yearSel     = document.getElementById('yearFilter');
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function () {
+                searchQuery = this.value.trim().toLowerCase();
+                if (clearBtn) clearBtn.style.display = searchQuery ? 'flex' : 'none';
+                render();
+            });
+        }
+        if (clearBtn) {
+            clearBtn.addEventListener('click', function () {
+                if (searchInput) searchInput.value = '';
+                searchQuery = '';
+                this.style.display = 'none';
+                render();
+            });
+        }
+        if (yearSel) {
+            yearSel.addEventListener('change', function () {
+                yearFilter = this.value;
+                render();
+            });
+        }
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', render);
+        document.addEventListener('DOMContentLoaded', init);
     } else {
-        render();
+        init();
     }
 })();
