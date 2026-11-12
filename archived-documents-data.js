@@ -4,7 +4,7 @@
  * ============================================================
  *
  * Add documents here when they are retired from active use.
- * These documents are NOT included in the site-wide search \u2014
+ * These documents are NOT included in the site-wide search —
  * they are only accessible from the Archived Documents page.
  *
  * FIELD REFERENCE:
@@ -13,9 +13,9 @@
  *   fileName       Path to the file, e.g. 'archived/policy-name.pdf' (required)
  *   fileType       'PDF', 'Word', 'Excel', 'PowerPoint', 'HTML', 'Image'
  *   category       category       'Policy', 'Job Aids & Guidelines', 'Forms & Templates', 'Financial Operations', 'Resources', 'Other'
- *   activeFrom     When this document became active \u2014 YYYY-MM-DD or 'FY2020/21'
- *   activeUntil    When this document was superseded \u2014 YYYY-MM-DD or 'FY2024/25'
- *   archivedOn     Date it was moved to archive \u2014 YYYY-MM-DD (required)
+ *   activeFrom     When this document became active — YYYY-MM-DD or 'FY2020/21'
+ *   activeUntil    When this document was superseded — YYYY-MM-DD or 'FY2024/25'
+ *   archivedOn     Date it was moved to archive — YYYY-MM-DD (required)
  *   supersededBy   URL to the replacement document (optional, leave '' if none)
  *   supersededByTitle  Display name for the replacement link (optional)
  *   reason         Why was it archived? (shown to staff as context)
@@ -25,7 +25,7 @@
 
 const ARCHIVED_DOCUMENTS = [
 
-    // \u2500\u2500 ADD ARCHIVED DOCUMENTS BELOW \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── ADD ARCHIVED DOCUMENTS BELOW ──────────────────────────────────────
 
     // {
     //     id: 1,

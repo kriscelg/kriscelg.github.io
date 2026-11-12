@@ -2,7 +2,7 @@
  * WDT Intranet - Videos & Presentations Script
  */
 
-// \u2500\u2500 Inject shared modal HTML \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+// ── Inject shared modal HTML ───────────────────────────────────────
 // Both TES and BITS pages pull this one script, so modals live here.
 document.body.insertAdjacentHTML('beforeend', `
     <div class="modal" id="videoModal">
@@ -481,7 +481,7 @@ function openVideoModal(videoId) {
         track.srclang = 'en';
         track.src = encodeFilePath(video.captionFile);
         videoPlayer.appendChild(track);
-        // Captions start OFF \u2014 user must click CC to enable
+        // Captions start OFF — user must click CC to enable
         track.addEventListener('load', function () {
             videoPlayer.textTracks[0].mode = 'disabled';
         });
@@ -514,7 +514,7 @@ function closeVideoModal() {
     const ccBtn = document.getElementById('ccToggle');
     const ccDivider = document.getElementById('ccDivider');
 
-    // Block closing while video is in Picture-in-Picture \u2014 user must exit PiP first
+    // Block closing while video is in Picture-in-Picture — user must exit PiP first
     if (document.pictureInPictureElement === videoPlayer) return;
 
     // Disable all text tracks so captions stop immediately
@@ -524,7 +524,7 @@ function closeVideoModal() {
 
     videoPlayer.pause();
 
-    // Clear the source \u2014 this stops any browser Live Caption overlay too
+    // Clear the source — this stops any browser Live Caption overlay too
     document.getElementById('videoSource').src = '';
     videoPlayer.load();
 
@@ -632,7 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadVideos();
     loadPresentations();
 
-    // PiP \u2014 disable the modal close button while video is in Picture-in-Picture
+    // PiP — disable the modal close button while video is in Picture-in-Picture
     const videoPlayerEl = document.getElementById('videoPlayer');
     const modalCloseBtn = document.querySelector('#videoModal .modal-close');
     const modalHeader   = document.querySelector('#videoModal .modal-header');

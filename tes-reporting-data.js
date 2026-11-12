@@ -6,18 +6,18 @@
  * Edit this file to manage TES Power BI dashboards and reports.
  * This file is only loaded on tes-reporting.html.
  *
- * \u2500\u2500 DASHBOARDS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+ * ── DASHBOARDS ──────────────────────────────────────────────
  *   title              Dashboard name
  *   description        Short description, e.g. "Updated Weekly"
  *   embedUrl           Power BI embed URL (reportEmbed link)
  *   powerBiUrl         Direct Power BI share link (opens in new tab)
- *   lastRefreshed      YYYY-MM-DD \u2014 leave '' to hide
+ *   lastRefreshed      YYYY-MM-DD — leave '' to hide
  *   supportingDocuments
  *       title          File display name
  *       url            Path to the file
  *       icon           'fa-file-pdf', 'fa-file-word', 'fa-file-excel', 'fa-file-powerpoint'
  *
- * \u2500\u2500 REPORTING DOCUMENTS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+ * ── REPORTING DOCUMENTS ─────────────────────────────────────
  *   category           Section heading
  *   icon               Font Awesome icon for the section
  *   documents[]

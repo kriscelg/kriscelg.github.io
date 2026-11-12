@@ -1,17 +1,17 @@
-// \u2500\u2500\u2500 Announcement Banner Configuration \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+// ─── Announcement Banner Configuration ───────────────────────────────────────
 //
 //  Add as many announcements as you like. Only those with enabled: true show.
 //
-//  type     \u2192 'info'    = teal  (general announcements)
+//  type     → 'info'    = teal  (general announcements)
 //             'warning' = amber (important notices)
 //             'urgent'  = red   (critical / time-sensitive)
 //
-//  message     \u2192 short headline / title line
-//  description \u2192 optional longer description (leave '' to omit)
-//  link        \u2192 optional URL, leave '' for no button
-//  linkText    \u2192 label for the link button
+//  message     → short headline / title line
+//  description → optional longer description (leave '' to omit)
+//  link        → optional URL, leave '' for no button
+//  linkText    → label for the link button
 //
-// \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+// ─────────────────────────────────────────────────────────────────────────────
 const WDT_ANNOUNCEMENTS = [
     {
         enabled:     false,

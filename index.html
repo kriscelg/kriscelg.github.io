@@ -237,7 +237,7 @@
     <script src="memos-data.js"></script>
 
     <script>
-        // &#9472;&#9472; Announcement Banners &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+        // ── Announcement Banners ─────────────────────────────────────────────
         (function() {
             var list = typeof WDT_ANNOUNCEMENTS !== 'undefined' ? WDT_ANNOUNCEMENTS : [];
             var container = document.getElementById('announcement-banners');
@@ -310,7 +310,7 @@
         }
 
         // Collect recent policy documents:
-        // - Everything in POLICY_DOCUMENTS (always included &mdash; they are policy docs by definition)
+        // - Everything in POLICY_DOCUMENTS (always included — they are policy docs by definition)
         // - Any item from other doc arrays or memos tagged "Policy"
         function getRecentPolicyDocs() {
             const hasPolicy = tags => Array.isArray(tags) && tags.some(t => t.toLowerCase() === 'policy');
@@ -320,7 +320,7 @@
                 .filter(d => !d.archived)
                 .map(d => ({ title: d.title, url: encodeFilePath(d.fileName), date: d.uploadDate || '' }));
 
-            // Other doc arrays &mdash; only if tagged "Policy"
+            // Other doc arrays — only if tagged "Policy"
             const otherDocArrays = [
                 typeof PROCEDURES_GUIDELINES !== 'undefined' ? PROCEDURES_GUIDELINES : [],
                 typeof FORMS_TEMPLATES       !== 'undefined' ? FORMS_TEMPLATES       : [],
@@ -355,7 +355,7 @@
             'policy-changes':  'search-results.html?q=Policy&sort=date',
         };
 
-        // Tab switching &mdash; also update the See More button destination
+        // Tab switching — also update the See More button destination
         document.querySelectorAll('.home-tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.home-tab-btn').forEach(b => b.classList.remove('active'));
@@ -410,7 +410,7 @@
                     const month = monthNames[eventDate.getMonth()];
                     const day = eventDate.getDate();
 
-                    // Format time &mdash; handles timed, all-day, multi-day, and holiday events
+                    // Format time — handles timed, all-day, multi-day, and holiday events
                     let timeLine;
                     if (event.isHoliday) {
                         timeLine = `<p><i class="fas fa-landmark"></i> Public Holiday</p>`;
@@ -418,7 +418,7 @@
                         const endDateObj = new Date(event.endDate + 'T00:00:00');
                         const endMonth = monthNames[endDateObj.getMonth()];
                         const endDay = endDateObj.getDate();
-                        timeLine = `<p><i class="fas fa-calendar-week"></i> ${month} ${day} &ndash; ${endMonth} ${endDay}</p>`;
+                        timeLine = `<p><i class="fas fa-calendar-week"></i> ${month} ${day} – ${endMonth} ${endDay}</p>`;
                     } else if (!event.time) {
                         timeLine = `<p><i class="far fa-clock"></i> All day</p>`;
                     } else {

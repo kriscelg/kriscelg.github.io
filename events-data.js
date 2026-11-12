@@ -37,7 +37,7 @@ const EVENTS = [
 // MANITOBA STATUTORY HOLIDAYS (AUTO-GENERATED)
 // ============================================
 // Holidays are automatically calculated for the current year and the
-// surrounding years \u2014 no manual updates needed.
+// surrounding years — no manual updates needed.
 (function () {
     function pad(n) { return String(n).padStart(2, '0'); }
     function toDateStr(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
@@ -58,7 +58,7 @@ const EVENTS = [
         return new Date(year, 4, 25 - back);
     }
 
-    // Easter Sunday \u2014 Anonymous Gregorian algorithm
+    // Easter Sunday — Anonymous Gregorian algorithm
     function easterSunday(year) {
         const a = year % 19, b = Math.floor(year / 100), c = year % 100;
         const d = Math.floor(b / 4), e = b % 4;
@@ -87,7 +87,7 @@ const EVENTS = [
             { title: "Canada Day",                                                        date: new Date(year, 6, 1) },
             { title: "Terry Fox Day",                                                     date: nthMonday(year, 7, 1) },
             { title: "Labour Day",                                                        date: nthMonday(year, 8, 1) },
-            { title: "Orange Shirt Day \u2013 National Day for Truth and Reconciliation",      date: new Date(year, 8, 30) },
+            { title: "Orange Shirt Day – National Day for Truth and Reconciliation",      date: new Date(year, 8, 30) },
             { title: "Thanksgiving Day",                                                  date: nthMonday(year, 9, 2) },
             { title: "Christmas Day",                                                     date: new Date(year, 11, 25) },
             { title: "Boxing Day",                                                        date: new Date(year, 11, 26) },
@@ -129,7 +129,7 @@ const EVENTS = [
     for (let year = thisYear - 1; year <= thisYear + 2; year++) {
         const observances = [
             (function () {
-                // National Public Service Week \u2014 full week ending on the 3rd Saturday of June
+                // National Public Service Week — full week ending on the 3rd Saturday of June
                 const d = new Date(year, 5, 1);
                 let saturdays = 0;
                 while (saturdays < 3) { if (d.getDay() === 6) saturdays++; if (saturdays < 3) d.setDate(d.getDate() + 1); }
@@ -162,7 +162,7 @@ const EVENTS = [
 // ANNUAL OBSERVANCES (AUTO-GENERATED)
 // ============================================
 // Single-day and multi-day observances that recur every year.
-// Dates are calculated automatically \u2014 no manual updates needed.
+// Dates are calculated automatically — no manual updates needed.
 (function () {
     function pad(n) { return String(n).padStart(2, '0'); }
     function toDateStr(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
@@ -187,7 +187,7 @@ const EVENTS = [
         return new Date(year, month, lastDay.getDate() - lastDay.getDay());
     }
 
-    // Administrative Professionals Day \u2014 Wednesday of the last full Mon\u2013Sun week in April
+    // Administrative Professionals Day — Wednesday of the last full Mon–Sun week in April
     function adminProfessionalsDay(year) {
         const lastSunday = lastSundayOf(year, 3); // last Sunday of April
         return new Date(year, 3, lastSunday.getDate() - 4);
@@ -197,11 +197,11 @@ const EVENTS = [
     let nextId = 9101;
 
     for (let year = thisYear - 1; year <= thisYear + 2; year++) {
-        // National Mental Health Week: first Monday of May \u2192 following Sunday
+        // National Mental Health Week: first Monday of May → following Sunday
         const mentalHealthStart = firstMonday(year, 4);
         const mentalHealthEnd   = new Date(year, 4, mentalHealthStart.getDate() + 6);
 
-        // Manitoba Access Awareness Week: last Sunday of May \u2192 following Saturday
+        // Manitoba Access Awareness Week: last Sunday of May → following Saturday
         const accessStart = lastSundayOf(year, 4);
         const accessEnd   = new Date(accessStart.getFullYear(), accessStart.getMonth(), accessStart.getDate() + 6);
 
@@ -211,7 +211,7 @@ const EVENTS = [
               description: 'Promotes awareness of linguistic and cultural diversity and multilingualism.',
               date: new Date(year, 1, 21) },
             { title: 'Pink Shirt Day',
-              description: 'Anti-Bullying Day \u2014 wear pink to stand against bullying and promote diversity and acceptance.',
+              description: 'Anti-Bullying Day — wear pink to stand against bullying and promote diversity and acceptance.',
               date: lastWednesdayOfFeb(year) },
 
             // March
@@ -248,7 +248,7 @@ const EVENTS = [
 
             // June
             { title: 'National Indigenous Peoples Day',
-              description: 'A day for all Canadians to recognize and celebrate the unique heritage, diverse cultures, and outstanding contributions of First Nations, Inuit, and M\u00e9tis peoples.',
+              description: 'A day for all Canadians to recognize and celebrate the unique heritage, diverse cultures, and outstanding contributions of First Nations, Inuit, and Métis peoples.',
               date: new Date(year, 5, 21) },
             { title: 'Canadian Multiculturalism Day',
               description: 'Celebrating Canada\'s multicultural heritage and the contributions of all Canadians regardless of their origins.',
@@ -275,7 +275,7 @@ const EVENTS = [
             { title: 'Human Rights Day',
               description: 'Observed annually to commemorate the adoption of the Universal Declaration of Human Rights.',
               date: new Date(year, 11, 10) },
-            { title: 'Mandatory Course Deadline: Anti-Racism \u2013 Understanding Ourselves and Our Systems',
+            { title: 'Mandatory Course Deadline: Anti-Racism – Understanding Ourselves and Our Systems',
               description: 'Annual completion deadline for the mandatory Anti-Racism course.',
               date: new Date(year, 11, 31) },
         ];
@@ -302,7 +302,7 @@ const EVENTS = [
 // They do NOT show up as events on individual calendar days.
 //
 // To add an awareness month:
-//   { month: 1\u201312, title: 'Name', description: 'Details', color: '#hexcolor' }
+//   { month: 1–12, title: 'Name', description: 'Details', color: '#hexcolor' }
 //
 // Special color value: 'rainbow' for a rainbow gradient accent (e.g. Pride Month).
 // Leave color out to use the default purple accent.
@@ -404,8 +404,8 @@ const AWARENESS_MONTHS = [
  *    - date: YYYY-MM-DD format (e.g., 2025-12-25 for December 25, 2025)
  *    - time: HH:MM format in 24-hour time (e.g., 14:00 for 2:00 PM)
  *            Leave as '' or omit entirely for all-day events
- *    - endDate: YYYY-MM-DD end date for multi-day events (optional \u2014 omit for single-day events)
- *    - location: Where the event takes place (optional \u2014 leave as '' to hide)
+ *    - endDate: YYYY-MM-DD end date for multi-day events (optional — omit for single-day events)
+ *    - location: Where the event takes place (optional — leave as '' to hide)
  *    - description: Details about the event
  *
  * 4. Make sure there's a comma after the closing }

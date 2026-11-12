@@ -18,7 +18,7 @@
     let currentPage = 1;
     const PAGE_SIZE = 25;
 
-    // \u2500\u2500 Helpers \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Helpers ────────────────────────────────────────────────────────────────
 
     function encodeFilePath(filePath) {
         return filePath.split('/').map(part => encodeURIComponent(part)).join('/');
@@ -60,7 +60,7 @@
         return icons[fileType] || icons[fileType.toUpperCase()] || 'fa-file';
     }
 
-    // \u2500\u2500 Render \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Render ─────────────────────────────────────────────────────────────────
 
     function renderDocuments(docs) {
         const container = document.getElementById('documents-list');
@@ -124,7 +124,7 @@
         const start = (currentPage - 1) * PAGE_SIZE + 1;
         const end = Math.min(currentPage * PAGE_SIZE, total);
         pager.innerHTML = `
-            <div class="pagination-info">Showing ${start}\u2013${end} of ${total} documents</div>
+            <div class="pagination-info">Showing ${start}–${end} of ${total} documents</div>
             <div class="pagination-controls">
                 <button class="pagination-btn" id="prevPage" ${currentPage === 1 ? 'disabled' : ''}>
                     <i class="fas fa-chevron-left"></i> Previous
@@ -145,7 +145,7 @@
         document.getElementById('documents-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // \u2500\u2500 Tag filters \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Tag filters ────────────────────────────────────────────────────────────
 
     function countTagDocuments(tag) {
         return documents.filter(doc => doc.tags && doc.tags.includes(tag)).length;
@@ -237,7 +237,7 @@
         updateActiveFilters();
     };
 
-    // \u2500\u2500 Search / filter \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Search / filter ────────────────────────────────────────────────────────
 
     function filterDocuments() {
         currentPage = 1;
@@ -265,7 +265,7 @@
         }
     }
 
-    // \u2500\u2500 Event listeners \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Event listeners ────────────────────────────────────────────────────────
 
     const searchInput = document.getElementById('documentSearch');
     const clearSearchBtn = document.getElementById('clearSearch');
@@ -290,7 +290,7 @@
         updateActiveFilters();
     });
 
-    // \u2500\u2500 Init \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Init ───────────────────────────────────────────────────────────────────
 
     generateTagFilters();
     renderDocuments(documents);

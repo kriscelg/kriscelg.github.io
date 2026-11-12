@@ -1,5 +1,5 @@
 /**
- * seasonal.js \u2014 WDT Intranet seasonal theme engine
+ * seasonal.js — WDT Intranet seasonal theme engine
  * Loaded dynamically by nav-footer-loader.js. Self-contained: injects its own
  * CSS and registers a decorator that nav-footer-loader calls after templates render.
  */
@@ -10,11 +10,11 @@
 
     var now = new Date();
     var y   = now.getFullYear();
-    var m   = now.getMonth() + 1;   // 1\u201312
+    var m   = now.getMonth() + 1;   // 1–12
     var d   = now.getDate();
     var todayStr = y + '-' + pad(m) + '-' + pad(d);
 
-    // First Monday of June \u2192 National Public Service Week (Mon\u2013Sun)
+    // First Monday of June → National Public Service Week (Mon–Sun)
     var ns = new Date(y, 5, 1);
     while (ns.getDay() !== 1) ns.setDate(ns.getDate() + 1);
     var ne = new Date(ns);
@@ -31,17 +31,17 @@
         if (inNPSW)                                                       return 'npsw';
         if (m === 10 && d >= 24)                                         return 'halloween';
         if (m === 11 && ((d >= 1 && d <= 9) || d >= 12))               return 'cwdm';
-        if (m === 12 && d >= 20 && d <= 26)                             return 'christmas';  // Dec 20\u201326 (5 days before Christmas + Boxing Day)
+        if (m === 12 && d >= 20 && d <= 26)                             return 'christmas';  // Dec 20–26 (5 days before Christmas + Boxing Day)
         if ((m === 12 && d >= 27) || (m === 1 && d <= 2))              return 'newyear';
-        if (m === 9  && d >= 22 && d <= 26)                             return 'fall';       // Sept 22\u201326 (autumnal equinox + 4 days)
-        if (m === 3  && d >= 20 && d <= 24)                             return 'spring';     // Mar 20\u201324 (vernal equinox + 4 days)
-        if (m === 6  && d >= 21 && d <= 25)                             return 'summer';     // Jun 21\u201325 (summer solstice + 4 days)
+        if (m === 9  && d >= 22 && d <= 26)                             return 'fall';       // Sept 22–26 (autumnal equinox + 4 days)
+        if (m === 3  && d >= 20 && d <= 24)                             return 'spring';     // Mar 20–24 (vernal equinox + 4 days)
+        if (m === 6  && d >= 21 && d <= 25)                             return 'summer';     // Jun 21–25 (summer solstice + 4 days)
         return null;
     }
 
     var key = getKey();
 
-    // \u2500\u2500 Theme configuration \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Theme configuration ────────────────────────────────────────────────────
     // borderGradient: CSS gradient for the 4px top border on the nav header.
     // icon: emoji fallback used when iconSrc is absent.
     // iconSrc: path to an image asset used instead of the emoji (optional).
@@ -49,69 +49,69 @@
     var CONFIGS = {
         'remembrance': {
             iconSrc:        'logos/seasonal/poppy-icon.png',
-            icon:           '\u1f339',
+            icon:           'ἳ9',
             footerNote:     'We remember. Lest We Forget.',
             borderGradient: 'linear-gradient(to right, #1a0000, #7f1d1d, #dc2626, #b91c1c, #7f1d1d, #1a0000)',
             noteColor:      'rgba(255, 190, 190, 0.85)',
         },
         'canada-day': {
-            icon:           '\u1f341',
-            footerNote:     'Happy Canada Day! \u1f341',
+            icon:           'ἴ1',
+            footerNote:     'Happy Canada Day! ἴ1',
             borderGradient: 'linear-gradient(to right, #dc2626, #dc2626 30%, #ffffff 45%, #ffffff 55%, #dc2626 70%, #dc2626)',
             noteColor:      'rgba(255, 200, 200, 0.85)',
         },
         'valentine': {
-            icon:           '\u2665',
-            footerNote:     "Happy Valentine's Day! \u2665",
+            icon:           '♥',
+            footerNote:     "Happy Valentine's Day! ♥",
             borderGradient: 'linear-gradient(to right, #fce7f3, #ec4899, #f43f5e, #ec4899, #fce7f3)',
             noteColor:      'rgba(255, 190, 220, 0.85)',
         },
         'npsw': {
-            icon:           '\u1f341',
-            footerNote:     'Happy National Public Service Week \u2014 thank you for your service! \u1f341',
+            icon:           'ἴ1',
+            footerNote:     'Happy National Public Service Week — thank you for your service! ἴ1',
             borderGradient: 'linear-gradient(to right, #dc2626, #1d4ed8, #e0f2fe, #1d4ed8, #dc2626)',
             noteColor:      'rgba(190, 220, 255, 0.85)',
         },
         'halloween': {
-            icon:           '\u1f383',
-            footerNote:     'Happy Halloween! \u1f383',
+            icon:           'Ἰ3',
+            footerNote:     'Happy Halloween! Ἰ3',
             borderGradient: 'linear-gradient(to right, #431407, #c2410c, #f97316, #7c3aed, #6d28d9, #4c1d95)',
             noteColor:      'rgba(255, 210, 180, 0.85)',
         },
         'cwdm': {
             iconSrc:        'logos/seasonal/cwdm-icon.png',
-            icon:           '\u1f3af',
+            icon:           'Ἲf',
             footerNote:     'November is Career & Workforce Development Month',
             borderGradient: 'linear-gradient(to right, #4c1d95, #7c3aed, #059669, #10b981, #7c3aed, #4c1d95)',
             noteColor:      'rgba(220, 200, 255, 0.85)',
         },
         'christmas': {
-            icon:           '\u2744\ufe0f',
-            footerNote:     'Happy Holidays from WDT! \u2744\ufe0f',
+            icon:           '❄️',
+            footerNote:     'Happy Holidays from WDT! ❄️',
             borderGradient: 'repeating-linear-gradient(45deg, #dc2626 0px, #dc2626 8px, #ffffff 8px, #ffffff 16px)',
             noteColor:      'rgba(190, 240, 210, 0.85)',
         },
         'newyear': {
-            icon:           '\u1f389',
-            footerNote:     'Happy New Year from WDT! \u1f389',
+            icon:           'Ἰ9',
+            footerNote:     'Happy New Year from WDT! Ἰ9',
             borderGradient: 'linear-gradient(to right, #78350f, #d97706, #fbbf24, #fef9c3, #fbbf24, #d97706, #78350f)',
             noteColor:      'rgba(255, 235, 180, 0.85)',
         },
         'fall': {
-            icon:           '\u1f342',
-            footerNote:     'Happy Fall Season! \u1f342',
+            icon:           'ἴ2',
+            footerNote:     'Happy Fall Season! ἴ2',
             borderGradient: 'linear-gradient(to right, #7c2d12, #c2410c, #d97706, #f59e0b, #b45309, #7c2d12)',
             noteColor:      'rgba(255, 225, 180, 0.85)',
         },
         'spring': {
-            icon:           '\u1f338',
-            footerNote:     'Happy Spring! \u1f338',
+            icon:           'ἳ8',
+            footerNote:     'Happy Spring! ἳ8',
             borderGradient: 'linear-gradient(to right, #fce7f3, #ec4899, #bbf7d0, #10b981, #bbf7d0, #ec4899, #fce7f3)',
             noteColor:      'rgba(190, 245, 220, 0.85)',
         },
         'summer': {
-            icon:           '\u2600\ufe0f',
-            footerNote:     'Happy Summer! \u2600\ufe0f',
+            icon:           '☀️',
+            footerNote:     'Happy Summer! ☀️',
             borderGradient: 'linear-gradient(to right, #0284c7, #38bdf8, #fef9c3, #fbbf24, #f59e0b, #0284c7)',
             noteColor:      'rgba(255, 240, 190, 0.85)',
         },
@@ -125,7 +125,7 @@
     var cfg = CONFIGS[key];
     if (!cfg) return;
 
-    // \u2500\u2500 Inject CSS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Inject CSS ─────────────────────────────────────────────────────────────
     var css =
         // Gradient top border on the nav header
         'html.wdt-theme-' + key + ' .main-header {' +
@@ -144,7 +144,7 @@
             'display: inline-block;' +
         '}' +
 
-        // Image icon \u2014 small circular badge so the white bg doesn't clash with the dark header
+        // Image icon — small circular badge so the white bg doesn't clash with the dark header
         '.seasonal-icon-img {' +
             'height: 28px;' +
             'width: 28px;' +
@@ -176,10 +176,10 @@
     // Apply class to <html> immediately so CSS takes effect before first paint
     document.documentElement.classList.add('wdt-theme-' + key);
 
-    // \u2500\u2500 DOM decorator \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── DOM decorator ──────────────────────────────────────────────────────────
     // Called by nav-footer-loader.js after nav/footer templates are rendered.
     window._wdtSeasonalDecorate = function () {
-        // Logo icon \u2014 use image badge for themes that have one, otherwise emoji
+        // Logo icon — use image badge for themes that have one, otherwise emoji
         var logo = document.querySelector('.logo');
         if (logo && !logo.querySelector('.seasonal-icon, .seasonal-icon-img')) {
             if (cfg.iconSrc) {
@@ -198,7 +198,7 @@
             }
         }
 
-        // Footer seasonal note \u2014 inserted as first child of .footer-bottom
+        // Footer seasonal note — inserted as first child of .footer-bottom
         var footerBottom = document.querySelector('.footer-bottom');
         if (footerBottom && !footerBottom.querySelector('.seasonal-footer-note')) {
             var noteEl = document.createElement('div');

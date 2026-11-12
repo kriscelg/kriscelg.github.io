@@ -168,21 +168,21 @@ const PRESENTATIONS = [
  * Your website folder should look like this:
  *
  * /your-website-folder/
- *   \u251c\u2500\u2500 index.html
- *   \u251c\u2500\u2500 videos-presentations.html
- *   \u251c\u2500\u2500 videos-presentations-data.js  (this file)
- *   \u251c\u2500\u2500 videos/
- *   \u2502   \u251c\u2500\u2500 icm-intro.mp4
- *   \u2502   \u251c\u2500\u2500 sprs-best-practices.mp4
- *   \u2502   \u2514\u2500\u2500 thumbnails/
- *   \u2502       \u251c\u2500\u2500 icm-intro.jpg
- *   \u2502       \u2514\u2500\u2500 ...
- *   \u2514\u2500\u2500 presentations/
- *       \u251c\u2500\u2500 q4-financial-review.pdf
- *       \u251c\u2500\u2500 policy-guidelines-2025.pdf
- *       \u2514\u2500\u2500 thumbnails/
- *           \u251c\u2500\u2500 q4-financial.jpg
- *           \u2514\u2500\u2500 ...
+ *   ├── index.html
+ *   ├── videos-presentations.html
+ *   ├── videos-presentations-data.js  (this file)
+ *   ├── videos/
+ *   │   ├── icm-intro.mp4
+ *   │   ├── sprs-best-practices.mp4
+ *   │   └── thumbnails/
+ *   │       ├── icm-intro.jpg
+ *   │       └── ...
+ *   └── presentations/
+ *       ├── q4-financial-review.pdf
+ *       ├── policy-guidelines-2025.pdf
+ *       └── thumbnails/
+ *           ├── q4-financial.jpg
+ *           └── ...
  *
  * ============================================
  * TIPS FOR TAGS

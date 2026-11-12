@@ -1,5 +1,5 @@
 // ============================================================
-// WDT Intranet Help Assistant \u2014 FAQ Data
+// WDT Intranet Help Assistant — FAQ Data
 //
 // To DISABLE the chatbot across the entire site, set:
 //   const CHATBOT_ENABLED = false;
@@ -9,7 +9,7 @@ const CHATBOT_ENABLED = true;
 
 const CHATBOT_FAQS = [
 
-    // \u2500\u2500 ICM \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── ICM ─────────────────────────────────────────────────
     {
         question: "How do I reset my ICM password?",
         keywords: ["reset", "password", "icm", "forgot", "locked", "unlock", "login"],
@@ -24,11 +24,11 @@ const CHATBOT_FAQS = [
         followUp: ["How do I reset my ICM password?", "How do I fix a data entry error in ICM?"]
     },
 
-    // \u2500\u2500 System Access Requests \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── System Access Requests ────────────────────────────────
     {
         question: "How do I request new employee access to a WDT system?",
         keywords: ["new", "access", "employee", "account", "onboard", "hire", "eibis", "crc", "criminal"],
-        answer: "To request new system access for an employee, submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> and select 'Systems access, updates, or issues', then 'Request new employee access'. Include the employee's full name, position, and which systems they need (ICM, EIBIS/LMDAccess, SPRS, and/or AMT+).<br><br>Important:<ul style='margin:6px 0 0 16px;padding:0'><li>A <strong>Criminal Record Check (CRC)</strong> is required for ICM and EIBIS access and must be on file before access is granted. CRCs expire 10 years after their effective date.</li><li>STEP students cannot receive EIBIS or LMDAccess.</li><li>AMT+ has two roles \u2014 <strong>Submitter</strong> and <strong>Approver</strong> \u2014 specify which is needed.</li><li>Once submitted, wait for OSU's confirmation email with login credentials before user attempts to log in.</li></ul>",
+        answer: "To request new system access for an employee, submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> and select 'Systems access, updates, or issues', then 'Request new employee access'. Include the employee's full name, position, and which systems they need (ICM, EIBIS/LMDAccess, SPRS, and/or AMT+).<br><br>Important:<ul style='margin:6px 0 0 16px;padding:0'><li>A <strong>Criminal Record Check (CRC)</strong> is required for ICM and EIBIS access and must be on file before access is granted. CRCs expire 10 years after their effective date.</li><li>STEP students cannot receive EIBIS or LMDAccess.</li><li>AMT+ has two roles — <strong>Submitter</strong> and <strong>Approver</strong> — specify which is needed.</li><li>Once submitted, wait for OSU's confirmation email with login credentials before user attempts to log in.</li></ul>",
         followUp: ["How do I update or revoke employee system access?", "How long does OSU take to respond?"]
     },
     {
@@ -38,7 +38,7 @@ const CHATBOT_FAQS = [
         followUp: ["How do I request new employee access to a WDT system?", "How long does OSU take to respond?"]
     },
 
-    // \u2500\u2500 ICM \u2014 Case Management \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── ICM — Case Management ─────────────────────────────────
     
     //Enter link here - for Request to Add/Change Vendor (Finance document)
     {
@@ -65,12 +65,12 @@ const CHATBOT_FAQS = [
     {
         question: "How do I update a client's SIN in ICM?",
         keywords: ["sin", "social", "insurance", "number", "update", "client", "icm", "changed"],
-        answer: "<strong>Important:</strong> Do not include the SIN itself in the form \u2014 it is not secure to submit SINs through Microsoft Forms. Instead: follow the <strong>Social Insurance Number Updates</strong> job aid, add all SIN details to a case note in ICM, then submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> providing only the ICM case number. You must confirm that identification has been verified \u2014 requests without ID verification cannot be processed. If financials have been committed or issued on the case, OSU may need to contact Finance to update SAP or re-issue tax documentation.",
+        answer: "<strong>Important:</strong> Do not include the SIN itself in the form — it is not secure to submit SINs through Microsoft Forms. Instead: follow the <strong>Social Insurance Number Updates</strong> job aid, add all SIN details to a case note in ICM, then submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> providing only the ICM case number. You must confirm that identification has been verified — requests without ID verification cannot be processed. If financials have been committed or issued on the case, OSU may need to contact Finance to update SAP or re-issue tax documentation.",
         followUp: ["How do I fix a data entry error in ICM?"]
     },
 
 
-    // \u2500\u2500 AMT+ \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── AMT+ ──────────────────────────────────────────────────
     {
         question: "I have an AMT+ error or my employee information is wrong",
         keywords: ["amt", "amt+", "employee", "number", "pending", "draft", "error", "position"],
@@ -78,15 +78,15 @@ const CHATBOT_FAQS = [
         followUp: ["How do I fix a data entry error in ICM?"]
     },
 
-    // \u2500\u2500 SPRS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── SPRS ─────────────────────────────────────────────────
     {
         question: "How do I update SPRS information for a service provider?",
         keywords: ["sprs", "update", "service", "provider", "email", "address", "date", "incorrect"],
-        answer: "SPRS updates \u2014 such as correcting a participant start date or updating a service provider's email address \u2014 are handled by OSU. Submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a>. Include the participant or provider name, case number, and the correction needed.",
+        answer: "SPRS updates — such as correcting a participant start date or updating a service provider's email address — are handled by OSU. Submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a>. Include the participant or provider name, case number, and the correction needed.",
         followUp: ["How do I fix a data entry error in ICM?", "How long does OSU take to respond?"]
     },
 
-    // \u2500\u2500 Email Distribution Lists \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Email Distribution Lists ──────────────────────────────
     {
         question: "How do I add or remove someone from an email distribution list?",
         keywords: ["email", "distribution", "list", "add", "remove", "group", "wpg", "bra"],
@@ -94,15 +94,15 @@ const CHATBOT_FAQS = [
         followUp: ["How long does OSU take to respond?"]
     },
 
-    // \u2500\u2500 Documents & Content \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Documents & Content ───────────────────────────────────
     {
         question: "How do I request a new document or update an existing one?",
         keywords: ["request", "document", "webpage", "update", "new", "content", "intranet", "page", "translation", "french"],
-        answer: "To request a new document, update an existing one, or request a French translation, submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> and select 'Documents and webpage content'. <strong>Manager or director approval is required</strong>, and the content must be fully finalized before submitting \u2014 OSU accepts final approved copies only. Turnaround time varies as requests may involve Translation Services, Communications, or accessibility formatting review.",
+        answer: "To request a new document, update an existing one, or request a French translation, submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> and select 'Documents and webpage content'. <strong>Manager or director approval is required</strong>, and the content must be fully finalized before submitting — OSU accepts final approved copies only. Turnaround time varies as requests may involve Translation Services, Communications, or accessibility formatting review.",
         followUp: ["Where can I find job aids?", "Where can I find policy documents?"]
     },
 
-    // \u2500\u2500 Finance / DFSA \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Finance / DFSA ────────────────────────────────────────
     {
         question: "How do I request a DFSA limit update?",
         keywords: ["dfsa", "limit", "client", "provider", "finance", "accountability", "update", "osu"],
@@ -110,23 +110,23 @@ const CHATBOT_FAQS = [
         followUp: ["How long does OSU take to respond?"]
     },
 
-    // \u2500\u2500 Delete a case note \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Delete a case note ────────────────────────────────────────────────
     {
         question: "How do I delete a case note in ICM or SPRS?",
         keywords: ["delete", "remove", "case", "note", "icm", "sprs", "wrong", "mistake"],
-        answer: "To delete a case note, you must <strong>notify your manager first</strong> \u2014 requests will not be processed without manager notification. Then submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a>. Include the system (ICM or SPRS), case number, case note date, the <strong>exact title with correct capitalization</strong>, case note type, author name, and the full contents of the case note (copy and paste from the system).<br><br>Note: Case notes are permanent records under FIPPA and PHIA. Clients have the right to see all information on their files.",
+        answer: "To delete a case note, you must <strong>notify your manager first</strong> — requests will not be processed without manager notification. Then submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a>. Include the system (ICM or SPRS), case number, case note date, the <strong>exact title with correct capitalization</strong>, case note type, author name, and the full contents of the case note (copy and paste from the system).<br><br>Note: Case notes are permanent records under FIPPA and PHIA. Clients have the right to see all information on their files.",
         followUp: ["How do I fix a data entry error in ICM?", "How do I reopen a closed ICM file?"]
     },
 
-    // \u2500\u2500 Communications (Bulletins / Newsletter / Social Media) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Communications (Bulletins / Newsletter / Social Media) ───────────
     {
         question: "How do I request a WDT Bulletin, TES Newsletter, or social media post?",
         keywords: ["bulletin", "newsletter", "social", "media", "communicate", "announcement", "announce", "post", "tes"],
-        answer: "Submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> and select 'Communications'. Manager and/or director approval is required \u2014 requests without approval cannot be processed.<br><br>Available channels:<ul style='margin:6px 0 0 16px;padding:0'><li><strong>WDT Bulletin</strong> \u2014 sent to all WDT staff; for major announcements, policy changes, or significant updates</li><li><strong>TES Newsletter</strong> \u2014 biweekly to TES staff; for staffing news, tips, training opportunities, and success stories</li><li><strong>Social media post</strong> \u2014 public-facing, max 280 characters; reviewed and posted by IPSC</li></ul>",
+        answer: "Submit a request through the <a href='https://forms.cloud.microsoft/r/CkXMcDYy6k' target='_blank'><strong>Contact OSU form</strong></a> and select 'Communications'. Manager and/or director approval is required — requests without approval cannot be processed.<br><br>Available channels:<ul style='margin:6px 0 0 16px;padding:0'><li><strong>WDT Bulletin</strong> — sent to all WDT staff; for major announcements, policy changes, or significant updates</li><li><strong>TES Newsletter</strong> — biweekly to TES staff; for staffing news, tips, training opportunities, and success stories</li><li><strong>Social media post</strong> — public-facing, max 280 characters; reviewed and posted by IPSC</li></ul>",
         followUp: ["How do I request a new document or update an existing one?"]
     },
 
-    // \u2500\u2500 OSU response time \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── OSU response time ─────────────────────────────────────────────────
     {
         question: "How long does OSU take to respond?",
         keywords: ["osu", "response", "time", "long", "days", "turnaround", "business", "hear", "back"],
@@ -134,7 +134,7 @@ const CHATBOT_FAQS = [
         followUp: ["How do I request a new document or update an existing one?", "How do I add a non-contracted service or service provider to ICM?"]
     },
 
-    // \u2500\u2500 DTS / Software / Hardware redirect \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── DTS / Software / Hardware redirect ───────────────────────────────
     {
         question: "Who do I contact for software, hardware, or DTS issues?",
         keywords: ["software", "hardware", "dts", "teams", "adobe", "digital", "technology", "outlook", "internet", "connection", "address"],
@@ -142,7 +142,7 @@ const CHATBOT_FAQS = [
         followUp: ["How long does OSU take to respond?"]
     },
 
-    // \u2500\u2500 Manitoba Student Aid / SFAIS redirect \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Manitoba Student Aid / SFAIS redirect ─────────────────────────────
     {
         question: "Who do I contact for Manitoba Student Aid or SFAIS?",
         keywords: ["sfais", "student", "aid", "loan"],
@@ -150,7 +150,7 @@ const CHATBOT_FAQS = [
         followUp: ["How long does OSU take to respond?"]
     },
 
-    // \u2500\u2500 Site Navigation \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Site Navigation ───────────────────────────────────────────────────
     {
         question: "Where do I find all documents?",
         keywords: ["documents", "all", "find", "where", "hub", "library"],
@@ -226,13 +226,13 @@ const CHATBOT_FAQS = [
     {
         question: "Where do I find Division Information?",
         keywords: ["division", "info", "information", "about", "apprenticeship", "bits", "find", "where", "org", "chart", "branch"],
-        answer: "Division information \u2014 including details on Training and Employment Services, Apprenticeship Manitoba, Business and Industry Training Supports, and other branches \u2014 is available on the <a href='about-us.html' target='_blank'>About Us</a> page under Division Info in the navigation.",
+        answer: "Division information — including details on Training and Employment Services, Apprenticeship Manitoba, Business and Industry Training Supports, and other branches — is available on the <a href='about-us.html' target='_blank'>About Us</a> page under Division Info in the navigation.",
         followUp: ["Where do I find TES Reports and Dashboards?", "Where do I find Videos and Presentations?"]
     },
     {
         question: "How do I search for a document?",
         keywords: ["search", "find", "document", "look", "how"],
-        answer: "There are two ways to search for documents:<ol style='margin:6px 0 0 16px;padding:0'><li>Use the <strong>search bar on the <a href='documents.html' target='_blank'>Documents</a> page</strong> \u2014 it searches across all document categories as you type.</li><li>Use <strong><a href='search-results.html' target='_blank'>Site Search</a></strong> (accessible from the navigation) \u2014 it searches the entire site including bulletins, memos, events, and videos.</li></ol>",
+        answer: "There are two ways to search for documents:<ol style='margin:6px 0 0 16px;padding:0'><li>Use the <strong>search bar on the <a href='documents.html' target='_blank'>Documents</a> page</strong> — it searches across all document categories as you type.</li><li>Use <strong><a href='search-results.html' target='_blank'>Site Search</a></strong> (accessible from the navigation) — it searches the entire site including bulletins, memos, events, and videos.</li></ol>",
         followUp: ["How do I filter documents by tag?", "Where do I find all documents?"]
     },
     {
@@ -244,7 +244,7 @@ const CHATBOT_FAQS = [
     {
         question: "Where are the Quick Links?",
         keywords: ["quick", "links", "shortcuts", "icm", "sprs", "appgate", "sap", "noc", "naics", "home"],
-        answer: "Quick Links to commonly used tools \u2014 including ICM, SPRS, TES Project Listing, Internal Job Bank, NOC Lookup, NAICS Lookup, AppGate, SAP/CRM, and PVI List \u2014 are on the <a href='index.html' target='_blank'>Home page</a> in the Quick Links section.",
+        answer: "Quick Links to commonly used tools — including ICM, SPRS, TES Project Listing, Internal Job Bank, NOC Lookup, NAICS Lookup, AppGate, SAP/CRM, and PVI List — are on the <a href='index.html' target='_blank'>Home page</a> in the Quick Links section.",
         followUp: ["Where do I find all documents?", "Where do I find Key Contacts or Staff Resources?"]
     },
 

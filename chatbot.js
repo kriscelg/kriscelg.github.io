@@ -1,5 +1,5 @@
 /**
- * WDT Intranet \u2014 Help Assistant chatbot
+ * WDT Intranet — Help Assistant chatbot
  * Reads CHATBOT_ENABLED and CHATBOT_FAQS from chatbot-data.js
  */
 (function () {
@@ -7,7 +7,7 @@
 
     const faqs = typeof CHATBOT_FAQS !== 'undefined' ? CHATBOT_FAQS : [];
 
-    // \u2500\u2500 Inject CSS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Inject CSS ─────────────────────────────────────────────────────
     const style = document.createElement('style');
     style.textContent = `
         #wdt-chat-btn {
@@ -36,7 +36,7 @@
             bottom: 154px;
             right: 30px;
             width: 320px;
-            /* Shrinks on short viewports \u2014 never taller than the available space */
+            /* Shrinks on short viewports — never taller than the available space */
             height: min(430px, calc(100vh - 180px));
             max-width: calc(100vw - 20px);
             background: white;
@@ -177,7 +177,7 @@
         .wdt-topic-btn:last-child { border-bottom: none; }
         .wdt-topic-btn:hover { color: #0a4a4a; text-decoration: underline; }
 
-        /* Narrow screens \u2014 span most of the width */
+        /* Narrow screens — span most of the width */
         @media (max-width: 420px) {
             #wdt-chat-panel {
                 right: 10px;
@@ -189,7 +189,7 @@
             }
             #wdt-chat-btn { right: 16px; bottom: 86px; }
         }
-        /* Short viewports (landscape phones, small browser windows) \u2014
+        /* Short viewports (landscape phones, small browser windows) —
            keep both buttons at their normal bottom offsets so they never
            overlap; only shrink/reposition the panel */
         @media (max-height: 500px) {
@@ -206,7 +206,7 @@
     `;
     document.head.appendChild(style);
 
-    // \u2500\u2500 Build widget HTML \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Build widget HTML ──────────────────────────────────────────────
     const panel = document.createElement('div');
     panel.id = 'wdt-chat-panel';
     panel.setAttribute('role', 'dialog');
@@ -237,14 +237,14 @@
     document.body.appendChild(panel);
     document.body.appendChild(btn);
 
-    // \u2500\u2500 Refs \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Refs ───────────────────────────────────────────────────────────
     const messagesEl = document.getElementById('wdt-chat-messages');
     const chipsEl    = document.getElementById('wdt-chat-chips');
     const inputEl    = document.getElementById('wdt-chat-input');
     let isOpen = false;
     let greeted = false;
 
-    // \u2500\u2500 Matching \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Matching ───────────────────────────────────────────────────────
     function findAnswer(query) {
         const exact = faqs.find(f => f.question === query);
         if (exact) return exact;
@@ -265,7 +265,7 @@
                     txtScore += 1;
                 }
             });
-            // Require at least one keyword match \u2014 question text alone cannot trigger a result
+            // Require at least one keyword match — question text alone cannot trigger a result
             if (kwScore >= 3) {
                 const score = kwScore + txtScore;
                 if (score > bestScore) { bestScore = score; best = faq; }
@@ -275,7 +275,7 @@
         return best;
     }
 
-    // \u2500\u2500 Render helpers \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Render helpers ─────────────────────────────────────────────────
     function addMessage(html, sender) {
         const div = document.createElement('div');
         div.className = `wdt-msg wdt-msg-${sender}`;
@@ -305,7 +305,7 @@
     ];
 
     function greet() {
-        addMessage("Hi! I can help with common questions about passwords, system access, and procedures. I can also look up WDT acronyms \u2014 just ask <em>\"What does LMSA stand for?\"</em> or type an acronym like <em>TES</em>.", 'bot');
+        addMessage("Hi! I can help with common questions about passwords, system access, and procedures. I can also look up WDT acronyms — just ask <em>\"What does LMSA stand for?\"</em> or type an acronym like <em>TES</em>.", 'bot');
         showChips(DEFAULT_CHIPS);
         greeted = true;
     }
@@ -345,7 +345,7 @@
             messagesEl.scrollTop = messagesEl.scrollHeight;
         });
         div.querySelector('[data-fb="no"]').addEventListener('click', () => {
-            div.innerHTML = '<span class="wdt-feedback-result">No problem \u2014 you can submit your question as a <a href="https://forms.cloud.microsoft/r/CkXMcDYy6k" target="_blank">General Inquiry</a> through the Contact OSU form.</span>';
+            div.innerHTML = '<span class="wdt-feedback-result">No problem — you can submit your question as a <a href="https://forms.cloud.microsoft/r/CkXMcDYy6k" target="_blank">General Inquiry</a> through the Contact OSU form.</span>';
             messagesEl.scrollTop = messagesEl.scrollHeight;
         });
     }
@@ -358,7 +358,7 @@
             div.className = 'wdt-msg wdt-msg-bot';
             const header = document.createElement('div');
             header.style.cssText = 'font-size:12px;margin-bottom:8px;color:#64748b;';
-            header.textContent = 'I can help with these topics \u2014 click any to get started:';
+            header.textContent = 'I can help with these topics — click any to get started:';
             div.appendChild(header);
             faqs.forEach(faq => {
                 const btn = document.createElement('button');
@@ -447,7 +447,7 @@
         }, 250);
     }
 
-    // \u2500\u2500 Open / close \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Open / close ───────────────────────────────────────────────────
     function openPanel() {
         isOpen = true;
         panel.classList.add('open');
@@ -462,7 +462,7 @@
         btn.innerHTML = '<i class="fas fa-comment-dots"></i>';
     }
 
-    // \u2500\u2500 Event listeners \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── Event listeners ────────────────────────────────────────────────
     btn.addEventListener('click', () => isOpen ? closePanel() : openPanel());
     document.getElementById('wdt-chat-close').addEventListener('click', closePanel);
 

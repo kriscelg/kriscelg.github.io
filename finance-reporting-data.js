@@ -6,7 +6,7 @@
  * Add Power BI dashboards and reporting documents here.
  * This file is only loaded on finance-reporting.html.
  *
- * \u2500\u2500 DASHBOARDS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+ * ── DASHBOARDS ──────────────────────────────────────────────
  *
  *   title              Dashboard name shown on the page
  *   description        Short description, e.g. "Updated Monthly"
@@ -14,7 +14,7 @@
  *                      Leave '' to hide the iframe
  *   powerBiUrl         Direct Power BI share link (opens in new tab)
  *                      Leave '' to hide the "Open in Power BI" button
- *   lastRefreshed      Date data was last refreshed \u2014 YYYY-MM-DD
+ *   lastRefreshed      Date data was last refreshed — YYYY-MM-DD
  *                      Leave '' to hide the refresh date
  *   supportingDocuments  Array of related files shown below the dashboard
  *       title          File display name
@@ -22,7 +22,7 @@
  *       icon           Font Awesome icon: 'fa-file-pdf', 'fa-file-word',
  *                      'fa-file-excel', 'fa-file-powerpoint'
  *
- * \u2500\u2500 REPORTING DOCUMENTS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+ * ── REPORTING DOCUMENTS ─────────────────────────────────────
  *
  *   category           Section heading, e.g. "Finance Annual Reports"
  *   icon               Font Awesome icon for the section header
@@ -36,7 +36,7 @@
 
 const FINANCE_POWERBI_DASHBOARDS = [
 
-    // \u2500\u2500 ADD DASHBOARDS BELOW \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── ADD DASHBOARDS BELOW ───────────────────────────────────
 
     // {
     //     title: "Finance Overview Dashboard",
@@ -53,7 +53,7 @@ const FINANCE_POWERBI_DASHBOARDS = [
 
 const FINANCE_REPORTING_DOCUMENTS = [
 
-    // \u2500\u2500 ADD REPORT CATEGORIES BELOW \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // ── ADD REPORT CATEGORIES BELOW ───────────────────────────
 
     {
         category: "Finance Annual Reports",

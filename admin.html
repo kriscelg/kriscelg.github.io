@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Centre &mdash; WDT Intranet</title>
+    <title>Admin Centre — WDT Intranet</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* &#9472;&#9472; Base &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Base ─────────────────────────────────────── */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Inter', sans-serif; background: #f0f4f8; color: #1e293b; font-size: 14px; }
         a { color: #0d5f5f; text-decoration: none; }
         a:hover { text-decoration: underline; }
 
-        /* &#9472;&#9472; Password Gate &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Password Gate ────────────────────────────── */
         #admin-gate {
             position: fixed; inset: 0; background: #0d5f5f;
             display: flex; align-items: center; justify-content: center;
@@ -46,7 +46,7 @@
         .gate-error { margin-top: 10px; font-size: 13px; color: #dc2626; display: none; }
         .gate-note { margin-top: 20px; font-size: 11px; color: #94a3b8; line-height: 1.5; }
 
-        /* &#9472;&#9472; Admin Header &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Admin Header ─────────────────────────────── */
         .admin-header {
             background: #0d5f5f; color: #fff;
             padding: 0 24px; height: 56px;
@@ -65,11 +65,11 @@
         }
         .admin-signout-btn:hover { background: rgba(255,255,255,.25); }
 
-        /* &#9472;&#9472; Layout &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Layout ───────────────────────────────────── */
         #admin-content { display: none; }
         .admin-body { max-width: 1280px; margin: 0 auto; padding: 28px 24px 60px; }
 
-        /* &#9472;&#9472; Section &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Section ──────────────────────────────────── */
         .admin-section { margin-bottom: 32px; }
         .admin-section-title {
             font-size: 12px; font-weight: 700; letter-spacing: 1px;
@@ -78,7 +78,7 @@
             border-bottom: 1px solid #e2e8f0;
         }
 
-        /* &#9472;&#9472; KPI Tiles &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── KPI Tiles ────────────────────────────────── */
         .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
         .kpi-tile {
             background: #fff; border-radius: 10px;
@@ -93,7 +93,7 @@
         .kpi-num { font-size: 28px; font-weight: 800; color: #0f172a; line-height: 1; }
         .kpi-label { font-size: 12px; color: #64748b; margin-top: 5px; font-weight: 500; }
 
-        /* &#9472;&#9472; Cards &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Cards ────────────────────────────────────── */
         .card {
             background: #fff; border-radius: 10px;
             box-shadow: 0 1px 4px rgba(0,0,0,.06); overflow: hidden;
@@ -112,7 +112,7 @@
         .td-label { color: #475569; }
         .td-sub { font-size: 12px; color: #94a3b8; }
 
-        /* &#9472;&#9472; Alerts &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Alerts ───────────────────────────────────── */
         .alerts-list { display: flex; flex-direction: column; gap: 8px; }
         .alert-item {
             display: flex; align-items: flex-start; gap: 10px;
@@ -151,7 +151,7 @@
         }
         .alert-show-more:hover { opacity: 1; }
 
-        /* &#9472;&#9472; Reporting Grid &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Reporting Grid ───────────────────────────── */
         .reporting-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
         .reporting-card {
             background: #fff; border-radius: 10px; padding: 16px;
@@ -167,7 +167,7 @@
         .reporting-stat-label { color: #64748b; }
         .reporting-stat-val { font-weight: 600; }
 
-        /* &#9472;&#9472; Recent Feed &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Recent Feed ──────────────────────────────── */
         .feed-item {
             display: flex; align-items: baseline; gap: 12px;
             padding: 10px 16px; border-bottom: 1px solid #f1f5f9;
@@ -188,16 +188,16 @@
         .feed-title { flex: 1; font-size: 13px; color: #1e293b; }
         .feed-date { flex-shrink: 0; font-size: 12px; color: #94a3b8; }
 
-        /* &#9472;&#9472; Two-column layout &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Two-column layout ────────────────────────── */
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
 
-        /* &#9472;&#9472; File type badges &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── File type badges ─────────────────────────── */
         .type-row { display: flex; justify-content: space-between; padding: 8px 16px; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
         .type-row:last-child { border-bottom: none; }
         .type-count { font-weight: 700; }
 
-        /* &#9472;&#9472; Name Registry &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Name Registry ────────────────────────────── */
         .registry-group { margin-bottom: 22px; }
         .registry-group-title {
             font-size: 11px; font-weight: 700; letter-spacing: .6px;
@@ -228,7 +228,7 @@
         .nr-detail-list { margin: 0; padding: 10px 14px 10px 28px; display: flex; flex-direction: column; gap: 5px; }
         .nr-detail-item { font-size: 12px; color: #1e293b; }
 
-        /* &#9472;&#9472; Broken Link Checker &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Broken Link Checker ──────────────────────── */
         .link-check-btn {
             padding: 9px 20px; background: #0d5f5f; color: #fff;
             border: none; border-radius: 8px; font-size: 13px; font-weight: 600;
@@ -241,7 +241,7 @@
         .link-check-result { margin-top: 14px; }
         .lc-bad { color: #dc2626; font-weight: 600; }
 
-        /* &#9472;&#9472; Quick Links &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Quick Links ──────────────────────────────── */
         .quick-links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
         .ql-card {
             background: #fff; border-radius: 10px;
@@ -252,7 +252,7 @@
         .ql-desc { font-size: 12px; color: #475569; }
         .ql-note { font-size: 11px; color: #94a3b8; margin-top: 2px; }
 
-        /* &#9472;&#9472; Document Entry Generator &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Document Entry Generator ────────────────── */
         .gen-form { display: flex; flex-direction: column; gap: 14px; }
         .gen-field { display: flex; flex-direction: column; gap: 5px; }
         .gen-label { font-size: 12px; font-weight: 600; color: #475569; }
@@ -328,13 +328,13 @@
         .gen-target-hint { font-size: 11px; color: #64748b; margin-top: 5px; padding: 5px 10px; background: #f8fafc; border-radius: 4px; border-left: 3px solid #0d5f5f; }
         .gen-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         @media (max-width: 800px) { .gen-two-col { grid-template-columns: 1fr; } }
-        /* &#9472;&#9472; Generator Tab Pills &#9472;&#9472; */
+        /* ── Generator Tab Pills ── */
         .gen-type-tabs { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:14px; }
         .gen-tab-pill { padding:4px 12px; font-size:11.5px; font-weight:500; border:1.5px solid #e2e8f0; background:#fff; color:#64748b; border-radius:20px; cursor:pointer; transition:all .15s; line-height:1.8; white-space:nowrap; }
         .gen-tab-pill:hover { border-color:#0d5f5f; color:#0d5f5f; }
         .gen-tab-pill.active { background:#0d5f5f; border-color:#0d5f5f; color:#fff; }
         textarea.gen-input { resize:vertical; min-height:60px; }
-        /* &#9472;&#9472; Supporting Docs Repeater &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Supporting Docs Repeater ─────────────────── */
         .sup-doc-row { display:grid; grid-template-columns: 1fr 1fr auto auto; gap:6px; align-items:center; margin-bottom:6px; }
         @media (max-width:800px) { .sup-doc-row { grid-template-columns: 1fr 1fr; } .sup-doc-row .sup-doc-remove { grid-column:span 2; } }
         .sup-doc-remove { background:none; border:1.5px solid #fca5a5; color:#ef4444; border-radius:5px; padding:5px 8px; font-size:12px; cursor:pointer; flex-shrink:0; transition:background .15s; }
@@ -342,7 +342,7 @@
         .sup-doc-add { margin-top:4px; background:none; border:1.5px dashed #cbd5e1; color:#64748b; border-radius:6px; padding:6px 12px; font-size:12px; font-family:inherit; cursor:pointer; width:100%; transition:border-color .15s,color .15s; }
         .sup-doc-add:hover { border-color:#0d5f5f; color:#0d5f5f; }
         .sup-doc-select { padding:7px 8px; border:1.5px solid #e2e8f0; border-radius:6px; font-size:12.5px; font-family:inherit; background:#fff; color:#1e293b; }
-        /* &#9472;&#9472; Entry Queue &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Entry Queue ──────────────────────────────── */
         .queue-section { margin-top:14px; }
         .queue-item { display:flex; align-items:flex-start; gap:8px; padding:8px 10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; margin-bottom:6px; }
         .queue-item-preview { flex:1; font-family:'Courier New',monospace; font-size:11px; color:#334155; white-space:pre; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
@@ -355,7 +355,7 @@
         .queue-copy-all-btn.copied { background:#16a34a; border-color:#16a34a; color:#fff; }
         .queue-count-badge { background:#0d5f5f; color:#fff; border-radius:10px; padding:1px 7px; font-size:11px; font-weight:700; margin-left:6px; }
 
-        /* &#9472;&#9472; Responsive &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+        /* ── Responsive ───────────────────────────────── */
         @media (max-width: 600px) {
             .kpi-grid { grid-template-columns: repeat(2, 1fr); }
             .admin-body { padding: 16px 14px 40px; }
@@ -364,9 +364,9 @@
 </head>
 <body>
 
-<!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;
+<!-- ════════════════════════════════════════════════════════
      PASSWORD GATE
-&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
+═══════════════════════════════════════════════════════════ -->
 <div id="admin-gate">
     <div class="gate-card">
         <div class="gate-logo"><span data-wdt-name="div_wdt_acronym">WDT</span> Intranet</div>
@@ -375,13 +375,13 @@
         <input type="password" id="gateInput" class="gate-input" placeholder="Enter password" autocomplete="current-password">
         <button class="gate-btn" id="gateBtn">Sign In</button>
         <div class="gate-error" id="gateError"><i class="fas fa-exclamation-circle"></i> Incorrect password. Please try again.</div>
-        <div class="gate-note">Session ends when you close this tab.<br>Password is stored in session only &mdash; never transmitted.</div>
+        <div class="gate-note">Session ends when you close this tab.<br>Password is stored in session only — never transmitted.</div>
     </div>
 </div>
 
-<!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;
+<!-- ════════════════════════════════════════════════════════
      ADMIN CONTENT
-&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
+═══════════════════════════════════════════════════════════ -->
 <div id="admin-content">
 
     <header class="admin-header">
@@ -395,28 +395,28 @@
 
     <div class="admin-body">
 
-        <!-- &#9472;&#9472; Site Health Alerts &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; -->
+        <!-- ── Site Health Alerts ─────────────────────── -->
         <div class="admin-section">
             <div class="admin-section-title"><i class="fas fa-shield-alt"></i>&ensp;Site Health</div>
-            <div id="alertsContainer"><div class="no-alerts"><i class="fas fa-check-circle"></i>&ensp;Loading&#8230;</div></div>
+            <div id="alertsContainer"><div class="no-alerts"><i class="fas fa-check-circle"></i>&ensp;Loading…</div></div>
         </div>
 
-        <!-- &#9472;&#9472; Overview KPIs &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; -->
+        <!-- ── Overview KPIs ──────────────────────────── -->
         <div class="admin-section">
             <div class="admin-section-title"><i class="fas fa-chart-bar"></i>&ensp;Overview</div>
             <div class="kpi-grid" id="kpiGrid">
-                <div class="kpi-tile"><div class="kpi-num" id="kpi-docs">&mdash;</div><div class="kpi-label">Active Documents</div></div>
-                <div class="kpi-tile amber"><div class="kpi-num" id="kpi-stale">&mdash;</div><div class="kpi-label">Stale (12+ months)</div></div>
-                <div class="kpi-tile red"><div class="kpi-num" id="kpi-notags">&mdash;</div><div class="kpi-label">No Tags</div></div>
-                <div class="kpi-tile blue"><div class="kpi-num" id="kpi-archived">&mdash;</div><div class="kpi-label">Archived Docs</div></div>
-                <div class="kpi-tile"><div class="kpi-num" id="kpi-dashboards">&mdash;</div><div class="kpi-label">Dashboards</div></div>
-                <div class="kpi-tile purple"><div class="kpi-num" id="kpi-bulletins">&mdash;</div><div class="kpi-label">Bulletins</div></div>
-                <div class="kpi-tile purple"><div class="kpi-num" id="kpi-memos">&mdash;</div><div class="kpi-label">Memos</div></div>
-                <div class="kpi-tile green"><div class="kpi-num" id="kpi-searchindex">&mdash;</div><div class="kpi-label">Search Index Items</div></div>
+                <div class="kpi-tile"><div class="kpi-num" id="kpi-docs">—</div><div class="kpi-label">Active Documents</div></div>
+                <div class="kpi-tile amber"><div class="kpi-num" id="kpi-stale">—</div><div class="kpi-label">Stale (12+ months)</div></div>
+                <div class="kpi-tile red"><div class="kpi-num" id="kpi-notags">—</div><div class="kpi-label">No Tags</div></div>
+                <div class="kpi-tile blue"><div class="kpi-num" id="kpi-archived">—</div><div class="kpi-label">Archived Docs</div></div>
+                <div class="kpi-tile"><div class="kpi-num" id="kpi-dashboards">—</div><div class="kpi-label">Dashboards</div></div>
+                <div class="kpi-tile purple"><div class="kpi-num" id="kpi-bulletins">—</div><div class="kpi-label">Bulletins</div></div>
+                <div class="kpi-tile purple"><div class="kpi-num" id="kpi-memos">—</div><div class="kpi-label">Memos</div></div>
+                <div class="kpi-tile green"><div class="kpi-num" id="kpi-searchindex">—</div><div class="kpi-label">Search Index Items</div></div>
             </div>
         </div>
 
-        <!-- &#9472;&#9472; Document Health &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; -->
+        <!-- ── Document Health ────────────────────────── -->
         <div class="admin-section">
             <div class="admin-section-title"><i class="fas fa-folder-open"></i>&ensp;Document Health</div>
             <div class="two-col">
@@ -438,13 +438,13 @@
             </div>
         </div>
 
-        <!-- &#9472;&#9472; Reporting Coverage &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; -->
+        <!-- ── Reporting Coverage ─────────────────────── -->
         <div class="admin-section">
             <div class="admin-section-title"><i class="fas fa-chart-line"></i>&ensp;Reporting Coverage</div>
             <div class="reporting-grid" id="reportingGrid"></div>
         </div>
 
-        <!-- &#9472;&#9472; Comms, Content & Chatbot &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; -->
+        <!-- ── Comms, Content & Chatbot ───────────────── -->
         <div class="admin-section">
             <div class="admin-section-title"><i class="fas fa-layer-group"></i>&ensp;Content &amp; Chatbot</div>
             <div class="two-col">
@@ -466,20 +466,20 @@
             </div>
         </div>
 
-        <!-- &#9472;&#9472; Recently Updated Feed &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; -->
+        <!-- ── Recently Updated Feed ──────────────────── -->
         <div class="admin-section">
             <div class="admin-section-title"><i class="fas fa-history"></i>&ensp;Recently Updated <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#94a3b8;">(last 20 items across all data files)</span></div>
             <div class="card" id="recentFeed"></div>
         </div>
 
-        <!-- &#9472;&#9472; Name Registry &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; -->
+        <!-- ── Name Registry ─────────────────────────── -->
         <div class="admin-section">
             <div class="admin-section-title"><i class="fas fa-id-badge"></i>&ensp;Name Registry</div>
-            <div style="font-size:13px;color:#475569;margin-bottom:14px;">Official organizational names. Update values in <code style="font-size:12px;background:#f1f5f9;padding:2px 6px;border-radius:4px;">name-registry-data.js</code> &mdash; HTML documents using <code style="font-size:12px;background:#f1f5f9;padding:2px 6px;border-radius:4px;">data-wdt-name</code> spans will update automatically on next page load.</div>
-            <div class="card" id="nameRegistryContainer"><div style="padding:16px;color:#94a3b8;font-size:13px;">Loading&#8230;</div></div>
+            <div style="font-size:13px;color:#475569;margin-bottom:14px;">Official organizational names. Update values in <code style="font-size:12px;background:#f1f5f9;padding:2px 6px;border-radius:4px;">name-registry-data.js</code> — HTML documents using <code style="font-size:12px;background:#f1f5f9;padding:2px 6px;border-radius:4px;">data-wdt-name</code> spans will update automatically on next page load.</div>
+            <div class="card" id="nameRegistryContainer"><div style="padding:16px;color:#94a3b8;font-size:13px;">Loading…</div></div>
         </div>
 
-        <!-- &#9472;&#9472; Broken Link Checker &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; -->
+        <!-- ── Broken Link Checker ───────────────────── -->
         <div class="admin-section">
             <div class="admin-section-title"><i class="fas fa-link"></i>&ensp;Broken Link Checker</div>
             <div class="card" style="padding:18px 20px;">
@@ -490,7 +490,7 @@
             </div>
         </div>
 
-        <!-- &#9472;&#9472; Document Entry Generator &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; -->
+        <!-- ── Document Entry Generator ──────────────── -->
         <div class="admin-section">
             <div class="admin-section-title"><i class="fas fa-code"></i>&ensp;Entry Generator</div>
             <div style="font-size:13px;color:#475569;margin-bottom:12px;">Select an entry type, fill in the fields, then copy the generated code into the right data file.</div>
@@ -516,7 +516,7 @@
                 <div class="card" style="padding:18px 20px;">
                     <div class="gen-form" id="genForm">
 
-                        <!-- &#9312; Document: target array -->
+                        <!-- ① Document: target array -->
                         <div class="gen-field" id="gf-doc-array">
                             <label class="gen-label" for="genArray">Target array</label>
                             <select class="gen-select" id="genArray">
@@ -528,28 +528,28 @@
                             </select>
                         </div>
 
-                        <!-- &#9313; Reporting file -->
+                        <!-- ② Reporting file -->
                         <div class="gen-field" id="gf-report-file">
                             <label class="gen-label" for="genReportFile">Reporting file</label>
                             <select class="gen-select" id="genReportFile">
-                                <option value="tes-reporting-data.js">TES &mdash; tes-reporting-data.js</option>
-                                <option value="apprenticeship-reporting-data.js">Apprenticeship &mdash; apprenticeship-reporting-data.js</option>
-                                <option value="bits-reporting-data.js">BITS &mdash; bits-reporting-data.js</option>
-                                <option value="finance-reporting-data.js">Finance &mdash; finance-reporting-data.js</option>
-                                <option value="sib-reporting-data.js">SIB &mdash; sib-reporting-data.js</option>
+                                <option value="tes-reporting-data.js">TES — tes-reporting-data.js</option>
+                                <option value="apprenticeship-reporting-data.js">Apprenticeship — apprenticeship-reporting-data.js</option>
+                                <option value="bits-reporting-data.js">BITS — bits-reporting-data.js</option>
+                                <option value="finance-reporting-data.js">Finance — finance-reporting-data.js</option>
+                                <option value="sib-reporting-data.js">SIB — sib-reporting-data.js</option>
                             </select>
                         </div>
 
                         <!-- Target hint (always visible) -->
                         <div class="gen-target-hint" id="genTargetHint"></div>
 
-                        <!-- &#9314; Title / Subject / Question / Key -->
+                        <!-- ③ Title / Subject / Question / Key -->
                         <div class="gen-field" id="gf-title">
                             <label class="gen-label" id="genTitleLabel" for="genTitle">Title</label>
                             <input type="text" class="gen-input" id="genTitle" placeholder="e.g. Agreement Monitoring Policy">
                         </div>
 
-                        <!-- &#9315; File type -->
+                        <!-- ④ File type -->
                         <div class="gen-field" id="gf-filetype">
                             <label class="gen-label" for="genFileType">File type</label>
                             <select class="gen-select" id="genFileType">
@@ -563,7 +563,7 @@
                             </select>
                         </div>
 
-                        <!-- &#9316; File name -->
+                        <!-- ⑤ File name -->
                         <div class="gen-field" id="gf-filename">
                             <label class="gen-label" id="genFileNameLabel" for="genFileName">File name</label>
                             <div class="gen-file-row">
@@ -572,13 +572,13 @@
                             </div>
                         </div>
 
-                        <!-- &#9317; Date -->
+                        <!-- ⑥ Date -->
                         <div class="gen-field" id="gf-date">
                             <label class="gen-label" id="genDateLabel" for="genDate">Upload date</label>
                             <input type="date" class="gen-input" id="genDate">
                         </div>
 
-                        <!-- &#9318; Archived: 3 date fields -->
+                        <!-- ⑦ Archived: 3 date fields -->
                         <div class="gen-field" id="gf-archived-dates">
                             <label class="gen-label">Active period &amp; archived on</label>
                             <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -597,7 +597,7 @@
                             </div>
                         </div>
 
-                        <!-- &#9319; Category -->
+                        <!-- ⑧ Category -->
                         <div class="gen-field" id="gf-category">
                             <label class="gen-label" for="genCategory">Category</label>
                             <select class="gen-select" id="genCategory">
@@ -610,13 +610,13 @@
                             </select>
                         </div>
 
-                        <!-- &#9320; Report Doc: document URL -->
+                        <!-- ⑨ Report Doc: document URL -->
                         <div class="gen-field" id="gf-report-doc-url">
                             <label class="gen-label" for="genReportDocUrl">Document URL</label>
                             <input type="text" class="gen-input" id="genReportDocUrl" placeholder="https://... or relative path">
                         </div>
 
-                        <!-- &#9321; Report Doc: category icon + year -->
+                        <!-- ⑩ Report Doc: category icon + year -->
                         <div class="gen-field" id="gf-report-doc-meta">
                             <div class="gen-two-col">
                                 <div class="gen-field" style="margin:0">
@@ -630,7 +630,7 @@
                             </div>
                         </div>
 
-                        <!-- &#9322; Archived: superseded by -->
+                        <!-- ⑪ Archived: superseded by -->
                         <div class="gen-field" id="gf-superseded">
                             <label class="gen-label">Superseded by <span class="gen-opt">(optional)</span></label>
                             <div class="gen-two-col">
@@ -639,24 +639,24 @@
                             </div>
                         </div>
 
-                        <!-- &#9323; Archived: reason -->
+                        <!-- ⑫ Archived: reason -->
                         <div class="gen-field" id="gf-reason">
                             <label class="gen-label" for="genReason">Reason for archiving</label>
                             <input type="text" class="gen-input" id="genReason" placeholder="e.g. Superseded by updated policy">
                         </div>
 
-                        <!-- &#9324; Memo: subject -->
+                        <!-- ⑬ Memo: subject -->
                         <div class="gen-field" id="gf-subject">
                             <label class="gen-label" for="genSubject">Subject</label>
                             <input type="text" class="gen-input" id="genSubject" placeholder="Memo subject line">
                         </div>
 
-                        <!-- &#9325; Event: time + location -->
+                        <!-- ⑭ Event: time + location -->
                         <div class="gen-field" id="gf-event-details">
                             <div class="gen-two-col">
                                 <div class="gen-field" style="margin:0">
                                     <label class="gen-label" for="genTime">Time</label>
-                                    <input type="text" class="gen-input" id="genTime" placeholder="2:00 PM &ndash; 3:00 PM">
+                                    <input type="text" class="gen-input" id="genTime" placeholder="2:00 PM – 3:00 PM">
                                 </div>
                                 <div class="gen-field" style="margin:0">
                                     <label class="gen-label" for="genLocation">Location</label>
@@ -671,7 +671,7 @@
                             <input type="date" class="gen-input" id="genEventEnd">
                         </div>
 
-                        <!-- &#9326; Video/Presentation: program area -->
+                        <!-- ⑮ Video/Presentation: program area -->
                         <div class="gen-field" id="gf-program-area">
                             <label class="gen-label" for="genProgramArea">Program area</label>
                             <select class="gen-select" id="genProgramArea">
@@ -680,7 +680,7 @@
                             </select>
                         </div>
 
-                        <!-- &#9327; Video/Presentation: thumbnail + duration/slides -->
+                        <!-- ⑯ Video/Presentation: thumbnail + duration/slides -->
                         <div class="gen-field" id="gf-media-meta">
                             <div class="gen-two-col">
                                 <div class="gen-field" style="margin:0">
@@ -694,13 +694,13 @@
                             </div>
                         </div>
 
-                        <!-- &#9328; Video: caption file -->
+                        <!-- ⑰ Video: caption file -->
                         <div class="gen-field" id="gf-caption">
                             <label class="gen-label" for="genCaptionFile">Caption file <span class="gen-opt">(optional)</span></label>
                             <input type="text" class="gen-input" id="genCaptionFile" placeholder="videos/captions.vtt">
                         </div>
 
-                        <!-- &#9329; Report Dashboard: embed URLs -->
+                        <!-- ⑱ Report Dashboard: embed URLs -->
                         <div class="gen-field" id="gf-embed-urls">
                             <label class="gen-label" for="genEmbedUrl">Embed URL</label>
                             <input type="text" class="gen-input" id="genEmbedUrl" placeholder="https://app.powerbi.com/reportEmbed?...">
@@ -708,60 +708,60 @@
                             <input type="text" class="gen-input" id="genPowerBiUrl" style="margin-top:4px" placeholder="https://app.powerbi.com/groups/...">
                         </div>
 
-                        <!-- &#9329;b Report Dashboard: supporting documents -->
+                        <!-- ⑱b Report Dashboard: supporting documents -->
                         <div class="gen-field" id="gf-supporting-docs">
                             <label class="gen-label">Supporting Documents <span class="gen-opt">(optional)</span></label>
                             <div id="supDocRows"></div>
                             <button type="button" class="sup-doc-add" id="supDocAddBtn"><i class="fas fa-plus"></i> Add supporting document</button>
                         </div>
 
-                        <!-- &#9330; Tags -->
+                        <!-- ⑲ Tags -->
                         <div class="gen-field" id="gf-tags">
                             <label class="gen-label">Tags</label>
                             <div class="tag-chips-row" id="tagChipsRow"></div>
                             <div class="tag-multi-wrap" id="tagMultiWrap">
                                 <button type="button" class="tag-multi-trigger" id="tagMultiTrigger">
-                                    <span id="tagMultiLabel">Select tags&#8230;</span>
+                                    <span id="tagMultiLabel">Select tags…</span>
                                     <i class="fas fa-chevron-down" id="tagMultiChevron" style="font-size:11px;transition:transform .2s;flex-shrink:0;"></i>
                                 </button>
                                 <div class="tag-multi-panel" id="tagMultiPanel">
-                                    <input type="text" class="tag-multi-search" id="tagMultiSearch" placeholder="Search all tags&#8230;" autocomplete="off">
+                                    <input type="text" class="tag-multi-search" id="tagMultiSearch" placeholder="Search all tags…" autocomplete="off">
                                     <div class="tag-multi-list" id="tagMultiList"></div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- &#9331; Description -->
+                        <!-- ⑳ Description -->
                         <div class="gen-field" id="gf-description">
                             <label class="gen-label" for="genDesc">Description <span class="gen-opt">(optional)</span></label>
                             <input type="text" class="gen-input" id="genDesc" placeholder="Leave blank for empty string">
                         </div>
 
-                        <!-- &#12881; Name Refs (Document only) -->
+                        <!-- ㉑ Name Refs (Document only) -->
                         <div class="gen-field" id="gf-namerefs">
                             <label class="gen-label">Name Refs <span class="gen-opt">(optional)</span></label>
                             <div class="nameref-grid" id="genNameRefs"></div>
                         </div>
 
-                        <!-- &#12882; FAQ: keywords -->
+                        <!-- ㉒ FAQ: keywords -->
                         <div class="gen-field" id="gf-faq-keywords">
                             <label class="gen-label" for="genKeywords">Keywords <span class="gen-opt">(comma-separated)</span></label>
                             <input type="text" class="gen-input" id="genKeywords" placeholder="agreement, monitoring, contract">
                         </div>
 
-                        <!-- &#12883; FAQ: answer -->
+                        <!-- ㉓ FAQ: answer -->
                         <div class="gen-field" id="gf-faq-answer">
                             <label class="gen-label" for="genAnswer">Answer <span class="gen-opt">(plain text or HTML)</span></label>
                             <textarea class="gen-input" id="genAnswer" rows="3"></textarea>
                         </div>
 
-                        <!-- &#12884; FAQ: follow-up questions -->
+                        <!-- ㉔ FAQ: follow-up questions -->
                         <div class="gen-field" id="gf-faq-followups">
                             <label class="gen-label" for="genFollowUps">Follow-up questions <span class="gen-opt">(one per line, opt)</span></label>
                             <textarea class="gen-input" id="genFollowUps" rows="2"></textarea>
                         </div>
 
-                        <!-- &#12885; Acronym: definition -->
+                        <!-- ㉕ Acronym: definition -->
                         <div class="gen-field" id="gf-acronym-def">
                             <label class="gen-label" for="genAcronymDef">Definition</label>
                             <input type="text" class="gen-input" id="genAcronymDef" placeholder="Full form of the acronym">
@@ -790,7 +790,7 @@
             </div>
         </div>
 
-        <!-- &#9472;&#9472; Page Builder &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; -->
+        <!-- ── Page Builder ──────────────────────────── -->
         <div class="admin-section">
             <div class="admin-section-title"><i class="fas fa-file-code"></i>&ensp;Page Builder</div>
             <div style="font-size:13px;color:#475569;margin-bottom:14px;">Build formatted intranet HTML pages using a block-based editor with live preview.</div>
@@ -799,7 +799,7 @@
             </a>
         </div>
 
-        <!-- &#9472;&#9472; Quick Links &mdash; Data Files &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; -->
+        <!-- ── Quick Links — Data Files ──────────────── -->
         <div class="admin-section">
             <div class="admin-section-title"><i class="fas fa-database"></i>&ensp;Data Files Reference</div>
             <div style="font-size:12px;color:#94a3b8;margin-bottom:14px;">These are the data files that power the intranet. Update links below once the site is hosted.</div>
@@ -809,13 +809,13 @@
     </div><!-- /admin-body -->
 </div><!-- /admin-content -->
 
-<!-- &#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;
-     DATA FILES &mdash; loaded after DOM ready
-&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552;&#9552; -->
+<!-- ════════════════════════════════════════════════════════
+     DATA FILES — loaded after DOM ready
+═══════════════════════════════════════════════════════════ -->
 <script>
-// &#9472;&#9472; Password gate &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+// ── Password gate ────────────────────────────────────────
 // Change this value to set the admin password.
-// It is stored only in sessionStorage &mdash; never sent to a server.
+// It is stored only in sessionStorage — never sent to a server.
 const ADMIN_PASSWORD = 'intranet8you';
 
 const SESSION_KEY = 'wdt_admin_auth';
@@ -856,7 +856,7 @@ if (sessionStorage.getItem(SESSION_KEY) === '1') {
     document.addEventListener('DOMContentLoaded', loadAllData);
 }
 
-// &#9472;&#9472; Sequential data loader &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+// ── Sequential data loader ───────────────────────────────
 const DATA_FILES = [
     'documents-data.js',
     'archived-documents-data.js',
@@ -888,7 +888,7 @@ function loadAllData() {
     next();
 }
 
-// &#9472;&#9472; Stats builder &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+// ── Stats builder ────────────────────────────────────────
 function buildStats() {
     const today = new Date().toISOString().slice(0, 10);
     const oneYearAgo = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
@@ -896,7 +896,7 @@ function buildStats() {
     function g(v) { return typeof v !== 'undefined' ? v : []; }
     function flatDocs(arr) { return arr.flatMap(c => c.documents || []); }
 
-    // &#9472;&#9472; Active documents &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Active documents ─────────────────────────────────
     const docCategories = [
         { label: 'Policy Documents',     docs: g(POLICY_DOCUMENTS) },
         { label: 'Job Aids & Guidelines', docs: g(JOB_AID_GUIDELINES) },
@@ -911,7 +911,7 @@ function buildStats() {
     const activeCats = docCategories.map(c => ({ ...c, docs: c.docs.filter(d => !d.archived) }));
     const allActive  = activeCats.flatMap(c => c.docs);
 
-    // nameRefs map: base-key &#8594; [docs]
+    // nameRefs map: base-key → [docs]
     const nameRefMap = {};
     allActive.forEach(d => {
         (d.nameRefs || []).forEach(k => {
@@ -941,7 +941,7 @@ function buildStats() {
     const fileTypes = {};
     allActive.forEach(d => { const t = d.fileType || 'Unknown'; fileTypes[t] = (fileTypes[t] || 0) + 1; });
 
-    // &#9472;&#9472; Reporting &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Reporting ────────────────────────────────────────
     const depts = [
         { label: 'TES',     dashboards: g(POWERBI_DASHBOARDS),         docs: flatDocs(g(REPORTING_DOCUMENTS)),          page: 'tes-reporting.html' },
         { label: 'AM',      dashboards: g(AM_POWERBI_DASHBOARDS),      docs: flatDocs(g(AM_REPORTING_DOCUMENTS)),       page: 'apprenticeship-reporting.html' },
@@ -951,7 +951,7 @@ function buildStats() {
     ];
     const totalDashboards = depts.reduce((s, d) => s + d.dashboards.length, 0);
 
-    // &#9472;&#9472; Comms &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Comms ────────────────────────────────────────────
     const bulletins = g(BULLETINS);
     const memos     = g(MEMOS);
     const events    = g(EVENTS);
@@ -964,30 +964,30 @@ function buildStats() {
         return dates.length ? dates[dates.length - 1] : null;
     }
     function fmtDate(d) {
-        if (!d) return '&mdash;';
+        if (!d) return '—';
         const [y, m, day] = d.split('-').map(Number);
         return new Date(y, m - 1, day).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     }
 
-    // &#9472;&#9472; Chatbot &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Chatbot ──────────────────────────────────────────
     const faqs     = g(CHATBOT_FAQS).length;
     const acronyms = Object.keys(typeof WDT_ACRONYMS !== 'undefined' ? WDT_ACRONYMS : {}).length;
 
-    // &#9472;&#9472; Search index size (estimate) &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Search index size (estimate) ─────────────────────
     const reportingDocs = depts.reduce((s, d) => s + d.docs.length, 0);
     const searchIndex = allActive.length + bulletins.length + memos.length
         + events.length + videos.length + presentations.length
         + totalDashboards + reportingDocs;
 
-    // &#9472;&#9472; Alerts &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Alerts ───────────────────────────────────────────
     // Category lookup for stale/no-tags detail lists
     function catOf(doc) {
         for (const c of activeCats) { if (c.docs.includes(doc)) return c.label; }
-        return '&mdash;';
+        return '—';
     }
     function catOfAll(doc) {
         for (const c of docCategories) { if (c.docs.includes(doc)) return c.label; }
-        return '&mdash;';
+        return '—';
     }
 
     const DETAIL_CAP = 15; // rows shown before "Show more"
@@ -1007,7 +1007,7 @@ function buildStats() {
                 <thead><tr>${cols.map(c => `<th>${c.head}</th>`).join('')}</tr></thead>
                 <tbody>${shown.map(d => `<tr>${cols.map(c => `<td>${c.val(d)}</td>`).join('')}</tr>`).join('')}</tbody>
             </table>
-            ${extra.length > 0 ? `<button class="alert-show-more" data-uid="${uid}">Show ${extra.length} more &#9662;</button>` : ''}`;
+            ${extra.length > 0 ? `<button class="alert-show-more" data-uid="${uid}">Show ${extra.length} more ▾</button>` : ''}`;
     }
 
     // Event delegation for "Show more" buttons (attached after rendering)
@@ -1046,13 +1046,13 @@ function buildStats() {
         let ageStr = '';
         if (changedOn) {
             const days = Math.floor((Date.now() - new Date(changedOn)) / 864e5);
-            ageStr = ' &mdash; changed ' + (days === 0 ? 'today' : days + ' day' + (days !== 1 ? 's' : '') + ' ago');
+            ageStr = ' — changed ' + (days === 0 ? 'today' : days + ' day' + (days !== 1 ? 's' : '') + ' ago');
         }
         const htmlDocs    = docs.filter(d => (d.fileType || '').toUpperCase() === 'HTML');
         const nonHtmlDocs = docs.filter(d => (d.fileType || '').toUpperCase() !== 'HTML');
         const msg = docs.length === 0
-            ? `Name changed: "${newName}"${ageStr} &mdash; no documents are tagged with <code style="font-size:11px;">${baseKey}</code> yet.`
-            : `Name changed: "${newName}"${ageStr} &mdash; ${docs.length} document${docs.length > 1 ? 's' : ''} need updating (${htmlDocs.length} HTML, ${nonHtmlDocs.length} non-HTML file${nonHtmlDocs.length !== 1 ? 's' : ''}).`;
+            ? `Name changed: "${newName}"${ageStr} — no documents are tagged with <code style="font-size:11px;">${baseKey}</code> yet.`
+            : `Name changed: "${newName}"${ageStr} — ${docs.length} document${docs.length > 1 ? 's' : ''} need updating (${htmlDocs.length} HTML, ${nonHtmlDocs.length} non-HTML file${nonHtmlDocs.length !== 1 ? 's' : ''}).`;
         alerts.push({
             level: 'red', icon: 'fa-pen',
             msg,
@@ -1072,7 +1072,7 @@ function buildStats() {
         const sorted = [...noTagsDocs].sort((a, b) => a.title.localeCompare(b.title));
         alerts.push({
             level: 'amber', icon: 'fa-tag',
-            msg: `${noTagsDocs.length} active document${noTagsDocs.length > 1 ? 's have' : ' has'} no tags &mdash; these won't appear in tag filter searches.`,
+            msg: `${noTagsDocs.length} active document${noTagsDocs.length > 1 ? 's have' : ' has'} no tags — these won't appear in tag filter searches.`,
             detail: makeDetailTable(sorted, [
                 { head: 'Title', val: d => d.title },
                 { head: 'Category', val: d => catOf(d) },
@@ -1084,7 +1084,7 @@ function buildStats() {
         const sorted = [...staleDocs].sort((a, b) => (a.uploadDate || '').localeCompare(b.uploadDate || ''));
         alerts.push({
             level: 'amber', icon: 'fa-clock',
-            msg: `${staleDocs.length} document${staleDocs.length > 1 ? 's are' : ' is'} over 12 months old &mdash; review for accuracy.`,
+            msg: `${staleDocs.length} document${staleDocs.length > 1 ? 's are' : ' is'} over 12 months old — review for accuracy.`,
             detail: makeDetailTable(sorted, [
                 { head: 'Title', val: d => d.title },
                 { head: 'Category', val: d => catOf(d) },
@@ -1093,7 +1093,7 @@ function buildStats() {
                     const isHtml = t.toUpperCase() === 'HTML';
                     return isHtml
                         ? `<span style="font-size:11px;">${t}</span>`
-                        : `<span style="font-size:11px;">${t}</span> <span title="Flagged on upload date only &mdash; no last-modified date available for this file type" style="font-size:10px;font-weight:600;background:#fde68a;color:#92400e;padding:1px 5px;border-radius:3px;cursor:default;">upload date</span>`;
+                        : `<span style="font-size:11px;">${t}</span> <span title="Flagged on upload date only — no last-modified date available for this file type" style="font-size:10px;font-weight:600;background:#fde68a;color:#92400e;padding:1px 5px;border-radius:3px;cursor:default;">upload date</span>`;
                 }},
                 { head: 'Uploaded', val: d => fmtDate(d.uploadDate) },
             ]),
@@ -1103,7 +1103,7 @@ function buildStats() {
         const sorted = [...transitionalArchived].sort((a, b) => a.title.localeCompare(b.title));
         alerts.push({
             level: 'red', icon: 'fa-exclamation-triangle',
-            msg: `${transitionalArchived.length} document${transitionalArchived.length > 1 ? 's are' : ' is'} marked archived:true in an active data file &mdash; move to archived-documents-data.js to clean up.`,
+            msg: `${transitionalArchived.length} document${transitionalArchived.length > 1 ? 's are' : ' is'} marked archived:true in an active data file — move to archived-documents-data.js to clean up.`,
             detail: makeDetailTable(sorted, [
                 { head: 'Title', val: d => d.title },
                 { head: 'Category', val: d => catOfAll(d) },
@@ -1115,7 +1115,7 @@ function buildStats() {
         const sorted = [...dupDocs].sort((a, b) => a.title.localeCompare(b.title));
         alerts.push({
             level: 'amber', icon: 'fa-copy',
-            msg: `${dupDocs.length} document${dupDocs.length > 1 ? 's share' : ' shares'} a title with another document &mdash; possible duplicates.`,
+            msg: `${dupDocs.length} document${dupDocs.length > 1 ? 's share' : ' shares'} a title with another document — possible duplicates.`,
             detail: makeDetailTable(sorted, [
                 { head: 'Title', val: d => d.title },
                 { head: 'Category', val: d => catOf(d) },
@@ -1131,11 +1131,11 @@ function buildStats() {
     }
     depts.forEach(d => {
         if (d.dashboards.length === 0 && d.docs.length === 0)
-            alerts.push({ level: 'blue', icon: 'fa-info-circle', msg: `${d.label} reporting page is still empty &mdash; no dashboards or documents posted.` });
+            alerts.push({ level: 'blue', icon: 'fa-info-circle', msg: `${d.label} reporting page is still empty — no dashboards or documents posted.` });
     });
     if (alerts.length === 0) alerts.push({ level: 'green', icon: 'fa-check-circle', msg: 'No issues detected. Everything looks good.' });
 
-    // &#9472;&#9472; Recently updated feed &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Recently updated feed ─────────────────────────────
     const feedItems = [];
     activeCats.forEach(({ label, docs }) => {
         const badge = { 'Policy Documents': 'policy', 'Job Aids & Guidelines': 'jobaid', 'Forms & Templates': 'form', 'Financial Operations': 'finance', 'Resources': 'resource' }[label] || 'resource';
@@ -1147,7 +1147,7 @@ function buildStats() {
     feedItems.sort((a, b) => b.date.localeCompare(a.date));
     const recentItems = feedItems.slice(0, 20);
 
-    // &#9472;&#9472; Render &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Render ────────────────────────────────────────────
     // KPIs
     document.getElementById('kpi-docs').textContent       = totalDocs;
     document.getElementById('kpi-stale').textContent      = staleDocs.length;
@@ -1192,7 +1192,7 @@ function buildStats() {
         </tr>`;
     }).join('');
 
-    // File type table &mdash; always show all 6 standard types, then extras
+    // File type table — always show all 6 standard types, then extras
     const STANDARD_TYPES = ['HTML', 'PDF', 'Word', 'Excel', 'PowerPoint', 'Image'];
     const stdRows = STANDARD_TYPES
         .map(t => [t, fileTypes[t] || 0])
@@ -1224,7 +1224,7 @@ function buildStats() {
     document.getElementById('contentTable').innerHTML = [
         { label: 'Bulletins', count: bulletins.length, latest: fmtDate(latestDate(bulletins, 'date')) },
         { label: 'Memos', count: memos.length, latest: fmtDate(latestDate(memos, 'date')) },
-        { label: 'Upcoming Events', count: upcomingEvents, latest: '&mdash;' },
+        { label: 'Upcoming Events', count: upcomingEvents, latest: '—' },
         { label: 'Videos', count: videos.length, latest: fmtDate(latestDate(videos, 'date')) },
         { label: 'Presentations', count: presentations.length, latest: fmtDate(latestDate(presentations, 'date')) },
     ].map(r => `<tr>
@@ -1253,7 +1253,7 @@ function buildStats() {
     const NR = typeof NAME_REGISTRY !== 'undefined' ? NAME_REGISTRY : {};
     function nrVal(key) {
         const v = NR[key];
-        if (v === undefined) return `<span class="registry-empty">&mdash;</span>`;
+        if (v === undefined) return `<span class="registry-empty">—</span>`;
         if (v === '')        return `<span class="registry-empty">not set</span>`;
         return v;
     }
@@ -1266,7 +1266,7 @@ function buildStats() {
             ? ` <span style="font-size:10px;font-weight:700;background:#ef4444;color:#fff;padding:1px 6px;border-radius:3px;vertical-align:middle;">CHANGED</span>`
             : '';
         const countCell = docs.length > 0
-            ? `<td><button class="nr-count-btn" onclick="var r=document.getElementById('${uid}');r.style.display=r.style.display==='none'?'table-row':'none';">${docs.length} doc${docs.length > 1 ? 's' : ''} &#9662;</button></td>`
+            ? `<td><button class="nr-count-btn" onclick="var r=document.getElementById('${uid}');r.style.display=r.style.display==='none'?'table-row':'none';">${docs.length} doc${docs.length > 1 ? 's' : ''} ▾</button></td>`
             : `<td><span class="registry-empty">none</span></td>`;
         const detailRow = docs.length > 0
             ? `<tr id="${uid}" style="display:none;" class="nr-detail-row"><td colspan="6"><ul class="nr-detail-list">${
@@ -1287,38 +1287,38 @@ function buildStats() {
           rows: [ nrRow('dept_bmtjc', 'Department') ] },
         { title: 'Division',
           rows: [ nrRow('div_wdt', 'Division') ] },
-        { title: 'Branch &mdash; Training and Employment Services (TES)',
+        { title: 'Branch — Training and Employment Services (TES)',
           rows: [
               nrRow('branch_tes',   'Branch'),
-              nrRow('area_wemsa',   'Service Area &mdash; WEMSA'),
-              nrRow('area_wnmsa',   'Service Area &mdash; WNMSA'),
-              nrRow('area_ps',      'Service Area &mdash; PS'),
+              nrRow('area_wemsa',   'Service Area — WEMSA'),
+              nrRow('area_wnmsa',   'Service Area — WNMSA'),
+              nrRow('area_ps',      'Service Area — PS'),
           ] },
-        { title: 'Branch &mdash; Apprenticeship Manitoba (AM)',
+        { title: 'Branch — Apprenticeship Manitoba (AM)',
           rows: [
               nrRow('branch_am',  'Branch'),
-              nrRow('unit_bt',    'Unit &mdash; Business Transformation'),
-              nrRow('unit_oel',   'Unit &mdash; Operations and Education Liaison'),
-              nrRow('unit_plbo',  'Unit &mdash; Policy, Legislation and Board Operations'),
-              nrRow('unit_ts',    'Unit &mdash; Training Standards'),
+              nrRow('unit_bt',    'Unit — Business Transformation'),
+              nrRow('unit_oel',   'Unit — Operations and Education Liaison'),
+              nrRow('unit_plbo',  'Unit — Policy, Legislation and Board Operations'),
+              nrRow('unit_ts',    'Unit — Training Standards'),
           ] },
-        { title: 'Branch &mdash; Business and Industry Training Supports (BITS)',
+        { title: 'Branch — Business and Industry Training Supports (BITS)',
           rows: [
               nrRow('branch_bits', 'Branch'),
-              nrRow('unit_bsu',    'Unit &mdash; Business Supports Unit'),
-              nrRow('unit_iss',    'Unit &mdash; Industry and Sector Supports'),
+              nrRow('unit_bsu',    'Unit — Business Supports Unit'),
+              nrRow('unit_iss',    'Unit — Industry and Sector Supports'),
           ] },
-        { title: 'Branch &mdash; Economic and Labour Market Policy (ELMP)',
+        { title: 'Branch — Economic and Labour Market Policy (ELMP)',
           rows: [
               nrRow('branch_elmp', 'Branch'),
-              nrRow('unit_src',    'Unit &mdash; Stakeholder Relations and Communications'),
-              nrRow('unit_ewps',   'Unit &mdash; Economic and Workforce Policy and Strategy'),
+              nrRow('unit_src',    'Unit — Stakeholder Relations and Communications'),
+              nrRow('unit_ewps',   'Unit — Economic and Workforce Policy and Strategy'),
           ] },
-        { title: 'Branch &mdash; Service Innovation Branch (SIB)',
+        { title: 'Branch — Service Innovation Branch (SIB)',
           rows: [
               nrRow('branch_sib', 'Branch'),
-              nrRow('unit_osu',   'Unit &mdash; Operational Supports Unit'),
-              nrRow('unit_smu',   'Unit &mdash; Service Modernization Unit'),
+              nrRow('unit_osu',   'Unit — Operational Supports Unit'),
+              nrRow('unit_smu',   'Unit — Service Modernization Unit'),
           ] },
     ];
     const tableHead = `<thead><tr><th>Label</th><th>Key</th><th>English</th><th>French</th><th>Acronym</th><th>Tagged Docs</th></tr></thead>`;
@@ -1336,7 +1336,7 @@ function buildStats() {
         bar.style.cssText = 'padding:12px 16px;border-bottom:1px solid #fecaca;background:#fef2f2;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;';
         bar.innerHTML = `
             <span style="font-size:13px;color:#991b1b;font-weight:600;">
-                <i class="fas fa-exclamation-triangle"></i>&ensp;${changedNames.length} name${changedNames.length > 1 ? 's' : ''} pending &mdash; ${totalAffected} document${totalAffected !== 1 ? 's' : ''} need updating
+                <i class="fas fa-exclamation-triangle"></i>&ensp;${changedNames.length} name${changedNames.length > 1 ? 's' : ''} pending — ${totalAffected} document${totalAffected !== 1 ? 's' : ''} need updating
             </span>
             <button id="downloadChecklistBtn" class="link-check-btn" style="background:#dc2626;">
                 <i class="fas fa-download"></i> Download Checklist
@@ -1381,7 +1381,7 @@ function buildStats() {
                         ? '<p style="color:#94a3b8;font-size:13px;font-style:italic;">No documents are tagged with this key yet.</p>'
                         : `<table style="width:100%;border-collapse:collapse;font-size:13px;">
                             <thead><tr style="background:#f8fafc;">
-                                <th style="padding:8px 10px;border:1px solid #e2e8f0;width:36px;">&#10003;</th>
+                                <th style="padding:8px 10px;border:1px solid #e2e8f0;width:36px;">✓</th>
                                 <th style="padding:8px 10px;border:1px solid #e2e8f0;text-align:left;">Document</th>
                                 <th style="padding:8px 10px;border:1px solid #e2e8f0;text-align:left;">Category</th>
                                 <th style="padding:8px 10px;border:1px solid #e2e8f0;text-align:left;">Type</th>
@@ -1399,7 +1399,7 @@ function buildStats() {
 <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document Update Checklist &mdash; ${dateStr}</title>
+<title>Document Update Checklist — ${dateStr}</title>
 <style>
     *, *::before, *::after { box-sizing: border-box; }
     body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 960px; margin: 0 auto; padding: 36px 28px 60px; color: #1e293b; font-size: 14px; }
@@ -1425,8 +1425,8 @@ function buildStats() {
         <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:#64748b;text-transform:uppercase;margin-bottom:4px;">WDT Intranet</div>
         <h1 style="font-size:22px;font-weight:800;color:#0d5f5f;margin:0 0 6px;">Document Update Checklist</h1>
         <div style="font-size:13px;color:#64748b;">
-            Generated ${dateStr}&nbsp;&nbsp;&#183;&nbsp;&nbsp;
-            ${changedNames.length} name${changedNames.length > 1 ? 's' : ''} changed&nbsp;&nbsp;&#183;&nbsp;&nbsp;
+            Generated ${dateStr}&nbsp;&nbsp;·&nbsp;&nbsp;
+            ${changedNames.length} name${changedNames.length > 1 ? 's' : ''} changed&nbsp;&nbsp;·&nbsp;&nbsp;
             ${totalAffected} document${totalAffected !== 1 ? 's' : ''} affected
         </div>
         <div class="no-print" style="margin-top:14px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
@@ -1439,7 +1439,7 @@ function buildStats() {
     </div>
     ${sections}
     <div style="margin-top:48px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:11px;color:#94a3b8;text-align:center;">
-        WDT Intranet Admin Centre &nbsp;&#183;&nbsp; Generated ${dateStr}
+        WDT Intranet Admin Centre &nbsp;·&nbsp; Generated ${dateStr}
     </div>
 <script>
 (function () {
@@ -1515,11 +1515,11 @@ function buildStats() {
         { file: 'memos-data.js',                    desc: 'Memos' },
         { file: 'events-data.js',                   desc: 'Events & Workshops' },
         { file: 'videos-presentations-data.js',     desc: 'Videos & Presentations' },
-        { file: 'tes-reporting-data.js',            desc: 'TES Reporting &mdash; Dashboards & Documents' },
-        { file: 'apprenticeship-reporting-data.js', desc: 'AM Reporting &mdash; Dashboards & Documents' },
-        { file: 'bits-reporting-data.js',           desc: 'BITS Reporting &mdash; Dashboards & Documents' },
-        { file: 'finance-reporting-data.js',        desc: 'Finance Reporting &mdash; Dashboards & Documents' },
-        { file: 'sib-reporting-data.js',            desc: 'SIB Reporting &mdash; Dashboards & Documents' },
+        { file: 'tes-reporting-data.js',            desc: 'TES Reporting — Dashboards & Documents' },
+        { file: 'apprenticeship-reporting-data.js', desc: 'AM Reporting — Dashboards & Documents' },
+        { file: 'bits-reporting-data.js',           desc: 'BITS Reporting — Dashboards & Documents' },
+        { file: 'finance-reporting-data.js',        desc: 'Finance Reporting — Dashboards & Documents' },
+        { file: 'sib-reporting-data.js',            desc: 'SIB Reporting — Dashboards & Documents' },
         { file: 'chatbot-data.js',                  desc: 'Chatbot FAQ Entries' },
         { file: 'chatbot-acronyms.js',              desc: 'Chatbot Acronym Dictionary' },
         { file: 'contact-resources-data.js',        desc: 'OSU Support Forms, Key Contacts, Staff Resources' },
@@ -1535,11 +1535,11 @@ function buildStats() {
     buildGenerator(allActive);
 }
 
-// &#9472;&#9472; Document Entry Generator &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+// ── Document Entry Generator ─────────────────────────────
 function buildGenerator(allActive) {
     var today = new Date().toISOString().slice(0, 10);
 
-    // &#9472;&#9472; Type &#8594; visible fields mapping &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Type → visible fields mapping ────────────────────
     var TYPE_FIELDS = {
         'document':         ['gf-doc-array','gf-filename','gf-date','gf-filetype','gf-tags','gf-description','gf-namerefs'],
         'archived':         ['gf-filename','gf-archived-dates','gf-filetype','gf-category','gf-superseded','gf-reason','gf-tags','gf-description'],
@@ -1563,7 +1563,7 @@ function buildGenerator(allActive) {
         return result;
     })();
 
-    // &#9472;&#9472; Array config for document arrays &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Array config for document arrays ─────────────────
     var ARRAY_CONFIG = {
         POLICY_DOCUMENTS:   { folder: 'documents/policy/',                file: 'documents-data.js' },
         JOB_AID_GUIDELINES: { folder: 'documents/jobAidsAndGuidelines/',  file: 'documents-data.js' },
@@ -1572,7 +1572,7 @@ function buildGenerator(allActive) {
         RESOURCE_DOCS:      { folder: 'documents/resources/',             file: 'documents-data.js' },
     };
 
-    // &#9472;&#9472; Per-type metadata &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Per-type metadata ─────────────────────────────────
     var TYPE_META = {
         'document':         { titleLabel:'Title',          titlePH:'e.g. Agreement Monitoring Policy',  dateLabel:'Upload date',    fnLabel:'File name',    filePrefix:null,               durationLabel:null,      durationPH:null,    thumbPH:null },
         'archived':         { titleLabel:'Title',          titlePH:'e.g. Policy Name (Archived)',       dateLabel:null,             fnLabel:'File name',    filePrefix:'documents/archived/', durationLabel:null,   durationPH:null,    thumbPH:null },
@@ -1583,13 +1583,13 @@ function buildGenerator(allActive) {
         'presentation':     { titleLabel:'Title',          titlePH:'Presentation title',                dateLabel:'Date',           fnLabel:'PDF file',     filePrefix:'presentations/',     durationLabel:'Slides',   durationPH:'12',   thumbPH:'presentations/thumb.jpg' },
         'report-dashboard': { titleLabel:'Title',          titlePH:'Dashboard title',                   dateLabel:'Last Refreshed', fnLabel:null,           filePrefix:null,                 durationLabel:null,    durationPH:null,    thumbPH:null },
         'report-doc':       { titleLabel:'Document Title', titlePH:'Report document title',             dateLabel:null,             fnLabel:null,           filePrefix:null,                 durationLabel:null,    durationPH:null,    thumbPH:null },
-        'faq':              { titleLabel:'Question',       titlePH:'What is&#8230;?',                         dateLabel:null,             fnLabel:null,           filePrefix:null,                 durationLabel:null,    durationPH:null,    thumbPH:null },
+        'faq':              { titleLabel:'Question',       titlePH:'What is…?',                         dateLabel:null,             fnLabel:null,           filePrefix:null,                 durationLabel:null,    durationPH:null,    thumbPH:null },
         'acronym':          { titleLabel:'Acronym Key',    titlePH:'e.g. WDT',                          dateLabel:null,             fnLabel:null,           filePrefix:null,                 durationLabel:null,    durationPH:null,    thumbPH:null },
     };
 
     var activeType = 'document';
 
-    // &#9472;&#9472; Name registry &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Name registry ─────────────────────────────────────
     var NR = typeof NAME_REGISTRY !== 'undefined' ? NAME_REGISTRY : {};
     var nrKeys = Object.keys(NR)
         .filter(function (k) { return k.endsWith('_en') && NR[k]; })
@@ -1603,7 +1603,7 @@ function buildGenerator(allActive) {
         '</label>';
     }).join('');
 
-    // &#9472;&#9472; Tag multi-select &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Tag multi-select ──────────────────────────────────
     var PAGE_TAG_CATEGORIES = {
         'Subcategory': ['Policy', 'Program Parameters', 'Management Documents (HR)', 'Management Documents (all resources including forms)', 'Memos (Policy Related)', 'Memos (General Communication)', 'Templates', 'Forms', 'Checklists', 'Letters', 'Career Planning Tools', 'System Documents', 'Terminology', 'Fact Sheets', 'Persentation Suites', 'Signage', 'FAQ', 'Job Aid', 'Guideline', 'Procedure', 'Resources', 'Reports', 'Information Sheet', 'Speaker Series'],
         'Programs': ['Skills Development', 'Wage Subsidy', 'EAPD', 'ETP', 'Self Employment', 'Intitiatives'],
@@ -1673,7 +1673,7 @@ function buildGenerator(allActive) {
     function updateTriggerLabel() {
         var lbl = document.getElementById('tagMultiLabel');
         if (selectedTags.length === 0) {
-            lbl.textContent = 'Select tags&#8230;';
+            lbl.textContent = 'Select tags…';
             trigger.classList.remove('has-selection');
         } else {
             lbl.textContent = selectedTags.length + ' tag' + (selectedTags.length > 1 ? 's' : '') + ' selected';
@@ -1755,7 +1755,7 @@ function buildGenerator(allActive) {
         });
     }
 
-    // &#9472;&#9472; Type switching &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Type switching ────────────────────────────────────
     function switchType(type) {
         activeType = type;
         var meta   = TYPE_META[type];
@@ -1845,13 +1845,13 @@ function buildGenerator(allActive) {
             case 'faq':     hintFile = 'chatbot-data.js';     hintArray = 'CHATBOT_FAQS';  break;
             case 'acronym': hintFile = 'chatbot-acronyms.js'; hintArray = 'WDT_ACRONYMS';  break;
         }
-        document.getElementById('genTargetHint').textContent = 'Paste into: ' + hintFile + ' &#8594; ' + hintArray;
+        document.getElementById('genTargetHint').textContent = 'Paste into: ' + hintFile + ' → ' + hintArray;
         document.getElementById('genCopyHint').innerHTML = activeType === 'acronym'
             ? 'Add this property inside the <code>WDT_ACRONYMS</code> object in <code>chatbot-acronyms.js</code>.'
             : 'Paste this block inside the <code>' + hintArray + '</code> array in <code>' + hintFile + '</code>.';
     }
 
-    // &#9472;&#9472; Wire events &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Wire events ───────────────────────────────────────
     document.getElementById('genTypeTabs').addEventListener('click', function (e) {
         var pill = e.target.closest('.gen-tab-pill');
         if (pill) switchType(pill.dataset.type);
@@ -1896,7 +1896,7 @@ function buildGenerator(allActive) {
         updatePreview();
     });
 
-    // &#9472;&#9472; Supporting Documents repeater (report-dashboard) &#9472;&#9472;
+    // ── Supporting Documents repeater (report-dashboard) ──
     function addSupDocRow(title, url, fileType) {
         var row = document.createElement('div');
         row.className = 'sup-doc-row';
@@ -1923,7 +1923,7 @@ function buildGenerator(allActive) {
     }
     document.getElementById('supDocAddBtn').addEventListener('click', function () { addSupDocRow(); });
 
-    // &#9472;&#9472; Entry queue &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Entry queue ───────────────────────────────────────
     var entryQueue = [];
 
     function queueRender() {
@@ -1981,7 +1981,7 @@ function buildGenerator(allActive) {
     });
     document.getElementById('genNameRefs').addEventListener('change', updatePreview);
 
-    // &#9472;&#9472; Live preview &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Live preview ──────────────────────────────────────
     function updatePreview() {
         var type = activeType, out = '';
         var tagsStr = selectedTags.length
@@ -1997,10 +1997,10 @@ function buildGenerator(allActive) {
         switch (type) {
             case 'document': {
                 var sel = v('genArray','POLICY_DOCUMENTS'), cfg = ARRAY_CONFIG[sel] || {};
-                var rawFile = v('genFileName'), fn = rawFile ? (cfg.folder||'') + rawFile : (cfg.folder||'') + '&#8230;';
+                var rawFile = v('genFileName'), fn = rawFile ? (cfg.folder||'') + rawFile : (cfg.folder||'') + '…';
                 var refs = Array.from(document.querySelectorAll('.gen-nameref-cb:checked')).map(function (cb) { return cb.value; });
                 out  = '    {\n';
-                out += '        title: "' + (v('genTitle') || '&#8230;') + '",\n';
+                out += '        title: "' + (v('genTitle') || '…') + '",\n';
                 out += '        fileName: "' + fn + '",\n';
                 out += '        uploadDate: "' + (v('genDate') || 'YYYY-MM-DD') + '",\n';
                 out += '        fileType: "' + v('genFileType','HTML') + '",\n';
@@ -2011,12 +2011,12 @@ function buildGenerator(allActive) {
                 break;
             }
             case 'archived': {
-                var rawFile = v('genFileName'), fn = rawFile ? 'documents/archived/' + rawFile : 'documents/archived/&#8230;';
+                var rawFile = v('genFileName'), fn = rawFile ? 'documents/archived/' + rawFile : 'documents/archived/…';
                 var slug = (v('genTitle')||'xxx').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,30);
                 var sb = v('genSupersededBy'), sbt = v('genSupersededByTitle');
                 out  = '    {\n';
                 out += '        id: "archived-' + slug + '",\n';
-                out += '        title: "' + (v('genTitle')||'&#8230;') + '",\n';
+                out += '        title: "' + (v('genTitle')||'…') + '",\n';
                 out += '        fileName: "' + fn + '",\n';
                 out += '        fileType: "' + v('genFileType','PDF') + '",\n';
                 out += '        category: "' + v('genCategory','Policy') + '",\n';
@@ -2035,8 +2035,8 @@ function buildGenerator(allActive) {
                 var rawFile = v('genFileName'), dateStr = v('genDate')||'YYYY-MM-DD';
                 out  = '    {\n';
                 out += '        id: "bulletin-' + dateStr.replace(/-/g,'') + '",\n';
-                out += '        subject: "' + (v('genTitle')||'&#8230;') + '",\n';
-                out += '        fileName: "' + (rawFile ? 'bulletins/'+rawFile : 'bulletins/&#8230;') + '",\n';
+                out += '        subject: "' + (v('genTitle')||'…') + '",\n';
+                out += '        fileName: "' + (rawFile ? 'bulletins/'+rawFile : 'bulletins/…') + '",\n';
                 out += '        date: "' + dateStr + '",\n';
                 out += '    },';
                 break;
@@ -2045,11 +2045,11 @@ function buildGenerator(allActive) {
                 var rawFile = v('genFileName'), dateStr = v('genDate')||'YYYY-MM-DD';
                 out  = '    {\n';
                 out += '        id: "memo-' + dateStr.replace(/-/g,'') + '",\n';
-                out += '        title: "' + (v('genTitle')||'&#8230;') + '",\n';
+                out += '        title: "' + (v('genTitle')||'…') + '",\n';
                 out += '        date: "' + dateStr + '",\n';
                 out += '        tags: ' + tagsStr + ',\n';
                 out += '        subject: "' + v('genSubject') + '",\n';
-                out += '        pdfFile: "' + (rawFile ? 'memos/'+rawFile : 'memos/&#8230;') + '",\n';
+                out += '        pdfFile: "' + (rawFile ? 'memos/'+rawFile : 'memos/…') + '",\n';
                 out += '    },';
                 break;
             }
@@ -2059,7 +2059,7 @@ function buildGenerator(allActive) {
                 var slug = (v('genTitle')||'xxx').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,20);
                 out  = '    {\n';
                 out += '        id: "event-' + dateStr.replace(/-/g,'') + '",\n';
-                out += '        title: "' + (v('genTitle')||'&#8230;') + '",\n';
+                out += '        title: "' + (v('genTitle')||'…') + '",\n';
                 out += '        date: "' + dateStr + '",\n';
                 if (endDate) out += '        endDate: "' + endDate + '",\n';
                 out += '        time: "' + v('genTime') + '",\n';
@@ -2073,9 +2073,9 @@ function buildGenerator(allActive) {
                 var slug = (v('genTitle')||'xxx').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,20);
                 out  = '    {\n';
                 out += '        id: "video-' + slug + '",\n';
-                out += '        title: "' + (v('genTitle')||'&#8230;') + '",\n';
+                out += '        title: "' + (v('genTitle')||'…') + '",\n';
                 out += '        description: "' + v('genDesc') + '",\n';
-                out += '        videoFile: "' + (rawFile ? 'videos/'+rawFile : 'videos/&#8230;') + '",\n';
+                out += '        videoFile: "' + (rawFile ? 'videos/'+rawFile : 'videos/…') + '",\n';
                 if (thumb) out += '        thumbnail: "' + thumb + '",\n';
                 out += '        duration: "' + (v('genDuration')||'0:00') + '",\n';
                 out += '        date: "' + (v('genDate')||'YYYY-MM-DD') + '",\n';
@@ -2090,9 +2090,9 @@ function buildGenerator(allActive) {
                 var slug = (v('genTitle')||'xxx').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,20);
                 out  = '    {\n';
                 out += '        id: "pres-' + slug + '",\n';
-                out += '        title: "' + (v('genTitle')||'&#8230;') + '",\n';
+                out += '        title: "' + (v('genTitle')||'…') + '",\n';
                 out += '        description: "' + v('genDesc') + '",\n';
-                out += '        pdfFile: "' + (rawFile ? 'presentations/'+rawFile : 'presentations/&#8230;') + '",\n';
+                out += '        pdfFile: "' + (rawFile ? 'presentations/'+rawFile : 'presentations/…') + '",\n';
                 if (thumb) out += '        thumbnail: "' + thumb + '",\n';
                 if (slidesRaw) out += '        slides: ' + (parseInt(slidesRaw)||0) + ',\n';
                 out += '        date: "' + (v('genDate')||'YYYY-MM-DD') + '",\n';
@@ -2109,10 +2109,10 @@ function buildGenerator(allActive) {
                     var t = row.querySelector('.sup-doc-title').value.trim();
                     var u = row.querySelector('.sup-doc-url').value.trim();
                     var ft = row.querySelector('.sup-doc-type').value;
-                    if (t || u) supDocs.push({ title: t||'&#8230;', url: u||'#', fileType: ft });
+                    if (t || u) supDocs.push({ title: t||'…', url: u||'#', fileType: ft });
                 });
                 out  = '    {\n';
-                out += '        title: "' + (v('genTitle')||'&#8230;') + '",\n';
+                out += '        title: "' + (v('genTitle')||'…') + '",\n';
                 out += '        description: "' + v('genDesc') + '",\n';
                 out += '        embedUrl: "' + v('genEmbedUrl') + '",\n';
                 if (pbiUrl) out += '        powerBiUrl: "' + pbiUrl + '",\n';
@@ -2136,7 +2136,7 @@ function buildGenerator(allActive) {
                 out += '        icon: "' + v('genReportCatIcon','fas fa-file-alt') + '",\n';
                 out += '        documents: [\n';
                 out += '            {\n';
-                out += '                title: "' + (v('genTitle')||'&#8230;') + '",\n';
+                out += '                title: "' + (v('genTitle')||'…') + '",\n';
                 out += '                url: "' + v('genReportDocUrl','#') + '",\n';
                 out += '                fileType: "' + v('genFileType','PDF') + '",\n';
                 if (year) out += '                year: "' + year + '",\n';
@@ -2155,7 +2155,7 @@ function buildGenerator(allActive) {
                 var ansEl = document.getElementById('genAnswer');
                 var ans   = ansEl ? ansEl.value.replace(/\\/g,'\\\\').replace(/"/g,'\\"').replace(/\r?\n/g,'\\n') : '';
                 out  = '    {\n';
-                out += '        question: "' + (v('genTitle')||'&#8230;') + '",\n';
+                out += '        question: "' + (v('genTitle')||'…') + '",\n';
                 out += '        keywords: ' + kwArr + ',\n';
                 out += '        answer: "' + ans + '",\n';
                 out += '        followUp: ' + fuArr + ',\n';
@@ -2173,7 +2173,7 @@ function buildGenerator(allActive) {
         document.getElementById('genPreview').textContent = out || '    // Fill in the fields above';
     }
 
-    // &#9472;&#9472; Copy button &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Copy button ───────────────────────────────────────
     document.getElementById('genCopyBtn').addEventListener('click', function () {
         var text = document.getElementById('genPreview').textContent;
         var btn  = this;
@@ -2197,15 +2197,15 @@ function buildGenerator(allActive) {
         }
     });
 
-    // &#9472;&#9472; Init &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+    // ── Init ──────────────────────────────────────────────
     document.getElementById('genDate').value = today;
     switchType('document');
 }
 
-// &#9472;&#9472; Broken link checker &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+// ── Broken link checker ──────────────────────────────────
 document.getElementById('linkCheckBtn').addEventListener('click', async function () {
     this.disabled = true;
-    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking&#8230;';
+    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking…';
     const progress = document.getElementById('linkCheckProgress');
     const result   = document.getElementById('linkCheckResult');
     progress.style.display = 'block';
@@ -2236,7 +2236,7 @@ document.getElementById('linkCheckBtn').addEventListener('click', async function
     const BATCH = 5;
     for (let i = 0; i < allLinks.length; i += BATCH) {
         const batch = allLinks.slice(i, i + BATCH);
-        progress.textContent = `Checking ${Math.min(i + BATCH, allLinks.length)} / ${allLinks.length}&#8230;`;
+        progress.textContent = `Checking ${Math.min(i + BATCH, allLinks.length)} / ${allLinks.length}…`;
         await Promise.all(batch.map(async item => {
             try {
                 const r = await fetch(item.url, { method: 'HEAD', cache: 'no-store' });
