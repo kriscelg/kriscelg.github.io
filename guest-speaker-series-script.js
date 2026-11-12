@@ -34,12 +34,11 @@
         var hasVideo = s.videoUrl && s.videoUrl.trim() !== '';
         var isMp4    = s.videoType === 'mp4';
 
-        /* Thumbnail area — MP4: native <video #t=3> frame; link: placeholder */
         var watchAttr = hasVideo
             ? 'href="' + s.videoUrl + '" target="_blank" rel="noopener noreferrer"'
             : '';
         var thumbInner = isMp4 && hasVideo
-            ? '<video class="gs-thumb-video" src="' + s.videoUrl + '#t=3" preload="metadata" muted playsinline></video>'
+            ? '<video class="gs-thumb-video" data-src="' + s.videoUrl + '" preload="metadata" muted playsinline></video>'
             : '<div class="session-thumb-placeholder">' +
                   '<i class="fas ' + (hasVideo ? 'fa-video' : 'fa-clock') + '"></i>' +
                   (hasVideo ? 'Teams Recording' : 'Recording Pending') +
@@ -127,6 +126,15 @@
         }
 
         grid.innerHTML = filtered.map(renderCard).join('');
+
+        /* Seek each MP4 thumbnail to 3 seconds for a better preview frame */
+        grid.querySelectorAll('.gs-thumb-video[data-src]').forEach(function (v) {
+            v.src = v.getAttribute('data-src');
+            v.addEventListener('loadedmetadata', function () {
+                v.currentTime = Math.min(3, v.duration * 0.1 || 0);
+            });
+            v.load();
+        });
     }
 
     /* ── Year filter population ── */
