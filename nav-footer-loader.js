@@ -56,6 +56,7 @@ const NAV_TEMPLATE = `
                         <a href="bulletins-newsletters.html">Bulletins</a>
                         <a href="events.html">Events</a>
                         <a href="memos.html">Memos</a>
+                        <a href="guest-speaker-series.html">Guest Speaker Series</a>
                     </div>
                 </div>
                 <div class="nav-item">
@@ -124,6 +125,7 @@ const FOOTER_TEMPLATE = `
                         <li><a href="bulletins-newsletters.html">Bulletins</a></li>
                         <li><a href="events.html">Events</a></li>
                         <li><a href="memos.html">Memos</a></li>
+                        <li><a href="guest-speaker-series.html">Guest Speaker Series</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">

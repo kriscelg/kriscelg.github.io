@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Speaker Series - WDT Intranet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="guest-speaker-series-styles.css">
+</head>
+<body data-page="communications">
+    <!-- Navigation loaded from nav.html -->
+    <div id="nav-container"></div>
+
+    <main class="main-content">
+        <div class="container">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="header-icon">
+                    <i class="fas fa-microphone-alt"></i>
+                </div>
+                <div class="header-text">
+                    <h1>Guest Speaker Series</h1>
+                    <p>Recorded sessions and presentations from guest speakers across the division</p>
+                </div>
+            </div>
+
+            <!-- Series Intro -->
+            <div class="series-intro">
+                <div class="series-intro-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="series-intro-text">
+                    <h2>About the Series</h2>
+                    <p>Each session pairs the full Teams recording with the accompanying presentation so you can watch, rewatch, and reference the material at your own pace. New sessions are added after each event.</p>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-row">
+                <p class="sessions-count">Showing <span id="sessionsCount"><strong>0</strong> sessions</span></p>
+            </div>
+
+            <!-- Sessions List -->
+            <div class="sessions-list" id="sessionsList">
+                <div class="empty-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading sessions&hellip;</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h3>Search</h3>
+                <button class="close-search" id="closeSearch">&times;</button>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" placeholder="Search for documents, events, or information..." id="searchInput">
+                <button class="search-submit">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <script src="nav-footer-loader.js"></script>
+    <script src="guest-speaker-series-data.js"></script>
+    <script src="guest-speaker-series-script.js"></script>
+    <script src="name-registry-data.js"></script>
+</body>
+</html>
